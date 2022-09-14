@@ -1,0 +1,37 @@
+.group-preview {
+    background-color: #ebecf0;
+    width: 270px;
+    border-radius: 3px;
+    margin: 0 4px;
+
+    .group-title {
+        height: 40px;
+        display: flex;
+    }
+
+    .add-task-container {
+        display: flex;
+
+        justify-content: space-between;
+        color: #5e6c84;
+        margin: 2px 8px 8px 8px;
+        padding: 4px 8px;
+        height: 28px;
+        display: block;
+        border-radius: 3px;
+
+        &:hover {
+            cursor: pointer;
+            background-color: #091e4214;
+            color: #172b4d;
+        }
+
+        .add-icon {
+            font-size: 16px;
+            margin-right: 2px;
+
+        }
+
+    }
+
+}

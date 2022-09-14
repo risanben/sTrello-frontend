@@ -3,7 +3,7 @@ import { storageService } from './async-storage.service.js'
 import { utilService } from './util.service.js'
 import { userService } from './user.service.js'
 import { getActionRemoveBoard, getActionAddBoard, getActionUpdateBoard } from '../store/board.actions.js'
-import {store} from '../store/store'
+import { store } from '../store/store'
 
 // This file demonstrates how to use a BroadcastChannel to notify other browser tabs 
 
@@ -11,11 +11,11 @@ const STORAGE_KEY = 'board'
 const boardChannel = new BroadcastChannel('boardChannel')
 
 
-;(()=>{
-    boardChannel.addEventListener('message', (ev)=>{
-        store.dispatch(ev.data)
-    })
-})()
+    ; (() => {
+        boardChannel.addEventListener('message', (ev) => {
+            store.dispatch(ev.data)
+        })
+    })()
 
 export const boardService = {
     query,
@@ -27,11 +27,20 @@ export const boardService = {
 window.cs = boardService
 
 
-function query(filterBy) {
-    return storageService.query(STORAGE_KEY)
+async function query(filterBy) {
+    try {
+        return await storageService.query(STORAGE_KEY)
+    } catch (err) {
+        throw err
+    }
 }
-function getById(boardId) {
-    return storageService.get(STORAGE_KEY, boardId)
+async function getById(boardId) {
+    try {
+        return await storageService.get(STORAGE_KEY, boardId)
+    }
+    catch (err) {
+        throw err
+    }
     // return axios.get(`/api/board/${boardId}`)
 }
 async function remove(boardId) {
@@ -43,7 +52,7 @@ async function save(board) {
     if (board._id) {
         savedBoard = await storageService.put(STORAGE_KEY, board)
         boardChannel.postMessage(getActionUpdateBoard(savedBoard))
-        
+
     } else {
         // Later, owner is set by the backend
         board.owner = userService.getLoggedinUser()

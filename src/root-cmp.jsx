@@ -25,7 +25,7 @@ export class App extends React.Component {
                         {/* {routes.map(route => <Route key={route.path} exact={true} element={route.component} path={route.path} />)} */}
                         <Route path='' element={<HomePage />} />
                         {/* <Route path="user/:id" element={<UserDetails />} /> */}
-                        <Route path="board/" element={<BoardPage />} />
+                        <Route path="board" element={<BoardPage />} />
                         <Route path="board/:id" element={<Board />} />
                         <Route path="task/:id" element={<TaskPreview />} />
                     </Routes>

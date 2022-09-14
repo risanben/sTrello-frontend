@@ -1,5 +1,7 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
+
 
 
 import { loadBoards, addBoard, updateBoard, removeBoard, addToBoardt } from '../store/board.actions.js'
@@ -27,14 +29,14 @@ function _BoardPage({ loadBoards, addBoard, updateBoard, removeBoard, addToBoard
         updateBoard(boardToSave)
     }
 
-    const onAddToBoardt = (board) => {
-        console.log(`Adding ${board.vendor} to Boardt`)
+    const onAddToBoard = (board) => {
+        console.log(`Adding ${board.vendor} to Board`)
         addToBoardt(board)
         showSuccessMsg('Added to Boardt')
     }
 
     return (
-        <div>
+        <div className="board-page">
             <h3>Boards App</h3>
             <main>
 
@@ -43,17 +45,18 @@ function _BoardPage({ loadBoards, addBoard, updateBoard, removeBoard, addToBoard
                 <ul className="board-list">
 
                     {boards.map(board =>
-                        <li className="board-preview" key={board._id}>
-                            <h4>{board.vendor}</h4>
-                            <h1>⛐</h1>
-                            <p>Price: <span>${board.price.toLocaleString()}</span></p>
-                            <p>Owner: <span>{board.owner && board.owner.fullname}</span></p>
-                            <div>
+                        <li className="board-preview" key={board._id} style={{ backgroundColor: board.style.bgColor }}>
+                            <Link to={`/board/${board._id}`}>
+                                <span>{board.title}</span>
+                            </Link>
+
+
+                            {/* <div>
                                 <button onClick={() => { onRemoveBoard(board._id) }}>x</button>
                                 <button onClick={() => { onUpdateBoard(board) }}>Edit</button>
-                            </div>
+                            </div> */}
 
-                            <button className="buy" onClick={() => { onAddToBoardt(board) }}>Add to Boardt</button>
+                            {/* <button className="buy" onClick={() => { onAddToBoardt(board) }}>Add to Boardt</button> */}
                         </li>)
                     }
 
