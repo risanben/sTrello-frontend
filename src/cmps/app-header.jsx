@@ -5,7 +5,7 @@ import menu from '../assets/img/menu.svg'
 import trello from '../assets/img/trelloLogo.svg'
 import { ImTrello } from 'react-icons/im';
 import { BsFillGrid3X3GapFill, BsChevronDown } from 'react-icons/bs';
-import { IoSearchSharp} from 'react-icons/io5';
+import { IoSearchSharp } from 'react-icons/io5';
 
 
 export function AppHeader() {
@@ -21,7 +21,7 @@ export function AppHeader() {
 
             <section className='nav-header'>
                 <ul>
-                    <li>Workspaces <BsChevronDown className='downArr' /></li>
+                    <Link to="board"><li>Workspaces <BsChevronDown className='downArr' /></li></Link>
                     <li>Recent <BsChevronDown className='downArr' /></li>
                     <li>Starred <BsChevronDown className='downArr' /></li>
                 </ul>
@@ -29,7 +29,7 @@ export function AppHeader() {
             </section>
 
             <section className='search'>
-            <IoSearchSharp className='mag-glass'/><input type="text" placeholder='Search' />
+                <IoSearchSharp className='mag-glass' /><input type="text" placeholder='Search' />
             </section>
 
         </section>
