@@ -1,5 +1,5 @@
 import io from 'socket.io-client'
-import { userService } from './user.service'
+// import { userService } from './user.service'
 
 export const SOCKET_EVENT_ADD_MSG = 'chat-add-msg'
 export const SOCKET_EMIT_SEND_MSG = 'chat-send-msg'
@@ -28,8 +28,9 @@ function createSocketService() {
   const socketService = {
     setup() {
       socket = io(baseUrl)
-      setTimeout(()=>{
-        const user = userService.getLoggedinUser()
+      setTimeout(() => {
+        // const user = userService.getLoggedinUser()
+        const user = { username: 'bla', fullname: 'blabla', _id: '123' }
         if (user) this.login(user._id)
       }, 500)
     },
@@ -69,9 +70,9 @@ function createDummySocketService() {
     terminate() {
       this.setup()
     },
-    login() {   
+    login() {
     },
-    logout() {   
+    logout() {
     },
     on(eventName, cb) {
       listenersMap[eventName] = [...(listenersMap[eventName]) || [], cb]

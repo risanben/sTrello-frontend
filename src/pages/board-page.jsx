@@ -7,7 +7,7 @@ import { loadBoards, addBoard, updateBoard, removeBoard, addToBoardt } from '../
 import { showSuccessMsg } from '../services/event-bus.service.js'
 import { boardService } from '../services/board.service.js'
 
-function _BoardApp({ loadBoards, addBoard, updateBoard, removeBoard, addToBoardt, boards }) {
+function _BoardPage({ loadBoards, addBoard, updateBoard, removeBoard, addToBoardt, boards }) {
 
     useEffect(() => {
         loadBoards()
@@ -18,7 +18,7 @@ function _BoardApp({ loadBoards, addBoard, updateBoard, removeBoard, addToBoardt
     }
     const onAddBoard = () => {
         const board = boardService.getEmptyBoard()
-        board.vendor = prompt('Vendor?')        
+        board.vendor = prompt('Vendor?')
         addBoard(board)
     }
     const onUpdateBoard = (board) => {
@@ -26,7 +26,7 @@ function _BoardApp({ loadBoards, addBoard, updateBoard, removeBoard, addToBoardt
         const boardToSave = { ...board, price }
         updateBoard(boardToSave)
     }
-    
+
     const onAddToBoardt = (board) => {
         console.log(`Adding ${board.vendor} to Boardt`)
         addToBoardt(board)
@@ -78,4 +78,4 @@ const mapDispatchToProps = {
 }
 
 
-export const BoardApp = connect(mapStateToProps, mapDispatchToProps)(_BoardApp)
+export const BoardPage = connect(mapStateToProps, mapDispatchToProps)(_BoardPage)
