@@ -1,53 +1,109 @@
 .app-header {
-    background-color: $clr4;
-    padding: 10px;
+    // border: 2px solid green;
+    background-color: rgb(203, 203, 209);
+    padding: 6px 13px;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid rgba(75, 75, 97, 0.378);
+    max-height: 44px;
+    color: rgb(75, 75, 97);
+
+    section {
+        margin: 0;
+        padding: 0;
+    }
+
+    .menu-logo {
+        font-size: 15px;
+        margin-inline-end: 14px;
+    }
+
+    .trello-logo {
+        font-size: 15px;
+        margin-inline-end: 5px;
+
+    }
+
+    .logo {
+        font-family: secular;
+        font-size: 20px;
+        margin: 0;
+        padding: 0;
+    }
 
 
-    .user-info {
-        // background-color: $clr2;
-        // padding: 2px 8px;
-        padding-left: 100px;
-        color: $clr1;
+    .nav-header {
+        display: flex;
+        align-items: center;
+        flex-grow: 1;
 
-        .score {
-            background-color: $clr2;
-            color: $clr6;
-            padding: 8px;
-            margin: 10px;
-            border-radius: 50%;
+        ul {
+            display: flex;
+            margin: 0;
+            padding: 0;
+            margin-inline-start: 17px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-weight: 400;
+
+            li {
+                padding: 3px;
+                border-radius: 0.3em;
+                text-decoration: none;
+                list-style: none;
+                margin-inline-end: 20px;
+                font-size: 14px;
+                cursor: pointer;
+
+                &:hover {
+                    background-color: rgb(173, 173, 177);
+                }
+
+                .downArr {
+                    padding-top: 5px;
+                }
+            }
         }
 
-        img {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            object-fit: cover;
+        .create {
+            margin-inline-start: 5px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 14px;
+            cursor: pointer;
+            padding: 3px;
+            border-radius: 0.3em;
+
+            &:hover {
+                background-color: rgb(173, 173, 177);
+            }
         }
     }
 
-    .user-info .btn-link {
-        color: $clr2;
+
+
+    .search {
+        justify-self: flex-end;
+        border: 1px solid rgba(82, 82, 83, 0.332);
+        background-color: rgb(186, 186, 191);
+        border-radius: 0.3em;
+        padding: 0 8px;
+        display: flex;
+        align-items: center;
+
+        .mag-glass {
+            // border: 2px solid red;
+            font-size: 20px;
+
+        }
+
+        input {
+            background-color: inherit;
+            border: none;
+            padding: 4px 3px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 14px;
+            &:focus{
+                outline: none;
+            }
+        }
     }
-
-    nav {
-        font-size: .8em;
-        background-color: $clr5;
-        padding: 5px;
-
-    }
-
-    nav a:first-child {
-        margin-right: 30px;
-    }
-
-    nav a:not(:first-child) {
-        border-top: 1px solid $clr1;
-        padding: 0 5px;
-        margin: 10px;
-    }
-
-    nav .active {
-        color: $clr1;
-    }
-
 }

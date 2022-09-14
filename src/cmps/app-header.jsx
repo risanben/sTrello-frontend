@@ -1,60 +1,39 @@
 import React from 'react'
-import { connect } from 'react-redux'
-import { Link, NavLink } from 'react-router-dom'
+import { NavLink, Link } from 'react-router-dom';
 
-import routes from '../routes'
+import menu from '../assets/img/menu.svg'
+import trello from '../assets/img/trelloLogo.svg'
+import { ImTrello } from 'react-icons/im';
+import { BsFillGrid3X3GapFill, BsChevronDown } from 'react-icons/bs';
+import { IoSearchSharp} from 'react-icons/io5';
 
 
-import { onLogin, onLogout, onSignup, loadUsers, removeUser } from '../store/user.actions.js'
-import { LoginSignup } from './login-signup.jsx'
-
-function _AppHeader({ onLogin, onSignup, onLogout, user }) {
+export function AppHeader() {
 
     return (
-        <header className="app-header">
-            <nav>
-                {routes.map(route => <NavLink key={route.path} to={route.path}>{route.label}</NavLink>)}
+        <section className="app-header">
 
-                {user &&
-                    <span className="user-info">
-                        <Link to={`user/${user._id}`}>
-                            {user.imgUrl && <img src={user.imgUrl} />}
-                            {user.fullname}
-                        </Link>
-                        <span className="score">{user.score?.toLocaleString()}</span>
-                        <button onClick={onLogout}>Logout</button>
-                    </span>
-                }
+            <BsFillGrid3X3GapFill className='menu-logo' />
+            <ImTrello className='trello-logo' />
+            <section className="logo">
+                sTrello
+            </section>
 
-                {!user &&
-                    <section className="user-info">
-                        <LoginSignup onLogin={onLogin} onSignup={onSignup} />
-                    </section>
-                }
+            <section className='nav-header'>
+                <ul>
+                    <li>Workspaces <BsChevronDown className='downArr' /></li>
+                    <li>Recent <BsChevronDown className='downArr' /></li>
+                    <li>Starred <BsChevronDown className='downArr' /></li>
+                </ul>
+                <span className='create'>Create</span>
+            </section>
 
-            </nav>
+            <section className='search'>
+            <IoSearchSharp className='mag-glass'/><input type="text" placeholder='Search' />
+            </section>
 
-            <h1>My App</h1>
-        </header>
+        </section>
     )
+
 }
 
-function mapStateToProps(state) {
-    return {
-        users: state.userModule.users,
-        user: state.userModule.user,
-        count: state.userModule.count,
-        isLoading: state.systemModule.isLoading
-    }
-}
-const mapDispatchToProps = {
-    onLogin,
-    onSignup,
-    onLogout,
-    loadUsers,
-    removeUser
-}
-
-
-
-export const AppHeader = connect(mapStateToProps, mapDispatchToProps)(_AppHeader)
