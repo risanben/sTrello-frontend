@@ -1,0 +1,30 @@
+.task-details-container {
+    border: black solid 1px;
+    display: grid;
+    grid-template-columns: 1fr minmax(100px, 250px);
+    grid-template-rows: 100px auto auto;
+
+    .task-cover {
+        grid-column: 1/-1;
+        display: flex;
+
+        .btn{
+           max-height: 25px; 
+        }
+        .btn.close {
+            float: inline-end;
+        }
+    }
+
+    .task-details {
+        grid-column: 1/2;
+    }
+
+    .task-abilities{
+        display: flex;
+        flex-direction: column;
+    }
+
+
+
+}

@@ -2,7 +2,8 @@ export const utilService = {
     makeId,
     makeLorem,
     getRandomIntInclusive,
-    delay
+    delay,
+    getCreatedTime
 }
 
 function makeId(length = 6) {
@@ -14,6 +15,13 @@ function makeId(length = 6) {
     }
 
     return txt;
+}
+
+function  getCreatedTime(time) {
+    if (Date.now() - new Date(time) > 24 * 60 * 60 * 1000) {
+        return `at ${time.toLocaleDateString}`
+    }
+    return `at ${new Date(time).toLocaleTimeString()}`
 }
 
 function makeLorem(size = 100) {

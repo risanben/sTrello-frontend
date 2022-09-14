@@ -8,6 +8,7 @@ import { store } from '../store/store'
 // This file demonstrates how to use a BroadcastChannel to notify other browser tabs 
 
 const STORAGE_KEY = 'board'
+
 const boardChannel = new BroadcastChannel('boardChannel')
 
 
@@ -42,7 +43,9 @@ async function getById(boardId) {
         throw err
     }
     // return axios.get(`/api/board/${boardId}`)
+
 }
+
 async function remove(boardId) {
     await storageService.remove(STORAGE_KEY, boardId)
     boardChannel.postMessage(getActionRemoveBoard(boardId))

@@ -5,7 +5,7 @@
 @import "setup/typography";
 
 // Basics
-@import "basics/helpers";
+// @import "basics/helpers";
 @import "basics/layout";
 @import "basics/base";
 @import "basics/links";
@@ -16,6 +16,7 @@
 @import "views/about-us";
 @import "views/home-page";
 @import "views/board-page";
+@import "views/_task-details";
 @import "views/review-app";
 
 // Components
@@ -27,3 +28,4 @@
 @import "cmps/group-preview";
 @import "cmps/task-list";
 @import "cmps/task-preview";
+@import "cmps/cover-modal";

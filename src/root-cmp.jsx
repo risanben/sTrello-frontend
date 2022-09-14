@@ -7,6 +7,7 @@ import routes from './routes'
 
 import { AppHeader } from './cmps/app-header'
 import { UserDetails } from './pages/user-details'
+// import './assets/styles/main.scss'
 import './assets/styles/main.scss'
 import { BoardPage } from './pages/board-page'
 import { TaskPreview } from './cmps/Task-Preview'
