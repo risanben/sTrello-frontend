@@ -1,5 +1,4 @@
 import { HomePage } from './pages/home-page.jsx'
-import { AboutUs } from './pages/about-us.jsx'
 import { BoardApp } from './pages/board-app.jsx'
 import { ReviewApp } from './pages/review-app.jsx'
 import { ChatApp } from './pages/chat-app.jsx'
@@ -26,11 +25,6 @@ const routes = [
         path: 'chat',
         component: <ChatApp />,
         label: 'Chat'
-    },
-    {
-        path: 'about',
-        component: <AboutUs />,
-        label: 'About us'
     },
     {
         path: 'admin',
