@@ -1,7 +1,7 @@
 // Setup
 @import "setup/variables";
 @import "setup/functions";
-// @import "setup/mixins";
+@import "setup/mixins";
 @import "setup/typography";
 
 // Basics
@@ -16,9 +16,11 @@
 @import "views/about-us";
 @import "views/home-page";
 @import "views/board-app";
+@import "views/_task-details";
 @import "views/review-app";
 
 // Components
 @import "cmps/app-header";
 @import "cmps/app-footer";
 @import "cmps/user-msg";
+@import "cmps/_cover-modal";
