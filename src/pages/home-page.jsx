@@ -1,31 +1,19 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { TaskDetails } from './task-details.jsx'
 
-// import logo from '../assets/img/logo.png'
+import logo from '../assets/img/logo.png'
 
 class _HomePage extends React.Component {
     state = {}
 
-    changeCount = (diff) => {
-        console.log('Changing count by:', diff);
-        const action = { type: 'CHANGE_COUNT', diff }
-        this.props.dispatch(action)
-    }
 
     render() {
-        const { count } = this.props
+        // const { count } = this.props
         return (
             <section>
-                {/* <img src={logo} alt="Logo" style={{maxWidth: '300px'}} /> */}
-                <h2>
-                    Count {count}
-                    <button onClick={() => {
-                        this.changeCount(1)
-                    }}>+</button>
-                    <button onClick={() => {
-                        this.changeCount(10)
-                    }}>+10</button>
-                </h2 >
+                <img src={logo} alt="Logo" style={{ maxWidth: '300px' }} />
+                <TaskDetails props={'Um7Ow'}/>
             </section >
         )
     }
