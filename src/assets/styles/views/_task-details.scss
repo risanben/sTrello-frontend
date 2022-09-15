@@ -7,10 +7,18 @@
     .task-cover {
         grid-column: 1/-1;
         display: flex;
+        // display: grid;
+        // grid-template-columns: 1fr 70px;
 
-        .btn{
-           max-height: 25px; 
+        // img {
+        //     max-height: 10%;
+        // }
+
+        .btn {
+            max-height: 25px;
+            grid-column: 2/-1;
         }
+
         .btn.close {
             float: inline-end;
         }
@@ -20,7 +28,7 @@
         grid-column: 1/2;
     }
 
-    .task-abilities{
+    .task-abilities {
         display: flex;
         flex-direction: column;
     }

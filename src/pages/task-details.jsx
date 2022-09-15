@@ -60,11 +60,11 @@ console.log('coverImg',coverImg);
     if (!task) return <div>Loading...</div>
     return (
         <section className="task-details-container">
-            <section style={{ backgroundColor: bgColor , backgroundImage: `url(../assets/img/${imgName}.jpg})` } } className="task-cover">
+            <section style={{ backgroundColor: bgColor } } className="task-cover">
                 <button onClick={onBack} className="btn close">x</button>
                 {coverImg && <img src={require(`../assets/img/${imgName}.jpg`)} alt="Cover" />}
                 <button onClick={onShowModal} className="btn close">Cover</button>
-                {showModal && <TaskDetailsCoverModal onSetColor={onSetColor} onSetImg={onSetImg}/>}
+                {showModal && <TaskDetailsCoverModal onSetColor={onSetColor} onSetImg={onSetImg} className="cover-modal"/>}
             </section>
             <section className="task-details">
                 <h1>{task.title}</h1>
