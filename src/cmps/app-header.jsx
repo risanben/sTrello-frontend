@@ -1,8 +1,5 @@
 import React from 'react'
 import { NavLink, Link } from 'react-router-dom';
-
-import menu from '../assets/img/menu.svg'
-import trello from '../assets/img/trelloLogo.svg'
 import { ImTrello } from 'react-icons/im';
 import { BsFillGrid3X3GapFill, BsChevronDown } from 'react-icons/bs';
 import { IoSearchSharp } from 'react-icons/io5';
@@ -15,14 +12,16 @@ export function AppHeader() {
         <section className="app-header">
 
             <BsFillGrid3X3GapFill className='menu-logo' />
+           <Link to="/" className='home-logo-link'>
             <ImTrello className='trello-logo' />
             <section className="logo">
                 sTrello
             </section>
+            </Link>
 
             <section className='nav-header'>
                 <ul>
-                    <Link to="board"><li>Workspaces <BsChevronDown className='downArr' /></li></Link>
+                    <Link to="board" className='workspace-link'><li>Workspaces <BsChevronDown className='downArr' /></li></Link>
                     <li>Recent <BsChevronDown className='downArr' /></li>
                     <li>Starred <BsChevronDown className='downArr' /></li>
                 </ul>

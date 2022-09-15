@@ -37,4 +37,20 @@
         border-top-left-radius: 3px;
         border-top-right-radius: 3px;
     }
+
+    .hide {
+        display: none;
+    }
+
+    .quick-edit-btn {
+        background-color: inherit;
+        color: $home-font-clr;
+        margin: 0;
+    }
+
+    &:hover {
+        .hide {
+            display: block;
+        }
+    }
 }
