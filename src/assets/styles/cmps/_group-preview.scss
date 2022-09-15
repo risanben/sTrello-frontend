@@ -1,8 +1,10 @@
 .group-preview {
     background-color: #ebecf0;
-    width: 270px;
+    min-width: 270px;
     border-radius: 3px;
     margin: 0 4px;
+    display: flex;
+    flex-direction: column;
     // height: 100px;
 
     .group-title {
@@ -32,7 +34,49 @@
             margin-right: 2px;
 
         }
+    }
 
+    .add-task-content {
+        width: 254px;
+        overflow: visible;
+        padding: 6px 8px 2px;
+        height: 58px;
+        background-color: #fff;
+        display: flex;
+        align-items: center;
+        border-radius: 3px;
+        align-self: center;
+        margin-bottom: 4px;
+        min-height: 54px;
+        max-height: 162px;
+
+
+        &:hover {
+            background-color: #fff;
+            cursor: unset;
+        }
+
+        textarea[name="title"] {
+            overflow: visible;
+            overflow-wrap: break-word;
+            resize: none;
+            padding: 0;
+            min-height: 54px;
+            max-height: 162px;
+            width: 100%;
+            border: none;
+            display: block;
+            flex: 1;
+
+            &:focus {
+                outline: none;
+            }
+        }
+
+    }
+
+    .add-task-btn-container {
+        display: flex;
     }
 
 }
