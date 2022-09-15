@@ -36,10 +36,11 @@ export class App extends React.Component {
                         <Route path='board/edit' element={<BoardEdit />} />
                         <Route path="board" element={<BoardPage />} />
                         <Route path="board/:id" element={<Board />} />
-                        <Route path="group" element={<GroupEdit />} />
+                        {/* <Route path="group" element={<GroupEdit />} /> */}
                         <Route path="task/:id" element={<TaskPreview />} />
                         <Route path="task/edit" element={<TaskDetails />} />
-                        <Route path="task/edit/id" element={<TaskDetails />} />
+                        {/* <Route path="task/edit/:id" element={<TaskDetails />} /> */}
+                        <Route path="board/:boardId/:groupId/:id" element={<TaskDetails />} />
                         <Route path="temp" element={< TempCmp />} />
                     </Routes>
                 </main>

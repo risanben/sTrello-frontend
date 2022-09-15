@@ -1,8 +1,9 @@
 .board {
-    // padding: 5px;
+    padding: 5px;
+    height: calc(100vh - 44px);
 
     .group-container {
-padding: 5px;
+
         gap: 10px;
         color: #172b4d;
         font-size: 14px;
