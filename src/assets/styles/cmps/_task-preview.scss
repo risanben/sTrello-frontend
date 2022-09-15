@@ -4,6 +4,8 @@
     box-shadow: 0 1px 0 #091e4240;
     border-radius: 3px;
     margin-bottom: 8px;
+    display: flex;
+    
 
     // max-width: 300px;
     span {
@@ -14,6 +16,7 @@
         display: block;
         padding: 6px 8px 2px;
         margin-bottom: 8px;
+        flex-grow: 1;
     }
 
     .task-cover {
@@ -22,5 +25,20 @@
         padding: 0;
         margin: 0;
         border-radius: 3px;
+    }
+
+    .hide{
+        display: none;
+    }
+    .quick-edit-btn{
+        background-color: inherit;
+        color: $home-font-clr;
+        margin: 0;
+    }
+
+    &:hover{
+        .hide{
+            display: block;
+        }
     }
 }

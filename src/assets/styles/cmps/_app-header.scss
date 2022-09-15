@@ -1,16 +1,29 @@
 .app-header {
     // border: 2px solid green;
-    background-color: rgb(203, 203, 209);
+    background-color: $header-bg-color;
     padding: 6px 13px;
     display: flex;
     align-items: center;
     border-bottom: 1px solid rgba(75, 75, 97, 0.378);
     max-height: 44px;
-    color: rgb(75, 75, 97);
+    color: $header-font-color;
 
     section {
         margin: 0;
         padding: 0;
+    }
+
+    .home-logo-link {
+        display: flex;
+        align-items: center;
+        color: inherit;
+        // border: 1px solid black;
+        border-radius: 0.3rem;
+        padding: 0 3px;
+
+        &:hover {
+            background-color: darken($color: $header-bg-color, $amount: 10);
+        }
     }
 
     .menu-logo {
@@ -37,6 +50,10 @@
         align-items: center;
         flex-grow: 1;
 
+        .workspace-link{
+            color: inherit;
+        }
+
         ul {
             display: flex;
             margin: 0;
@@ -55,7 +72,7 @@
                 cursor: pointer;
 
                 &:hover {
-                    background-color: rgb(173, 173, 177);
+                    background-color: darken($color: $header-bg-color, $amount: 10);
                 }
 
                 .downArr {
@@ -73,7 +90,7 @@
             border-radius: 0.3em;
 
             &:hover {
-                background-color: rgb(173, 173, 177);
+                background-color: darken($color: $header-bg-color, $amount: 10);
             }
         }
     }
@@ -83,16 +100,14 @@
     .search {
         justify-self: flex-end;
         border: 1px solid rgba(82, 82, 83, 0.332);
-        background-color: rgb(186, 186, 191);
+        background-color: $header-bg-color;
         border-radius: 0.3em;
         padding: 0 8px;
         display: flex;
         align-items: center;
 
         .mag-glass {
-            // border: 2px solid red;
             font-size: 20px;
-
         }
 
         input {
@@ -101,20 +116,21 @@
             padding: 4px 3px;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             font-size: 14px;
-            &:focus{
+
+            &:focus {
                 outline: none;
             }
         }
     }
 
-    .bell{
-            font-size: 18px; 
-            display: flex;
-            padding: 5px 0;
-            border-radius: 0.3em;
-            // background-color: red;
-            &:hover{
-                background-color: rgb(173, 173, 177);
-            }
+    .bell {
+        font-size: 18px;
+        display: flex;
+        padding: 5px 0;
+        border-radius: 0.3em;
+        &:hover {
+            background-color: darken($color: $header-bg-color, $amount: 10);
+        }
     }
+
 }

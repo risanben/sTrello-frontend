@@ -13,13 +13,10 @@ export const SneakPeek = () => {
                 teamwork grows. Manage projects, organize tasks, and build team
                 spirit—all in one place.
             </p>
-
             <Link to="/board" className='start-doing'>
                 Start Doing
             </Link>
-
             <img src={screenshot} className='screenshot-container' />
-
             <div className='txt-area'>
                 <section className='mini-header'>Features to help your team succeed</section>
                 <p>
