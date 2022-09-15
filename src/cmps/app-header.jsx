@@ -6,6 +6,7 @@ import trello from '../assets/img/trelloLogo.svg'
 import { ImTrello } from 'react-icons/im';
 import { BsFillGrid3X3GapFill, BsChevronDown } from 'react-icons/bs';
 import { IoSearchSharp } from 'react-icons/io5';
+import { AiOutlineBell } from 'react-icons/ai';
 
 
 export function AppHeader() {
@@ -30,6 +31,9 @@ export function AppHeader() {
 
             <section className='search'>
                 <IoSearchSharp className='mag-glass' /><input type="text" placeholder='Search' />
+            </section>
+            <section className='bell'>
+            <AiOutlineBell />
             </section>
 
         </section>
