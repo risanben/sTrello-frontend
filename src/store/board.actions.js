@@ -84,7 +84,7 @@ export function updateBoard(board) {
     }
 }
 
-export function addToBoardt(board) {
+export function addToBoard(board) {
     return (dispatch) => {
         dispatch({
             type: 'ADD_TO_CART',
@@ -92,7 +92,7 @@ export function addToBoardt(board) {
         })
     }
 }
-export function removeFromBoardt(boardId) {
+export function removeFromBoard(boardId) {
     return (dispatch) => {
         dispatch({
             type: 'REMOVE_FROM_CART',
