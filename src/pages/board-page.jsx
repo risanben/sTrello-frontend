@@ -50,8 +50,7 @@ function _BoardPage({ loadBoards, addBoard, updateBoard, removeBoard, addToBoard
                             <Link to={`/board/${board._id}`}>
                                 <span>{board.title}</span>
                             </Link>
-
-
+                            
                             {/* <div>
                                 <button onClick={() => { onRemoveBoard(board._id) }}>x</button>
                                 <button onClick={() => { onUpdateBoard(board) }}>Edit</button>

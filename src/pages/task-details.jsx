@@ -4,6 +4,8 @@ import { useNavigate, useParams } from "react-router-dom"
 import { TaskDetailsCoverModal } from "../cmps/task-details-cover-modal"
 import { taskService } from "../services/task.service"
 import { utilService } from "../services/util.service"
+import { useFormRegister } from '../hooks/useFormRegister'
+import { boardService } from "../services/board.service"
 // import {  } from 'react-icons';
 
 
@@ -19,23 +21,52 @@ export const TaskDetails = ({ props }) => {
     const [coverImg, setCoverImg] = useState(null)
     // const [activities, setActivities] = useState(null)
 
-    // const coverImg = useRef(false);
-
     useEffect(() => {
         const id = params.id
-        // console.log('props', props);
-        // const id = props
-        console.log('id', id);
+        const boardId = params.boardId
+        const groupId = params.groupId
+   
+        if (!boardId) return
         if (!id) return
-        taskService.getById(id)
-            .then(task => setTask(task))
+        if (!groupId) return
+
+        // boardService.getById(boardId)
+        //     .then(board => {
+        //         setBoard(board)
+        //     })
+        //     .catch(err => {
+        //     })
 
         // activityService.query({ taskId: id })
         // .then(activity => setActivities(activity))
     }, [])
 
+    const onUpdateTask = (ev) => {
+        ev.preventDefault()
+
+        board.groups.push({ ...group })
+        boardService.save({ ...board }).then(() => {
+            props.onAddingGroup()
+        })
+
+    }
+
+    const [register] = useFormRegister({
+        title: '',
+        members: '',
+        description: '',
+        date: new Date(),
+    }, onUpdateTask)
+
+
+    // const coverImg = useRef(false);
+
+
+
+
+
     const onBack = () => {
-        navigate('/')
+        navigate(`/board/${board._id}`)
     }
 
     const onSetColor = (ev) => {
@@ -61,19 +92,38 @@ export const TaskDetails = ({ props }) => {
     if (!task) return <div>Loading...</div>
     return (
         <section className="task-details-container">
+            {/* task cover */}
             <section style={{ backgroundColor: bgColor }} className="task-cover">
                 <button onClick={onBack} className="btn close">x</button>
                 {coverImg && <img src={require(`../assets/img/${imgName}.jpg`)} alt="Cover" />}
                 <button onClick={onShowModal} className="btn close">Cover</button>
                 {showModal && <TaskDetailsCoverModal onSetColor={onSetColor} onSetImg={onSetImg} className="cover-modal" />}
             </section>
-            <section className="task-details">
+
+            {/* task-details */}
+            {/* <section className="task-details">
                 <h1>{task.title}</h1>
                 <h4>Members</h4>
                 <h1>Description</h1>
-                <h2>{task.description}</h2>
-                {/* <p> {task.createdBy} added this card</p> */}
-            </section>
+                <h2>{task.description}</h2> */}
+            {/* <p> {task.createdBy} added this card</p> */}
+            {/* </section> */}
+
+            <form className="task-details">
+                <section>
+                    <label htmlFor="title">Title</label>
+                    <input {...register('title', 'text')} value={task.title} />
+                </section>
+                <section>
+                    <label htmlFor="members">Members</label>
+                    <input {...register('members', 'text')} />
+                </section>
+                <section>
+                    <label htmlFor="description">Description</label>
+                    <input {...register('description', 'text')} value={task.description} />
+                </section>
+                <button>Save</button>
+            </form>
 
             <section className="task-abilities">
                 <button className="btn close">Members</button>

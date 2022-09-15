@@ -73,19 +73,26 @@ function getEmptyBoard() {
     }
 }
 
-
-async function saveGroup(group) {
-    var savedGroup
-    if (group.id) {
-        savedGroup = await storageService.put('group', group)
-        // boardChannel.postMessage(getActionUpdateBoard(savedGroup))
-
-    } else {
-        savedGroup = await storageService.post('group', group)
-        // boardChannel.postMessage(getActionAddBoard(savedGroup))
+async function getGroupById(boardId,groupId) {
+    try {
+        const board= await storageService.get(STORAGE_KEY, boardId)
+        return board.groups.find(group => group.id === groupId)
     }
-    return savedGroup
+    catch (err) {
+        throw err
+    }
 }
+
+async function getGroupById(boardId,groupId) {
+    try {
+        const board= await storageService.get(STORAGE_KEY, boardId)
+        return board.groups.find(group => group.id === groupId)
+    }
+    catch (err) {
+        throw err
+    }
+}
+
 
 
 // TEST DATA

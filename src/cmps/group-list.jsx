@@ -17,7 +17,7 @@ export const GroupList = ({ board }) => {
             {board.groups.map(group => {
                 return <GroupPreview key={group.id} group={group} />
             })}
-            {!isAddingGroup && <button onClick={onAddingGroup}>Add group</button>}
+            {!isAddingGroup && <button onClick={onAddingGroup}>Add another list</button>}
             {isAddingGroup && <GroupEdit onAddingGroup={onAddingGroup} board={board} />}
 
             {/* <Link to="/group/edit" className='nice-button'>Add group</Link> */}
