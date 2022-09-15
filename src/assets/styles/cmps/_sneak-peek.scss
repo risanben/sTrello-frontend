@@ -1,0 +1,51 @@
+.sneak-peek {
+    margin: 40px auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: secular;
+    color: rgb(40, 46, 51);
+    max-width: 75vw;
+    text-align: center;
+
+
+    header {
+        font-size: 2rem;
+        line-height: 50px;
+        margin-bottom: 30px;
+    }
+
+    .start-doing {
+        border-radius: 0.4rem;
+        padding: 10px;
+        background-color: rgb(0, 101, 255);
+        color: whitesmoke;
+        margin: 20px;
+    }
+
+    .screenshot-container {
+        margin-top: 30px;
+        border-radius: 1rem;
+        border: 10px solid rgb(240, 192, 255);
+        max-width: 80%;
+        // opacity: 0.8;
+    }
+
+    .txt-area {
+        text-align: left;
+        padding-top: 50px;
+        padding-bottom: 30px;
+        // border: 2px solid green;
+        max-width: 520px;
+        align-self: flex-start;
+        font-size: 18px;
+
+        .mini-header {
+            font-size: 2rem;
+            line-height: 50px;
+            margin-bottom: 30px;
+          
+        }
+    }
+
+}

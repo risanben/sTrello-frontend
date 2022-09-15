@@ -106,4 +106,15 @@
             }
         }
     }
+
+    .bell{
+            font-size: 18px; 
+            display: flex;
+            padding: 5px 0;
+            border-radius: 0.3em;
+            // background-color: red;
+            &:hover{
+                background-color: rgb(173, 173, 177);
+            }
+    }
 }
