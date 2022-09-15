@@ -1,13 +1,19 @@
 .group-list {
     display: flex;
-    // gap: 10px;
     color: #172b4d;
     font-size: 14px;
     font-weight: 400;
     line-height: 20px;
+    align-items: flex-start;
 
-
-
+    ul{
+        li{
+            background-color: grey;
+            margin: 10px auto;
+            padding: 4px;
+            list-style: none;
+        }
+    }
 
     .group-title {
         padding: 6px 36px 6px 8px;
@@ -16,4 +22,8 @@
             padding: 4px 8px;
         }
     }
+
+   
+       
+   
 }
