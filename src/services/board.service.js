@@ -24,7 +24,7 @@ export const boardService = {
     save,
     remove,
     getEmptyBoard,
-    saveGroup,
+    getGroupById,
 }
 window.cs = boardService
 
@@ -83,14 +83,15 @@ async function getGroupById(boardId,groupId) {
     }
 }
 
-async function getGroupById(boardId,groupId) {
-    try {
-        const board= await storageService.get(STORAGE_KEY, boardId)
-        return board.groups.find(group => group.id === groupId)
-    }
-    catch (err) {
-        throw err
-    }
+async function updateTask(boardId,groupId,taskId) {
+    const group= getGroupById(boardId,groupId)
+    const taskForUpdate= group.tasks.find(task => task.id === taskId)
+    var savedBoard
+    // if (boardId) {
+    //     savedBoard = await storageService.put(STORAGE_KEY, board)
+    //     boardChannel.postMessage(getActionUpdateBoard(savedBoard))
+
+    // } 
 }
 
 

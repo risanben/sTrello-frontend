@@ -19,6 +19,10 @@ export const TaskDetails = ({ props }) => {
     const [showModal, setShowModal] = useState(null)
     const [imgName, setImgName] = useState(null)
     const [coverImg, setCoverImg] = useState(null)
+    const [id, setId] = useState(null)
+    const [boardId, setBoardId] = useState(null)
+    const [groupId, setGroupId] = useState(null)
+    // const [currentGroup, setCurrentGroup] = useState(null)
     // const [activities, setActivities] = useState(null)
 
     useEffect(() => {
@@ -30,12 +34,10 @@ export const TaskDetails = ({ props }) => {
         if (!id) return
         if (!groupId) return
 
-        // boardService.getById(boardId)
-        //     .then(board => {
-        //         setBoard(board)
-        //     })
-        //     .catch(err => {
-        //     })
+        setId(id)
+        setBoardId(boardId)
+        setGroupId(groupId)
+        
 
         // activityService.query({ taskId: id })
         // .then(activity => setActivities(activity))
@@ -44,10 +46,17 @@ export const TaskDetails = ({ props }) => {
     const onUpdateTask = (ev) => {
         ev.preventDefault()
 
-        board.groups.push({ ...group })
-        boardService.save({ ...board }).then(() => {
-            props.onAddingGroup()
-        })
+        boardService.updateTask(boardId,groupId,id)
+            .then(task => {
+                setTask(task)
+            })
+            .catch(err => {
+            })
+
+        // currentGroup.tasks.push({ ...group })
+        // boardService.save({ ...board }).then(() => {
+        //     props.onAddingGroup()
+        // })
 
     }
 
@@ -61,12 +70,8 @@ export const TaskDetails = ({ props }) => {
 
     // const coverImg = useRef(false);
 
-
-
-
-
     const onBack = () => {
-        navigate(`/board/${board._id}`)
+        navigate(`/board/${boardId}`)
     }
 
     const onSetColor = (ev) => {
