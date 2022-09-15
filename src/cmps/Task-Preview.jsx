@@ -6,9 +6,9 @@ export const TaskPreview = ({ task }) => {
         <section className="task-preview">
             {task.style && <div className="task-cover" style={{ backgroundColor: task.style.bgColor }}></div>}
             <span>{task.title}</span>
-            <button className='quick-edit-btn hide'>
-                <BsFillPencilFill />
-            </button>
+            {/* <button className='quick-edit-btn hide'> */}
+                {/* <BsFillPencilFill /> */}
+            {/* </button> */}
         </section>
     )
 }
