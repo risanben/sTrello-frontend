@@ -69,7 +69,7 @@ function getEmptyTask() {
 
 
 // TEST DATA
-storageService.post(STORAGE_KEY, {_id:101, title: 'Help me 2', status:'in-progress',description: 'description'}).then(x => console.log(x))
+storageService.post(STORAGE_KEY, {_id:101, title: 'Help me 2', status:'in-progress',description: 'description'})
 
 
 

@@ -1,0 +1,19 @@
+.board-header{
+
+color: whitesmoke;
+font-family: secular;
+padding: 5px 20px;
+font-size: 20px;
+display: flex;
+align-items: center;
+
+.star{
+    margin-inline-start: 10px;
+    background-color: rgba(255, 255, 255, 0.256);
+   border-radius: 0.2rem;
+   font-size: 20px;
+   &:hover{
+    color: yellow;
+   }
+}
+}
