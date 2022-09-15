@@ -4,12 +4,12 @@ import { Link } from 'react-router-dom'
 
 
 
-import { loadBoards, addBoard, updateBoard, removeBoard, addToBoardt } from '../store/board.actions.js'
+import { loadBoards, addBoard, updateBoard, removeBoard, addToBoard } from '../store/board.actions.js'
 
 import { showSuccessMsg } from '../services/event-bus.service.js'
 import { boardService } from '../services/board.service.js'
 
-function _BoardPage({ loadBoards, addBoard, updateBoard, removeBoard, addToBoardt, boards }) {
+function _BoardPage({ loadBoards, addBoard, updateBoard, removeBoard, addToBoard, boards }) {
 
     useEffect(() => {
         loadBoards()
@@ -18,11 +18,11 @@ function _BoardPage({ loadBoards, addBoard, updateBoard, removeBoard, addToBoard
     const onRemoveBoard = (boardId) => {
         removeBoard(boardId)
     }
-    const onAddBoard = () => {
-        const board = boardService.getEmptyBoard()
-        board.vendor = prompt('Vendor?')
-        addBoard(board)
-    }
+    // const onAddBoard = () => {
+    //     const board = boardService.getEmptyBoard()
+    //     board.vendor = prompt('Vendor?')
+    //     addBoard(board)
+    // }
     const onUpdateBoard = (board) => {
         const price = +prompt('New price?')
         const boardToSave = { ...board, price }
@@ -31,7 +31,7 @@ function _BoardPage({ loadBoards, addBoard, updateBoard, removeBoard, addToBoard
 
     const onAddToBoard = (board) => {
         console.log(`Adding ${board.vendor} to Board`)
-        addToBoardt(board)
+        addToBoard(board)
         showSuccessMsg('Added to Boardt')
     }
 
@@ -40,7 +40,8 @@ function _BoardPage({ loadBoards, addBoard, updateBoard, removeBoard, addToBoard
             <h3>Boards App</h3>
             <main>
 
-                <button onClick={onAddBoard}>Add Board ⛐</button>
+                {/* <button onClick={onAddBoard}>Add Board</button> */}
+                <Link to="/board/edit" className='nice-button'>Add Board</Link>
 
                 <ul className="board-list">
 
@@ -77,7 +78,7 @@ const mapDispatchToProps = {
     removeBoard,
     addBoard,
     updateBoard,
-    addToBoardt
+    addToBoard
 }
 
 

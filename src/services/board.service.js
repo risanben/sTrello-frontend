@@ -24,6 +24,7 @@ export const boardService = {
     save,
     remove,
     getEmptyBoard,
+    saveGroup,
 }
 window.cs = boardService
 
@@ -67,9 +68,23 @@ async function save(board) {
 
 function getEmptyBoard() {
     return {
-        vendor: 'Susita-' + (Date.now() % 1000),
+        _id: utilService.makeId(),
         price: utilService.getRandomIntInclusive(1000, 9000),
     }
+}
+
+
+async function saveGroup(group) {
+    var savedGroup
+    if (group.id) {
+        savedGroup = await storageService.put('group', group)
+        // boardChannel.postMessage(getActionUpdateBoard(savedGroup))
+
+    } else {
+        savedGroup = await storageService.post('group', group)
+        // boardChannel.postMessage(getActionAddBoard(savedGroup))
+    }
+    return savedGroup
 }
 
 

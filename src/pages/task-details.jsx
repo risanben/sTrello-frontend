@@ -1,5 +1,5 @@
 
-import { useEffect, useState,useRef  } from "react"
+import { useEffect, useState, useRef } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import { TaskDetailsCoverModal } from "../cmps/task-details-cover-modal"
 import { taskService } from "../services/task.service"
@@ -13,7 +13,7 @@ export const TaskDetails = ({ props }) => {
     const navigate = useNavigate()
 
     const [task, setTask] = useState(null)
-    const [bgColor, setBgColor] = useState(null)
+    const [bgColor, setBgColor] = useState('blue')
     const [showModal, setShowModal] = useState(null)
     const [imgName, setImgName] = useState(null)
     const [coverImg, setCoverImg] = useState(null)
@@ -22,10 +22,11 @@ export const TaskDetails = ({ props }) => {
     // const coverImg = useRef(false);
 
     useEffect(() => {
-        // const id = params.id
-        console.log('props', props);
-        const id = props
+        const id = params.id
+        // console.log('props', props);
+        // const id = props
         console.log('id', id);
+        if (!id) return
         taskService.getById(id)
             .then(task => setTask(task))
 
@@ -38,33 +39,33 @@ export const TaskDetails = ({ props }) => {
     }
 
     const onSetColor = (ev) => {
-        console.log('ev',ev.target.value);
+        console.log('ev', ev.target.value);
         setBgColor(ev.target.value)
         // coverImg.current=false
         setCoverImg(false)
     }
 
-    const onShowModal=()=>{
+    const onShowModal = () => {
         // showModal.current=!showModal.current
         setShowModal(!showModal)
     }
 
-    const onSetImg=(ev)=>{
-console.log('ev',ev.target.value);
+    const onSetImg = (ev) => {
+        console.log('ev', ev.target.value);
         setImgName(ev.target.value)
         // coverImg.current=true
         setCoverImg(true)
     }
 
-console.log('coverImg',coverImg);
+    console.log('coverImg', coverImg);
     if (!task) return <div>Loading...</div>
     return (
         <section className="task-details-container">
-            <section style={{ backgroundColor: bgColor , backgroundImage: `url(../assets/img/${imgName}.jpg})` } } className="task-cover">
+            <section style={{ backgroundColor: bgColor }} className="task-cover">
                 <button onClick={onBack} className="btn close">x</button>
                 {coverImg && <img src={require(`../assets/img/${imgName}.jpg`)} alt="Cover" />}
                 <button onClick={onShowModal} className="btn close">Cover</button>
-                {showModal && <TaskDetailsCoverModal onSetColor={onSetColor} onSetImg={onSetImg}/>}
+                {showModal && <TaskDetailsCoverModal onSetColor={onSetColor} onSetImg={onSetImg} className="cover-modal" />}
             </section>
             <section className="task-details">
                 <h1>{task.title}</h1>

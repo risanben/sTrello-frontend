@@ -102,7 +102,14 @@ const dataBoards = [{
             "tasks": [
                 {
                     "id": "c101",
-                    "title": "Replace logo"
+                    "title": "Replace logo",
+                    "style": {
+                        "bg": {
+                            "color": " #26de81",
+                            "imgUrl": null,
+                            "fullCover": true
+                        }
+                    }
                 },
                 {
                     "id": "c102",
@@ -120,7 +127,7 @@ const dataBoards = [{
                     "title": "Do that",
                     "description": "sprint 4",
                     "createdAt": 1590999730348,
-                    "archivedAt": 1589983468418,
+                    "archivedAt": 1589983468418
                 },
                 {
                     "id": "c104",
@@ -136,7 +143,11 @@ const dataBoards = [{
                         "imgUrl": "http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg"
                     },
                     "style": {
-                        "bgColor": "#26de81"
+                        "bg": {
+                            "color": null,
+                            "imgUrl": "https://res.cloudinary.com/dqhrqqqul/image/upload/v1663229153/code_mvpcmf.jpg",
+                            "fullCover": true
+                        }
                     }
                 }
             ],
@@ -184,6 +195,13 @@ const dataBoards = [{
                     "description": "sprint 4",
                     "createdAt": 1590999730348,
                     "archivedAt": 1589983468418,
+                    "style": {
+                        "bg": {
+                            "color": null,
+                            "imgUrl": "https://res.cloudinary.com/dqhrqqqul/image/upload/v1663229161/bug_bkvxx9.jpg",
+                            "fullCover": false
+                        }
+                    }
                 },
                 {
                     "id": "c104",
@@ -199,7 +217,11 @@ const dataBoards = [{
                         "imgUrl": "http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg"
                     },
                     "style": {
-                        "bgColor": "#26de81"
+                        "bg": {
+                            "color": "#00de81",
+                            "imgUrl": null,
+                            "fullCover": false
+                        }
                     }
                 }
             ],

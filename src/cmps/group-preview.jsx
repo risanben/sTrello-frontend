@@ -1,4 +1,5 @@
 import { TaskList } from './Task-list'
+import { Link } from 'react-router-dom'
 
 export const GroupPreview = ({ group }) => {
 
@@ -10,7 +11,8 @@ export const GroupPreview = ({ group }) => {
             <TaskList tasks={group.tasks} />
             <div className="add-task-container">
                 <span className="add-icon">+</span>
-                <span>Add a card</span>
+                {/* <span>Add a card</span> */}
+                <Link to={`/task/edit/`} className='nice-button'><span>Add a card</span></Link>
             </div>
         </section>
     )

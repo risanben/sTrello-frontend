@@ -4,16 +4,29 @@
     box-shadow: 0 1px 0 #091e4240;
     border-radius: 3px;
     margin-bottom: 8px;
-    
+
+    &:hover {
+        border-bottom-color: #091e4240;
+        background-color: #f3f5fa;
+        cursor: pointer;
+    }
+
+    // max-width: 300px;
     span {
         min-height: 20px;
-        margin: 0 0 4px;
+        margin: 0;
         overflow: hidden;
         word-wrap: break-word;
         display: block;
-        padding: 6px 8px 2px;
-        margin-bottom: 8px;
-        flex-grow: 1;
+        padding: 6px 8px 10px;
+
+        &.title-img-cover {
+            display: flex;
+            align-items: flex-end;
+            color: #fff;
+            font-weight: 500;
+            font-size: 16px;
+        }
     }
 
     .task-cover {
@@ -21,20 +34,22 @@
         height: 32px;
         padding: 0;
         margin: 0;
-        border-radius: 3px;
+        border-top-left-radius: 3px;
+        border-top-right-radius: 3px;
     }
 
-    .hide{
+    .hide {
         display: none;
     }
-    .quick-edit-btn{
+
+    .quick-edit-btn {
         background-color: inherit;
         color: $home-font-clr;
         margin: 0;
     }
 
-    &:hover{
-        .hide{
+    &:hover {
+        .hide {
             display: block;
         }
     }
