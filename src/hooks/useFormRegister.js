@@ -13,7 +13,6 @@ export const useFormRegister = (initialState, callBack) => {
         const field = target.name
         let value = target.value
 
-        console.log('target.value', target.value);
         switch (target.type) {
             case 'number':
             case 'range':

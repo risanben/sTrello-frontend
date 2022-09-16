@@ -39,6 +39,21 @@ export function loadBoards() {
     }
 }
 
+export function getBoard(boardId) {
+    return async (dispatch) => {
+        try {
+            const board = await boardService.getById(boardId)
+            console.log('board', board);
+            return dispatch({
+                type: 'SET_BOARD',
+                board: board
+            })
+        } catch (err) {
+            console.log('Cannot load board', err)
+        }
+    }
+}
+
 export function removeBoard(boardId) {
     return async (dispatch) => {
         try {
@@ -124,6 +139,32 @@ export function checkout() {
         }
     }
 }
+
+/*------------------------------------------------------------------------------*/
+export function updateTask(boardId, groupId, taskForUpdate) {
+    console.log('board action updateTask ');
+    return async (dispatch) => {
+        try {
+            console.log(boardId, groupId, taskForUpdate);
+            const groupForUpdate = await boardService.getGroupById(boardId, groupId)
+            const board = await boardService.getById(boardId)
+
+            const idx = groupForUpdate.tasks.findIndex(task => task.id === taskForUpdate.id)
+            groupForUpdate.tasks.splice(idx, 1, taskForUpdate)
+
+            const groupIdx = board.groups.findIndex(group => group.id === groupForUpdate.id)
+            board.groups.splice(idx, 1, groupForUpdate)
+
+            console.log('board to save in store', board);
+            // save(board)
+            await dispatch(updateBoard(board))
+            // return board
+        } catch (err) {
+            throw err
+        }
+    }
+}
+/*------------------------------------------------------------------------------*/
 
 
 // Demo for Optimistic Mutation 

@@ -6,6 +6,11 @@ import { taskService } from "../services/task.service"
 import { utilService } from "../services/util.service"
 import { useFormRegister } from '../hooks/useFormRegister'
 import { boardService } from "../services/board.service"
+import { useDispatch } from "react-redux";
+import { updateTask } from '../store/board.actions'
+// import { loadTasks } from "../store/task.actions"
+
+
 // import {  } from 'react-icons';
 
 
@@ -13,8 +18,9 @@ export const TaskDetails = ({ props }) => {
 
     const params = useParams()
     const navigate = useNavigate()
+    const dispatch = useDispatch()
 
-    const [task, setTask] = useState(null)
+    // const [task, setTask] = useState(null)
     const [bgColor, setBgColor] = useState('blue')
     const [showModal, setShowModal] = useState(null)
     const [imgName, setImgName] = useState(null)
@@ -24,10 +30,8 @@ export const TaskDetails = ({ props }) => {
     // const [currentGroup, setCurrentGroup] = useState(null)
     // const [activities, setActivities] = useState(null)
 
-    useEffect(async () => {
-        console.log('params', params);
+    useEffect(() => {
         const { id, boardId, groupId } = params
-        console.log(id, boardId, groupId);
 
         if (!boardId) return
         if (!id) return
@@ -36,29 +40,26 @@ export const TaskDetails = ({ props }) => {
         setBoardId(boardId)
         setGroupId(groupId)
 
-        try {
-            setTask(await boardService.getTaskById(boardId, groupId, id))
-
-        } catch (err) {
-            throw err
-        }
+        loadTasks(boardId, groupId, id)
 
         // activityService.query({ taskId: id })
         // .then(activity => setActivities(activity))
     }, [])
 
-    const onUpdateTask = (ev) => {
-        ev.preventDefault()
-        console.log(currentBoardId, currentGroupId, task);
-        boardService.updateTask(currentBoardId, currentGroupId, task)
-            .then(task => {
-                setTask(task)
-            })
-            .catch(err => {
-            })
+    const loadTasks = async (boardId, groupId, id) => {
+        try {
+            setTask(await boardService.getTaskById(boardId, groupId, id))
+        } catch (err) {
+            throw err
+        }
     }
 
-    const [register] = useFormRegister({
+    const onUpdateTask = (task) => {
+        setTask(task)
+        // dispatch(loadTasks())
+    }
+
+    const [register, setTask, task] = useFormRegister({
         title: '',
         members: '',
         description: '',
@@ -66,14 +67,12 @@ export const TaskDetails = ({ props }) => {
     }, onUpdateTask)
 
 
-    // const coverImg = useRef(false);
 
     const onBack = () => {
         navigate(`/board/${currentBoardId}`)
     }
 
     const onSetColor = (ev) => {
-        console.log('ev', ev.target.value);
         setBgColor(ev.target.value)
         // coverImg.current=false
         setCoverImg(false)
@@ -85,13 +84,24 @@ export const TaskDetails = ({ props }) => {
     }
 
     const onSetImg = (ev) => {
-        console.log('ev', ev.target.value);
         setImgName(ev.target.value)
         // coverImg.current=true
         setCoverImg(true)
     }
 
-    console.log('coverImg', coverImg);
+    const onSaveTask = async (ev) => {
+        ev.preventDefault()
+        try {
+            // const board = await boardService.updateTask(currentBoardId, currentGroupId, task)
+            dispatch(updateTask(currentBoardId, currentGroupId, task))
+            console.log('task', task);
+            setTask(task)
+            navigate(`/board/${currentBoardId}`)
+        } catch (err) {
+            throw err
+        }
+    }
+
     if (!task) return <div>Loading...</div>
     return (
         <section className="task-details-container">
@@ -112,7 +122,7 @@ export const TaskDetails = ({ props }) => {
             {/* <p> {task.createdBy} added this card</p> */}
             {/* </section> */}
 
-            <form className="task-details" onSubmit={onUpdateTask}>
+            <form className="task-details" onSubmit={onSaveTask}>
                 <section>
                     <label htmlFor="title">Title</label>
                     <input {...register('title', 'text')} value={task.title} />
@@ -151,67 +161,3 @@ export const TaskDetails = ({ props }) => {
     )
 }
 
-// {
-//     "id": "c104",
-//     "title": "Help me",
-//     "status": "in-progress",
-//     "description": "description",
-//     "comments": [
-//         {
-//             "id": "ZdPnm",
-//             "txt": "also @yaronb please CR this",
-//             "createdAt": 1590999817436.0,
-//             "byMember": {
-//                 "_id": "u101",
-//                 "fullname": "Tal Tarablus",
-//                 "imgUrl": "http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg"
-//             }
-//         }
-//     ],
-//     "checklists": [
-//         {
-//             "id": "YEhmF",
-//             "title": "Checklist",
-//             "todos": [
-//                 {
-//                     "id": "212jX",
-//                     "title": "To Do 1",
-//                     "isDone": false
-//                 }
-//             ]
-//         }
-//     ],
-//     "memberIds": ["u101"],
-//     "labelIds": ["l101", "l102"],
-//     "createdAt": 1590999730348,
-//     "dueDate": 16156215211,
-//     "byMember": {
-//         "_id": "u101",
-//         "username": "Tal",
-//         "fullname": "Tal Tarablus",
-//         "imgUrl": "http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg"
-//     },
-//     "style": {
-//         "bgColor": "#26de81"
-//     }
-// }
-// ],
-// "style": {}
-// }
-// ],
-// "activities": [
-// {
-// "id": "a101",
-// "txt": "Changed Color",
-// "createdAt": 154514,
-// "byMember": {
-// "_id": "u101",
-// "fullname": "Abi Abambi",
-// "imgUrl": "http://some-img"
-// },
-// "task": {
-// "id": "c101",
-// "title": "Replace Logo"
-// }
-// }
-// ]

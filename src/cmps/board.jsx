@@ -5,31 +5,52 @@ import { boardService } from '../services/board.service'
 import { loadBoards } from '../store/board.actions'
 import { GroupList } from './group-list'
 import { BoardHeader } from './board-header'
+import { useDispatch } from "react-redux";
+import { getBoard } from '../store/board.actions'
+import { useSelector } from 'react-redux'
 
 export const Board = () => {
 
-    const [board, setBoard] = useState(null)
+    const {board} = useSelector(state => state.boardModule)
+    // const [board, setBoard] = useState(null)
+    const dispatch = useDispatch()
     const params = useParams()
+
     useEffect(() => {
+        console.log('board', board);
         loadBoard()
+        console.log('board', board);
     }, [])
 
     const loadBoard = async () => {
         const boardId = params.id
-        console.log(boardId)
         try {
-            const board = await boardService.getById(boardId)
-            setBoard(board)
+            const board = await dispatch(getBoard(boardId))
+            console.log('board', board);
+            // setBoard(board)
         } catch (err) {
             console.log('Cannot load board', err)
         }
     }
+
+
+    // const loadBoard = async () => {
+    //     const boardId = params.id
+    //     try {
+    //         const board = await boardService.getById(boardId)
+    //         setBoard(board)
+    //     } catch (err) {
+    //         console.log('Cannot load board', err)
+    //     }
+    // }
+
     if (!board) return <div>Loading...</div>
+
     return (
         <section className="board" style={{ backgroundColor: board.style.bgColor }}>
-            <BoardHeader 
-            board={board}/>
-            
+            <BoardHeader
+                board={board} />
+
             <GroupList board={board} />
             {/* <div className="group-container flex">
                 {board.groups.map(group => {

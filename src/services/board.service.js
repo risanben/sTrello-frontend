@@ -25,7 +25,7 @@ export const boardService = {
     remove,
     getEmptyBoard,
     getGroupById,
-    updateTask,
+    // updateTask,
     getTaskById
 }
 window.cs = boardService
@@ -33,12 +33,12 @@ window.cs = boardService
 
 async function query(filterBy) {
     try {
-        
+
         let boards = await storageService.query(STORAGE_KEY)
-        if (filterBy?.title){
-            boards = boards.filter(b=>b.title.toLowerCase().includes(filterBy.title.toLowerCase()))
+        if (filterBy?.title) {
+            boards = boards.filter(b => b.title.toLowerCase().includes(filterBy.title.toLowerCase()))
         }
-        
+
         return boards
     } catch (err) {
         throw err
@@ -84,6 +84,7 @@ function getEmptyBoard() {
 async function getGroupById(boardId, groupId) {
     try {
         const board = await storageService.get(STORAGE_KEY, boardId)
+        console.log('board', board);
         return board.groups.find(group => group.id === groupId)
     }
     catch (err) {
@@ -94,6 +95,7 @@ async function getGroupById(boardId, groupId) {
 async function getTaskById(boardId, groupId, taskId) {
     try {
         const group = await getGroupById(boardId, groupId)
+        console.log('group', group);
         return group.tasks.find(task => task.id === taskId)
 
     } catch (err) {
@@ -101,14 +103,22 @@ async function getTaskById(boardId, groupId, taskId) {
     }
 }
 
-async function updateTask(boardId, groupId, taskForUpdate) {
-    const group = getGroupById(boardId, groupId)
-    const board = getById(boardId)
-    // const taskForUpdate= group.tasks.find(task => task.id === taskId)
-    const idx = group.tasks.findIndex(task => task.id === taskForUpdate.id)
-    group.tasks.splice(idx, 1, taskForUpdate)
-    save(board)
-}
+// async function updateTask(boardId, groupId, taskForUpdate) {
+//     try {
+//         console.log(boardId, groupId, taskForUpdate);
+//         const group = await getGroupById(boardId, groupId)
+//         const board = await getById(boardId)
+//         // const taskForUpdate= group.tasks.find(task => task.id === taskId)
+//         const idx = group.tasks.findIndex(task => task.id === taskForUpdate.id)
+//         group.tasks.splice(idx, 1, taskForUpdate)
+//         console.log('group', group);
+//         // save(board)
+//         await dispatch(updateBoard(board))
+//         // return board
+//     } catch (err) {
+//         throw err
+//     }
+// }
 
 
 

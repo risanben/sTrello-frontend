@@ -10,10 +10,13 @@ export const GroupList = ({ board }) => {
 
     const [isAddingGroup, setIsAddingGroup] = useState(false)
     const [currBoard, setCurrBoard] = useState(board)
+    
     useEffect(() => {
         console.log(currBoard)
     }, [currBoard])
+
     const dispatch = useDispatch()
+
     const onAddingGroup = () => {
         setIsAddingGroup(!isAddingGroup)
     }
@@ -22,7 +25,6 @@ export const GroupList = ({ board }) => {
         const boardToSave = { ...board }
         boardToSave.groups.map(group => (group.id === groupToUpdate.id) ? groupToUpdate : group)
         const savedBoard = await dispatch(updateBoard(boardToSave))
-        console.log('savedBoard', savedBoard)
         setCurrBoard(savedBoard.board)
     }
 

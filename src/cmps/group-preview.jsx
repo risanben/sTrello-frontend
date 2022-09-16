@@ -26,14 +26,13 @@ export const GroupPreview = ({ group, addTask }) => {
         addTask(groupToSave)
         setIsAddTask(!isAddTask)
     }
-    console.log('group', group)
-    console.log('render group preview')
+    
     return (
         <section className="group-preview">
             <div className="group-title">
                 <span>{group.title}</span>
             </div>
-            <TaskList tasks={group.tasks} />
+            <TaskList tasks={group.tasks} groupId={group.id}/>
             {!isAddTask && <div className="add-task-container" onClick={toggaleAddTaskTextarea}>
                 <span className="add-icon">+</span>
                 {/* <span>Add a card</span> */}

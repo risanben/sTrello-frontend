@@ -35,7 +35,6 @@ export const GroupEdit = (props) => {
         //     props.onAddingGroup()
         // })
         var board = props.board
-        console.log('board', props.board);
         board.groups.push({ ...group })
         boardService.save({ ...board }).then(() => {
             props.onAddingGroup()

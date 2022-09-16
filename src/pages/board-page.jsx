@@ -30,7 +30,6 @@ function _BoardPage({ loadBoards, addBoard, updateBoard, removeBoard, addToBoard
     }
 
     const onAddToBoard = (board) => {
-        console.log(`Adding ${board.vendor} to Board`)
         addToBoard(board)
         showSuccessMsg('Added to Boardt')
     }

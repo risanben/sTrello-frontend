@@ -1,13 +1,14 @@
+
 import { TaskPreview } from './Task-Preview'
 
-export const TaskList = ({ tasks }) => {
 
-    console.log('tasks', tasks)
+export const TaskList = ({ tasks , groupId }) => {
+
     if (!tasks) return
     return (
-        <section className="task-list">
+        <section className="task-list" >
             {tasks.map(task => {
-                return <TaskPreview key={task.id} task={task} />
+                return <TaskPreview key={task.id} task={task} groupId={groupId}/>
             })}
         </section>
     )
