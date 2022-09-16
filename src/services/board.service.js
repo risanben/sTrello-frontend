@@ -25,6 +25,8 @@ export const boardService = {
     remove,
     getEmptyBoard,
     getGroupById,
+    updateTask,
+    getTaskById
 }
 window.cs = boardService
 
@@ -73,9 +75,9 @@ function getEmptyBoard() {
     }
 }
 
-async function getGroupById(boardId,groupId) {
+async function getGroupById(boardId, groupId) {
     try {
-        const board= await storageService.get(STORAGE_KEY, boardId)
+        const board = await storageService.get(STORAGE_KEY, boardId)
         return board.groups.find(group => group.id === groupId)
     }
     catch (err) {
@@ -83,15 +85,23 @@ async function getGroupById(boardId,groupId) {
     }
 }
 
-async function updateTask(boardId,groupId,taskId) {
-    const group= getGroupById(boardId,groupId)
-    const taskForUpdate= group.tasks.find(task => task.id === taskId)
-    var savedBoard
-    // if (boardId) {
-    //     savedBoard = await storageService.put(STORAGE_KEY, board)
-    //     boardChannel.postMessage(getActionUpdateBoard(savedBoard))
+async function getTaskById(boardId, groupId, taskId) {
+    try {
+        const group = await getGroupById(boardId, groupId)
+        return group.tasks.find(task => task.id === taskId)
 
-    // } 
+    } catch (err) {
+        throw err
+    }
+}
+
+async function updateTask(boardId, groupId, taskForUpdate) {
+    const group = getGroupById(boardId, groupId)
+    const board = getById(boardId)
+    // const taskForUpdate= group.tasks.find(task => task.id === taskId)
+    const idx = group.tasks.findIndex(task => task.id === taskForUpdate.id)
+    group.tasks.splice(idx, 1, taskForUpdate)
+    save(board)
 }
 
 

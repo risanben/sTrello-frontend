@@ -19,25 +19,29 @@ export const TaskDetails = ({ props }) => {
     const [showModal, setShowModal] = useState(null)
     const [imgName, setImgName] = useState(null)
     const [coverImg, setCoverImg] = useState(null)
-    const [id, setId] = useState(null)
-    const [boardId, setBoardId] = useState(null)
-    const [groupId, setGroupId] = useState(null)
+    const [currentBoardId, setBoardId] = useState(null)
+    const [currentGroupId, setGroupId] = useState(null)
     // const [currentGroup, setCurrentGroup] = useState(null)
     // const [activities, setActivities] = useState(null)
 
-    useEffect(() => {
-        const id = params.id
-        const boardId = params.boardId
-        const groupId = params.groupId
-   
+    useEffect(async () => {
+        console.log('params', params);
+        const { id, boardId, groupId } = params
+        console.log(id, boardId, groupId);
+
         if (!boardId) return
         if (!id) return
         if (!groupId) return
 
-        setId(id)
         setBoardId(boardId)
         setGroupId(groupId)
-        
+
+        try {
+            setTask(await boardService.getTaskById(boardId, groupId, id))
+
+        } catch (err) {
+            throw err
+        }
 
         // activityService.query({ taskId: id })
         // .then(activity => setActivities(activity))
@@ -45,19 +49,13 @@ export const TaskDetails = ({ props }) => {
 
     const onUpdateTask = (ev) => {
         ev.preventDefault()
-
-        boardService.updateTask(boardId,groupId,id)
+        console.log(currentBoardId, currentGroupId, task);
+        boardService.updateTask(currentBoardId, currentGroupId, task)
             .then(task => {
                 setTask(task)
             })
             .catch(err => {
             })
-
-        // currentGroup.tasks.push({ ...group })
-        // boardService.save({ ...board }).then(() => {
-        //     props.onAddingGroup()
-        // })
-
     }
 
     const [register] = useFormRegister({
@@ -71,7 +69,7 @@ export const TaskDetails = ({ props }) => {
     // const coverImg = useRef(false);
 
     const onBack = () => {
-        navigate(`/board/${boardId}`)
+        navigate(`/board/${currentBoardId}`)
     }
 
     const onSetColor = (ev) => {
@@ -114,7 +112,7 @@ export const TaskDetails = ({ props }) => {
             {/* <p> {task.createdBy} added this card</p> */}
             {/* </section> */}
 
-            <form className="task-details">
+            <form className="task-details" onSubmit={onUpdateTask}>
                 <section>
                     <label htmlFor="title">Title</label>
                     <input {...register('title', 'text')} value={task.title} />
