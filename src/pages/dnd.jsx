@@ -1,7 +1,6 @@
 
-import React, { useState,useRef } from 'react'
+import React, { useState, useRef } from 'react'
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
-import { Provider } from 'react-redux'
 
 
 export function Dnd() {
@@ -27,8 +26,17 @@ export function Dnd() {
 
     const [list, setList] = React.useState(data)
 
+    const reorder = (list, startIndex, endIndex) => {
+        const result = Array.from(list)
+        const [removed] = result.splice(startIndex, 1)
+        result.splice(endIndex, 0, removed)
+
+        return result
+    }
+
     const onEnd = (result) => {
-        console.log('result:', result)
+        if (!result.destination) return
+        setList(reorder(list, result.source.index, result.destination.index))
     }
 
     const taskRef = useRef()
@@ -40,7 +48,7 @@ export function Dnd() {
             >
                 {(provided, snapshot) => (
                     <div
-                        ref={(el)=>{taskRef.current = el;provided.innerRef(el)}}
+                        ref={(el) => { taskRef.current = el; provided.innerRef(el) }}
                     >
                         {list.map((item, index) => (
                             <Draggable
@@ -50,7 +58,7 @@ export function Dnd() {
                             >
                                 {(provided, snapshot) => (
                                     <div
-                                    ref={(el)=>{taskRef.current = el;provided.innerRef(el)}}
+                                        ref={(el) => { taskRef.current = el; provided.innerRef(el) }}
                                         {...provided.draggableProps}
                                         {...provided.dragHandleProps}
                                     >

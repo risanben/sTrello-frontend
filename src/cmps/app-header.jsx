@@ -6,22 +6,26 @@ import { IoSearchSharp } from 'react-icons/io5';
 import { AiOutlineBell } from 'react-icons/ai';
 import {boardService} from '../services/board.service'
 import { TempCmp } from './temp-cmp-render-task-details';
+import { SearchResult } from './search-result';
 
 
 export function AppHeader() {
 
     const [boards, setBoards] = useState(null)
     
-
-
     const onChange = ({ target }) => {
+        if(!target.value){
+            setBoards(null)
+            return
+        }
         let filterBy = {
             title: target.value
         }
         boardService.query(filterBy)
-        .then(res=>console.log('res:', res))
+        .then(boards=>setBoards(boards))
     }
 
+console.log('boards:', boards)
     return (
         <section className="app-header">
 
@@ -49,6 +53,7 @@ export function AppHeader() {
             <section className='search'>
                 <IoSearchSharp className='mag-glass' /><input type="text" onChange={onChange} placeholder='Search' />
             </section>
+            {boards&& <SearchResult boards={boards}/>}
             <section className='bell'>
                     <AiOutlineBell />
             </section>
