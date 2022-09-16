@@ -1,5 +1,5 @@
-import { boardService } from "../services/board.service.js";
-import { userService } from "../services/user.service.js";
+import { boardService } from "../services/board.service.js"
+import { userService } from "../services/user.service.js"
 import { showSuccessMsg, showErrorMsg } from '../services/event-bus.service.js'
 
 // Action Creators:
@@ -79,17 +79,6 @@ export function updateBoard(board) {
             showErrorMsg('Cannot update board')
             console.log('Cannot save board', err)
         }
-        // boardService.save(board)
-        //     .then(savedBoard => {
-        //         console.log('Updated Board:', savedBoard);
-        //         dispatch(getActionUpdateBoard(savedBoard))
-        //         showSuccessMsg('Board updated')
-        //         return savedBoard
-        //     })
-        //     .catch(err => {
-        //         showErrorMsg('Cannot update board')
-        //         console.log('Cannot save board', err)
-        //     })
     }
 }
 
@@ -149,5 +138,50 @@ export function onRemoveBoardOptimistic(boardId) {
                     type: 'UNDO_REMOVE_BOARD',
                 })
             })
+    }
+}
+
+
+export function handleDrag(
+    board,
+    droppableIdStart,
+    droppableIdEnd,
+    droppableIndexStart,
+    droppableIndexEnd,
+    type
+) {
+    return async dispatch => {
+        if (type === 'group') {
+            // remove group from origin
+            const group = board.groups.splice(droppableIndexStart, 1)
+            // put group in new place
+            board.groups.splice(droppableIndexEnd, 0, ...group)
+        } else {
+            // task within same group
+            if (droppableIdStart === droppableIdEnd) {
+                const group = board.groups.find(group => group.id === droppableIdStart)
+                const task = group.tasks.splice(droppableIndexStart, 1)
+                group.tasks.splice(droppableIndexEnd, 0, ...task)
+            } else {
+                // tasks in diff groups
+                const groupStart = board.groups.find(group => group.id === droppableIdStart)
+
+                // remove task from origin
+                const task = groupStart.tasks.splice(droppableIndexStart, 1)
+
+                // find destination group
+                const groupEnd = board.groups.find(group => group.id === droppableIdEnd)
+
+                // insert task in group
+                groupEnd.tasks.splice(droppableIndexEnd, 0, ...task)
+            }
+            // }
+        }
+        const boardToUpdate = await boardService.save(board)
+
+        dispatch({
+            type: 'UPDATE_BOARD',
+            board: boardToUpdate,
+        })
     }
 }

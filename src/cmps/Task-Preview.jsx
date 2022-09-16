@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react"
 import { BsFillPencilFill } from 'react-icons/bs'
 import { TaskQuickEdit } from "./task-quick-edit"
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
 
-export const TaskPreview = ({ task }) => {
+
+export const TaskPreview = ({ task, index, taskRef }) => {
     const [isFullCover, setIsFullCover] = useState(false)
     const [isQuickEditOn, setIsQuickEditOn] = useState(false)
     useEffect(() => {
@@ -30,20 +32,34 @@ export const TaskPreview = ({ task }) => {
     }
 
     return (
-        <section className="task-preview">
-            <button className="quick-edit-btn hide" onClick={toggaleQuickEdit}>
-                <BsFillPencilFill />
-            </button>
-            {isQuickEditOn && <TaskQuickEdit />}
-            {!isFullCover && task?.style && <div className="task-cover" style={setTaskCoverStyle()}></div>}
-            {!isFullCover && <span>{task.title}</span>}
+        <Draggable
+            draggableId={task.id}
+            // key={task.id}
+            index={index}
+        >
+            {(provided) => (
+                <div
+                    ref={(el) => { taskRef.current = el; provided.innerRef(el) }}
+                    {...provided.draggableProps}
+                    {...provided.dragHandleProps}
+                >
+                    <section className="task-preview">
+                        <button className="quick-edit-btn hide" onClick={toggaleQuickEdit}>
+                            <BsFillPencilFill />
+                        </button>
+                        {isQuickEditOn && <TaskQuickEdit />}
+                        {!isFullCover && task?.style && <div className="task-cover" style={setTaskCoverStyle()}></div>}
+                        {!isFullCover && <span>{task.title}</span>}
 
-            {isFullCover && task?.style?.bg?.imgUrl && <span className="title-img-cover" style={setTaskCoverStyle()}>{task.title}</span>}
-            {isFullCover && task?.style?.bg?.color && <React.Fragment>
-                <div className="task-cover" style={setTaskCoverStyle()}></div>
-                <span style={setTaskCoverStyle()}>{task.title}</span>
-            </React.Fragment>}
+                        {isFullCover && task?.style?.bg?.imgUrl && <span className="title-img-cover" style={setTaskCoverStyle()}>{task.title}</span>}
+                        {isFullCover && task?.style?.bg?.color && <React.Fragment>
+                            <div className="task-cover" style={setTaskCoverStyle()}></div>
+                            <span style={setTaskCoverStyle()}>{task.title}</span>
+                        </React.Fragment>}
 
-        </section >
+                    </section >
+                </div>
+            )}
+        </Draggable>
     )
 }
