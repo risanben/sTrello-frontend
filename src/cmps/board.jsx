@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom'
 import { boardService } from '../services/board.service'
 import { loadBoards } from '../store/board.actions'
 import { GroupList } from './group-list'
+import { BoardHeader } from './board-header'
 
 export const Board = () => {
 
@@ -26,6 +27,9 @@ export const Board = () => {
     if (!board) return <div>Loading...</div>
     return (
         <section className="board" style={{ backgroundColor: board.style.bgColor }}>
+            <BoardHeader 
+            board={board}/>
+            
             <GroupList board={board} />
             {/* <div className="group-container flex">
                 {board.groups.map(group => {

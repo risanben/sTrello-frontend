@@ -33,7 +33,13 @@ window.cs = boardService
 
 async function query(filterBy) {
     try {
-        return await storageService.query(STORAGE_KEY)
+        
+        let boards = await storageService.query(STORAGE_KEY)
+        if (filterBy?.title){
+            boards = boards.filter(b=>b.title.toLowerCase().includes(filterBy.title.toLowerCase()))
+        }
+        
+        return boards
     } catch (err) {
         throw err
     }
