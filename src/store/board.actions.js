@@ -1,5 +1,5 @@
-import { boardService } from "../services/board.service.js";
-import { userService } from "../services/user.service.js";
+import { boardService } from "../services/board.service.js"
+import { userService } from "../services/user.service.js"
 import { showSuccessMsg, showErrorMsg } from '../services/event-bus.service.js'
 
 // Action Creators:
@@ -35,6 +35,21 @@ export function loadBoards() {
         } catch (err) {
             showErrorMsg('Cannot load boards')
             console.log('Cannot load boards', err)
+        }
+    }
+}
+
+export function getBoard(boardId) {
+    return async (dispatch) => {
+        try {
+            const board = await boardService.getById(boardId)
+            console.log('board', board);
+            return dispatch({
+                type: 'SET_BOARD',
+                board: board
+            })
+        } catch (err) {
+            console.log('Cannot load board', err)
         }
     }
 }
@@ -79,17 +94,6 @@ export function updateBoard(board) {
             showErrorMsg('Cannot update board')
             console.log('Cannot save board', err)
         }
-        // boardService.save(board)
-        //     .then(savedBoard => {
-        //         console.log('Updated Board:', savedBoard);
-        //         dispatch(getActionUpdateBoard(savedBoard))
-        //         showSuccessMsg('Board updated')
-        //         return savedBoard
-        //     })
-        //     .catch(err => {
-        //         showErrorMsg('Cannot update board')
-        //         console.log('Cannot save board', err)
-        //     })
     }
 }
 
@@ -125,6 +129,32 @@ export function checkout() {
     }
 }
 
+/*------------------------------------------------------------------------------*/
+export function updateTask(boardId, groupId, taskForUpdate) {
+    console.log('board action updateTask ');
+    return async (dispatch) => {
+        try {
+            console.log(boardId, groupId, taskForUpdate);
+            const groupForUpdate = await boardService.getGroupById(boardId, groupId)
+            const board = await boardService.getById(boardId)
+
+            const idx = groupForUpdate.tasks.findIndex(task => task.id === taskForUpdate.id)
+            groupForUpdate.tasks.splice(idx, 1, taskForUpdate)
+
+            const groupIdx = board.groups.findIndex(group => group.id === groupForUpdate.id)
+            board.groups.splice(idx, 1, groupForUpdate)
+
+            console.log('board to save in store', board);
+            // save(board)
+            await dispatch(updateBoard(board))
+            // return board
+        } catch (err) {
+            throw err
+        }
+    }
+}
+/*------------------------------------------------------------------------------*/
+
 
 // Demo for Optimistic Mutation 
 // (IOW - Assuming the server call will work, so updating the UI first)
@@ -149,5 +179,50 @@ export function onRemoveBoardOptimistic(boardId) {
                     type: 'UNDO_REMOVE_BOARD',
                 })
             })
+    }
+}
+
+
+export function handleDrag(
+    board,
+    droppableIdStart,
+    droppableIdEnd,
+    droppableIndexStart,
+    droppableIndexEnd,
+    type
+) {
+    return async dispatch => {
+        if (type === 'group') {
+            // remove group from origin
+            const group = board.groups.splice(droppableIndexStart, 1)
+            // put group in new place
+            board.groups.splice(droppableIndexEnd, 0, ...group)
+        } else {
+            // task within same group
+            if (droppableIdStart === droppableIdEnd) {
+                const group = board.groups.find(group => group.id === droppableIdStart)
+                const task = group.tasks.splice(droppableIndexStart, 1)
+                group.tasks.splice(droppableIndexEnd, 0, ...task)
+            } else {
+                // tasks in diff groups
+                const groupStart = board.groups.find(group => group.id === droppableIdStart)
+
+                // remove task from origin
+                const task = groupStart.tasks.splice(droppableIndexStart, 1)
+
+                // find destination group
+                const groupEnd = board.groups.find(group => group.id === droppableIdEnd)
+
+                // insert task in group
+                groupEnd.tasks.splice(droppableIndexEnd, 0, ...task)
+            }
+            // }
+        }
+        const boardToUpdate = await boardService.save(board)
+
+        dispatch({
+            type: 'UPDATE_BOARD',
+            board: boardToUpdate,
+        })
     }
 }

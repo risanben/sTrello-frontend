@@ -1,5 +1,5 @@
 export const TaskDetailsCoverModal = (props) => {
-console.log('props',props);
+
     return (
         <section className="cover-modal">
             <input type="color" onChange={props.onSetColor} />

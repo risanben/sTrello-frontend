@@ -33,7 +33,6 @@ function query(filterBy) {
     return storageService.query(STORAGE_KEY)
 }
 function getById(taskId) {
-    console.log('taskId',taskId);
     return storageService.get(STORAGE_KEY, taskId)
     // return axios.get(`/api/task/${taskId}`)
 
@@ -69,7 +68,7 @@ function getEmptyTask() {
 
 
 // TEST DATA
-storageService.post(STORAGE_KEY, {_id:101, title: 'Help me 2', status:'in-progress',description: 'description'}).then(x => console.log(x))
+// storageService.post(STORAGE_KEY, {_id:101, title: 'Help me 2', status:'in-progress',description: 'description'}).then(x => console.log(x))
 
 
 

@@ -1,4 +1,10 @@
+import { HiOutlineStar } from 'react-icons/hi'
+export const BoardHeader = ({ board }) => {
 
-export const BoardHeader = () => {
+    return <section className="board-header">
+        {board.title}
+        <HiOutlineStar className='star' />
+
+    </section>
 
 }

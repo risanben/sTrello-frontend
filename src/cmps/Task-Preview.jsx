@@ -1,10 +1,23 @@
 import React, { useEffect, useState } from "react"
 import { BsFillPencilFill } from 'react-icons/bs'
 import { TaskQuickEdit } from "./task-quick-edit"
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
+// import { useDispatch } from "react-redux";
+// import { loadTasks } from "../store/task.actions"
+import { TaskDetails } from '../pages/task-details'
+import { Link } from 'react-router-dom'
+import { useNavigate, useParams } from "react-router-dom"
 
-export const TaskPreview = ({ task }) => {
+
+export const TaskPreview = ({ task, groupId, index, taskRef }) => {
+
     const [isFullCover, setIsFullCover] = useState(false)
     const [isQuickEditOn, setIsQuickEditOn] = useState(false)
+    const [showDetailsModal, setShowDetailsModal] = useState(false)
+    // const dispatch = useDispatch()
+    const params = useParams()
+    const navigate = useNavigate()
+
     useEffect(() => {
         if (task.style) setIsFullCover(task.style.bg.fullCover)
     }, [])
@@ -29,21 +42,41 @@ export const TaskPreview = ({ task }) => {
         setIsQuickEditOn(!isQuickEditOn)
     }
 
+    const onGoToDetails = () => {
+        const boardId = params.id
+        //    showDetailsModal=setShowDetailsModal(!showDetailsModal)
+        navigate(`/board/${boardId}/${groupId}/${task.id}`)
+    }
+
     return (
-        <section className="task-preview">
-            <div className="btn-quick-edit hide" onClick={toggaleQuickEdit}>
-                {/* <BsFillPencilFill /> */}
-            </div>
-            {isQuickEditOn && <TaskQuickEdit />}
-            {!isFullCover && task?.style && <div className="task-cover" style={setTaskCoverStyle()}></div>}
-            {!isFullCover && <span>{task.title}</span>}
+        <Draggable
+            draggableId={task.id}
+            // key={task.id}
+            index={index}
+        >
+            {(provided) => (
+                <div
+                    ref={(el) => { taskRef.current = el; provided.innerRef(el) }}
+                    {...provided.draggableProps}
+                    {...provided.dragHandleProps}
+                >
+                    <section className="task-preview" onDoubleClick={onGoToDetails} /*onClick={onGoToDetails}*/ >
+                        <div className="btn-quick-edit hide" onClick={toggaleQuickEdit}>
+                            {/* <BsFillPencilFill /> */}
+                        </div>
+                        {isQuickEditOn && <TaskQuickEdit />}
+                        {!isFullCover && task?.style && <div className="task-cover" style={setTaskCoverStyle()}></div>}
+                        {!isFullCover && <span>{task.title}</span>}
 
-            {isFullCover && task?.style?.bg?.imgUrl && <span className="title-img-cover" style={setTaskCoverStyle()}>{task.title}</span>}
-            {isFullCover && task?.style?.bg?.color && <React.Fragment>
-                <div className="task-cover" style={setTaskCoverStyle()}></div>
-                <span style={setTaskCoverStyle()}>{task.title}</span>
-            </React.Fragment>}
-
-        </section >
+                        {isFullCover && task?.style?.bg?.imgUrl && <span className="title-img-cover" style={setTaskCoverStyle()}>{task.title}</span>}
+                        {isFullCover && task?.style?.bg?.color && <React.Fragment>
+                            <div className="task-cover" style={setTaskCoverStyle()}></div>
+                            <span style={setTaskCoverStyle()}>{task.title}</span>
+                        </React.Fragment>}
+                        {/* {   showDetailsModal && <TaskDetails props={onUpdateTask} />} */}
+                    </section >
+                </div>
+            )}
+        </Draggable>
     )
 }

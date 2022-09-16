@@ -4,16 +4,24 @@ import { GroupEdit } from './group-edit';
 import { GroupPreview } from './group-preview'
 import { useDispatch } from "react-redux";
 import { updateBoard } from '../store/board.actions'
-import { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
+
 
 export const GroupList = ({ board }) => {
+    console.log('board:', board)
 
     const [isAddingGroup, setIsAddingGroup] = useState(false)
     const [currBoard, setCurrBoard] = useState(board)
+
+    const taskRef = useRef()
+
+
     useEffect(() => {
-        console.log(currBoard)
     }, [currBoard])
+
     const dispatch = useDispatch()
+
     const onAddingGroup = () => {
         setIsAddingGroup(!isAddingGroup)
     }
@@ -22,7 +30,6 @@ export const GroupList = ({ board }) => {
         const boardToSave = { ...board }
         boardToSave.groups.map(group => (group.id === groupToUpdate.id) ? groupToUpdate : group)
         const savedBoard = await dispatch(updateBoard(boardToSave))
-        console.log('savedBoard', savedBoard)
         setCurrBoard(savedBoard.board)
     }
 
@@ -31,18 +38,37 @@ export const GroupList = ({ board }) => {
     // console.log('board.groups', currBoard.groups);
     if (!currBoard) return <div>Loading...</div>
     return (
-        <section className="group-list">
-            {currBoard.groups.map(group => {
-                return <GroupPreview key={group.id} group={group} addTask={addTask} />
-            })}
-            {!isAddingGroup &&
-                <div className="btn-add-group-container" onClick={onAddingGroup}>
-                    {/* <span>+</span> */}
-                    <span className="btn-add-group">Add another list</span>
-                </div>}
-            {isAddingGroup && <GroupEdit onAddingGroup={onAddingGroup} board={currBoard} />}
-
-            {/* <Link to="/group/edit" className='nice-button'>Add group</Link> */}
-        </section>
+        <Droppable
+            droppableId='groups'
+            direction="horizontal"
+            type='group'
+        >
+            {(provided) => (
+                <div
+                    ref={(el) => { taskRef.current = el; provided.innerRef(el) }}
+                    {...provided.droppableProps}
+                >
+                    <section className="group-list">
+                        {currBoard.groups.map((group, index) => {
+                            return <GroupPreview
+                                key={group.id}
+                                group={group}
+                                addTask={addTask}
+                                taskRef={taskRef}
+                                index={index}
+                            />
+                        })}
+                        {!isAddingGroup &&
+                            <div className="btn-add-group-container" onClick={onAddingGroup}>
+                                {/* <span>+</span> */}
+                                <span className="btn-add-group">Add another list</span>
+                            </div>}
+                        {isAddingGroup && <GroupEdit onAddingGroup={onAddingGroup} board={currBoard} />}
+                        {/* <Link to="/group/edit" className='nice-button'>Add group</Link> */}
+                    </section>
+                    {provided.placeholder}
+                </div>
+            )}
+        </Droppable>
     )
 }
