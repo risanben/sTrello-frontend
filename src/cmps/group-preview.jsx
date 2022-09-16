@@ -64,29 +64,34 @@ export const GroupPreview = ({ group, addTask, index, taskRef }) => {
                 >
                     <section className="group-preview">
                         <div className="group-title">
-                            <span>{group.title}</span>
+                            {!isEditTitle && <span onClick={toggaleEditTitle}>{group.title}</span>}
+                            {isEditTitle &&
+                                <form onSubmit={onEditGroupTitle}>
+                                    <input
+                                        value={groupToEdit.title}
+                                        onChange={handleChangeGroup}
+                                        type="text"
+                                        name="title"
+                                        id="title"
+                                    />
+                                </form>}
                         </div>
                         <TaskList
                             tasks={group.tasks}
-                            group={group} groupId={group.id} />
+                            group={group}
+                            groupId={group.id}
+                            isAddTask={isAddTask}
+                            handleChangeTask={handleChangeTask}
+                            task={task} />
                         {!isAddTask && <div className="add-task-container" onClick={toggaleAddTaskTextarea}>
                             <span className="add-icon">+</span>
-                            {/* <span>Add a card</span> */}
-                            {/* <Link to={`/task/edit/`} className='nice-button'><span>Add a card</span></Link> */}
                             <span> Add a card</span>
                         </div>}
                         {isAddTask && <React.Fragment>
-                            <div className="add-task-content">
-                                <textarea
-                                    name="title"
-                                    id="title"
-                                    placeholder="Enter a title for this card..."
-                                    value={task.title}
-                                    onChange={handleChange}
-                                ></textarea>
-                            </div>
+
                             <div className="add-task-btn-container">
-                                <button onClick={onAddTask}>Add card</button> <button onClick={toggaleAddTaskTextarea}>X</button>
+                                <button className="btn-add" onClick={onAddTask}>Add card</button>
+                                <div className="btn-close-add" onClick={toggaleAddTaskTextarea}></div>
                             </div>
                         </React.Fragment>}
                     </section >
