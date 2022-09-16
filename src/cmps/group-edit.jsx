@@ -13,6 +13,7 @@ export const GroupEdit = (props) => {
     const [group, handleChange, setGroup] = useForm({
         id: utilService.makeId(),
         title: '',
+        tasks: []
     })
 
     const inputRef = useRef()
@@ -34,6 +35,7 @@ export const GroupEdit = (props) => {
         // boardService.saveGroup({ ...group }).then(() => {
         //     props.onAddingGroup()
         // })
+        if (!group.title) return
         var board = props.board
         console.log('board', props.board);
         board.groups.push({ ...group })
@@ -44,11 +46,22 @@ export const GroupEdit = (props) => {
     }
 
     return (
-        <section className='group-edit-container'>
+        <section className="group-edit">
             <form onSubmit={onSaveGroup}>
-                <label htmlFor="title">title</label>
-                <input ref={inputRef} value={group.title} onChange={handleChange} type="text" name="title" id="title" />
-                <button>Add group</button>
+                {/* <label htmlFor="title">title</label> */}
+                <input
+                    ref={inputRef}
+                    value={group.title}
+                    onChange={handleChange}
+                    type="text"
+                    name="title"
+                    id="title"
+                    placeholder="Enter list title..."
+                />
+                <div className="add-list-btn-container">
+                    <button className="btn-add">Add list</button>
+                    <div className="btn-close-add" onClick={props.onAddingGroup}></div>
+                </div>
             </form>
         </section>
     )

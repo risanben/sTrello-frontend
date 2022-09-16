@@ -35,7 +35,11 @@ export const GroupList = ({ board }) => {
             {currBoard.groups.map(group => {
                 return <GroupPreview key={group.id} group={group} addTask={addTask} />
             })}
-            {!isAddingGroup && <button onClick={onAddingGroup}>Add another list</button>}
+            {!isAddingGroup &&
+                <div className="btn-add-group-container" onClick={onAddingGroup}>
+                    {/* <span>+</span> */}
+                    <span className="btn-add-group">Add another list</span>
+                </div>}
             {isAddingGroup && <GroupEdit onAddingGroup={onAddingGroup} board={currBoard} />}
 
             {/* <Link to="/group/edit" className='nice-button'>Add group</Link> */}

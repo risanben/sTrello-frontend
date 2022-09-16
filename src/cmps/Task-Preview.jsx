@@ -31,9 +31,9 @@ export const TaskPreview = ({ task }) => {
 
     return (
         <section className="task-preview">
-            <button className="quick-edit-btn hide" onClick={toggaleQuickEdit}>
-                <BsFillPencilFill />
-            </button>
+            <div className="btn-quick-edit hide" onClick={toggaleQuickEdit}>
+                {/* <BsFillPencilFill /> */}
+            </div>
             {isQuickEditOn && <TaskQuickEdit />}
             {!isFullCover && task?.style && <div className="task-cover" style={setTaskCoverStyle()}></div>}
             {!isFullCover && <span>{task.title}</span>}
