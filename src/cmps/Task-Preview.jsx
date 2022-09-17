@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useState, useRef } from "react"
 import { BsFillPencilFill } from 'react-icons/bs'
 import { TaskQuickEdit } from "./task-quick-edit"
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
@@ -18,6 +18,11 @@ export const TaskPreview = ({ task, groupId, index, taskRef }) => {
     // const dispatch = useDispatch()
     const params = useParams()
     const navigate = useNavigate()
+
+
+    const boardIdRef = useRef()
+    boardIdRef.current = params.id
+    console.log('boardIdRef', boardIdRef);
 
     useEffect(() => {
         if (task.style) setIsFullCover(task.style.bg.fullCover)
@@ -44,9 +49,10 @@ export const TaskPreview = ({ task, groupId, index, taskRef }) => {
     }
 
     const onGoToDetails = () => {
-        const boardId = params.id
-        //    showDetailsModal=setShowDetailsModal(!showDetailsModal)
-        navigate(`/board/${boardId}/${groupId}/${task.id}`)
+        // const boardId = params.id
+        setShowDetailsModal(!showDetailsModal)
+        // navigate(`/board/${boardId}/${groupId}/${task.id}`)
+
     }
 
     return (
@@ -61,7 +67,7 @@ export const TaskPreview = ({ task, groupId, index, taskRef }) => {
                     {...provided.draggableProps}
                     {...provided.dragHandleProps}
                 >
-                    <section className="task-preview" onDoubleClick={onGoToDetails} /*onClick={onGoToDetails}*/ >
+                    <section className="task-preview" /*onDoubleClick={onGoToDetails}*/ onClick={onGoToDetails} >
                         <div className="btn-quick-edit hide" onClick={toggaleQuickEdit}>
                             {/* <BsFillPencilFill /> */}
                         </div>
@@ -83,8 +89,9 @@ export const TaskPreview = ({ task, groupId, index, taskRef }) => {
                                 <div className="task-cover" style={setTaskCoverStyle()}></div>
                                 <div><span style={setTaskCoverStyle()}>{task.title}</span></div>
                             </React.Fragment>}
-                        {/* {   showDetailsModal && <TaskDetails props={onUpdateTask} />} */}
+                        {showDetailsModal && <TaskDetails boardId={boardIdRef.current} groupId={groupId} taskId={task.id} />}
                     </section >
+                    {/* { isDetailsShown && <TaskDetails boardId={boardId} groupId={groupId} taskId={task.id}/>} */}
                 </div>
             )}
         </Draggable>

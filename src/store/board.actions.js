@@ -50,7 +50,7 @@ export function getBoard(boardId) {
             })
             return board
         } catch (err) {
-            console.log('Cannot load board', err)
+            // console.log('Cannot load board', err)
         }
     }
 }
@@ -86,7 +86,6 @@ export function addBoard(board) {
 }
 
 export function updateBoard(board) {
-    // console.log('board from action before @@@@@@@@@@@@@@@@@@@@@@@@@', board)
     return async (dispatch) => {
         try {
             const savedBoard = await boardService.save(board)
@@ -148,7 +147,30 @@ export function updateTask(boardId, groupId, taskForUpdate) {
             const groupIdx = board.groups.findIndex(group => group.id === groupForUpdate.id)
             board.groups.splice(groupIdx, 1, groupForUpdate)
 
-            // console.log('board to save in store*********', board);
+            console.log('board to save in store', board);
+            // save(board)
+            await dispatch(updateBoard(board))
+            return board
+        } catch (err) {
+            throw err
+        }
+    }
+}
+
+export function removeTask(boardId, groupId, taskForUpdate) {
+    return async (dispatch) => {
+        try {
+            console.log(boardId, groupId, taskForUpdate);
+            const groupForUpdate = await boardService.getGroupById(boardId, groupId)
+            const board = await boardService.getById(boardId)
+
+            const idx = groupForUpdate.tasks.findIndex(task => task.id === taskForUpdate.id)
+            groupForUpdate.tasks.splice(idx, 1)
+
+            const groupIdx = board.groups.findIndex(group => group.id === groupForUpdate.id)
+            board.groups.splice(groupIdx, 1, groupForUpdate)
+
+            console.log('board to save in store', board);
             // save(board)
             await dispatch(updateBoard(board))
             return board
