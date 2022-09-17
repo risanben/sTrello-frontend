@@ -97,7 +97,9 @@ async function getTaskById(boardId, groupId, taskId) {
     try {
         const group = await getGroupById(boardId, groupId)
         console.log('group', group);
-        return group.tasks.find(task => task.id === taskId)
+        const task=group.tasks.find(task => task.id === taskId)
+        console.log('task', task);
+        return task
 
     } catch (err) {
         throw err

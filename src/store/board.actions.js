@@ -179,6 +179,23 @@ export function removeTask(boardId, groupId, taskForUpdate) {
         }
     }
 }
+
+export function getTask(boardId, groupId, taskId) {
+    return async (dispatch) => {
+        try {
+            const updatedTask = await boardService.getTaskById(boardId, groupId, taskId)
+            console.log('updatedTask', updatedTask);
+            const { task } = dispatch({
+                type: 'SET_TASK',
+                task: updatedTask
+            })
+            console.log('task', task);
+            return task
+        } catch (err) {
+            // console.log('Cannot load task', err)
+        }
+    }
+}
 /*------------------------------------------------------------------------------*/
 
 
