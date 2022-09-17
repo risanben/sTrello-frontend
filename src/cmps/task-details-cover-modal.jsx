@@ -29,15 +29,13 @@ export const TaskDetailsCoverModal = (props) => {
 
             <section>
                 <ul className="cover-imgs">
-                    {imgs.map(img =>
+                    {imgs.map(imgUrl =>
                         <li className="cover-img-container" >
-                            {console.log(img)}
                             {/* <span className="cover-img" style={{ backgroundImage: `url(${img})` }}></span> */}
-                            <img className="cover-img" src={`${img}`} onClick={() => props.onSetImg(img)}></img>
+                            <img className="cover-img" src={`${imgUrl}`} onClick={() => props.onSetImg(imgUrl)}></img>
                         </li>
                     )}
                 </ul>
-                {/* <div><img src={'https://res.cloudinary.com/dqhrqqqul/image/upload/v1663348742/background-img-mountains_kqtnuv.jpg'}></img></div> */}
             </section>
 
         </section>

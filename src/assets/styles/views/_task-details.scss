@@ -52,7 +52,7 @@
             grid-template-columns: 100px auto 100px;
             grid-template-rows: 30px 30px 30px;
 
-            .title-img-cover {
+            .img-cover {
                 grid-column: 2/3;
                 grid-row: 1/-1;
                 max-width: 100%;
@@ -73,8 +73,12 @@
         .task-details {
             grid-column: 1/2;
 
-            .multiple-Select-container {
-                max-width: 20px;
+            .tags{
+                display: flex;
+                gap: 20px;
+            }
+            .select-members {
+                display: flex;
             }
         }
 

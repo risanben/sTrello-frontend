@@ -9,6 +9,9 @@ import { boardService } from "../services/board.service"
 import { useDispatch } from "react-redux";
 import { updateTask, removeTask, getTask } from '../store/board.actions'
 import MultipleSelectCheckmarks from "../cmps/select-mui"
+import { TaskMember } from "../cmps/task-members"
+import { TaskLabel } from "../cmps/task-label"
+import { TaskDetailsMembersModal } from "../cmps/task-details-members-modal"
 // import { loadTasks } from "../store/task.actions"
 
 
@@ -22,19 +25,21 @@ export const TaskDetails = (props) => {
     const dispatch = useDispatch()
 
     // const [task, setTask] = useState(null)
-    const [bgColor, setBgColor] = useState(props.task.style.bg.color)
+    const [bgColor, setBgColor] = useState(null)
     const [showModal, setShowModal] = useState(null)
     // const [imgName, setImgName] = useState(null)
-    const [coverImg, setCoverImg] = useState(null)
+    // const [coverImg, setCoverImg] = useState(null)
     const [currentBoardId, setBoardId] = useState(null)
     const [currentGroupId, setGroupId] = useState(null)
+    const [currentGroupTitle, setGroupTitle] = useState(null)
+    const [ShowMembersModal, setShowMembersModal] = useState(null)
     // const [currentGroup, setCurrentGroup] = useState(null)
     // const [activities, setActivities] = useState(null)
 
     useEffect(() => {
         // const { id, boardId, groupId } = params
         console.log('props', props);
-        const { boardId, groupId, taskId } = props
+        const { boardId, groupId, taskId, groupTitle } = props
         console.log('{props}', boardId, groupId, taskId);
 
         if (!boardId) return
@@ -43,9 +48,11 @@ export const TaskDetails = (props) => {
 
         setBoardId(boardId)
         setGroupId(groupId)
+        setGroupTitle(groupTitle)
 
 
         // loadTask(boardId, groupId, taskId)
+        if (props?.task?.style?.bg.color) setBgColor(props.task.style.bg.color)
         setTask(props.task)
 
         // activityService.query({ taskId: id })
@@ -79,18 +86,6 @@ export const TaskDetails = (props) => {
 
     }, onUpdateTask)
 
-    const setTaskCoverStyle = () => {
-        let style = {}
-        if (!task.style) return style
-        if (task.style.bg.imgUrl) {
-            style = {
-                backgroundImage: `url(${task.style.bg.imgUrl})`,
-            }
-        }
-        // setTask(task)
-        return style
-    }
-
     const onBack = () => {
         // navigate(`/board/${currentBoardId}`)
         props.closeModal()
@@ -98,10 +93,11 @@ export const TaskDetails = (props) => {
 
     const onSetColor = (ev) => {
         setBgColor(ev.target.value)
+        if (!task.style) task.style = { bg: { color: ev.target.value } }
         task.style.bg.color = ev.target.value
+        task.style.bg.imgUrl = null
         onUpdateTask(task)
-        // coverImg.current=false
-        setCoverImg(false)
+        // setCoverImg(false)
     }
 
     const onShowModal = () => {
@@ -109,13 +105,28 @@ export const TaskDetails = (props) => {
         setShowModal(!showModal)
     }
 
-    const onSetImg = (img) => {
-        // setImgName(ev.target.value)
-        // coverImg.current=true
-        task.style.bg.imgUrl = img
-        onUpdateTask(task)
-        setCoverImg(true)
+    const onShowMembersModal = () => {
+        setShowMembersModal(!ShowMembersModal)
     }
+
+    const onSetImg = (imgUrl) => {
+        // setImgName(ev.target.value)
+        console.log('task', task);
+        if (!task.style) task.style = { bg: { imgUrl } }
+        console.log('task', task);
+        task.style.bg.imgUrl = imgUrl
+        task.style.bg.color = null
+        setBgColor(null)
+        onUpdateTask(task)
+        // setCoverImg(true)
+    }
+
+    const onSetMember = (memberId) => {
+        if (!task.memberIds) task.memberIds = [memberId]
+        task.memberIds.push(memberId)
+        onUpdateTask(task)
+    }
+
     const onRemoveTask = () => {
         try {
             dispatch(removeTask(currentBoardId, currentGroupId, task))
@@ -126,7 +137,6 @@ export const TaskDetails = (props) => {
             throw err
         }
     }
-
 
     const onSaveTask = async (ev) => {
         ev.preventDefault()
@@ -145,9 +155,8 @@ export const TaskDetails = (props) => {
                     {/* task cover */}
                     <section style={{ backgroundColor: bgColor }} className="task-cover">
                         <button onClick={onBack} className="btn close">x</button>
-                        {/* {coverImg && <img src={require(`../assets/img/${imgName}.jpg`)} alt="Cover" />} */}
-                        {task?.style?.bg?.imgUrl && <span className="title-img-cover" style={setTaskCoverStyle()}></span>}
-                        {/* {task?.style?.bg?.imgUrl && <img src={require(`url(${task.style.bg.imgUrl})`)} alt="Cover" />} */}
+                        {/* {task?.style?.bg?.imgUrl && <span className="img-cover" style={setTaskCoverStyle()}></span>} */}
+                        {task?.style?.bg?.imgUrl && <img className="img-cover" src={`${task.style.bg.imgUrl}`} ></img>}
                         <button onClick={onShowModal} className="btn cover">Cover</button>
                         {showModal && <TaskDetailsCoverModal onSetColor={onSetColor} onSetImg={onSetImg} className="cover-modal" />}
                     </section>{/*task-cover*/}
@@ -157,15 +166,32 @@ export const TaskDetails = (props) => {
                         <section>
                             <label htmlFor="title">Title</label>
                             <input {...register('title', 'text')} value={task.title} />
+                            <span>in list {currentGroupTitle}</span>
                         </section>
-                        <section className="multiple-Select-container">
-                            {/* <label htmlFor="members">Members</label> */}
-                            {/* <input {...register('members', 'text')} /> */}
-                            <MultipleSelectCheckmarks />
+                        <section className="tags">
+                            <section className="members" >
+                                {/* <label htmlFor="members">Members</label> */}
+                                {/* <input {...register('members', 'text')} /> */}
+                                {/* <MultipleSelectCheckmarks /> */}
+                                <span>Members</span>
+                                <br />
+                                <div className="select-members">
+                                    {task?.memberIds && <TaskMember memberIds={task.memberIds} />}
+                                    <span onClick={onShowMembersModal}>➕</span>
+                                    {ShowMembersModal && <TaskDetailsMembersModal memberIds={task.memberIds} />}
+                                </div>
+                            </section>
+                            <section className="labels">
+                                <span>Labels</span>
+                                <div className="select-members">
+                                    {task?.labelIds && <TaskLabel labelIds={task.labelIds} />}
+                                    <span>➕</span>
+                                </div>
+                            </section>
                         </section>
                         <section>
                             <label htmlFor="description">Description</label>
-                            <input {...register('description', 'text')} value={task.description} />
+                            <textarea {...register('description', 'text')} value={task.description} />
                         </section>
                         {/* <button>Save</button> */}
                     </form>

@@ -25,7 +25,7 @@ export const TaskList = ({ tasks, groupId, group, isAddTask, handleChangeTask, t
                 >
                     <section className="task-list" >
                         {tasks.map((task, index) => {
-                            return <TaskPreview key={task.id} task={task} groupId={groupId} taskRef={taskRef} index={index} />
+                            return <TaskPreview key={task.id} task={task} groupId={groupId} taskRef={taskRef} index={index} groupTitle={group.title} />
                         })}
                         {provided.placeholder}
                         {isAddTask && <div className="add-task-content task-preview">

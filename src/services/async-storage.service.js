@@ -222,6 +222,23 @@ const dataBoards = [
                 "color": "#5BA4CF"
             }
         ],
+        "members": [
+            {
+                "_id": "u101",
+                "fullname": "Maor Layani",
+                "imgUrl": "https://ca.slack-edge.com/T03E3RZ2KHV-U03GZSLVC3Z-0637bd0f161c-512"
+            },
+            {
+                "_id": "u102",
+                "fullname": "Nir Shvrchberg",
+                "imgUrl": null
+            },
+            {
+                "_id": "u103",
+                "fullname": "Risan Benichou",
+                "imgUrl": null
+            }
+        ],
         "groups": [
             {
                 "id": "g111",
@@ -230,7 +247,9 @@ const dataBoards = [
                 "tasks": [
                     {
                         "id": "c111",
-                        "title": "Replace logo"
+                        "title": "Replace logo",
+                        "memberIds": ["u102"],
+                        "labelIds": ["l105"],
                     },
                     {
                         "id": "c112",
