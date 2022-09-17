@@ -37,7 +37,7 @@ export const TaskQuickEdit = ({ task }) => {
       <li><HiArchive /> Archive</li>
     </ul>
 
-      <div className="dark-screen"></div>
+    <div className="dark-screen"></div>
   </section>
 
 }
