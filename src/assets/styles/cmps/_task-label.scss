@@ -1,0 +1,20 @@
+.task-label-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-bottom: 4px;
+
+    button {
+        min-width: 40px;
+        max-width: 40px;
+        height: 8px;
+        border-radius: 4px;
+        padding: 0 8px;
+        margin: 0;
+
+        &.clicked {
+            min-width: 56px;
+            height: 16px;
+        }
+    }
+}

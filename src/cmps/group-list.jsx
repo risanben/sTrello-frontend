@@ -2,23 +2,25 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom'
 import { GroupEdit } from './group-edit';
 import { GroupPreview } from './group-preview'
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { updateBoard } from '../store/board.actions'
 import React, { useEffect, useRef } from 'react';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
 
 
-export const GroupList = ({ board }) => {
-    // console.log('board:', board)
+export const GroupList = () => {
+    const board = useSelector(state => state.boardModule.board)
+    // console.log('**board from GroupList:**', board)
 
     const [isAddingGroup, setIsAddingGroup] = useState(false)
-    const [currBoard, setCurrBoard] = useState(board)
+    // const [currBoard, setCurrBoard] = useState(board)
+
 
     const taskRef = useRef()
 
 
     useEffect(() => {
-    }, [currBoard])
+    }, [board])
 
     const dispatch = useDispatch()
 
@@ -27,16 +29,19 @@ export const GroupList = ({ board }) => {
     }
 
     const addTask = async (groupToUpdate) => {
-        const boardToSave = { ...board }
-        boardToSave.groups.map(group => (group.id === groupToUpdate.id) ? groupToUpdate : group)
+        // console.log('from add task+++++++++++++++++++++++++++', groupToUpdate)
+        let boardToSave = { ...board }
+        boardToSave.groups = boardToSave.groups.map(group => (group.id === groupToUpdate.id) ? groupToUpdate : group)
         const savedBoard = await dispatch(updateBoard(boardToSave))
-        setCurrBoard(savedBoard.board)
+        // console.log('saved board***', savedBoard)
+        // setCurrBoard(savedBoard.board)
     }
 
 
+    console.log('render GROUP-LIST')
 
     // console.log('board.groups', currBoard.groups);
-    if (!currBoard) return <div>Loading...</div>
+    if (!board) return <div>Loading...</div>
     return (
         <Droppable
             droppableId='groups'
@@ -49,7 +54,7 @@ export const GroupList = ({ board }) => {
                     {...provided.droppableProps}
                 >
                     <section className="group-list">
-                        {currBoard.groups.map((group, index) => {
+                        {board.groups.map((group, index) => {
                             return <GroupPreview
                                 key={group.id}
                                 group={group}
@@ -63,7 +68,7 @@ export const GroupList = ({ board }) => {
                                 {/* <span>+</span> */}
                                 <span className="btn-add-group">Add another list</span>
                             </div>}
-                        {isAddingGroup && <GroupEdit onAddingGroup={onAddingGroup} board={currBoard} />}
+                        {isAddingGroup && <GroupEdit onAddingGroup={onAddingGroup} board={board} />}
                         {/* <Link to="/group/edit" className='nice-button'>Add group</Link> */}
                     </section>
                     {provided.placeholder}
