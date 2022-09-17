@@ -3,5 +3,69 @@
     flex-direction: column;
     padding: 0 4px;
     margin: 0 4px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    // height: fit-content;
+    // height: calc(100vh - 100px);
 
+    &::-webkit-scrollbar {
+        width: 8px;
+        border-radius: 20px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 20px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: #888;
+        border-radius: 20px;
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+        background: #555;
+        border-radius: 20px;
+    }
+
+    .add-task-content {
+        // width: 254px;
+        overflow-y: visible;
+        padding: 6px 8px 2px;
+        height: 66px;
+        // background-color: #fff;
+        // display: flex;
+        // align-items: center;
+        // border-radius: 3px;
+        // align-self: center;
+        margin-bottom: 4px;
+        // min-height: 54px;
+        // max-height: 162px;
+        // box-shadow: 0 1px 0 #091e4240;
+
+        &:hover {
+            background-color: #fff;
+            cursor: unset;
+        }
+
+        textarea[name="title"] {
+            font-family: inherit;
+            overflow: visible;
+            overflow-wrap: break-word;
+            resize: none;
+            padding: 0;
+            min-height: 54px;
+            max-height: 162px;
+            width: 100%;
+            border: none;
+            display: block;
+            flex: 1;
+            line-height: 20px;
+
+            &:focus {
+                outline: none;
+            }
+        }
+
+    }
 }

@@ -50,9 +50,9 @@ export function boardReducer(state = initialState, action) {
     }
     // For debug:
     window.boardState = newState
-    console.log('Prev State:', state)
-    console.log('Action:', action)
-    console.log('New State:', newState)
+    // console.log('Prev State:', state)
+    // console.log('Action:', action)
+    // console.log('New State:', newState)
     return newState
 
 }

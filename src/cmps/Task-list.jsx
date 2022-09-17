@@ -1,10 +1,16 @@
-
 import { TaskPreview } from './Task-Preview'
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
 import React, { useEffect, useRef } from 'react';
 
-export const TaskList = ({ tasks, groupId, group }) => {
+export const TaskList = ({ tasks, groupId, group, isAddTask, handleChangeTask, task }) => {
     const taskRef = useRef()
+
+    const inputRef = useRef()
+
+    useEffect(() => {
+        if (!isAddTask) return
+        inputRef.current.focus()
+    }, [isAddTask])
 
     if (!tasks) return
     return (
@@ -22,6 +28,16 @@ export const TaskList = ({ tasks, groupId, group }) => {
                             return <TaskPreview key={task.id} task={task} groupId={groupId} taskRef={taskRef} index={index} />
                         })}
                         {provided.placeholder}
+                        {isAddTask && <div className="add-task-content task-preview">
+                            <textarea
+                                name="title"
+                                id="title"
+                                placeholder="Enter a title for this card..."
+                                value={task.title}
+                                onChange={handleChangeTask}
+                                ref={inputRef}
+                            ></textarea>
+                        </div>}
                     </section>
                 </section>
             )}

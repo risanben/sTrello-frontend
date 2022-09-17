@@ -1,25 +1,67 @@
 button {
-    border:0;
-    background-color: $clr1;
-    color:whitesmoke;
+    border: 0;
+    // background-color: $clr1;
+    // color:whitesmoke;
     padding: 5px 10px;
     margin: 5px;
     cursor: pointer;
+    font-family: inherit;
 }
 
-form > * {
+form>* {
     display: block;
     width: 200px;
-    margin: 10px 0px;
+    // margin: 10px 0px;
 }
 
 .btn-link {
-    border:0;
+    border: 0;
     background-color: transparent;
     text-decoration: underline;
     transition: .5s;
 }
+
 .btn-link:hover {
     background-color: $clr1;
     transform: scale(1.1);
+}
+
+.btn-add {
+    margin-bottom: 0;
+    margin-top: 0;
+    vertical-align: top;
+    background-color: #0079bf;
+    color: #fff;
+    border-radius: 3px;
+    font-size: 14px;
+    font-weight: 400;
+    justify-content: center;
+    line-height: 20px;
+    padding: 6px 12px;
+    width: 81px;
+    height: 32px;
+    text-align: center;
+    margin: 4px 4px 0 0;
+
+    &:hover {
+        background-color: #026aa7;
+    }
+
+    &:active {
+        background-color: #055a8c;
+    }
+}
+
+.btn-close-add {
+    height: 25px;
+    width: 24px;
+    background-image: url('../../img/icon-close-add-task.svg');
+    background-position: center;
+    align-self: center;
+    margin: 0 4px;
+
+    &:hover {
+        cursor: pointer;
+        background-image: url('../../img/icon-close-add-task-hover.svg');
+    }
 }

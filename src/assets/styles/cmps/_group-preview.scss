@@ -2,14 +2,44 @@
     background-color: #ebecf0;
     min-width: 270px;
     border-radius: 3px;
-    margin: 0 4px;
+    margin: 0 4px 20px;
     display: flex;
     flex-direction: column;
-    // height: 100px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: fit-content;
+    max-height: calc(100vh - 140px);
+
 
     .group-title {
         height: 40px;
         display: flex;
+        font-weight: 600;
+        width: 100%;
+
+        span {
+            display: block;
+            width: 100%;
+        }
+
+        // position: fixed;
+        &:hover {
+            cursor: pointer;
+        }
+
+        input[name="title"] {
+            color: #172b4d;
+            font-size: 14px;
+            font-weight: 600;
+            line-height: 20px;
+            outline: none;
+            padding: 4px 0px 4px 8px;
+            border: none;
+            border-radius: 3px;
+            box-shadow: inset 0 0 0 2px #0079bf;
+            font-family: inherit;
+            width: 230px;
+        }
     }
 
     .add-task-container {
@@ -36,47 +66,94 @@
         }
     }
 
-    .add-task-content {
-        width: 254px;
-        overflow: visible;
-        padding: 6px 8px 2px;
-        height: 58px;
-        background-color: #fff;
-        display: flex;
-        align-items: center;
-        border-radius: 3px;
-        align-self: center;
-        margin-bottom: 4px;
-        min-height: 54px;
-        max-height: 162px;
+    // .add-task-content {
+    //     width: 254px;
+    //     overflow: visible;
+    //     padding: 6px 8px 2px;
+    //     height: 66px;
+    //     background-color: #fff;
+    //     display: flex;
+    //     align-items: center;
+    //     border-radius: 3px;
+    //     align-self: center;
+    //     margin-bottom: 4px;
+    //     min-height: 54px;
+    //     max-height: 162px;
+    //     box-shadow: 0 1px 0 #091e4240;
 
 
-        &:hover {
-            background-color: #fff;
-            cursor: unset;
-        }
 
-        textarea[name="title"] {
-            overflow: visible;
-            overflow-wrap: break-word;
-            resize: none;
-            padding: 0;
-            min-height: 54px;
-            max-height: 162px;
-            width: 100%;
-            border: none;
-            display: block;
-            flex: 1;
+    //     &:hover {
+    //         background-color: #fff;
+    //         cursor: unset;
+    //     }
 
-            &:focus {
-                outline: none;
-            }
-        }
+    //     textarea[name="title"] {
+    //         font-family: inherit;
+    //         overflow: visible;
+    //         overflow-wrap: break-word;
+    //         resize: none;
+    //         padding: 0;
+    //         min-height: 54px;
+    //         max-height: 162px;
+    //         width: 100%;
+    //         border: none;
+    //         display: block;
+    //         flex: 1;
+    //         line-height: 20px;
 
-    }
+    //         &:focus {
+    //             outline: none;
+    //         }
+    //     }
+
+    // }
 
     .add-task-btn-container {
         display: flex;
+        padding: 0 8px 8px;
+
+        // .btn-add-task {
+        //     margin-bottom: 0;
+        //     margin-top: 0;
+        //     vertical-align: top;
+        //     background-color: #0079bf;
+        //     color: #fff;
+        //     border-radius: 3px;
+        //     font-size: 14px;
+        //     font-weight: 400;
+        //     justify-content: center;
+        //     line-height: 20px;
+        //     padding: 6px 12px;
+        //     width: 81px;
+        //     height: 32px;
+        //     text-align: center;
+        //     margin: 4px 4px 0 0;
+
+        //     &:hover {
+        //         background-color: #026aa7;
+        //     }
+
+        //     &:active {
+        //         background-color: #055a8c;
+        //     }
+        // }
+
+        // .btn-close-add-task {
+        //     height: 25px;
+        //     width: 24px;
+        //     background-image: url('../../img/icon-close-add-task.svg');
+        //     background-position: center;
+        //     align-self: center;
+        //     margin: 0 4px;
+
+        //     &:hover {
+        //         cursor: pointer;
+        //         background-image: url('../../img/icon-close-add-task-hover.svg');
+        //     }
+        // }
+
+
     }
 
 }
