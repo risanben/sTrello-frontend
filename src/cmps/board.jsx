@@ -21,9 +21,7 @@ export const Board = () => {
     const params = useParams()
 
     useEffect(() => {
-        // console.log('board', board);
         loadBoard()
-        // console.log('board', board);
     }, [])
 
     const loadBoard = async () => {
@@ -35,6 +33,8 @@ export const Board = () => {
         } catch (err) {
             // console.log('Cannot load board', err)
         }
+
+
     }
 
 
@@ -70,7 +70,7 @@ export const Board = () => {
         return style
     }
 
-    console.log('render BOARD')
+    // console.log('render BOARD')
 
     if (!board) return <div>Loading...</div>
 

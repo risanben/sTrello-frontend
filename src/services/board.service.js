@@ -85,7 +85,7 @@ function getEmptyBoard() {
 async function getGroupById(boardId, groupId) {
     try {
         const board = await storageService.get(STORAGE_KEY, boardId)
-        console.log('board', board);
+        // console.log('board', board);
         return board.groups.find(group => group.id === groupId)
     }
     catch (err) {

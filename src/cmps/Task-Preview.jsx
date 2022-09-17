@@ -22,7 +22,7 @@ export const TaskPreview = ({ task, groupId, index, taskRef }) => {
 
     const boardIdRef = useRef()
     boardIdRef.current = params.id
-    console.log('boardIdRef', boardIdRef);
+    // console.log('boardIdRef', boardIdRef);
 
     useEffect(() => {
         if (task.style) setIsFullCover(task.style.bg.fullCover)
