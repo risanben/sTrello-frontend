@@ -50,7 +50,7 @@ export const GroupPreview = ({ group, addTask, index, taskRef }) => {
         addTask(groupToSave)
         setIsAddTask(!isAddTask)
     }
-    console.log('render GROUP-PREVIEW')
+    // console.log('render GROUP-PREVIEW')
     return (
         <Draggable
             draggableId={group.id}

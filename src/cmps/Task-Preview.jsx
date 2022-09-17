@@ -57,50 +57,52 @@ export const TaskPreview = ({ task, groupId, index, taskRef }) => {
     }
 
     return (
-        <Draggable
-            draggableId={task.id}
-            // key={task.id}
-            index={index}
-        >
-            {(provided) => (
-                <div
-                    ref={(el) => { taskRef.current = el; provided.innerRef(el) }}
-                    {...provided.draggableProps}
-                    {...provided.dragHandleProps}
-                >
-                    <section className="task-preview" /*onDoubleClick={onGoToDetails}*/ onClick={onGoToDetails} >
-                        <div className="btn-quick-edit hide" onClick={toggaleQuickEdit}>
-                            {/* <BsFillPencilFill /> */}
-                        </div>
-                        {isQuickEditOn && <TaskQuickEdit />}
+        <React.Fragment>
+            <Draggable
+                draggableId={task.id}
+                // key={task.id}
+                index={index}
+            >
+                {(provided) => (
+                    <div
+                        ref={(el) => { taskRef.current = el; provided.innerRef(el) }}
+                        {...provided.draggableProps}
+                        {...provided.dragHandleProps}
+                    >
+                        <section className="task-preview" /*onDoubleClick={onGoToDetails}*/ onClick={onGoToDetails} >
+                            <div className="btn-quick-edit hide" onClick={toggaleQuickEdit}>
+                                {/* <BsFillPencilFill /> */}
+                            </div>
+                            {isQuickEditOn && <TaskQuickEdit />}
 
-                        {!isFullCover && task?.style &&
-                            <div className="task-cover" style={setTaskCoverStyle()}></div>}
-                        {!isFullCover &&
-                            <div className="task-preview-content">
-                                {task?.labelIds && <TaskLabel labelIds={task.labelIds} />}
-                                <span>{task.title}</span>
-                                {task?.memberIds && <TaskMember memberIds={task.memberIds} />}
-                            </div>}
-
-                        {isFullCover && task?.style?.bg?.imgUrl &&
-                            <div className="task-preview-content">
-                                <span className="title-img-cover" style={setTaskCoverStyle()}>{task.title}</span>
-                            </div>}
-
-
-                        {isFullCover && task?.style?.bg?.color &&
-                            <React.Fragment>
-                                <div className="task-cover" style={setTaskCoverStyle()}></div>
-                                <div className="task-preview-content" style={setTaskCoverStyle()}>
+                            {!isFullCover && task?.style &&
+                                <div className="task-cover" style={setTaskCoverStyle()}></div>}
+                            {!isFullCover &&
+                                <div className="task-preview-content">
+                                    {task?.labelIds && <TaskLabel labelIds={task.labelIds} />}
                                     <span>{task.title}</span>
-                                </div>
-                            </React.Fragment>}
-                        {showDetailsModal && <TaskDetails boardId={boardIdRef.current} groupId={groupId} taskId={task.id} />}
-                    </section >
-                    {/* { isDetailsShown && <TaskDetails boardId={boardId} groupId={groupId} taskId={task.id}/>} */}
-                </div>
-            )}
-        </Draggable>
+                                    {task?.memberIds && <TaskMember memberIds={task.memberIds} />}
+                                </div>}
+
+                            {isFullCover && task?.style?.bg?.imgUrl &&
+                                <div className="task-preview-content">
+                                    <span className="title-img-cover" style={setTaskCoverStyle()}>{task.title}</span>
+                                </div>}
+
+
+                            {isFullCover && task?.style?.bg?.color &&
+                                <React.Fragment>
+                                    <div className="task-cover" style={setTaskCoverStyle()}></div>
+                                    <div className="task-preview-content" style={setTaskCoverStyle()}>
+                                        <span>{task.title}</span>
+                                    </div>
+                                </React.Fragment>}
+                        </section >
+                        {/* { isDetailsShown && <TaskDetails boardId={boardId} groupId={groupId} taskId={task.id}/>} */}
+                    </div>
+                )}
+            </Draggable>
+            {showDetailsModal && <TaskDetails boardId={boardIdRef.current} groupId={groupId} taskId={task.id} task={task} closeModal={onGoToDetails} />}
+        </React.Fragment>
     )
 }

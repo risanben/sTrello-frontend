@@ -38,7 +38,7 @@ export const GroupList = () => {
     }
 
 
-    console.log('render GROUP-LIST')
+    // console.log('render GROUP-LIST')
 
     // console.log('board.groups', currBoard.groups);
     if (!board) return <div>Loading...</div>

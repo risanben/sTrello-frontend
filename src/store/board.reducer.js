@@ -3,7 +3,8 @@ const initialState = {
     cart: [],
     lastRemovedBoard: null,
     filterby: null,
-    board: null
+    board: null,
+    task: null,
 }
 export function boardReducer(state = initialState, action) {
     var newState = state
@@ -15,6 +16,9 @@ export function boardReducer(state = initialState, action) {
             break
         case 'SET_BOARD':
             newState = { ...state, board: action.board }
+            break
+        case 'SET_TASK':
+            newState = { ...state, task: action.task }
             break
         case 'REMOVE_BOARD':
             const lastRemovedBoard = state.boards.find(board => board._id === action.boardId)

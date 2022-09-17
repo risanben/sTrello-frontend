@@ -1,4 +1,4 @@
-import { NavLink, Link } from 'react-router-dom'
+import { NavLink, Link, useNavigate } from 'react-router-dom'
 
 export const SearchResult = ({ boards }) => {
 
@@ -15,3 +15,10 @@ export const SearchResult = ({ boards }) => {
         </ul>
     </section>
 }
+
+
+// return <Link to={`board/${board._id}`} className='boards-link' key={board._id}><li>
+//                     {board.title}
+//                 </li>
+//                 </Link>
+//             })}
