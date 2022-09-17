@@ -153,6 +153,29 @@ export function updateTask(boardId, groupId, taskForUpdate) {
         }
     }
 }
+
+export function removeTask(boardId, groupId, taskForUpdate) {
+    return async (dispatch) => {
+        try {
+            console.log(boardId, groupId, taskForUpdate);
+            const groupForUpdate = await boardService.getGroupById(boardId, groupId)
+            const board = await boardService.getById(boardId)
+
+            const idx = groupForUpdate.tasks.findIndex(task => task.id === taskForUpdate.id)
+            groupForUpdate.tasks.splice(idx, 1)
+
+            const groupIdx = board.groups.findIndex(group => group.id === groupForUpdate.id)
+            board.groups.splice(idx, 1, groupForUpdate)
+
+            console.log('board to save in store', board);
+            // save(board)
+            await dispatch(updateBoard(board))
+            // return board
+        } catch (err) {
+            throw err
+        }
+    }
+}
 /*------------------------------------------------------------------------------*/
 
 
