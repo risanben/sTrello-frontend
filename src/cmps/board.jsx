@@ -21,16 +21,16 @@ export const Board = () => {
     const params = useParams()
 
     useEffect(() => {
-        console.log('board', board);
+        // console.log('board', board);
         loadBoard()
-        console.log('board', board);
+        // console.log('board', board);
     }, [])
 
     const loadBoard = async () => {
         const boardId = params.id
         try {
             const board = await dispatch(getBoard(boardId))
-            console.log('board', board);
+            // console.log('board', board);
             // setBoard(board)
         } catch (err) {
             console.log('Cannot load board', err)
