@@ -1,6 +1,6 @@
 .group-preview {
     background-color: #ebecf0;
-    min-width: 270px;
+    max-width: 270px;
     border-radius: 3px;
     margin: 0 4px 20px;
     display: flex;
@@ -51,15 +51,15 @@
 
         .group-menu {
             background-image: url('../../img/group-menu-icon.svg');
+            background-repeat: no-repeat;
             background-position: center;
-            height: 20px;
-            width: 20px;
-            padding: 10px;
+            min-height: 32px;
+            min-width: 32px;
             align-self: center;
 
             &:hover {
                 cursor: pointer;
-                background-color: #ffffff52;
+                background-color: #091e4214;
                 border-radius: 3px;
             }
         }

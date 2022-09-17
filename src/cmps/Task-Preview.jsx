@@ -16,6 +16,8 @@ export const TaskPreview = ({ task, groupId, index, taskRef, groupTitle }) => {
     const [isFullCover, setIsFullCover] = useState(false)
     const [isQuickEditOn, setIsQuickEditOn] = useState(false)
     const [showDetailsModal, setShowDetailsModal] = useState(false)
+    const refQuickEdit = useRef(null)
+
     // const dispatch = useDispatch()
     const params = useParams()
     const navigate = useNavigate()
@@ -28,6 +30,17 @@ export const TaskPreview = ({ task, groupId, index, taskRef, groupTitle }) => {
     useEffect(() => {
         if (task.style) setIsFullCover(task.style.bg.fullCover)
     }, [])
+
+    useEffect(() => {
+        document.addEventListener("click", handleClickedOutside, true)
+      }, [])
+    
+      const handleClickedOutside = (e) => {
+        if(!refQuickEdit.current) return 
+        if (!refQuickEdit.current.contains(e.target)) {
+            setIsQuickEditOn(false)
+        }
+      }
 
     const setTaskCoverStyle = () => {
         let style = {}
@@ -69,11 +82,11 @@ export const TaskPreview = ({ task, groupId, index, taskRef, groupTitle }) => {
                         {...provided.draggableProps}
                         {...provided.dragHandleProps}
                     >
-                        <section className="task-preview" /*onDoubleClick={onGoToDetails}*/ onClick={onGoToDetails} >
+                        <section className="task-preview" /*onDoubleClick={onGoToDetails}*/ /*onClick={onGoToDetails}*/>
                             <div className="btn-quick-edit hide" onClick={toggaleQuickEdit}>
                                 {/* <BsFillPencilFill /> */}
                             </div>
-                            {isQuickEditOn && <TaskQuickEdit task={task} />}
+                            {isQuickEditOn && <section ref={refQuickEdit}><TaskQuickEdit task={task} /></section>}
 
                             {!isFullCover && task?.style &&
                                 <div className="task-cover" style={setTaskCoverStyle()}></div>}

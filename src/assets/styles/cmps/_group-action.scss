@@ -1,0 +1,40 @@
+.group-action {
+    width: 200px;
+    height: 150px;
+    position: absolute;
+    top: 85px;
+    background-color: #fff;
+    box-shadow: var(--ds-shadow-overlay, 0 8px 16px -4px #091e4240, 0 0 0 1px #091e4214);
+    z-index: 100;
+    border-radius: 3px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    &:hover {
+        cursor: auto;
+    }
+
+    .group-action-container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom: 1px solid #091e4214;
+        width: 90%;
+
+        .group-action-title {
+            padding: 6px 0 6px 20px;
+        }
+
+        .group-action-close {
+            padding: 4px 8px 4px;
+
+            &:hover {
+                cursor: pointer;
+                background-color: #091e4214;
+                border-radius: 3px;
+            }
+        }
+    }
+
+}

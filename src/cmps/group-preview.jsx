@@ -5,6 +5,7 @@ import { useForm } from '../hooks/useForm'
 import { utilService } from '../services/util.service'
 import { useEffect } from 'react'
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
+import { GroupAction } from './group-action'
 
 
 
@@ -12,6 +13,8 @@ export const GroupPreview = ({ group, addTask, index, taskRef }) => {
 
     const [isAddTask, setIsAddTask] = useState(false)
     const [isEditTitle, setIsEditTitle] = useState(false)
+    const [isOpenGroupAction, setIsOpenGroupAction] = useState(false)
+    const [leftPosGroupMOdal, setLeftPosGroupMOdal] = useState(null)
     const [task, handleChangeTask, setTask] = useForm({
         title: ''
     })
@@ -50,6 +53,14 @@ export const GroupPreview = ({ group, addTask, index, taskRef }) => {
         addTask(groupToSave)
         setIsAddTask(!isAddTask)
     }
+
+    const onOpenGroupAction = (ev) => {
+        console.log('ev', ev)
+        console.log('offsetLeft', ev.target.offsetLeft)
+        console.log('offsetTop', ev.target.offsetTop)
+        setLeftPosGroupMOdal(ev.target.offsetLeft)
+        setIsOpenGroupAction(!isOpenGroupAction)
+    }
     // console.log('render GROUP-PREVIEW')
     return (
         <Draggable
@@ -76,7 +87,8 @@ export const GroupPreview = ({ group, addTask, index, taskRef }) => {
                                         id="title"
                                     />
                                 </form>}
-                            <div className="group-menu"></div>
+                            <div className="group-menu" onClick={onOpenGroupAction}></div>
+                            {isOpenGroupAction && <GroupAction group={groupToEdit} leftPos={leftPosGroupMOdal} onOpenGroupAction={onOpenGroupAction} />}
                         </div>
                         <TaskList
                             tasks={group.tasks}
