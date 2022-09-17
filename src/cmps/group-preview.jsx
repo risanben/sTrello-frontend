@@ -30,7 +30,8 @@ export const GroupPreview = ({ group, addTask, index, taskRef }) => {
 
     const onEditGroupTitle = (ev) => {
         ev.preventDefault()
-        console.log('groupToEdit', groupToEdit)
+        // console.log('groupToEdit', groupToEdit)
+        addTask(groupToEdit)
         setIsEditTitle(!isEditTitle)
     }
 
@@ -49,7 +50,7 @@ export const GroupPreview = ({ group, addTask, index, taskRef }) => {
         addTask(groupToSave)
         setIsAddTask(!isAddTask)
     }
-
+    console.log('render GROUP-PREVIEW')
     return (
         <Draggable
             draggableId={group.id}
@@ -64,7 +65,7 @@ export const GroupPreview = ({ group, addTask, index, taskRef }) => {
                 >
                     <section className="group-preview">
                         <div className="group-title">
-                            {!isEditTitle && <span onClick={toggaleEditTitle}>{group.title}</span>}
+                            {!isEditTitle && <span onClick={toggaleEditTitle}>{groupToEdit.title}</span>}
                             {isEditTitle &&
                                 <form onSubmit={onEditGroupTitle}>
                                     <input

@@ -94,7 +94,7 @@ export const TaskDetails = ({ props }) => {
         try {
             // const board = await boardService.updateTask(currentBoardId, currentGroupId, task)
             dispatch(updateTask(currentBoardId, currentGroupId, task))
-            console.log('task', task);
+            // console.log('task', task);
             setTask(task)
             navigate(`/board/${currentBoardId}`)
         } catch (err) {

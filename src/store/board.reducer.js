@@ -26,7 +26,8 @@ export function boardReducer(state = initialState, action) {
             break
         case 'UPDATE_BOARD':
             boards = state.boards.map(board => (board._id === action.board._id) ? action.board : board)
-            newState = { ...state, boards,board: action.board }
+            console.log("board from action&&&", action.board)
+            newState = { ...state, boards, board: action.board }
             break
         case 'ADD_TO_CART':
             newState = { ...state, cart: [...state.cart, action.board] }
@@ -50,9 +51,9 @@ export function boardReducer(state = initialState, action) {
     }
     // For debug:
     window.boardState = newState
-    console.log('Prev State:', state)
-    console.log('Action:', action)
-    console.log('New State:', newState)
+    // console.log('Prev State:', state)
+    // console.log('Action:', action)
+    // console.log('New State:', newState)
     return newState
 
 }

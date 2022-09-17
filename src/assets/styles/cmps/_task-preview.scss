@@ -16,22 +16,26 @@
     }
 
     // max-width: 300px;
-    span {
-        min-height: 20px;
-        margin: 0;
-        overflow: hidden;
-        word-wrap: break-word;
-        display: block;
+    .task-preview-content {
         padding: 6px 8px 10px;
 
-        &.title-img-cover {
-            display: flex;
-            align-items: flex-end;
-            color: #fff;
-            font-weight: 500;
-            font-size: 16px;
+        span {
+            min-height: 20px;
+            margin: 0;
+            overflow: hidden;
+            word-wrap: break-word;
+            display: block;
+
+            &.title-img-cover {
+                display: flex;
+                align-items: flex-end;
+                color: #fff;
+                font-weight: 500;
+                font-size: 16px;
+            }
         }
     }
+
 
     .task-cover {
         width: 100%;

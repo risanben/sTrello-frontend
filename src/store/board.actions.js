@@ -26,7 +26,7 @@ export function loadBoards() {
     return async (dispatch) => {
         try {
             const boards = await boardService.query()
-            console.log('Boards from DB:', boards)
+            // console.log('Boards from DB:', boards)
             dispatch({
                 type: 'SET_BOARDS',
                 boards
@@ -42,12 +42,13 @@ export function loadBoards() {
 export function getBoard(boardId) {
     return async (dispatch) => {
         try {
-            const board = await boardService.getById(boardId)
-            console.log('board', board);
-            return dispatch({
+            const updatedBoard = await boardService.getById(boardId)
+            // console.log('board', updatedBoard);
+            const { board } = dispatch({
                 type: 'SET_BOARD',
-                board: board
+                board: updatedBoard
             })
+            return board
         } catch (err) {
             console.log('Cannot load board', err)
         }
@@ -85,6 +86,7 @@ export function addBoard(board) {
 }
 
 export function updateBoard(board) {
+    // console.log('board from action before @@@@@@@@@@@@@@@@@@@@@@@@@', board)
     return async (dispatch) => {
         try {
             const savedBoard = await boardService.save(board)
@@ -131,23 +133,25 @@ export function checkout() {
 
 /*------------------------------------------------------------------------------*/
 export function updateTask(boardId, groupId, taskForUpdate) {
-    console.log('board action updateTask ');
+    console.log('board action updateTask');
     return async (dispatch) => {
         try {
-            console.log(boardId, groupId, taskForUpdate);
+            // console.log(boardId, groupId, taskForUpdate);
             const groupForUpdate = await boardService.getGroupById(boardId, groupId)
             const board = await boardService.getById(boardId)
+            console.log('boardForUpdate', board)
 
             const idx = groupForUpdate.tasks.findIndex(task => task.id === taskForUpdate.id)
             groupForUpdate.tasks.splice(idx, 1, taskForUpdate)
+            console.log('groupForUpdate AFTER***', groupForUpdate)
 
             const groupIdx = board.groups.findIndex(group => group.id === groupForUpdate.id)
-            board.groups.splice(idx, 1, groupForUpdate)
+            board.groups.splice(groupIdx, 1, groupForUpdate)
 
-            console.log('board to save in store', board);
+            // console.log('board to save in store*********', board);
             // save(board)
             await dispatch(updateBoard(board))
-            // return board
+            return board
         } catch (err) {
             throw err
         }

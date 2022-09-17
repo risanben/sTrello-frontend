@@ -60,6 +60,7 @@ async function remove(boardId) {
     boardChannel.postMessage(getActionRemoveBoard(boardId))
 }
 async function save(board) {
+    console.log('board from service ################', board)
     var savedBoard
     if (board._id) {
         savedBoard = await storageService.put(STORAGE_KEY, board)

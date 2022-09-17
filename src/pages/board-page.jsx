@@ -1,18 +1,16 @@
 import React, { useEffect } from 'react'
-import { connect } from 'react-redux'
+import { connect, useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-
-
-
-import { loadBoards, addBoard, updateBoard, removeBoard, addToBoard } from '../store/board.actions.js'
+import { loadBoards, addBoard, updateBoard, removeBoard, addToBoard } from '../store/board.actions'
 
 import { showSuccessMsg } from '../services/event-bus.service.js'
 import { boardService } from '../services/board.service.js'
 
-function _BoardPage({ loadBoards, addBoard, updateBoard, removeBoard, addToBoard, boards }) {
-
+export function BoardPage() {
+    const boards = useSelector(state => state.boardModule.boards)
+    const dispatch = useDispatch()
     useEffect(() => {
-        loadBoards()
+        dispatch(loadBoards())
     }, [])
 
     const onRemoveBoard = (boardId) => {
@@ -34,9 +32,24 @@ function _BoardPage({ loadBoards, addBoard, updateBoard, removeBoard, addToBoard
         showSuccessMsg('Added to Boardt')
     }
 
+    const getBoradBg = (board) => {
+        // console.log('board from BG', board)
+        let style = {}
+        if (board.style?.imgUrl) {
+            style = {
+                backgroundImage: `url(${board.style.imgUrl})`,
+                backgroundSize: "cover",
+
+            }
+        } else style = { backgroundColor: board.style.bgColor }
+        return style
+    }
+
+    if (!boards) return <div>Loading...</div>
+    // console.log('boards', boards)
     return (
         <div className="board-page">
-            <h3>Boards App</h3>
+            {/* <h3>Boards App</h3> */}
             <main>
 
                 {/* <button onClick={onAddBoard}>Add Board</button> */}
@@ -45,18 +58,19 @@ function _BoardPage({ loadBoards, addBoard, updateBoard, removeBoard, addToBoard
                 <ul className="board-list">
 
                     {boards.map(board =>
-                        <li className="board-preview" key={board._id} style={{ backgroundColor: board.style.bgColor }}>
-                            <Link to={`/board/${board._id}`}>
+                        <Link to={`/board/${board._id}`} key={board._id}>
+                            <li className="board-preview" style={getBoradBg(board)}>
                                 <span>{board.title}</span>
-                            </Link>
-                            
-                            {/* <div>
+
+                                {/* <div>
                                 <button onClick={() => { onRemoveBoard(board._id) }}>x</button>
                                 <button onClick={() => { onUpdateBoard(board) }}>Edit</button>
                             </div> */}
 
-                            {/* <button className="buy" onClick={() => { onAddToBoardt(board) }}>Add to Boardt</button> */}
-                        </li>)
+                                {/* <button className="buy" onClick={() => { onAddToBoardt(board) }}>Add to Boardt</button> */}
+                            </li>
+                        </Link>
+                    )
                     }
 
                 </ul>
@@ -66,18 +80,18 @@ function _BoardPage({ loadBoards, addBoard, updateBoard, removeBoard, addToBoard
 }
 
 
-function mapStateToProps(state) {
-    return {
-        boards: state.boardModule.boards
-    }
-}
-const mapDispatchToProps = {
-    loadBoards,
-    removeBoard,
-    addBoard,
-    updateBoard,
-    addToBoard
-}
+// function mapStateToProps(state) {
+//     return {
+//         boards: state.boardModule.boards
+//     }
+// }
+// const mapDispatchToProps = {
+//     loadBoards,
+//     removeBoard,
+//     addBoard,
+//     updateBoard,
+//     addToBoard
+// }
 
 
-export const BoardPage = connect(mapStateToProps, mapDispatchToProps)(_BoardPage)
+// export const BoardPage = connect(mapStateToProps, mapDispatchToProps)(_BoardPage)

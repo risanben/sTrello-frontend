@@ -7,6 +7,7 @@ import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
 import { TaskDetails } from '../pages/task-details'
 import { Link } from 'react-router-dom'
 import { useNavigate, useParams } from "react-router-dom"
+import { TaskLabel } from "./task-label"
 
 
 export const TaskPreview = ({ task, groupId, index, taskRef }) => {
@@ -65,14 +66,23 @@ export const TaskPreview = ({ task, groupId, index, taskRef }) => {
                             {/* <BsFillPencilFill /> */}
                         </div>
                         {isQuickEditOn && <TaskQuickEdit />}
-                        {!isFullCover && task?.style && <div className="task-cover" style={setTaskCoverStyle()}></div>}
-                        {!isFullCover && <span>{task.title}</span>}
 
-                        {isFullCover && task?.style?.bg?.imgUrl && <span className="title-img-cover" style={setTaskCoverStyle()}>{task.title}</span>}
-                        {isFullCover && task?.style?.bg?.color && <React.Fragment>
-                            <div className="task-cover" style={setTaskCoverStyle()}></div>
-                            <span style={setTaskCoverStyle()}>{task.title}</span>
-                        </React.Fragment>}
+                        {!isFullCover && task?.style &&
+                            <div className="task-cover" style={setTaskCoverStyle()}></div>}
+                        {!isFullCover &&
+                            <div className="task-preview-content">
+                                {task?.labelIds && <TaskLabel labelIds={task.labelIds} />}
+                                <span>{task.title}</span>
+                            </div>}
+
+                        {isFullCover && task?.style?.bg?.imgUrl &&
+                            <div><span className="title-img-cover" style={setTaskCoverStyle()}>{task.title}</span></div>}
+
+                        {isFullCover && task?.style?.bg?.color &&
+                            <React.Fragment>
+                                <div className="task-cover" style={setTaskCoverStyle()}></div>
+                                <div><span style={setTaskCoverStyle()}>{task.title}</span></div>
+                            </React.Fragment>}
                         {/* {   showDetailsModal && <TaskDetails props={onUpdateTask} />} */}
                     </section >
                 </div>
