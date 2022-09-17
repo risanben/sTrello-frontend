@@ -22,7 +22,7 @@ export const TaskPreview = ({ task, groupId, index, taskRef }) => {
 
     const boardIdRef = useRef()
     boardIdRef.current = params.id
-    console.log('boardIdRef', boardIdRef);
+    // console.log('boardIdRef', boardIdRef);
 
     useEffect(() => {
         if (task.style) setIsFullCover(task.style.bg.fullCover)
@@ -67,11 +67,11 @@ export const TaskPreview = ({ task, groupId, index, taskRef }) => {
                     {...provided.draggableProps}
                     {...provided.dragHandleProps}
                 >
-                    <section className="task-preview" /*onDoubleClick={onGoToDetails}*/ onClick={onGoToDetails} >
+                    <section className="task-preview" /*onDoubleClick={onGoToDetails}*/ /*onClick={onGoToDetails} */>
                         <div className="btn-quick-edit hide" onClick={toggaleQuickEdit}>
                             {/* <BsFillPencilFill /> */}
                         </div>
-                        {isQuickEditOn && <TaskQuickEdit />}
+                        {isQuickEditOn && <TaskQuickEdit task={task} />}
 
                         {!isFullCover && task?.style &&
                             <div className="task-cover" style={setTaskCoverStyle()}></div>}
