@@ -1,0 +1,18 @@
+.task-member-container {
+    display: flex;
+    justify-content: flex-end;
+    gap: 4px;
+
+    & .member {
+        border-radius: 50%;
+        height: 28px;
+        width: 28px;
+        background-color: lightskyblue;
+        font-size: 12px;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+    }
+}

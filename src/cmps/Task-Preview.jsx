@@ -8,6 +8,7 @@ import { TaskDetails } from '../pages/task-details'
 import { Link } from 'react-router-dom'
 import { useNavigate, useParams } from "react-router-dom"
 import { TaskLabel } from "./task-label"
+import { TaskMember } from "./task-members"
 
 
 export const TaskPreview = ({ task, groupId, index, taskRef }) => {
@@ -22,7 +23,7 @@ export const TaskPreview = ({ task, groupId, index, taskRef }) => {
 
     const boardIdRef = useRef()
     boardIdRef.current = params.id
-    console.log('boardIdRef', boardIdRef);
+    // console.log('boardIdRef', boardIdRef);
 
     useEffect(() => {
         if (task.style) setIsFullCover(task.style.bg.fullCover)
@@ -79,15 +80,21 @@ export const TaskPreview = ({ task, groupId, index, taskRef }) => {
                             <div className="task-preview-content">
                                 {task?.labelIds && <TaskLabel labelIds={task.labelIds} />}
                                 <span>{task.title}</span>
+                                {task?.memberIds && <TaskMember memberIds={task.memberIds} />}
                             </div>}
 
                         {isFullCover && task?.style?.bg?.imgUrl &&
-                            <div><span className="title-img-cover" style={setTaskCoverStyle()}>{task.title}</span></div>}
+                            <div className="task-preview-content">
+                                <span className="title-img-cover" style={setTaskCoverStyle()}>{task.title}</span>
+                            </div>}
+
 
                         {isFullCover && task?.style?.bg?.color &&
                             <React.Fragment>
                                 <div className="task-cover" style={setTaskCoverStyle()}></div>
-                                <div><span style={setTaskCoverStyle()}>{task.title}</span></div>
+                                <div className="task-preview-content" style={setTaskCoverStyle()}>
+                                    <span>{task.title}</span>
+                                </div>
                             </React.Fragment>}
                         {showDetailsModal && <TaskDetails boardId={boardIdRef.current} groupId={groupId} taskId={task.id} />}
                     </section >

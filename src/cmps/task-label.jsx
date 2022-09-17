@@ -5,6 +5,7 @@ import { useSelector } from "react-redux"
 export const TaskLabel = ({ labelIds }) => {
     const board = useSelector(state => state.boardModule.board)
     const [isClicked, setIsClicked] = useState(false)
+
     const getColor = (labelId) => {
         const label = board.labels.find(label => label.id === labelId)
         return {

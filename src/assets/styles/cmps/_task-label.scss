@@ -11,6 +11,7 @@
         border-radius: 4px;
         padding: 0 8px;
         margin: 0;
+        transition: all ease-in .5s;
 
         &.clicked {
             min-width: 56px;

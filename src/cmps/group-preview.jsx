@@ -76,6 +76,7 @@ export const GroupPreview = ({ group, addTask, index, taskRef }) => {
                                         id="title"
                                     />
                                 </form>}
+                            <div className="group-menu"></div>
                         </div>
                         <TaskList
                             tasks={group.tasks}

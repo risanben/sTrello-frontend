@@ -306,7 +306,7 @@ const dataBoards = [
             {
                 "id": "l102",
                 "title": "None",
-                "color": "##F5DD29" //Yellow
+                "color": "#F5DD29" //Yellow
             },
             {
                 "id": "l103",
@@ -329,6 +329,23 @@ const dataBoards = [
                 "color": "#5BA4CF" //Blue
             }
         ],
+        "members": [
+            {
+                "_id": "u101",
+                "fullname": "Maor Layani",
+                "imgUrl": "https://ca.slack-edge.com/T03E3RZ2KHV-U03GZSLVC3Z-0637bd0f161c-512"
+            },
+            {
+                "_id": "u102",
+                "fullname": "Nir Shvrchberg",
+                "imgUrl": null
+            },
+            {
+                "_id": "u103",
+                "fullname": "Risan Benichou",
+                "imgUrl": null
+            }
+        ],
         "groups": [
             {
                 "id": "g201",
@@ -342,6 +359,7 @@ const dataBoards = [
                     {
                         "id": "c202",
                         "title": "Routing Directory",
+                        "memberIds": ["u102"],
                         "style": {
                             "bg": {
                                 "color": null,
@@ -391,6 +409,7 @@ const dataBoards = [
                         "id": "c301",
                         "title": "Planning the components tree",
                         "labelIds": ["l101", "l103", "l104"],
+                        "memberIds": ["u101", "u102", "u103"],
                         "dueDate": 16156215211,
                         "style": {
                             "bg": {
@@ -409,6 +428,7 @@ const dataBoards = [
                         "id": "c303",
                         "title": "Adding npm libraries",
                         "labelIds": ["l101", "l103", "l104", "l106"],
+                        "memberIds": ["u101", "u103"]
                     },
                     {
                         "id": "c304",
@@ -436,6 +456,7 @@ const dataBoards = [
                     {
                         "id": "c401",
                         "title": "Functional testing for app header",
+                        "labelIds": ["l103", "l104"],
                         "dueDate": 16156215211,
                         "style": {
                             "bg": {
@@ -467,6 +488,8 @@ const dataBoards = [
                     {
                         "id": "c501",
                         "title": "CSS variables",
+                        "labelIds": ["l101", "l103", "l106"],
+                        "memberIds": ["u103"],
                         "style": {
                             "bg": {
                                 "color": "#29cce5",
@@ -477,7 +500,8 @@ const dataBoards = [
                     },
                     {
                         "id": "c502",
-                        "title": "Making functions and mixins"
+                        "title": "Making functions and mixins",
+                        "memberIds": ["u102"]
                     },
                     {
                         "id": "c503",
@@ -505,11 +529,13 @@ const dataBoards = [
                 "tasks": [
                     {
                         "id": "c601",
-                        "title": "Meeting with head manager for planning the code progress"
+                        "title": "Meeting with head manager for planning the code progress",
+                        "labelIds": ["l103", "l104"]
                     },
                     {
                         "id": "c602",
                         "title": "End day code review with all members",
+                        "labelIds": ["l103", "l104"],
                         "style": {
                             "bg": {
                                 "color": "#29cce5",
@@ -531,10 +557,15 @@ const dataBoards = [
                     },
                     {
                         "id": "c604",
-                        "title": "Inspector"
+                        "title": "Active from head manager",
+                        "labelIds": ["l102", "l104"]
                     },
                     {
                         "id": "c605",
+                        "title": "Inspector"
+                    },
+                    {
+                        "id": "c606",
                         "title": "Assets"
                     }
                 ],
@@ -548,6 +579,8 @@ const dataBoards = [
                     {
                         "id": "c701",
                         "title": "Creating database with mongo",
+                        "labelIds": ["l104", "l106"],
+                        "memberIds": ["u101", "u102", "u103"],
                         "style": {
                             "bg": {
                                 "color": null,
@@ -559,6 +592,8 @@ const dataBoards = [
                     {
                         "id": "c702",
                         "title": "App header",
+                        "labelIds": ["l102"],
+                        "memberIds": ["u101", "u103"],
                         "dueDate": 16156215211
                     }
                 ],

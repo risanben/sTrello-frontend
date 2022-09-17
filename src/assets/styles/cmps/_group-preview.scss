@@ -30,21 +30,40 @@
         display: flex;
         font-weight: 600;
         width: 270px;
+        justify-content: space-between;
+        padding: 6px 6px 6px 8px;
+
 
         // position: fixed;
         // z-index: 1;
         // background-color: inherit;
         // border-radius: 3px;
-
         span {
             display: block;
             width: 100%;
+            padding: 4px 8px;
         }
 
         // position: fixed;
         &:hover {
             cursor: pointer;
         }
+
+        .group-menu {
+            background-image: url('../../img/group-menu-icon.svg');
+            background-position: center;
+            height: 20px;
+            width: 20px;
+            padding: 10px;
+            align-self: center;
+
+            &:hover {
+                cursor: pointer;
+                background-color: #ffffff52;
+                border-radius: 3px;
+            }
+        }
+
 
         input[name="title"] {
             color: #172b4d;
