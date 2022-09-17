@@ -73,7 +73,7 @@ export const TaskPreview = ({ task, groupId, index, taskRef }) => {
                             <div className="btn-quick-edit hide" onClick={toggaleQuickEdit}>
                                 {/* <BsFillPencilFill /> */}
                             </div>
-                            {isQuickEditOn && <TaskQuickEdit task={task}/>}
+                            {isQuickEditOn && <TaskQuickEdit task={task} />}
 
                             {!isFullCover && task?.style &&
                                 <div className="task-cover" style={setTaskCoverStyle()}></div>}
