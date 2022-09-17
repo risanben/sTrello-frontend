@@ -24,7 +24,7 @@ export const TaskQuickEdit = ({ task }) => {
     <div className='left-col'>
       <div className='input-side'>
         <section className='labels'>
-          {task.labelIds && <TaskLabel labelIds={task.labelIds} />}
+          {task?.labelIds && <TaskLabel labelIds={task.labelIds} />}
         </section>
         <input type="text" placeholder={task.title} onChange={onChangeTitle} />
       </div>
