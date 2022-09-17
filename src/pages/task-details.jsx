@@ -112,7 +112,10 @@ export const TaskDetails = (props) => {
     const onSetImg = (img) => {
         // setImgName(ev.target.value)
         // coverImg.current=true
+        console.log('img**********', img)
+        task.style.bg.color = null
         task.style.bg.imgUrl = img
+        console.log("task", task)
         onUpdateTask(task)
         setCoverImg(true)
     }

@@ -74,7 +74,7 @@ export function addBoard(board) {
 
         boardService.save(board)
             .then(savedBoard => {
-                console.log('Added Board', savedBoard);
+                // console.log('Added Board', savedBoard);
                 dispatch(getActionAddBoard(savedBoard))
                 showSuccessMsg('Board added')
             })
@@ -132,22 +132,22 @@ export function checkout() {
 
 /*------------------------------------------------------------------------------*/
 export function updateTask(boardId, groupId, taskForUpdate) {
-    console.log('board action updateTask');
+    // console.log('board action updateTask');
     return async (dispatch) => {
         try {
             // console.log(boardId, groupId, taskForUpdate);
             const groupForUpdate = await boardService.getGroupById(boardId, groupId)
             const board = await boardService.getById(boardId)
-            console.log('boardForUpdate', board)
+            // console.log('boardForUpdate', board)
 
             const idx = groupForUpdate.tasks.findIndex(task => task.id === taskForUpdate.id)
             groupForUpdate.tasks.splice(idx, 1, taskForUpdate)
-            console.log('groupForUpdate AFTER***', groupForUpdate)
+            // console.log('groupForUpdate AFTER***', groupForUpdate)
 
             const groupIdx = board.groups.findIndex(group => group.id === groupForUpdate.id)
             board.groups.splice(groupIdx, 1, groupForUpdate)
 
-            console.log('board to save in store', board);
+            // console.log('board to save in store', board);
             // save(board)
             await dispatch(updateBoard(board))
             return board
@@ -160,7 +160,7 @@ export function updateTask(boardId, groupId, taskForUpdate) {
 export function removeTask(boardId, groupId, taskForUpdate) {
     return async (dispatch) => {
         try {
-            console.log(boardId, groupId, taskForUpdate);
+            // console.log(boardId, groupId, taskForUpdate);
             const groupForUpdate = await boardService.getGroupById(boardId, groupId)
             const board = await boardService.getById(boardId)
 
@@ -170,7 +170,7 @@ export function removeTask(boardId, groupId, taskForUpdate) {
             const groupIdx = board.groups.findIndex(group => group.id === groupForUpdate.id)
             board.groups.splice(groupIdx, 1, groupForUpdate)
 
-            console.log('board to save in store', board);
+            // console.log('board to save in store', board);
             // save(board)
             await dispatch(updateBoard(board))
             return board
@@ -184,12 +184,12 @@ export function getTask(boardId, groupId, taskId) {
     return async (dispatch) => {
         try {
             const updatedTask = await boardService.getTaskById(boardId, groupId, taskId)
-            console.log('updatedTask', updatedTask);
+            // console.log('updatedTask', updatedTask);
             const { task } = dispatch({
                 type: 'SET_TASK',
                 task: updatedTask
             })
-            console.log('task', task);
+            // console.log('task', task);
             return task
         } catch (err) {
             // console.log('Cannot load task', err)
@@ -213,7 +213,7 @@ export function onRemoveBoardOptimistic(boardId) {
 
         boardService.remove(boardId)
             .then(() => {
-                console.log('Server Reported - Deleted Succesfully');
+                // console.log('Server Reported - Deleted Succesfully');
             })
             .catch(err => {
                 showErrorMsg('Cannot remove board')

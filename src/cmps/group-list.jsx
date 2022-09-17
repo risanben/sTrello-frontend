@@ -66,7 +66,7 @@ export const GroupList = () => {
                         {!isAddingGroup &&
                             <div className="btn-add-group-container" onClick={onAddingGroup}>
                                 {/* <span>+</span> */}
-                                <span className="btn-add-group">Add another list</span>
+                                <span className="btn-add-group">+ Add another list</span>
                             </div>}
                         {isAddingGroup && <GroupEdit onAddingGroup={onAddingGroup} board={board} />}
                         {/* <Link to="/group/edit" className='nice-button'>Add group</Link> */}
