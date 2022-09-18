@@ -73,7 +73,6 @@ async function removeGroup(boardId, groupId) {
 }
 
 async function save(board) {
-    console.log('board from service ################', board)
     var savedBoard
     if (board._id) {
         console.log('update board')
@@ -100,7 +99,6 @@ function getEmptyBoard() {
 async function getGroupById(boardId, groupId) {
     try {
         const board = await storageService.get(STORAGE_KEY, boardId)
-        // console.log('board', board);
         return board.groups.find(group => group.id === groupId)
     }
     catch (err) {
@@ -111,34 +109,13 @@ async function getGroupById(boardId, groupId) {
 async function getTaskById(boardId, groupId, taskId) {
     try {
         const group = await getGroupById(boardId, groupId)
-        console.log('group', group);
         const task = group.tasks.find(task => task.id === taskId)
-        console.log('task', task);
         return task
 
     } catch (err) {
         throw err
     }
 }
-
-// async function updateTask(boardId, groupId, taskForUpdate) {
-//     try {
-//         console.log(boardId, groupId, taskForUpdate);
-//         const group = await getGroupById(boardId, groupId)
-//         const board = await getById(boardId)
-//         // const taskForUpdate= group.tasks.find(task => task.id === taskId)
-//         const idx = group.tasks.findIndex(task => task.id === taskForUpdate.id)
-//         group.tasks.splice(idx, 1, taskForUpdate)
-//         console.log('group', group);
-//         // save(board)
-//         await dispatch(updateBoard(board))
-//         // return board
-//     } catch (err) {
-//         throw err
-//     }
-// }
-
-
 
 // TEST DATA
 // storageService.post(STORAGE_KEY, {vendor: 'Subali Rahok 2', price: 980}).then(x => console.log(x))

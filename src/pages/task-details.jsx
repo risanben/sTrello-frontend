@@ -7,7 +7,7 @@ import { utilService } from "../services/util.service"
 import { useFormRegister } from '../hooks/useFormRegister'
 import { boardService } from "../services/board.service"
 import { useDispatch } from "react-redux";
-import { updateTask, removeTask, getTask } from '../store/board.actions'
+import { updateTask, removeTask, getTask, getBoardMembers } from '../store/board.actions'
 import MultipleSelectCheckmarks from "../cmps/select-mui"
 import { TaskMember } from "../cmps/task-members"
 import { TaskLabel } from "../cmps/task-label"
@@ -33,14 +33,15 @@ export const TaskDetails = (props) => {
     const [currentGroupId, setGroupId] = useState(null)
     const [currentGroupTitle, setGroupTitle] = useState(null)
     const [ShowMembersModal, setShowMembersModal] = useState(null)
+    const [currentBoardMembers, setCurrentBoardMembers] = useState([])
     // const [currentGroup, setCurrentGroup] = useState(null)
     // const [activities, setActivities] = useState(null)
 
     useEffect(() => {
         // const { id, boardId, groupId } = params
-        console.log('props', props);
+        // console.log('props', props);
         const { boardId, groupId, taskId, groupTitle } = props
-        console.log('{props}', boardId, groupId, taskId);
+        // console.log('{props}', boardId, groupId, taskId);
 
         if (!boardId) return
         if (!taskId) return
@@ -50,10 +51,11 @@ export const TaskDetails = (props) => {
         setGroupId(groupId)
         setGroupTitle(groupTitle)
 
-
         // loadTask(boardId, groupId, taskId)
         if (props?.task?.style?.bg.color) setBgColor(props.task.style.bg.color)
         setTask(props.task)
+
+
 
         // activityService.query({ taskId: id })
         // .then(activity => setActivities(activity))
@@ -72,7 +74,6 @@ export const TaskDetails = (props) => {
     // }
 
     const onUpdateTask = (task) => {
-        console.log('task', task);
         dispatch(updateTask(currentBoardId, currentGroupId, task))
         // setTask(task)
         // dispatch(loadTasks())
@@ -105,15 +106,14 @@ export const TaskDetails = (props) => {
         setShowModal(!showModal)
     }
 
-    const onShowMembersModal = () => {
+    const onShowMembersModal = async () => {
+        await boardMembers()
         setShowMembersModal(!ShowMembersModal)
     }
 
     const onSetImg = (imgUrl) => {
         // setImgName(ev.target.value)
-        console.log('task', task);
         if (!task.style) task.style = { bg: { imgUrl } }
-        console.log('task', task);
         task.style.bg.imgUrl = imgUrl
         task.style.bg.color = null
         setBgColor(null)
@@ -121,16 +121,31 @@ export const TaskDetails = (props) => {
         // setCoverImg(true)
     }
 
-    const onSetMember = (memberId) => {
-        if (!task.memberIds) task.memberIds = [memberId]
-        task.memberIds.push(memberId)
+    const boardMembers = async () => {
+        try {
+            const bm = await dispatch(getBoardMembers(currentBoardId))
+            console.log('getBoardMembers-bm', bm);
+            setCurrentBoardMembers(bm)
+        } catch (err) {
+            throw err
+        }
+    }
+
+    const onSetMember = (addOrRemove, memberId) => {
+        if (!addOrRemove) {
+            if (!task.memberIds) task.memberIds = [memberId]
+            task.memberIds.push(memberId)
+        } else {
+            console.log('task', task);
+            const idx = task.memberIds.findIndex(member => member._id === memberId)
+            task.memberIds.splice(idx, 1)
+        }
         onUpdateTask(task)
     }
 
     const onRemoveTask = () => {
         try {
             dispatch(removeTask(currentBoardId, currentGroupId, task))
-            console.log('task', task);
             // setTask(null)
             navigate(`/board/${currentBoardId}`)
         } catch (err) {
@@ -178,7 +193,7 @@ export const TaskDetails = (props) => {
                                 <div className="select-members">
                                     {task?.memberIds && <TaskMember memberIds={task.memberIds} />}
                                     <span onClick={onShowMembersModal}>➕</span>
-                                    {ShowMembersModal && <TaskDetailsMembersModal memberIds={task.memberIds} />}
+                                    {ShowMembersModal && <TaskDetailsMembersModal memberIds={task.memberIds} boardMembers={currentBoardMembers} onSetMember={onSetMember} />}
                                 </div>
                             </section>
                             <section className="labels">
@@ -197,7 +212,7 @@ export const TaskDetails = (props) => {
                     </form>
 
                     <section className="task-abilities">
-                        <button className="btn abilities">Members</button>
+                        <button className="btn abilities" onClick={onShowMembersModal}>Members</button>
                         <button className="btn abilities">Labels</button>
                         <button className="btn abilities">Checklist</button>
                         <button className="btn abilities">Dates</button>
