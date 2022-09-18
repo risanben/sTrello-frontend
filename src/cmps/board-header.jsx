@@ -11,6 +11,7 @@ export const BoardHeader = ({ board }) => {
         })
         return idsArr
     }
+    
 
     if (!board) return <section>Loading...</section>
     return <section className="board-header">

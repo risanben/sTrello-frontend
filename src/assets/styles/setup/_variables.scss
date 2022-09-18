@@ -9,8 +9,11 @@ $clr7: #222;
 $home-btn-clr:rgb(0, 101, 255);
 $home-font-clr:rgb(40, 46, 51);
 $home-bg-color:rgb(231, 236, 237);
-$header-bg-color:rgb(203, 203, 209);
-$header-font-color:rgb(72, 72, 90);
+$header-bg-color:rgb(194, 195, 195);
+$header-font-color:rgba(23, 43, 77, 0.868);
+// $header-font-color:darken($header-bg-color,60%);
+
+
 
 $layoutPadding: 20px;
 // Breakpoints

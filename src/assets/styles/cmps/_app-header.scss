@@ -15,7 +15,7 @@
 
     .home-logo-link {
         display: flex;
-        align-items: center;
+        // align-items: center;
         color: inherit;
         // border: 1px solid black;
         border-radius: 0.3rem;
@@ -34,12 +34,15 @@
     .trello-logo {
         font-size: 15px;
         margin-inline-end: 5px;
+        margin-top: 9px;
 
     }
 
     .logo {
         font-family: secular;
         font-size: 20px;
+        font-weight: 600;
+        letter-spacing: 1px;
         margin: 0;
         padding: 0;
     }
@@ -50,7 +53,7 @@
         align-items: center;
         flex-grow: 1;
 
-        .workspace-link{
+        .workspace-link {
             color: inherit;
         }
 
@@ -88,6 +91,7 @@
             cursor: pointer;
             padding: 3px;
             border-radius: 0.3em;
+            background-color: darken($color: $header-bg-color, $amount: 7);
 
             &:hover {
                 background-color: darken($color: $header-bg-color, $amount: 10);
@@ -102,12 +106,15 @@
         border: 1px solid rgba(82, 82, 83, 0.332);
         background-color: $header-bg-color;
         border-radius: 0.3em;
-        padding: 0 8px;
+        padding: 2px 8px;
         display: flex;
         align-items: center;
+       background-color: darken($color: $header-bg-color, $amount: 5);
+       
+        
 
         .mag-glass {
-            font-size: 20px;
+            font-size: 15px;
         }
 
         input {
@@ -116,16 +123,19 @@
             padding: 4px 3px;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             font-size: 14px;
-            
+
+            &::placeholder{
+                color: $header-font-color;
+            }
 
             &:focus {
                 outline: none;
-            //    background-color: whitesmoke;
+                //    background-color: whitesmoke;
             }
         }
     }
 
-    .search-wide{
+    .search-wide {
         background-color: whitesmoke;
         width: 500px;
         justify-self: flex-end;
@@ -136,14 +146,15 @@
         align-items: center;
         min-height: 32px;
 
-        input{
+        input {
             flex-grow: 1;
             background-color: inherit;
             border: none;
             // padding: 4px 3px;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             font-size: 14px;
-            &:focus{
+
+            &:focus {
                 outline: none;
             }
         }
@@ -154,9 +165,86 @@
         display: flex;
         padding: 5px 0;
         border-radius: 0.3em;
+
         &:hover {
             background-color: darken($color: $header-bg-color, $amount: 10);
         }
     }
 
+    .space{
+        display: none;
+    }
+
+    .login{
+        display: none;
+        height: 100%;
+    }
+
+}
+
+////////////////////////////// APPHEADER IN HOMEPAGE ///////////////////////////
+
+
+.app-header.home {
+    background-color: white;
+    max-height: unset;
+    height: 70px;
+    border-bottom: none;
+    padding: 0 0 0 13px;
+    
+    // border: 2px solid red;
+
+    .menu-logo {
+        display: none;
+    }
+
+    .trello-logo {
+        color: $home-btn-clr;
+        font-size: 24px;
+        margin-top: 5px;
+    }
+
+    .logo {
+        font-size: 27px;
+        font-weight: 600;
+        letter-spacing: 1px;
+    }
+
+    .home-logo-link {
+        &:hover {
+            background-color: inherit;
+        }
+    }
+
+    .nav-header {
+        display: none;
+    }
+
+    .search {
+        display: none;
+    }
+
+    .bell {
+        display: none;
+    }
+
+    .login{
+        display: block;
+        background-color: rgb(0, 101, 255);
+        color: white;
+        font-family: sans-serif;
+        font-size: 1.25rem;
+        letter-spacing: 1.4px;
+        padding: 0 25px;
+        &:hover{
+            background:rgb(6, 85, 204) ;
+        }
+    }
+
+    .space{
+        flex-grow: 1;
+        display: block;
+    }
+
+ 
 }

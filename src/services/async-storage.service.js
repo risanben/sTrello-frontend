@@ -22,7 +22,7 @@ function query(entityType, delay = 200) {
 }
 
 function get(entityType, entityId) {
-    console.log('from storge', entityId)
+    // console.log('from storge', entityId)
     return query(entityType)
         .then(entities => {
             return entities.find(entity => entity._id === entityId)

@@ -72,7 +72,7 @@ export const Board = () => {
         return style
     }
 
-    console.log('render BOARD')
+    // console.log('render BOARD')
 
     if (!board) return <div>Loading...</div>
 
