@@ -82,7 +82,7 @@ export const TaskPreview = ({ task, groupId, index, taskRef, groupTitle }) => {
                         {...provided.draggableProps}
                         {...provided.dragHandleProps}
                     >
-                        <section className="task-preview" /*onDoubleClick={onGoToDetails}*/ /*onClick={onGoToDetails}*/>
+                        <section className="task-preview" /*onDoubleClick={onGoToDetails}*/ onClick={onGoToDetails}>
                             <div className="btn-quick-edit hide" onClick={toggaleQuickEdit}>
                                 {/* <BsFillPencilFill /> */}
                             </div>

@@ -55,9 +55,9 @@ export const GroupPreview = ({ group, addTask, index, taskRef }) => {
     }
 
     const onOpenGroupAction = (ev) => {
-        console.log('ev', ev)
-        console.log('offsetLeft', ev.target.offsetLeft)
-        console.log('offsetTop', ev.target.offsetTop)
+        // console.log('ev', ev)
+        // console.log('offsetLeft', ev.target.offsetLeft)
+        // console.log('offsetTop', ev.target.offsetTop)
         setLeftPosGroupMOdal(ev.target.offsetLeft)
         setIsOpenGroupAction(!isOpenGroupAction)
     }

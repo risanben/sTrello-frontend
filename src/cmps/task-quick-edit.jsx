@@ -36,7 +36,7 @@ export const TaskQuickEdit = ({ task }) => {
       ...task
     }
     task.title = title
-    console.log('task:', task)
+    // console.log('task:', task)
   }
 
   const openLabelModal = () => {

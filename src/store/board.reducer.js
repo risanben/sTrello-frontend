@@ -5,6 +5,7 @@ const initialState = {
     filterby: null,
     board: null,
     task: null,
+    boardMembers:[],
 }
 export function boardReducer(state = initialState, action) {
     var newState = state
@@ -16,6 +17,9 @@ export function boardReducer(state = initialState, action) {
             break
         case 'SET_BOARD':
             newState = { ...state, board: action.board }
+            break
+        case 'SET_BOARD_MEMBERS':
+            newState = { ...state, boardMembers: action.boardMembers }
             break
         case 'SET_TASK':
             newState = { ...state, task: action.task }

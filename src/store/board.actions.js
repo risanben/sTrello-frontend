@@ -130,19 +130,34 @@ export function checkout() {
     }
 }
 
+export function getBoardMembers(boardId) {
+    return async (dispatch) => {
+        try {
+            const currentBoard = await boardService.getById(boardId)
+            const currentBoardMembers = currentBoard.members
+            console.log('currentBoardMembers', currentBoardMembers);
+            const { boardMembers } = dispatch({
+                type: 'SET_BOARD_MEMBERS',
+                boardMembers: currentBoardMembers
+            })
+
+            return boardMembers
+        } catch (err) {
+            console.log('Cannot load task', err)
+        }
+    }
+}
+
 /*------------------------------------------------------------------------------*/
 export function updateTask(boardId, groupId, taskForUpdate) {
     // console.log('board action updateTask');
     return async (dispatch) => {
         try {
-            // console.log(boardId, groupId, taskForUpdate);
             const groupForUpdate = await boardService.getGroupById(boardId, groupId)
             const board = await boardService.getById(boardId)
-            // console.log('boardForUpdate', board)
 
             const idx = groupForUpdate.tasks.findIndex(task => task.id === taskForUpdate.id)
             groupForUpdate.tasks.splice(idx, 1, taskForUpdate)
-            // console.log('groupForUpdate AFTER***', groupForUpdate)
 
             const groupIdx = board.groups.findIndex(group => group.id === groupForUpdate.id)
             board.groups.splice(groupIdx, 1, groupForUpdate)
@@ -192,10 +207,12 @@ export function getTask(boardId, groupId, taskId) {
             // console.log('task', task);
             return task
         } catch (err) {
-            // console.log('Cannot load task', err)
+            console.log('Cannot load task', err)
         }
     }
 }
+
+
 /*------------------------------------------------------------------------------*/
 
 
