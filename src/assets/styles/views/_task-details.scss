@@ -73,12 +73,21 @@
         .task-details {
             grid-column: 1/2;
 
-            .tags{
+            .tags {
                 display: flex;
                 gap: 20px;
             }
+
             .select-members {
                 display: flex;
+            }
+
+            .btn.save {
+                background-color: #0079bf;
+                color:#ffffff;
+                border-radius: 3px;
+                box-shadow:none;
+
             }
         }
 
@@ -86,6 +95,39 @@
             display: flex;
             flex-direction: column;
         }
+    }
+
+    .task-abilities{
+        .btn{
+            color: #172b4d;
+            background-color: #091e42, opacity 4.00%;
+            font-size: 14px;
+            line-height: 20px;
+            text-align: start;
+            letter-spacing: normal;
+            box-shadow: none;
+            border-radius: 3px;
+            // font-family: apple-system;
+
+            .ability{
+                color: #091e42;
+                background-color:#091e42, opacity 8.00% ;
+                font-size: 14px;
+                text-align: center;
+                letter-spacing: normal;
+            }
+            .icon{
+                color: #42526e;
+                background-color:#091e42, opacity 4.00% ;
+                font-size: 16px;
+                text-align: start;
+                letter-spacing: normal;
+                margin-right:5px ;
+
+            }
+           
+        }
+
     }
 
 }

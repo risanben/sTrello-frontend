@@ -61,7 +61,7 @@ export function AppHeader() {
                 <ul>
                     <Link to="board" className='workspace-link'><li>Workspaces <BsChevronDown className='downArr' /></li></Link>
                     <li>Recent <BsChevronDown className='downArr' /></li>
-                    <Link to="board/M8cDxb/g101/c101" className='workspace-link'><li>Temp <BsChevronDown className='downArr' /></li></Link>
+                    <Link to="board" className='workspace-link'><li>Templates <BsChevronDown className='downArr' /></li></Link>
                 </ul>
                 <span className='create'>Create</span>
             </section>
