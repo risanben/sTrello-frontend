@@ -66,7 +66,6 @@ export const TaskPreview = ({ task, groupId, index, taskRef, groupTitle }) => {
         // const boardId = params.id
         setShowDetailsModal(!showDetailsModal)
         // navigate(`/board/${boardId}/${groupId}/${task.id}`)
-
     }
 
     return (
@@ -82,7 +81,7 @@ export const TaskPreview = ({ task, groupId, index, taskRef, groupTitle }) => {
                         {...provided.draggableProps}
                         {...provided.dragHandleProps}
                     >
-                        <section className="task-preview" /*onDoubleClick={onGoToDetails}*/ /*onClick={onGoToDetails}*/>
+                        <section className="task-preview" onClick={onGoToDetails}>
                             <div className="btn-quick-edit hide" onClick={toggaleQuickEdit}>
                                 {/* <BsFillPencilFill /> */}
                             </div>
@@ -110,6 +109,7 @@ export const TaskPreview = ({ task, groupId, index, taskRef, groupTitle }) => {
                                         <span>{task.title}</span>
                                     </div>
                                 </React.Fragment>}
+                                <div className="dark-screen" style={{display:isQuickEditOn?"block":"none"}}></div>
                         </section >
                         {/* { isDetailsShown && <TaskDetails boardId={boardId} groupId={groupId} taskId={task.id}/>} */}
                     </div>

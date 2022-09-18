@@ -6,6 +6,7 @@ import { HiArchive } from 'react-icons/hi';
 import { TaskLabel } from './task-label.jsx';
 import { useState, useRef, useEffect } from 'react'
 import { LabelModal } from './label-modal'
+import { TaskMember } from './task-members.jsx';
 
 
 export const TaskQuickEdit = ({ task }) => {
@@ -43,8 +44,11 @@ export const TaskQuickEdit = ({ task }) => {
     setLabelModal(true)
   }
 
+  const onEditClick = (ev) => {
+    ev.stopPropagation()
+  }
 
-  return <section className="task-quick-edit">
+  return <section className="task-quick-edit" onClick={onEditClick}>
     {/* <div className="dark-screen"></div> */}
     <div className='left-col'>
       <div className='input-side'>
@@ -54,6 +58,7 @@ export const TaskQuickEdit = ({ task }) => {
         <form onSubmit={onEditTaskTitle}>
           <input type="text" value={title} onChange={handleChange} />
         </form>
+        {task.memberIds && <TaskMember memberIds={task.memberIds} />}
       </div>
       <button className='btn-add'>Save</button>
     </div>
