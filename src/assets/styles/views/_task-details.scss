@@ -1,6 +1,6 @@
 .task-details-main {
     position: relative;
-    background-color: aquamarine;
+    // background-color: aquamarine;
     opacity: 1;
     top: 0;
     left: 0;
@@ -38,7 +38,7 @@
     .task-details-container {
         border: black solid 1px;
         display: grid;
-        grid-template-columns: 1fr minmax(100px, 250px);
+        grid-template-columns: 30px 1fr 150px;
         grid-template-rows: 100px auto auto;
         max-width: 70vh;
         max-height: 90vh;
@@ -47,12 +47,13 @@
 
         .task-cover {
             grid-column: 1/-1;
-
+            background-color: #969899;
             display: grid;
             grid-template-columns: 100px auto 100px;
             grid-template-rows: 30px 30px 30px;
 
             .img-cover {
+
                 grid-column: 2/3;
                 grid-row: 1/-1;
                 max-width: 100%;
@@ -71,7 +72,7 @@
         }
 
         .task-details {
-            grid-column: 1/2;
+            grid-column: 2/3;
 
             .tags {
                 display: flex;
@@ -84,9 +85,9 @@
 
             .btn.save {
                 background-color: #0079bf;
-                color:#ffffff;
+                color: #ffffff;
                 border-radius: 3px;
-                box-shadow:none;
+                box-shadow: none;
 
             }
         }
@@ -97,8 +98,8 @@
         }
     }
 
-    .task-abilities{
-        .btn{
+    .task-abilities {
+        .btn {
             color: #172b4d;
             background-color: #091e42, opacity 4.00%;
             font-size: 14px;
@@ -109,23 +110,24 @@
             border-radius: 3px;
             // font-family: apple-system;
 
-            .ability{
+            .ability {
                 color: #091e42;
-                background-color:#091e42, opacity 8.00% ;
+                background-color: #091e42, opacity 8.00%;
                 font-size: 14px;
                 text-align: center;
                 letter-spacing: normal;
             }
-            .icon{
+
+            .icon {
                 color: #42526e;
-                background-color:#091e42, opacity 4.00% ;
+                background-color: #091e42, opacity 4.00%;
                 font-size: 16px;
                 text-align: start;
                 letter-spacing: normal;
-                margin-right:5px ;
+                margin-right: 5px;
 
             }
-           
+
         }
 
     }

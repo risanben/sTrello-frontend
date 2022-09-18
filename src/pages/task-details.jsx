@@ -151,7 +151,7 @@ export const TaskDetails = (props) => {
     const onSetMember = (addOrRemove, memberId) => {
         if (!addOrRemove) {
             if (!task.memberIds) task.memberIds = [memberId]
-            task.memberIds.push(memberId)
+            else task.memberIds.push(memberId)
         } else {
             console.log('task', task);
             const idx = task.memberIds.findIndex(member => member._id === memberId)
@@ -196,10 +196,8 @@ export const TaskDetails = (props) => {
                     {/* task-details */}
                     <form className="task-details" onSubmit={onSaveTask}>
                         <section>
-                            <label htmlFor="title">Title
                                 {isEditTitle && <input {...register('title', 'text')} value={task.title} ref={refInput} />}
                                 {!isEditTitle && <span onClick={toggleEditTitle} >{task.title}</span>}
-                            </label>
                             <br></br>
                             <span>in list {currentGroupTitle}</span>
                         </section>
