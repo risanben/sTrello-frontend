@@ -7,6 +7,8 @@
     font-size: 20px;
     display: flex;
     align-items: center;
+    // border: 2px solid green;
+    // position: fixed;
 
     .star-container {
         padding: 6px;
@@ -19,13 +21,33 @@
         &:hover {
             background-color: #00000029;
             color: #f2d600;
-            // font-size: 17px;
-            // padding: 3px;
         }
+    }
 
-        // .star {
+    .space {
+        flex-grow: 1;
+    }
 
-        //     &:hover {}
-        // }
+    .flex-end-side {
+        align-items: center;
+        display: flex;
+        // border: 2px solid red;
+        align-self: flex-end;
+        justify-self: flex-end;
+        padding-bottom: 2px;
+
+        .btn-add {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+            margin-left: 5px;
+
+            .mem-svg {
+                width: 17px;
+            }
+        }
     }
 }

@@ -20,11 +20,11 @@ export function AppHeader() {
     }, [])
 
     const handleClickOutside = (e) => {
-   
+        if (!refOne.current) return
         if (!refOne.current.contains(e.target)) {
             setBoards(null)
             setIsSearching(false)
-        } 
+        }
     }
 
     const onChange = ({ target }) => {
