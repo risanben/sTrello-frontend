@@ -1,19 +1,31 @@
-.board-header{
+.board-header {
 
-color: whitesmoke;
-font-family: secular;
-padding: 5px 20px;
-font-size: 20px;
-display: flex;
-align-items: center;
+    color: whitesmoke;
+    font-family: secular;
+    height: 42px;
+    padding: 5px 20px;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
 
-.star{
-    margin-inline-start: 10px;
-    background-color: rgba(255, 255, 255, 0.256);
-   border-radius: 0.2rem;
-   font-size: 20px;
-   &:hover{
-    color: yellow;
-   }
-}
+    .star-container {
+        padding: 6px;
+        display: flex;
+        background-color: rgba(255, 255, 255, 0.256);
+        border-radius: 3px;
+        margin-inline-start: 10px;
+        font-size: 16px;
+
+        &:hover {
+            background-color: #00000029;
+            color: #f2d600;
+            // font-size: 17px;
+            // padding: 3px;
+        }
+
+        // .star {
+
+        //     &:hover {}
+        // }
+    }
 }

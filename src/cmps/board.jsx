@@ -22,12 +22,13 @@ export const Board = () => {
 
     useEffect(() => {
         loadBoard()
-    }, [])
+    }, [params.id])
 
     const loadBoard = async () => {
         const boardId = params.id
         try {
-            const board = await dispatch(getBoard(boardId))
+            // const board = await dispatch(getBoard(boardId))
+            await dispatch(getBoard(boardId))
             // console.log('board', board);
             // setBoard(board)
         } catch (err) {
@@ -66,11 +67,11 @@ export const Board = () => {
                 backgroundSize: "cover",
 
             }
-        } else style = { backgroundColor: board.style.bgColor }
+        } else style = { backgroundColor: board?.style?.bgColor }
         return style
     }
 
-    // console.log('render BOARD')
+    console.log('render BOARD')
 
     if (!board) return <div>Loading...</div>
 

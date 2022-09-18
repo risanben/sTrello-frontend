@@ -16,6 +16,7 @@ export const TaskPreview = ({ task, groupId, index, taskRef, groupTitle }) => {
     const [isFullCover, setIsFullCover] = useState(false)
     const [isQuickEditOn, setIsQuickEditOn] = useState(false)
     const [showDetailsModal, setShowDetailsModal] = useState(false)
+    // const [isUpdtaeLabelSize, setIsUpdtaeLabelSize] = useState(false)
     const refQuickEdit = useRef(null)
 
     // const dispatch = useDispatch()
@@ -33,14 +34,14 @@ export const TaskPreview = ({ task, groupId, index, taskRef, groupTitle }) => {
 
     useEffect(() => {
         document.addEventListener("click", handleClickedOutside, true)
-      }, [])
-    
-      const handleClickedOutside = (e) => {
-        if(!refQuickEdit.current) return 
+    }, [])
+
+    const handleClickedOutside = (e) => {
+        if (!refQuickEdit.current) return
         if (!refQuickEdit.current.contains(e.target)) {
             setIsQuickEditOn(false)
         }
-      }
+    }
 
     const setTaskCoverStyle = () => {
         let style = {}
@@ -66,9 +67,14 @@ export const TaskPreview = ({ task, groupId, index, taskRef, groupTitle }) => {
         // const boardId = params.id
         setShowDetailsModal(!showDetailsModal)
         // navigate(`/board/${boardId}/${groupId}/${task.id}`)
-
     }
 
+    // const onUpdateLabels = (isUpdtaeLabelSize) => {
+    //     console.log(isUpdtaeLabelSize)
+    //     setIsUpdtaeLabelSize(isUpdtaeLabelSize)
+    // }
+
+    // console.log('render TASK PREVIEW')
     return (
         <React.Fragment>
             <Draggable
@@ -82,7 +88,7 @@ export const TaskPreview = ({ task, groupId, index, taskRef, groupTitle }) => {
                         {...provided.draggableProps}
                         {...provided.dragHandleProps}
                     >
-                        <section className="task-preview" /*onDoubleClick={onGoToDetails}*/ /*onClick={onGoToDetails}*/>
+                        <section className="task-preview" /*onDoubleClick={onGoToDetails}*/ onClick={onGoToDetails}>
                             <div className="btn-quick-edit hide" onClick={toggaleQuickEdit}>
                                 {/* <BsFillPencilFill /> */}
                             </div>
@@ -92,7 +98,11 @@ export const TaskPreview = ({ task, groupId, index, taskRef, groupTitle }) => {
                                 <div className="task-cover" style={setTaskCoverStyle()}></div>}
                             {!isFullCover &&
                                 <div className="task-preview-content">
-                                    {task?.labelIds && <TaskLabel labelIds={task.labelIds} />}
+                                    {task?.labelIds && <TaskLabel
+                                        labelIds={task.labelIds}
+                                    // onUpdateLabels={onUpdateLabels}
+                                    // isUpdtaeLabelSize={isUpdtaeLabelSize}
+                                    />}
                                     <span>{task.title}</span>
                                     {task?.memberIds && <TaskMember memberIds={task.memberIds} />}
                                 </div>}

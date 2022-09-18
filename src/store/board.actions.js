@@ -69,6 +69,19 @@ export function removeBoard(boardId) {
     }
 }
 
+export function removeGroup(boardId, groupId) {
+    return async (dispatch) => {
+        try {
+            const updateBoard = await boardService.removeGroup(boardId, groupId)
+            console.log('board after delete group', updateBoard)
+            console.log('Deleted Succesfully!');
+            return dispatch(getActionUpdateBoard(updateBoard))
+        } catch (err) {
+            console.log('Cannot remove board', err)
+        }
+    }
+}
+
 export function addBoard(board) {
     return (dispatch) => {
 

@@ -10,7 +10,7 @@ import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
 
 export const GroupList = () => {
     const board = useSelector(state => state.boardModule.board)
-    // console.log('**board from GroupList:**', board)
+    console.log('**board from GroupList:**', board)
 
     const [isAddingGroup, setIsAddingGroup] = useState(false)
     // const [currBoard, setCurrBoard] = useState(board)

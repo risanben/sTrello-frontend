@@ -43,8 +43,11 @@ export const TaskQuickEdit = ({ task }) => {
     setLabelModal(true)
   }
 
+  const stopPropagation = (ev) => {
+    ev.stopPropagation()
+  }
 
-  return <section className="task-quick-edit">
+  return <section className="task-quick-edit" onClick={stopPropagation}>
     {/* <div className="dark-screen"></div> */}
     <div className='left-col'>
       <div className='input-side'>

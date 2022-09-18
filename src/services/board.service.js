@@ -26,7 +26,8 @@ export const boardService = {
     getEmptyBoard,
     getGroupById,
     // updateTask,
-    getTaskById
+    getTaskById,
+    removeGroup
 }
 window.cs = boardService
 
@@ -59,16 +60,30 @@ async function remove(boardId) {
     await storageService.remove(STORAGE_KEY, boardId)
     boardChannel.postMessage(getActionRemoveBoard(boardId))
 }
+
+async function removeGroup(boardId, groupId) {
+    try {
+        let boardToUpdate = await getById(boardId)
+        console.log('boardToUpdate', boardToUpdate)
+        boardToUpdate.groups = boardToUpdate.groups.filter(group => group.id !== groupId)
+        return await save(boardToUpdate)
+    } catch (err) {
+        throw err
+    }
+}
+
 async function save(board) {
     console.log('board from service ################', board)
     var savedBoard
     if (board._id) {
+        console.log('update board')
         savedBoard = await storageService.put(STORAGE_KEY, board)
         boardChannel.postMessage(getActionUpdateBoard(savedBoard))
 
     } else {
         // Later, owner is set by the backend
-        board.owner = userService.getLoggedinUser()
+        console.log('new board')
+        // board.owner = userService.getLoggedinUser()
         savedBoard = await storageService.post(STORAGE_KEY, board)
         boardChannel.postMessage(getActionAddBoard(savedBoard))
     }
@@ -97,7 +112,7 @@ async function getTaskById(boardId, groupId, taskId) {
     try {
         const group = await getGroupById(boardId, groupId)
         console.log('group', group);
-        const task=group.tasks.find(task => task.id === taskId)
+        const task = group.tasks.find(task => task.id === taskId)
         console.log('task', task);
         return task
 

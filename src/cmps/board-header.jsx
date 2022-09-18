@@ -3,7 +3,7 @@ export const BoardHeader = ({ board }) => {
 
     return <section className="board-header">
         {board.title}
-        <HiOutlineStar className='star' />
+        <div className='star-container'><HiOutlineStar className='star' /></div>
 
     </section>
 

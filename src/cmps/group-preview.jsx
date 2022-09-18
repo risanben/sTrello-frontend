@@ -5,11 +5,16 @@ import { useForm } from '../hooks/useForm'
 import { utilService } from '../services/util.service'
 import { useEffect } from 'react'
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
-import { GroupAction } from './group-action'
+import { GroupActionModal } from './group-action'
+import { useDispatch, useSelector } from 'react-redux'
+import { removeGroup } from '../store/board.actions'
 
 
 
 export const GroupPreview = ({ group, addTask, index, taskRef }) => {
+
+    const disapcth = useDispatch()
+    const board = useSelector(state => state.boardModule.board)
 
     const [isAddTask, setIsAddTask] = useState(false)
     const [isEditTitle, setIsEditTitle] = useState(false)
@@ -54,10 +59,16 @@ export const GroupPreview = ({ group, addTask, index, taskRef }) => {
         setIsAddTask(!isAddTask)
     }
 
+    const onDeleteGroup = (group) => {
+        // console.log('group', group)
+        // console.log('board from preview', board)
+        disapcth(removeGroup(board._id, group.id))
+    }
+
     const onOpenGroupAction = (ev) => {
-        console.log('ev', ev)
-        console.log('offsetLeft', ev.target.offsetLeft)
-        console.log('offsetTop', ev.target.offsetTop)
+        // console.log('ev', ev)
+        // console.log('offsetLeft', ev.target.offsetLeft)
+        // console.log('offsetTop', ev.target.offsetTop)
         setLeftPosGroupMOdal(ev.target.offsetLeft)
         setIsOpenGroupAction(!isOpenGroupAction)
     }
@@ -88,7 +99,12 @@ export const GroupPreview = ({ group, addTask, index, taskRef }) => {
                                     />
                                 </form>}
                             <div className="group-menu" onClick={onOpenGroupAction}></div>
-                            {isOpenGroupAction && <GroupAction group={groupToEdit} leftPos={leftPosGroupMOdal} onOpenGroupAction={onOpenGroupAction} />}
+                            {isOpenGroupAction &&
+                                <GroupActionModal
+                                    group={groupToEdit}
+                                    leftPos={leftPosGroupMOdal}
+                                    onOpenGroupAction={onOpenGroupAction}
+                                    onDeleteGroup={onDeleteGroup} />}
                         </div>
                         <TaskList
                             tasks={group.tasks}
