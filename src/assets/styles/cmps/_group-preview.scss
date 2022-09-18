@@ -21,12 +21,14 @@
         }
 
         &::-webkit-scrollbar-track {
-            background: #ebecf0;
+            background: #091e4213;
             border-radius: 3px;
         }
 
         &::-webkit-scrollbar-thumb {
-            background: rgba(180, 180, 180, 0.795);
+            background: #abb6bf;
+
+            // background: rgba(199, 194, 194, 0.719);
             border-radius: 3px;
         }
     }

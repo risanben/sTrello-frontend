@@ -1,28 +1,52 @@
-.board-list {
-    list-style: none;
-    display: flex;
-    flex-wrap: wrap;
-}
-.board-preview {
-    background-color: $clr7;
-    color: whitesmoke;
-    border-radius: .2em;
-    margin: 5px;
-    text-align: center;
-    padding: 5px;
-}
-.board-preview span {
-    color: pink;
-}
+.board-page {
 
-// .cart {
-//     background-color: $clr2;
-//     color: $clr6;
-//     padding: 20px;
-//     position: absolute;
-//     top: 10px;
-//     right: 10px;
-// }
-// .cart li button {
-//     margin: 5px;
-// }
+    .board-list {
+        list-style: none;
+        display: flex;
+        flex-wrap: wrap;
+
+
+        .board-preview {
+            border-radius: 3px;
+            width: 195px;
+            height: 95px;
+            border-radius: 3px;
+            font-size: 16px;
+            margin: 5px;
+            display: flex;
+            position: relative;
+
+            .board-title {
+                border-radius: 3px;
+                padding: 8px;
+                background-color: #0000004d;
+                color: #fff;
+                font-weight: 700;
+                line-height: 20px;
+                height: 95px;
+                flex: 1;
+                align-self: flex-start;
+                display: flex;
+            }
+
+            .create-new {
+                background-color: unset;
+                border-radius: 3px;
+                color: #172b4d;
+                font-size: 14px;
+                text-align: center;
+                font-weight: 400;
+                line-height: 20px;
+                display: block;
+                align-self: center;
+                background-color: #091e420a;
+
+            }
+        }
+
+    }
+
+    // .board-preview span {
+    //     color: pink;
+    // }
+}

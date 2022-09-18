@@ -49,8 +49,7 @@ export const TaskPreview = ({ task, groupId, index, taskRef, groupTitle }) => {
             style = {
                 backgroundImage: `url(${task.style.bg.imgUrl})`,
                 backgroundSize: "cover",
-                height: "180px",
-                borderRadius: "3px"
+                height: "180px"
             }
         }
         return style
@@ -99,7 +98,7 @@ export const TaskPreview = ({ task, groupId, index, taskRef, groupTitle }) => {
                                 </div>}
 
                             {isFullCover && task?.style?.bg?.imgUrl &&
-                                <div className="task-preview-content" style={setTaskCoverStyle()}>
+                                <div className="task-preview-content add-border" style={setTaskCoverStyle()}>
                                     <span className="title-img-cover" >{task.title}</span>
                                 </div>}
 

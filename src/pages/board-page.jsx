@@ -5,9 +5,12 @@ import { loadBoards, addBoard, updateBoard, removeBoard, addToBoard } from '../s
 
 import { showSuccessMsg } from '../services/event-bus.service.js'
 import { boardService } from '../services/board.service.js'
+import { useState } from 'react'
+import { BoardEdit } from '../cmps/board-edit'
 
 export function BoardPage() {
     const boards = useSelector(state => state.boardModule.boards)
+    const [isModalNewBoard, setIsModalNewBoard] = useState(false)
     const dispatch = useDispatch()
     useEffect(() => {
         dispatch(loadBoards())
@@ -39,10 +42,16 @@ export function BoardPage() {
             style = {
                 backgroundImage: `url(${board.style.imgUrl})`,
                 backgroundSize: "cover",
+                backgroundPosition: "50%"
+
 
             }
         } else style = { backgroundColor: board.style.bgColor }
         return style
+    }
+
+    const onCreateNewBoard = () => {
+        setIsModalNewBoard(!isModalNewBoard)
     }
 
     if (!boards) return <div>Loading...</div>
@@ -50,48 +59,32 @@ export function BoardPage() {
     return (
         <div className="board-page">
             {/* <h3>Boards App</h3> */}
-            <main>
 
-                {/* <button onClick={onAddBoard}>Add Board</button> */}
-                <Link to="/board/edit" className='nice-button'>Add Board</Link>
+            {/* <button onClick={onAddBoard}>Add Board</button> */}
+            {/* <Link to="/board/edit" className='nice-button'>Add Board</Link> */}
 
-                <ul className="board-list">
+            <ul className="board-list">
 
-                    {boards.map(board =>
-                        <Link to={`/board/${board._id}`} key={board._id}>
-                            <li className="board-preview" style={getBoradBg(board)}>
-                                <span>{board.title}</span>
+                {boards.map(board =>
+                    <Link to={`/board/${board._id}`} key={board._id}>
+                        <li className="board-preview" style={getBoradBg(board)}>
 
-                                {/* <div>
+                            <div className="board-title">{board.title}</div>
+
+                            {/* </div> */}
+                            {/* <div>
                                 <button onClick={() => { onRemoveBoard(board._id) }}>x</button>
                                 <button onClick={() => { onUpdateBoard(board) }}>Edit</button>
                             </div> */}
 
-                                {/* <button className="buy" onClick={() => { onAddToBoardt(board) }}>Add to Boardt</button> */}
-                            </li>
-                        </Link>
-                    )
-                    }
-
-                </ul>
-            </main>
-        </div>
+                            {/* <button className="buy" onClick={() => { onAddToBoardt(board) }}>Add to Boardt</button> */}
+                        </li>
+                    </Link>)}
+                <li className="board-preview" onClick={onCreateNewBoard}>
+                    <div className="board-title create-new">Create new board</div>
+                </li>
+                {isModalNewBoard && <BoardEdit />}
+            </ul>
+        </div >
     )
 }
-
-
-// function mapStateToProps(state) {
-//     return {
-//         boards: state.boardModule.boards
-//     }
-// }
-// const mapDispatchToProps = {
-//     loadBoards,
-//     removeBoard,
-//     addBoard,
-//     updateBoard,
-//     addToBoard
-// }
-
-
-// export const BoardPage = connect(mapStateToProps, mapDispatchToProps)(_BoardPage)
