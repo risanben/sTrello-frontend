@@ -118,6 +118,7 @@ export const TaskDetails = (props) => {
 
     const toggleEditTitle = () => {
         setEditTitle(!isEditTitle)
+        console.log(isEditTitle)
     }
     const toggleEditDescription = () => {
         setEditDescription(!isEditDescription)
@@ -151,7 +152,7 @@ export const TaskDetails = (props) => {
     const onSetMember = (addOrRemove, memberId) => {
         if (!addOrRemove) {
             if (!task.memberIds) task.memberIds = [memberId]
-            task.memberIds.push(memberId)
+            else task.memberIds.push(memberId)
         } else {
             console.log('task', task);
             const idx = task.memberIds.findIndex(member => member._id === memberId)
@@ -186,7 +187,7 @@ export const TaskDetails = (props) => {
                 <section className="task-details-container focus">
                     {/* task cover */}
                     <section style={{ backgroundColor: bgColor }} className="task-cover">
-                        <button onClick={onBack} className="btn close">x</button>
+                        <button onClick={onBack} className="btn close">✖</button>
                         {/* {task?.style?.bg?.imgUrl && <span className="img-cover" style={setTaskCoverStyle()}></span>} */}
                         {task?.style?.bg?.imgUrl && <img className="img-cover" src={`${task.style.bg.imgUrl}`} ></img>}
                         <button onClick={onShowModal} className="btn cover">Cover</button>
@@ -195,17 +196,17 @@ export const TaskDetails = (props) => {
 
                     {/* task-details */}
                     <form className="task-details" onSubmit={onSaveTask}>
-                        <section>
-                            <label htmlFor="title">Title
-                                {isEditTitle && <input {...register('title', 'text')} value={task.title} ref={refInput} />}
-                                {!isEditTitle && <span onClick={toggleEditTitle} >{task.title}</span>}
-                            </label>
+                        <section className="title-input">
+                            {isEditTitle && <input {...register('title', 'text')} value={task.title} ref={refInput} />}
+                            {!isEditTitle && <span className="static-input" onClick={toggleEditTitle} >{task.title}</span>}
                             <br></br>
-                            <span>in list {currentGroupTitle}</span>
+                            <span className="group-title-in-task">in list {currentGroupTitle}</span>
                         </section>
+                    {/* </form> */}
+                    {/* <section className="task-details-middle"> */}
                         <section className="tags">
                             <section className="members" >
-                                <span>Members</span>
+                                <span className="tag-title">Members</span>
                                 <br />
                                 <div className="select-members">
                                     {task?.memberIds && <TaskMember memberIds={task.memberIds} />}
@@ -214,7 +215,7 @@ export const TaskDetails = (props) => {
                                 </div>
                             </section>
                             <section className="labels">
-                                <span>Labels</span>
+                                <span className="tag-title">Labels</span>
                                 <div className="select-members">
                                     {task?.labelIds && <TaskLabel labelIds={task.labelIds} />}
                                     <span>➕</span>
@@ -231,8 +232,8 @@ export const TaskDetails = (props) => {
                             {!isEditDescription && <span onClick={toggleEditDescription}>{task.description} </span>}
                         </section>
                         {/* <button>Save</button> */}
-                    </form>
-
+                        </form>
+                    {/* </section> */}
                     <section className="task-abilities">
                         <button className="btn abilities" onClick={onShowMembersModal}><span className="icon"><HiUser /></span><span className="ability">Members</span></button>
                         <button className="btn abilities"><span className="icon"><BsTagFill /></span><span className="ability">Labels</span></button>

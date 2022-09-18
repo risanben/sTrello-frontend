@@ -2,18 +2,17 @@
 .members-modal {
     width: 300px;
     height:250px;
-    // position: absolute;
+    position: absolute;
     top: 140px;
-    right: 200px;
     background-color: #fff;
     box-shadow: var(--ds-shadow-overlay, 0 8px 16px -4px #091e4240, 0 0 0 1px #091e4214);
     z-index: 300;
     border-radius: 3px;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    // display: grid;
-    // grid-template-rows: 50px 20px auto;
+    // align-items: center;
+    display: grid;
+    grid-template-rows: 50px 20px auto;
 
     &:hover {
         cursor: auto;
@@ -31,8 +30,10 @@
         }
 
         .member-detail-container{
+            grid-row: 3/-1;
             display: flex;
             flex-direction: column;
+            margin-top: 10px;
         }
 
         // .group-action-close {

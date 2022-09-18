@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { NavLink, Link } from 'react-router-dom';
+import { NavLink, Link, useParams, useLocation } from 'react-router-dom';
 import { ImTrello } from 'react-icons/im';
 import { BsFillGrid3X3GapFill, BsChevronDown } from 'react-icons/bs';
 import { IoSearchSharp } from 'react-icons/io5';
@@ -7,6 +7,7 @@ import { AiOutlineBell } from 'react-icons/ai';
 import { boardService } from '../services/board.service'
 import { TempCmp } from './temp-cmp-render-task-details';
 import { SearchResult } from './search-result';
+import { useSelector } from 'react-redux';
 
 
 export function AppHeader() {
@@ -14,6 +15,8 @@ export function AppHeader() {
     const refOne = useRef(null)
     const [boards, setBoards] = useState(null)
     const [isSearching, setIsSearching] = useState(false)
+    const pathname = useLocation().pathname
+
 
     useEffect(() => {
         document.addEventListener("click", handleClickOutside, true)
@@ -43,12 +46,18 @@ export function AppHeader() {
         setIsSearching(true)
     }
 
+    const _getHeaderClass = () => {
+        if (pathname.includes("/board")) {
+            return "app-header"
+        } else {
+            return "app-header home"
+        }
+    }
 
-    // console.log('isSearching:', isSearching)
     return (
-        <section className="app-header">
+        <section className={_getHeaderClass()}>
 
-            <BsFillGrid3X3GapFill className='menu-logo' />
+            {/* <BsFillGrid3X3GapFill className='menu-logo' /> */}
 
             <Link to="/" className='home-logo-link'>
                 <ImTrello className='trello-logo' />
@@ -66,7 +75,7 @@ export function AppHeader() {
                 <span className='create'>Create</span>
             </section>
 
-            <section className={isSearching ? 'search-wide' : 'search'} >
+            <section className={isSearching ? 'search search-wide' : 'search'} >
                 <IoSearchSharp className='mag-glass' /><input type="text" onChange={onChange} placeholder='Search' onClick={onSearching} />
             </section>
 
@@ -75,9 +84,12 @@ export function AppHeader() {
                     boards={boards} />}
             </section>
 
-            <section className='bell'>
+            {/* <section className='bell'>
                 <AiOutlineBell />
-            </section>
+            </section> */}
+
+            <section className='space'></section>
+            <button className='login'>Log in</button>
 
         </section>
     )
