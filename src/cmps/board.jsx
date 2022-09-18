@@ -16,6 +16,7 @@ import { getBoard } from '../store/board.actions'
 export const Board = () => {
 
     const board = useSelector(state => state.boardModule.board)
+    const resizeLabel = useSelector(state => state.boardModule.resizeLabel)
     // const [board, setBoard] = useState(null)
     const dispatch = useDispatch()
     const params = useParams()

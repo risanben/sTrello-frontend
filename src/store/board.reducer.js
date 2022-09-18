@@ -5,13 +5,15 @@ const initialState = {
     filterby: null,
     board: null,
     task: null,
-    boardMembers:[],
+    boardMembers: [],
+    resizeLabel: false
 }
 export function boardReducer(state = initialState, action) {
     var newState = state
     var boards
     var board
     var cart
+    var resizeLabel
     switch (action.type) {
         case 'SET_BOARDS':
             newState = { ...state, boards: action.boards }
@@ -56,6 +58,12 @@ export function boardReducer(state = initialState, action) {
             if (state.lastRemovedBoard) {
                 newState = { ...state, boards: [...state.boards, state.lastRemovedBoard], lastRemovedBoard: null }
             }
+            break
+
+        case 'RESIZE_LABEL':
+            // console.log('action.resizeLabel', action.resizeLabel)
+            resizeLabel = action.resizeLabel
+            newState = { ...state, resizeLabel }
             break
         default:
     }

@@ -5,24 +5,30 @@
     margin: 0 4px 20px;
     display: flex;
     flex-direction: column;
-    overflow-y: auto;
-    overflow-x: hidden;
-    height: fit-content;
     max-height: calc(100vh - 140px);
 
-    &::-webkit-scrollbar {
-        border-radius: 3px;
-        width: 8px;
-    }
+    .scroll {
+        margin-right: 4px;
+        margin-bottom: 2px;
+        overflow-y: auto;
+        overflow-x: hidden;
+        height: fit-content;
+        max-height: calc(100vh - 140px);
 
-    &::-webkit-scrollbar-track {
-        background: #ebecf0;
-        border-radius: 3px;
-    }
+        &::-webkit-scrollbar {
+            border-radius: 3px;
+            width: 8px;
+        }
 
-    &::-webkit-scrollbar-thumb {
-        background: rgba(180, 180, 180, 0.795);
-        border-radius: 3px;
+        &::-webkit-scrollbar-track {
+            background: #ebecf0;
+            border-radius: 3px;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background: rgba(180, 180, 180, 0.795);
+            border-radius: 3px;
+        }
     }
 
     .group-title {
@@ -64,7 +70,6 @@
             }
         }
 
-
         input[name="title"] {
             color: #172b4d;
             font-size: 14px;
@@ -104,94 +109,9 @@
         }
     }
 
-    // .add-task-content {
-    //     width: 254px;
-    //     overflow: visible;
-    //     padding: 6px 8px 2px;
-    //     height: 66px;
-    //     background-color: #fff;
-    //     display: flex;
-    //     align-items: center;
-    //     border-radius: 3px;
-    //     align-self: center;
-    //     margin-bottom: 4px;
-    //     min-height: 54px;
-    //     max-height: 162px;
-    //     box-shadow: 0 1px 0 #091e4240;
-
-
-
-    //     &:hover {
-    //         background-color: #fff;
-    //         cursor: unset;
-    //     }
-
-    //     textarea[name="title"] {
-    //         font-family: inherit;
-    //         overflow: visible;
-    //         overflow-wrap: break-word;
-    //         resize: none;
-    //         padding: 0;
-    //         min-height: 54px;
-    //         max-height: 162px;
-    //         width: 100%;
-    //         border: none;
-    //         display: block;
-    //         flex: 1;
-    //         line-height: 20px;
-
-    //         &:focus {
-    //             outline: none;
-    //         }
-    //     }
-
-    // }
-
     .add-task-btn-container {
         display: flex;
         padding: 0 8px 8px;
-
-        // .btn-add-task {
-        //     margin-bottom: 0;
-        //     margin-top: 0;
-        //     vertical-align: top;
-        //     background-color: #0079bf;
-        //     color: #fff;
-        //     border-radius: 3px;
-        //     font-size: 14px;
-        //     font-weight: 400;
-        //     justify-content: center;
-        //     line-height: 20px;
-        //     padding: 6px 12px;
-        //     width: 81px;
-        //     height: 32px;
-        //     text-align: center;
-        //     margin: 4px 4px 0 0;
-
-        //     &:hover {
-        //         background-color: #026aa7;
-        //     }
-
-        //     &:active {
-        //         background-color: #055a8c;
-        //     }
-        // }
-
-        // .btn-close-add-task {
-        //     height: 25px;
-        //     width: 24px;
-        //     background-image: url('../../img/icon-close-add-task.svg');
-        //     background-position: center;
-        //     align-self: center;
-        //     margin: 0 4px;
-
-        //     &:hover {
-        //         cursor: pointer;
-        //         background-image: url('../../img/icon-close-add-task-hover.svg');
-        //     }
-        // }
-
-
     }
 
 }

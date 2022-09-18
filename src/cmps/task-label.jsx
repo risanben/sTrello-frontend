@@ -1,10 +1,11 @@
 import { useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { updateBoard } from "../store/board.actions"
+import { resizeLabel } from "../store/board.actions"
 
 
-export const TaskLabel = ({ labelIds, onUpdateLabels }) => {
+export const TaskLabel = ({ labelIds }) => {
     const board = useSelector(state => state.boardModule.board)
+    const resizeLabelState = useSelector(state => state.boardModule.resizeLabel)
     const [isClicked, setIsClicked] = useState(false)
     const dispatch = useDispatch()
     const getColor = (labelId) => {
@@ -16,9 +17,8 @@ export const TaskLabel = ({ labelIds, onUpdateLabels }) => {
 
     const toggaleLabelSize = (ev) => {
         ev.stopPropagation()
-        // onUpdateLabels(isClicked)
+        dispatch(resizeLabel(isClicked))
         setIsClicked(!isClicked)
-        // dispatch(updateBoard(board))
     }
     return (
         <div className="task-label-container">
@@ -26,7 +26,7 @@ export const TaskLabel = ({ labelIds, onUpdateLabels }) => {
                 return <button
                     key={labelId}
                     onClick={toggaleLabelSize}
-                    className={isClicked ? 'clicked' : ''}
+                    className={resizeLabelState ? 'clicked' : ''}
                     style={getColor(labelId)}></button>
             })}
         </div>

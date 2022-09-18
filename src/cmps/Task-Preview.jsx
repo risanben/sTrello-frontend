@@ -16,10 +16,8 @@ export const TaskPreview = ({ task, groupId, index, taskRef, groupTitle }) => {
     const [isFullCover, setIsFullCover] = useState(false)
     const [isQuickEditOn, setIsQuickEditOn] = useState(false)
     const [showDetailsModal, setShowDetailsModal] = useState(false)
-    // const [isUpdtaeLabelSize, setIsUpdtaeLabelSize] = useState(false)
     const refQuickEdit = useRef(null)
 
-    // const dispatch = useDispatch()
     const params = useParams()
     const navigate = useNavigate()
 
@@ -69,11 +67,6 @@ export const TaskPreview = ({ task, groupId, index, taskRef, groupTitle }) => {
         // navigate(`/board/${boardId}/${groupId}/${task.id}`)
     }
 
-    // const onUpdateLabels = (isUpdtaeLabelSize) => {
-    //     console.log(isUpdtaeLabelSize)
-    //     setIsUpdtaeLabelSize(isUpdtaeLabelSize)
-    // }
-
     // console.log('render TASK PREVIEW')
     return (
         <React.Fragment>
@@ -100,16 +93,14 @@ export const TaskPreview = ({ task, groupId, index, taskRef, groupTitle }) => {
                                 <div className="task-preview-content">
                                     {task?.labelIds && <TaskLabel
                                         labelIds={task.labelIds}
-                                    // onUpdateLabels={onUpdateLabels}
-                                    // isUpdtaeLabelSize={isUpdtaeLabelSize}
                                     />}
                                     <span>{task.title}</span>
                                     {task?.memberIds && <TaskMember memberIds={task.memberIds} />}
                                 </div>}
 
                             {isFullCover && task?.style?.bg?.imgUrl &&
-                                <div className="task-preview-content">
-                                    <span className="title-img-cover" style={setTaskCoverStyle()}>{task.title}</span>
+                                <div className="task-preview-content" style={setTaskCoverStyle()}>
+                                    <span className="title-img-cover" >{task.title}</span>
                                 </div>}
 
 

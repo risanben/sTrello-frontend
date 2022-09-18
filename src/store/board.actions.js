@@ -225,7 +225,19 @@ export function getTask(boardId, groupId, taskId) {
     }
 }
 
+export function resizeLabel(resizeLabel) {
+    return async (dispatch) => {
+        try {
+            dispatch({
+                type: 'RESIZE_LABEL',
+                resizeLabel
+            })
+        } catch (err) {
+            console.log('Cannot resize label', err)
 
+        }
+    }
+}
 /*------------------------------------------------------------------------------*/
 
 

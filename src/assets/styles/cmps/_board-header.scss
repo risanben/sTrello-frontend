@@ -1,19 +1,20 @@
 .board-header {
 
-    color: whitesmoke;
+    color: #172b4d;
     font-family: secular;
     height: 42px;
     padding: 5px 20px;
-    font-size: 20px;
+    font-size: 18px;
     display: flex;
     align-items: center;
+    margin-left: 118px;
 
     .star-container {
-        padding: 6px;
+        padding: 7px;
         display: flex;
         background-color: rgba(255, 255, 255, 0.256);
         border-radius: 3px;
-        margin-inline-start: 10px;
+        margin-inline-start: 17px;
         font-size: 16px;
 
         &:hover {

@@ -421,9 +421,20 @@ const dataBoards = [
             },
             {
                 "id": "g301",
-                "title": "Backlog-Clinet",
+                "title": "Backlog-Client",
                 "archivedAt": null,
                 "tasks": [
+                    {
+                        "id": "c302",
+                        "title": "Add TaskDetails",
+                        "labelIds": ["l101", "l103"]
+                    },
+                    {
+                        "id": "c303",
+                        "title": "Adding npm libraries",
+                        "labelIds": ["l101", "l103", "l104", "l106"],
+                        "memberIds": ["u101", "u103"]
+                    },
                     {
                         "id": "c301",
                         "title": "Planning the components tree",
@@ -437,17 +448,6 @@ const dataBoards = [
                                 "fullCover": false
                             }
                         }
-                    },
-                    {
-                        "id": "c302",
-                        "title": "Add TaskDetails",
-                        "labelIds": ["l101", "l103"]
-                    },
-                    {
-                        "id": "c303",
-                        "title": "Adding npm libraries",
-                        "labelIds": ["l101", "l103", "l104", "l106"],
-                        "memberIds": ["u101", "u103"]
                     },
                     {
                         "id": "c304",

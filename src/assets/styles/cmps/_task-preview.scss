@@ -20,6 +20,9 @@
     // max-width: 300px;
     .task-preview-content {
         padding: 6px 8px 8px;
+        // display: flex;
+        // flex-direction: column;
+        position: relative;
 
         span {
             min-height: 22px;
@@ -28,12 +31,20 @@
             word-wrap: break-word;
             display: block;
 
+
             &.title-img-cover {
                 display: flex;
-                align-items: flex-end;
+                position: relative;
+                // bottom: 10px;
+                top: 90%;
+                // flex-direction: column;
+                align-items: flex-start;
                 color: #fff;
+                // color: black;
                 font-weight: 500;
                 font-size: 16px;
+                margin: 0;
+
                 // background: linear-gradient(180deg, #00000080, #000);
 
             }
@@ -90,7 +101,7 @@
         }
     }
 
-    .dark-screen{
+    .dark-screen {
         position: fixed;
         top: 0;
         left: 0;
@@ -99,5 +110,6 @@
         background-color: black;
         opacity: 0.6;
         pointer-events: none;
+        z-index: 10;
     }
 }
