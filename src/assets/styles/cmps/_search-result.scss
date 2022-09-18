@@ -1,41 +1,72 @@
+.search-result {
+    background-color: whitesmoke;
+    // border: 2px solid red;
+    position: absolute;
+    top: 43px;
+    right: 12px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 16px;
+    width: 500px;
+    border-radius: 0.2rem;
+    z-index: 20;
 
-.search-result{
-background-color: whitesmoke;
-// border: 2px solid red;
-position: absolute;
-top: 43px;
-right: 30px;
-font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-font-size: 16px;
-width: 500px;
-border-radius: 0.4rem;
-z-index: 20;
-
-header{
-    font-size: 11px;
-    padding: 5px 15px 0 15px ;
-font-weight: 700;
-}
+    header {
+        font-size: 11px;
+        padding: 15px 15px 0 15px;
+        font-weight: 700;
+    }
 
 
-ul{
-    margin: 0;
+    ul {
+        margin: 0;
         padding: 0;
         padding-bottom: 5px;
-    li{
-        list-style: none;
-        padding: 5px 15px 0 15px;
-      &:hover{
-        background-color: darken($color: $home-bg-color, $amount: 10);
-      }
+
+        li {
+            list-style: none;
+            padding: 5px 15px 5px 15px;
+            // border: 3px solid green;
+            display: flex;
+            align-items: flex-end;
+
+            .thumbnail {
+                max-width: 20px;
+                border-radius: 2px;
+                margin-right: 10px;
+            }
+
+            .color-thumb {
+                display: inline block;
+                width: 20px;
+                height: 15px;
+                border-radius: 2px;
+                margin-right: 10px;
+            }
+
+            .flex-left {
+                display: flex;
+                // border: 2px solid green;
+                align-items: center;
+            }
+
+            .flex-middle {
+                flex-grow: 1;
+            }
+
+            .flex-end {
+                font-size: 12px;
+                margin-right: 30px;
+                padding-bottom: 3px;
+            }
+
+
+            &:hover {
+                background-color: darken($color: $home-bg-color, $amount: 10);
+            }
+        }
     }
-}
 
-ul>:last-child{
-    // padding-bottom: 30px;
-}
-
-.boards-link{
-    color: inherit;
-}
+    .boards-link {
+        color: inherit;
+    }
 }
