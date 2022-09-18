@@ -16,6 +16,7 @@ export const GroupPreview = ({ group, addTask, index, taskRef }) => {
     const disapcth = useDispatch()
     const board = useSelector(state => state.boardModule.board)
 
+    const refTitle = useRef(null)
     const [isAddTask, setIsAddTask] = useState(false)
     const [isEditTitle, setIsEditTitle] = useState(false)
     const [isOpenGroupAction, setIsOpenGroupAction] = useState(false)
@@ -32,12 +33,23 @@ export const GroupPreview = ({ group, addTask, index, taskRef }) => {
         setGroup(group)
     }, [])
 
+    useEffect(() => {
+        document.addEventListener("click", handleClickOutside, true)
+    }, [])
+
+    const handleClickOutside = (e) => {
+        if (!refTitle.current) return
+        if (!refTitle.current.contains(e.target)) {
+            onEditGroupTitle()
+        } 
+    }
+
     const toggaleEditTitle = () => {
         setIsEditTitle(!isEditTitle)
     }
 
     const onEditGroupTitle = (ev) => {
-        ev.preventDefault()
+        if (ev) ev.preventDefault()
         // console.log('groupToEdit', groupToEdit)
         addTask(groupToEdit)
         setIsEditTitle(!isEditTitle)
@@ -89,7 +101,7 @@ export const GroupPreview = ({ group, addTask, index, taskRef }) => {
                         <div className="group-title">
                             {!isEditTitle && <span onClick={toggaleEditTitle}>{groupToEdit.title}</span>}
                             {isEditTitle &&
-                                <form onSubmit={onEditGroupTitle}>
+                                <form onSubmit={onEditGroupTitle} ref={refTitle}>
                                     <input
                                         value={groupToEdit.title}
                                         onChange={handleChangeGroup}

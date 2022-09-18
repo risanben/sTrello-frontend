@@ -23,6 +23,7 @@ export const TaskMember = ({ memberIds }) => {
         return <div>{initials}</div>
     }
 
+    
     return (
         <div className="task-member-container">
             {memberIds.map(memberId => {
