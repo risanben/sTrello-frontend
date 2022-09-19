@@ -31,6 +31,22 @@
             padding: 0 32px;
             grid-column: 1 / span 3;
             grid-row: 1;
+
+            &:hover {
+                color: #172b4d;
+            }
+        }
+
+        .btn-close-modal {
+            grid-column: 3;
+            grid-row: 1;
+            color: #6b778c;
+            cursor: pointer;
+            margin: 0;
+            padding: 0;
+            z-index: 2;
+            background-color: #fff;
+
         }
     }
 
@@ -104,6 +120,16 @@
                     width: 100%;
                     color: #fff;
                     line-height: 24px;
+                    background-image: url('../../img/selected-background.svg');
+                    background-position: center;
+                    background-repeat: no-repeat;
+
+                }
+
+                .unmarked {
+                    height: 100%;
+                    width: 100%;
+                    z-index: 1;
 
                     &:hover {
                         border-radius: 3px;

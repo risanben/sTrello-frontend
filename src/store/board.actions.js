@@ -83,18 +83,14 @@ export function removeGroup(boardId, groupId) {
 }
 
 export function addBoard(board) {
-    return (dispatch) => {
-
-        boardService.save(board)
-            .then(savedBoard => {
-                // console.log('Added Board', savedBoard);
-                dispatch(getActionAddBoard(savedBoard))
-                showSuccessMsg('Board added')
-            })
-            .catch(err => {
-                showErrorMsg('Cannot add board')
-                console.log('Cannot add board', err)
-            })
+    return async (dispatch) => {
+        try {
+            const savedBoard = await boardService.save(board)
+            console.log('Added Board', savedBoard);
+            return dispatch(getActionAddBoard(savedBoard)).board
+        } catch (err) {
+            console.log('Cannot add board', err)
+        }
     }
 }
 

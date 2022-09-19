@@ -54,7 +54,7 @@ export const GroupList = () => {
                     {...provided.droppableProps}
                 >
                     <section className="group-list">
-                        {board.groups.map((group, index) => {
+                        {board?.groups?.map((group, index) => {
                             return <GroupPreview
                                 key={group.id}
                                 group={group}

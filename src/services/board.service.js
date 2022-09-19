@@ -79,7 +79,6 @@ async function save(board) {
         console.log('update board')
         savedBoard = await storageService.put(STORAGE_KEY, board)
         boardChannel.postMessage(getActionUpdateBoard(savedBoard))
-
     } else {
         // Later, owner is set by the backend
         console.log('new board')
