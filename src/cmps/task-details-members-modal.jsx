@@ -1,10 +1,10 @@
 import { TaskMemberDetails } from "./task-members-details"
 
-export const TaskDetailsMembersModal = ({ memberIds, boardMembers, onSetMember }) => {
-    console.log('boardMembers', boardMembers);
+export const TaskDetailsMembersModal = ({ memberIds, onSetMember ,toggleMembersModal}) => {
     return (
         <section className="members-modal">
             {/* <div className="members-modal-container"> */}
+            <div onClick={toggleMembersModal}>X</div>
                 <div className="members-modal-title">Members</div>
                 <input type="text" placeholder="Search members" />
                 <h3>Board members</h3>

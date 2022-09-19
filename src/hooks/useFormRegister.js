@@ -3,10 +3,7 @@ import { useEffectUpdate } from "./useEffectUpdate"
 
 export const useFormRegister = (initialState, callBack) => {
 
-    // console.log('initialState', initialState, 'callBack', callBack);
     const [fields, setFields] = useState(initialState)
-    // console.log('fields', fields)
-    // console.log('setFields', setFields);
 
     useEffectUpdate(() => {
         if (callBack) callBack(fields)

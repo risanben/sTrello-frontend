@@ -5,7 +5,6 @@ import { BsFillGrid3X3GapFill, BsChevronDown } from 'react-icons/bs';
 import { IoSearchSharp } from 'react-icons/io5';
 import { AiOutlineBell } from 'react-icons/ai';
 import { boardService } from '../services/board.service'
-import { TempCmp } from './temp-cmp-render-task-details';
 import { SearchResult } from './search-result';
 import { useSelector } from 'react-redux';
 

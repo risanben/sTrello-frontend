@@ -1,11 +1,8 @@
 const initialState = {
     boards: [],
-    // cart: [],
-    // lastRemovedBoard: null,
     filterby: null,
     board: null,
     task: null,
-    boardMembers: [],
     resizeLabel: false
 }
 export function boardReducer(state = initialState, action) {
@@ -20,9 +17,6 @@ export function boardReducer(state = initialState, action) {
             break
         case 'SET_BOARD':
             newState = { ...state, board: action.board }
-            break
-        case 'SET_BOARD_MEMBERS':
-            newState = { ...state, boardMembers: action.boardMembers }
             break
         case 'SET_TASK':
             newState = { ...state, task: action.task }

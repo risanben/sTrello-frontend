@@ -1,14 +1,11 @@
-import { useState } from "react";
 import { useSelector } from "react-redux"
 
 export const TaskMemberDetails = ({ memberIds, onSetMember }) => {
-    // const board = useSelector(state => state.boardModule.board)
-    const boardMembers = useSelector(state => state.boardModule.boardMembers)
-
-    // const [isTaskMember, setIsTaskMember] = useState()
+    const board = useSelector(state => state.boardModule.board)
+    // const boardMembers = useSelector(state => state.boardModule.boardMembers)
 
     const getMemberName = (memberId) => {
-        const member = boardMembers.find(member => member._id === memberId)
+        const member = board.members.find(member => member._id === memberId)
 
         const fullname = member.fullname.split(' ')
         let initials = fullname[0][0]
@@ -42,18 +39,16 @@ export const TaskMemberDetails = ({ memberIds, onSetMember }) => {
     }
 
     const checkTaskMember = (memberId) => {
-
         if(!memberIds) return
         const checkedMember = memberIds.find(member => member=== memberId)
-        // setIsTaskMember(checkedMember.length)
         if (checkedMember) return true
         return false
     }
 
-    if (!boardMembers) return <div>No board members found</div>
+    if (!board.members) return <div>No board members found</div>
     return (
         <div className="board-member-container">
-            {boardMembers.map(member => {
+            {board.members.map(member => {
                 return <div className="member"
                     key={member._id}
                     onClick={() => onSetMember(checkTaskMember(member._id), member._id)}>

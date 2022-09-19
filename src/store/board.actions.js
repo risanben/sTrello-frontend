@@ -139,24 +139,6 @@ export function checkout() {
     }
 }
 
-export function getBoardMembers(boardId) {
-    return async (dispatch) => {
-        try {
-            const currentBoard = await boardService.getById(boardId)
-            const currentBoardMembers = currentBoard.members
-            console.log('currentBoardMembers', currentBoardMembers);
-            const { boardMembers } = dispatch({
-                type: 'SET_BOARD_MEMBERS',
-                boardMembers: currentBoardMembers
-            })
-
-            return boardMembers
-        } catch (err) {
-            console.log('Cannot load task', err)
-        }
-    }
-}
-
 /*------------------------------------------------------------------------------*/
 export function updateTask(boardId, groupId, taskForUpdate) {
     // console.log('board action updateTask');

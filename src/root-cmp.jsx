@@ -13,7 +13,6 @@ import { BoardPage } from './pages/board-page'
 import { TaskPreview } from './cmps/Task-Preview'
 import { HomePage } from './pages/home-page'
 import { Board } from './cmps/board'
-import { TempCmp } from './cmps/temp-cmp-render-task-details'
 import { BoardEdit } from './cmps/board-edit'
 import { GroupEdit } from './cmps/group-edit'
 import { TaskDetails } from './pages/task-details'
@@ -41,7 +40,6 @@ export class App extends React.Component {
                         <Route path="task/edit" element={<TaskDetails />} />
                         {/* <Route path="task/edit/:id" element={<TaskDetails />} /> */}
                         <Route path="board/:boardId/:groupId/:id" element={<TaskDetails />} />
-                        <Route path="temp" element={< TempCmp />} />
                     </Routes>
                 </main>
             </div>
