@@ -7,6 +7,7 @@ import { AiOutlineBell } from 'react-icons/ai';
 import { boardService } from '../services/board.service'
 import { SearchResult } from './search-result';
 import { useSelector } from 'react-redux';
+import { BoardEdit } from './board-edit';
 
 
 export function AppHeader() {
@@ -14,6 +15,7 @@ export function AppHeader() {
     const refOne = useRef(null)
     const [boards, setBoards] = useState(null)
     const [isSearching, setIsSearching] = useState(false)
+    const [isCreateModalOpen, setIsCreateModalOpen] = useState(false)
     const pathname = useLocation().pathname
 
 
@@ -46,12 +48,19 @@ export function AppHeader() {
     }
 
     const _getHeaderClass = () => {
-        if (pathname.includes("/board")) {
+        if (pathname === "/board") {
+            return "app-header workspace"
+        }
+        else if (pathname.includes("/board")) {
             return "app-header"
         } else {
             return "app-header home"
         }
     }
+    const showCreateBoardMoadl = () => {
+        setIsCreateModalOpen(!isCreateModalOpen)
+    }
+
 
     return (
         <section className={_getHeaderClass()}>
@@ -66,12 +75,19 @@ export function AppHeader() {
             </Link>
 
             <section className='nav-header'>
-                <ul>
-                    <Link to="board" className='workspace-link'><li>Workspaces <BsChevronDown className='downArr' /></li></Link>
-                    <li>Recent <BsChevronDown className='downArr' /></li>
-                    <Link to="board" className='workspace-link'><li>Templates <BsChevronDown className='downArr' /></li></Link>
+                <ul className='nav-links-container'>
+                    <Link to="board" className='workspace-link'>
+                        <li className='nav-link'>Workspaces <BsChevronDown className='downArr' />
+                        </li>
+                    </Link>
+                    <li className='nav-link'>Recent <BsChevronDown className='downArr' /></li>
+                    <Link to="board" className='workspace-link'>
+                        <li className='nav-link'>Templates <BsChevronDown className='downArr' />
+                        </li>
+                    </Link>
                 </ul>
-                <span className='create'>Create</span>
+                <span className='create' onClick={showCreateBoardMoadl}>Create</span>
+                {isCreateModalOpen && <BoardEdit toggleCreateBoardModal={showCreateBoardMoadl} />}
             </section>
 
             <section className={isSearching ? 'search search-wide' : 'search'} >
