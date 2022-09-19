@@ -30,6 +30,14 @@ function get(entityType, entityId) {
 }
 function post(entityType, newEntity) {
     newEntity._id = _makeId()
+    newEntity.isStarred = false
+    // newEntity.groups = [
+    //     {
+    //         "id": _makeId(),
+    //         "title": "",
+    //         "tasks": []
+    //     },
+    // ]
     return query(entityType)
         .then(entities => {
             entities.push(newEntity)
@@ -80,12 +88,46 @@ function postMany(entityType, newEntities) {
         })
 }
 
+const labelsData = [
+    {
+        "id": "l101",
+        "title": "None",
+        "color": "#7BC86C" // Green
+    },
+    {
+        "id": "l102",
+        "title": "None",
+        "color": "#F5DD29" //Yellow
+    },
+    {
+        "id": "l103",
+        "title": "None",
+        "color": "#FFAF3F" // Orange
+    },
+    {
+        "id": "l104",
+        "title": "None",
+        "color": "#EF7564"//Red
+    },
+    {
+        "id": "l105",
+        "title": "None",
+        "color": "#CD8DE5"//Purple
+    },
+    {
+        "id": "l106",
+        "title": "None",
+        "color": "#5BA4CF" //Blue
+    }
+]
+
 const dataBoards = [
     {
         "_id": utilService.makeId(),
         "title": "Robot dev proj",
         "archivedAt": null,
         "createdAt": Date.now(),
+        "isStarred": false,
         "createdBy": {
             "_id": utilService.makeId(),
             "fullname": "Abi Abambi",
@@ -94,33 +136,7 @@ const dataBoards = [
         "style": {
             "bgColor": "#26de81"
         },
-        "labels": [
-            {
-                "id": "l101",
-                "title": "None",
-                "color": "#7BC86C"
-            },
-            {
-                "id": "l102",
-                "title": "None",
-                "color": "##F5DD29"
-            },
-            {
-                "id": "l103",
-                "title": "None",
-                "color": "#FFAF3F"
-            },
-            {
-                "id": "l104",
-                "title": "None",
-                "color": "#CD8DE5"
-            },
-            {
-                "id": "l105",
-                "title": "None",
-                "color": "#5BA4CF"
-            }
-        ],
+        "labels": labelsData,
         "groups": [
             {
                 "id": "g101",
@@ -186,6 +202,7 @@ const dataBoards = [
         "_id": utilService.makeId(),
         "title": "Sprint 4",
         "archivedAt": null,
+        "isStarred": false,
         "createdAt": Date.now(),
         "createdBy": {
             "_id": utilService.makeId(),
@@ -195,33 +212,7 @@ const dataBoards = [
         "style": {
             "bgColor": "#223ccec5"
         },
-        "labels": [
-            {
-                "id": "l101",
-                "title": "None",
-                "color": "#7BC86C"
-            },
-            {
-                "id": "l102",
-                "title": "None",
-                "color": "##F5DD29"
-            },
-            {
-                "id": "l103",
-                "title": "None",
-                "color": "#FFAF3F"
-            },
-            {
-                "id": "l104",
-                "title": "None",
-                "color": "#CD8DE5"
-            },
-            {
-                "id": "l105",
-                "title": "None",
-                "color": "#5BA4CF"
-            }
-        ],
+        "labels": labelsData,
         "members": [
             {
                 "_id": "u101",
@@ -306,6 +297,7 @@ const dataBoards = [
         "_id": utilService.makeId(),
         "title": "Sprint 4 - demo data",
         "archivedAt": null,
+        "isStarred": true,
         "createdAt": Date.now(),
         "createdBy": {
             "_id": utilService.makeId(),
@@ -316,38 +308,7 @@ const dataBoards = [
             "bgColor": null,
             "imgUrl": "https://trello-backgrounds.s3.amazonaws.com/SharedBackground/2400x1600/bde90942b25945192718669aca01489b/photo-1662901603057-057ff15eb6eb.jpg"
         },
-        "labels": [
-            {
-                "id": "l101",
-                "title": "None",
-                "color": "#7BC86C" // Green
-            },
-            {
-                "id": "l102",
-                "title": "None",
-                "color": "#F5DD29" //Yellow
-            },
-            {
-                "id": "l103",
-                "title": "None",
-                "color": "#FFAF3F" // Orange
-            },
-            {
-                "id": "l104",
-                "title": "None",
-                "color": "#EF7564"//Red
-            },
-            {
-                "id": "l105",
-                "title": "None",
-                "color": "#CD8DE5"//Purple
-            },
-            {
-                "id": "l106",
-                "title": "None",
-                "color": "#5BA4CF" //Blue
-            }
-        ],
+        "labels": labelsData,
         "members": [
             {
                 "_id": "u101",
@@ -631,3 +592,4 @@ const imgArr =
         'https://res.cloudinary.com/dqhrqqqul/image/upload/v1663229161/bug_bkvxx9.jpg',
         'https://res.cloudinary.com/dqhrqqqul/image/upload/v1663229153/code_mvpcmf.jpg'
     ]
+

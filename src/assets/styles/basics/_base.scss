@@ -9,14 +9,31 @@
 
 html {
     font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    line-height: 1.6;
-    color: $clr2;
+    // line-height: 1.6;
+    // color: $clr2;
 }
 
 body {
     font-size: rem(18px);
     margin: 0;
     margin: auto;
+    overflow-y: hidden;
+
+    &::-webkit-scrollbar {
+        border-radius: 3px;
+        height: 11px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: rgba(0, 0, 0, 0.171);
+        border-radius: 3px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.562);
+        border-radius: 3px;
+    }
+
 }
 
 h1,
@@ -25,9 +42,9 @@ h3,
 h4,
 h5,
 h6 {
-    font-family: caveat;
-    margin: 0 0 0.6em;
-    line-height: 1;
+    // font-family: caveat;
+    // margin: 0 0 0.6em;
+    // line-height: 1;
 }
 
 

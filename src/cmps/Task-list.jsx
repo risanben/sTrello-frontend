@@ -15,9 +15,7 @@ export const TaskList = ({ tasks, groupId, group, isAddTask, handleChangeTask, t
     if (!tasks) return
     return (
 
-        <Droppable
-            droppableId={group.id}
-        >
+        <Droppable droppableId={group.id}>
             {(provided) => (
                 <section
                     ref={(el) => { taskRef.current = el; provided.innerRef(el) }}

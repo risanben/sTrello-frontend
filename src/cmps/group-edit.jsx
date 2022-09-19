@@ -37,7 +37,8 @@ export const GroupEdit = (props) => {
         // })
         if (!group.title) return
         var board = props.board
-        board.groups.push({ ...group })
+        if (board?.groups) board.groups.push({ ...group })
+        else board.groups = [group]
         boardService.save({ ...board }).then(() => {
             props.onAddingGroup()
         })

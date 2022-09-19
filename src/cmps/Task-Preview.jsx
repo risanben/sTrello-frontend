@@ -66,6 +66,10 @@ export const TaskPreview = ({ task, groupId, index, taskRef, groupTitle }) => {
         // navigate(`/board/${boardId}/${groupId}/${task.id}`)
     }
 
+    const onDarkClicked = (e) => {
+        e.stopPropagation()
+    }
+
     // console.log('render TASK PREVIEW')
     return (
         <React.Fragment>
@@ -94,7 +98,10 @@ export const TaskPreview = ({ task, groupId, index, taskRef, groupTitle }) => {
                                         labelIds={task.labelIds}
                                     />}
                                     <span>{task.title}</span>
-                                    {task?.memberIds && <TaskMember memberIds={task.memberIds} />}
+                                    {task?.memberIds && <TaskMember
+                                        memberIds={task.memberIds}
+                                        taskRef={taskRef}
+                                        index={index} />}
                                 </div>}
 
                             {isFullCover && task?.style?.bg?.imgUrl &&
@@ -110,7 +117,7 @@ export const TaskPreview = ({ task, groupId, index, taskRef, groupTitle }) => {
                                         <span>{task.title}</span>
                                     </div>
                                 </React.Fragment>}
-                            <div className="dark-screen" style={{ display: isQuickEditOn ? "block" : "none" }}></div>
+                            <div className="dark-screen" style={{ display: isQuickEditOn ? "block" : "none" }} onClick={onDarkClicked}></div>
                         </section >
                         {/* { isDetailsShown && <TaskDetails boardId={boardId} groupId={groupId} taskId={task.id}/>} */}
                     </div>
