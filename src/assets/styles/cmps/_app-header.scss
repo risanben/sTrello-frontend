@@ -7,6 +7,8 @@
     border-bottom: 1px solid rgba(75, 75, 97, 0.378);
     max-height: 44px;
     color: $header-font-color;
+    position: fixed;
+    width: 100%;
 
     section {
         margin: 0;
@@ -109,9 +111,9 @@
         padding: 2px 8px;
         display: flex;
         align-items: center;
-       background-color: darken($color: $header-bg-color, $amount: 5);
-       
-        
+        background-color: darken($color: $header-bg-color, $amount: 5);
+
+
 
         .mag-glass {
             font-size: 15px;
@@ -124,7 +126,7 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             font-size: 14px;
 
-            &::placeholder{
+            &::placeholder {
                 color: $header-font-color;
             }
 
@@ -171,11 +173,11 @@
         }
     }
 
-    .space{
+    .space {
         display: none;
     }
 
-    .login{
+    .login {
         display: none;
         height: 100%;
     }
@@ -191,7 +193,7 @@
     height: 70px;
     border-bottom: none;
     padding: 0 0 0 13px;
-    
+
     // border: 2px solid red;
 
     .menu-logo {
@@ -228,7 +230,7 @@
         display: none;
     }
 
-    .login{
+    .login {
         display: block;
         background-color: rgb(0, 101, 255);
         color: white;
@@ -236,15 +238,16 @@
         font-size: 1.25rem;
         letter-spacing: 1.4px;
         padding: 0 25px;
-        &:hover{
-            background:rgb(6, 85, 204) ;
+
+        &:hover {
+            background: rgb(6, 85, 204);
         }
     }
 
-    .space{
+    .space {
         flex-grow: 1;
         display: block;
     }
 
- 
+
 }
