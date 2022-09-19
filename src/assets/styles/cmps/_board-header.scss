@@ -10,16 +10,30 @@
     margin-left: 118px;
 
     .star-container {
-        padding: 7px;
+        padding: 3px;
         display: flex;
         background-color: rgba(255, 255, 255, 0.256);
         border-radius: 3px;
         margin-inline-start: 17px;
-        font-size: 16px;
+        // font-size: 16px;
+        transition: all .5s;
+        height: 36px;
+        width: 36px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
 
         &:hover {
             background-color: #00000029;
             color: #f2d600;
+            transform: scale(1.2);
+        }
+
+        .star {
+            height: 16px;
+            width: 16px;
+            padding: 0;
+            margin: 0;
         }
     }
 

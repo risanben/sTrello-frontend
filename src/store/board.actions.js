@@ -22,11 +22,11 @@ export function getActionUpdateBoard(board) {
     }
 }
 
-export function loadBoards() {
+export function loadBoards(filterBY = {}) {
     return async (dispatch) => {
         try {
-            const boards = await boardService.query()
-            // console.log('Boards from DB:', boards)
+            const boards = await boardService.query(filterBY)
+            console.log('Boards from DB:', boards)
             dispatch({
                 type: 'SET_BOARDS',
                 boards

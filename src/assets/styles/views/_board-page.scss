@@ -55,16 +55,52 @@
                 display: flex;
                 position: relative;
 
+                .baord-preview-content:not(.full) {
+                    background-color: #0000004d;
+                    padding: 8px;
+
+                    &:hover {
+                        cursor: pointer;
+                        background-color: #0006;
+                    }
+
+
+                    .star {
+                        opacity: 0;
+                        color: #fff;
+                        align-self: flex-end;
+                        line-height: 20px;
+                        margin-right: 6px;
+
+                        &:hover {
+                            transform: scale(1.2);
+                        }
+                    }
+
+                    .star.marked {
+                        opacity: 1;
+                        color: #f2d600;
+                    }
+
+                    &:hover {
+
+                        .star {
+                            opacity: 1;
+                        }
+                    }
+                }
+
                 .baord-preview-content {
                     flex: 1;
                     align-self: flex-start;
                     display: flex;
                     flex-direction: column;
+                    height: 100%;
+                    justify-content: space-between;
+
 
                     .board-title {
                         border-radius: 3px;
-                        padding: 8px;
-                        background-color: #0000004d;
                         color: #fff;
                         font-weight: 700;
                         line-height: 20px;
@@ -84,10 +120,18 @@
                         align-self: center;
                         background-color: #091e420a;
                         width: 195px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
 
                         &:hover {
                             cursor: pointer;
                             background-color: #091e4214;
+                        }
+
+                        &:active {
+                            color: #0079bf;
+                            background-color: #e4f0f6;
                         }
                     }
                 }
@@ -97,6 +141,8 @@
 
         }
     }
+
+    // .star {}
 
     // .board-preview span {
     //     color: pink;
