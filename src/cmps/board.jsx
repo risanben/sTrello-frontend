@@ -9,6 +9,7 @@ import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
 import { useDispatch, useSelector } from 'react-redux';
 import { handleDrag } from '../store/board.actions';
 import { getBoard } from '../store/board.actions'
+import { SideMenu } from './side-menu'
 
 
 // const taskRef = useRef()
@@ -20,6 +21,7 @@ export const Board = () => {
     // const [board, setBoard] = useState(null)
     const dispatch = useDispatch()
     const params = useParams()
+    let [isSideBarOpen, setIsSideBarOpen] = useState(false)
 
     useEffect(() => {
         loadBoard()
@@ -35,8 +37,15 @@ export const Board = () => {
         } catch (err) {
             // console.log('Cannot load board', err)
         }
+    }
 
-
+    const toggleMenu = () => {
+        if (isSideBarOpen) {
+            setIsSideBarOpen(false)
+            return
+        } else {
+            setIsSideBarOpen(true)
+        }
     }
 
 
@@ -72,18 +81,29 @@ export const Board = () => {
         return style
     }
 
-    // console.log('render BOARD')
 
     if (!board) return <div>Loading...</div>
 
     return (
-        <DragDropContext onDragEnd={onEnd}>
-            <section className="board" style={getBoradBg()}>
-                {/* <section className="board" style={getBoradBg()}> */}
-                <BoardHeader
-                    board={board} />
-                <GroupList board={board} />
+        <React.Fragment>
+            <section className='board-container'>
+
+                <SideMenu
+                    isSideBarOpen={isSideBarOpen}
+                    toggleMenu={toggleMenu} />
+
+                <DragDropContext onDragEnd={onEnd}>
+                    <section className="board" style={getBoradBg()}>
+                        {/* <section className="board" style={getBoradBg()}> */}
+                        <BoardHeader
+                            board={board} />
+                        <GroupList board={board} />
+                    </section>
+                </DragDropContext>
+
+
             </section>
-        </DragDropContext>
+
+        </React.Fragment>
     )
 }

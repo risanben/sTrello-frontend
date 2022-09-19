@@ -1,6 +1,8 @@
 import { useSelector } from "react-redux"
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
 
-export const TaskMember = ({ memberIds }) => {
+
+export const TaskMember = ({ memberIds, taskRef, index }) => {
     const board = useSelector(state => state.boardModule.board)
 
     const getMemberName = (memberId) => {
@@ -23,15 +25,15 @@ export const TaskMember = ({ memberIds }) => {
         return <div>{initials}</div>
     }
 
-    
-    return (
-        <div className="task-member-container">
-            {memberIds.map(memberId => {
-                return <div className="member"
-                    key={memberId}>
-                    {getMemberName(memberId)}
-                </div>
-            })}
-        </div>
+
+    return (   
+            <div className="task-member-container">
+                {memberIds.map(memberId => {
+                    return <div className="member"
+                        key={memberId}>
+                        {getMemberName(memberId)}
+                    </div>
+                })}
+            </div>
     )
 }

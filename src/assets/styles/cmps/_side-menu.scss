@@ -1,0 +1,128 @@
+.side-menu {
+    position: fixed;
+    left: -243px;
+    height: 100%;
+
+
+    width: 260px;
+    // height: 100%;
+    background-color: darken($header-bg-color , $amount: 10);
+    background-color: rgba(0, 0, 0, 0.263);
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid $header-font-color ;
+    opacity: 0.8;
+    // background-color: red;
+    // border: 3px solid green;
+
+    header {
+        display: flex;
+        border-bottom: 1px solid darken($color: $header-bg-color, $amount: 20);
+        height: 69px;
+        align-items: center;
+
+        .s {
+            color: white;
+            background-color: $home-btn-clr;
+            background: linear-gradient(darken($home-btn-clr , $amount: 10), $home-btn-clr);
+            height: 36px;
+            width: 36px;
+            border-radius: 3px;
+            font-family: secular;
+            display: flex;
+            justify-content: center;
+            align-content: center;
+            align-items: center;
+            margin-left: 10px;
+        }
+
+        .header-txt {
+            color: $header-font-color ;
+            margin-left: 8px;
+            margin-right: 4px;
+            text-align: left;
+            font-size: 14px;
+            font-weight: 500;
+            flex-grow: 1;
+
+        }
+
+        .arrow-div {
+            justify-self: flex-end;
+            // background-color: red;
+            border-radius: 3px;
+            height: 28px;
+            width: 28px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 15px;
+            cursor: pointer;
+            display: none;
+
+            &:hover {
+                background-color: darken($header-bg-color , $amount: 20);
+            }
+
+            .arrow {
+                font-size: 12px;
+                opacity: 0.6;
+
+            }
+        }
+    }
+
+    .title {
+        color: $header-font-color ;
+        text-align: left;
+        font-size: 14px;
+        font-weight: 500;
+        margin-top: 12px;
+        margin-left: 10px;
+    }
+
+    .open-arrow-div {
+        border: 1px solid $header-font-color;
+        position: relative;
+        right: -15px;
+        border-radius: 50%;
+        height: 28px;
+        width: 28px;
+        font-size: 11px;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        background-color: darken($header-bg-color , $amount: 20);
+        background-color: rgb(122, 130, 132);
+
+        // border: 2px solid green;
+
+        &:hover {
+            background-color: darken($header-bg-color , $amount: 30);
+        }
+    }
+}
+
+///////////////////OPEN /////////////////
+
+.side-menu.open {
+    background-color: darken($header-bg-color , $amount: 10);
+    position: unset;
+    height: unset;
+
+    left: unset;
+    border-right: none;
+    opacity: 1;
+
+    .open-arrow-div {
+        display: none;
+    }
+
+    .arrow-div {
+        display: block;
+        display: flex;
+    }
+
+}
