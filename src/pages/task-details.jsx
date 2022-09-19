@@ -13,13 +13,15 @@ import { TaskMember } from "../cmps/task-members"
 import { TaskLabel } from "../cmps/task-label"
 import { TaskDetailsMembersModal } from "../cmps/task-details-members-modal"
 import { HiUser } from 'react-icons/hi';
-import { BsTagFill } from 'react-icons/bs';
+import { BsTagFill,BsCheck2Square,BsClock } from 'react-icons/bs';
 import { HiArchive } from 'react-icons/hi';
+import { FaWindowMaximize } from 'react-icons/fa';
+import { GrTextAlignFull, GrAdd,GrAttachment } from 'react-icons/gr';
+
 // import { loadTasks } from "../store/task.actions"
 
-
 // import {  } from 'react-icons';
-
+<span class="window-header-icon icon-lg js-card-header-icon icon-template-card"></span>
 
 export const TaskDetails = (props) => {
 
@@ -195,59 +197,75 @@ export const TaskDetails = (props) => {
                     </section>{/*task-cover*/}
 
                     {/* task-details */}
-                    <form className="task-details" onSubmit={onSaveTask}>
-                        <section className="title-input">
-                            {isEditTitle && <input {...register('title', 'text')} value={task.title} ref={refInput} />}
-                            {!isEditTitle && <span className="static-input" onClick={toggleEditTitle} >{task.title}</span>}
-                            <br></br>
-                            <span className="group-title-in-task">in list {currentGroupTitle}</span>
-                        </section>
-                    {/* </form> */}
+                    <span className="task-title-icon"><FaWindowMaximize /></span>
+                    <div className="title-container">
+                        <form className="task-details" onSubmit={onSaveTask}>
+                            <section className="title-input">
+                                {isEditTitle && <input {...register('title', 'text')} value={task.title} ref={refInput} />}
+                                {!isEditTitle && <span className="static-input" onClick={toggleEditTitle} >{task.title}</span>}
+                                {/* <br></br> */}
+                                <span className="group-title-in-task">in list {currentGroupTitle}</span>
+                            </section>
+                        </form>
+                    </div> {/*title-container*/}
                     {/* <section className="task-details-middle"> */}
-                        <section className="tags">
-                            <section className="members" >
-                                <span className="tag-title">Members</span>
-                                <br />
-                                <div className="select-members">
-                                    {task?.memberIds && <TaskMember memberIds={task.memberIds} />}
-                                    <span onClick={onShowMembersModal}>➕</span>
-                                    {ShowMembersModal && <TaskDetailsMembersModal memberIds={task.memberIds} boardMembers={currentBoardMembers} onSetMember={onSetMember} />}
-                                </div>
-                            </section>
-                            <section className="labels">
-                                <span className="tag-title">Labels</span>
-                                <div className="select-members">
-                                    {task?.labelIds && <TaskLabel labelIds={task.labelIds} />}
-                                    <span>➕</span>
-                                </div>
-                            </section>
+                    <section className="tags">
+                        <section className="members" >
+                            <span className="tag-title">Members</span>
+                            <br />
+                            <div className="select-members">
+                                {task?.memberIds && <TaskMember memberIds={task.memberIds} />}
+                                <span onClick={onShowMembersModal} className="plus-icon"><GrAdd/></span>
+                                {ShowMembersModal && <TaskDetailsMembersModal memberIds={task.memberIds} boardMembers={currentBoardMembers} onSetMember={onSetMember} />}
+                            </div>
                         </section>
-                        <section>
-                            <label htmlFor="description">Description</label>
+                        <section className="labels">
+                            <span className="tag-title">Labels</span>
+                            <div className="select-members">
+                                {task?.labelIds && <TaskLabel labelIds={task.labelIds} />}
+                                <span className="plus-icon"><GrAdd/></span>
+                            </div>
+                        </section>
+                    </section>{/*tags*/}
+
+                    <span className="description-icon"> <GrTextAlignFull /> </span>
+                    <section className="description-container">
+                        <span className="description-title">Description</span>
                             {!isEditDescription && <button onClick={toggleEditDescription}>Edit</button>}
-                            {isEditDescription && <textarea {...register('description', 'text')} value={task.description} ref={refInput} />}
+                        <div className="description-edit">
+                            {isEditDescription && <textarea className="description-textarea" {...register('description', 'text')} value={task.description} ref={refInput} />}
                             {isEditDescription && <button className="btn save" onClick={toggleEditDescription}>Save</button>}
                             {isEditDescription && <button>Cancel</button>}
-                            <br></br>
-                            {!isEditDescription && <span onClick={toggleEditDescription}>{task.description} </span>}
-                        </section>
-                        {/* <button>Save</button> */}
-                        </form>
+                            {/* <br></br> */}
+                            {!isEditDescription && <span className="static-description" onClick={toggleEditDescription}>{task.description} </span>}
+                        </div>
+                    </section>
+
+                    {/* <section className="activity-container"> */}
+                    <span className="activity-main-icon"> <GrTextAlignFull /></span>
+                    <span className="activity-title">Activity</span>
+                    <span className="activity-icon">icon</span>
+                    <span className="activity-title">Activity</span>
+                    <span className="activity-icon">icon</span>
+    
+                    {/* </section> */}
+
+                    {/* </form> */}
                     {/* </section> */}
                     <section className="task-abilities">
                         <button className="btn abilities" onClick={onShowMembersModal}><span className="icon"><HiUser /></span><span className="ability">Members</span></button>
                         <button className="btn abilities"><span className="icon"><BsTagFill /></span><span className="ability">Labels</span></button>
-                        <button className="btn abilities">Checklist</button>
-                        <button className="btn abilities">Dates</button>
-                        <button className="btn abilities">Attachment</button>
+                        <button className="btn abilities"><span className="icon"><BsCheck2Square /></span><span className="ability">Checklist</span></button>
+                        <button className="btn abilities"><span className="icon"><BsClock /></span><span className="ability">Dates</span></button>
+                        <button className="btn abilities"><span className="icon"><GrAttachment /></span><span className="ability">Attachment</span></button>
                         <button className="btn abilities" onClick={onRemoveTask}><span className="icon"><HiArchive /> </span><span className="ability">Archive</span></button>
                     </section>
 
                 </section>{/*task-details-container focus*/}
-            </div>
+            </div >
             <div className="black-screen" onClick={onBack}>
             </div>
-        </section>
+        </section >
     )
 }
 

@@ -9,7 +9,6 @@ export const SearchResult = ({ boards }) => {
      else return <div style={{backgroundColor:"grey"}} className="color-thumb"></div>
     }
 
-    console.log('boards:', boards)
     return <section className="search-result">
         <header>BOARDS</header>
         <ul>

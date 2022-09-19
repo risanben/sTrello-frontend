@@ -40,7 +40,7 @@
         // border: black solid 1px;
         display: grid;
         grid-template-columns: 30px 1fr 150px;
-        grid-template-rows: 160px 30px minmax(200px, auto) minmax(10px, auto);
+        grid-template-rows: 160px 50px 80px minmax(120px, auto) repeat(auto-fit, minmax(30px, auto));
         width: 80vh;
         height: 90vh;
         margin: auto;
@@ -87,70 +87,147 @@
                 color: #172b4d;
                 font-size: 14px;
             }
-
-
         }
 
-   
+        //task-cover
 
-        .task-details {
-            grid-column: 2/3;
+        .task-title-icon {
+            margin-top: 12px;
+            margin-left: 5px;
+        }
+
+        .title-container {
+            grid-column: 2/-1;
+            grid-row: 2/3;
             line-height: 20px;
+            width: 100%;
 
             .title-input {
-                width: 100%;
                 margin-top: 10px;
+                width: 100%;
                 // grid-column: 2/-1;
                 // grid-row: 2/3;
 
                 input {
                     font-size: 20px;
+                    display: block;
                 }
 
                 .static-input {
                     font-size: 20px;
+                    width: 100%;
+                    width: 500px;
+                    display: block;
+                    margin-bottom: 9px;
                 }
 
                 .group-title-in-task {
                     font-size: 14px;
                 }
             }
+        }
 
-            .tags {
-                // grid-column: 2/3;
-                // grid-row: 3/4;
-                display: flex;
-                gap: 20px;
-                margin: 20px;
+        //title-container
 
-                .tag-title {
-                    font-size: 14px;
-                }
+        .tags {
+            grid-column: 2/3;
+            grid-row: 3/4;
+            display: flex;
+            gap: 20px;
+            margin: 20px;
+
+            .tag-title {
+                font-size: 14px;
+            }
+
+            .plus-icon {
+                margin-top: 4px;
+                margin-left: 3px;
+                background-color: #091e42, opacity 4.00%;
+                color: #42526e;
+                border-radius: 50%;
+                font-size: 16px;
+                text-align: center;
             }
 
             .select-members {
                 display: flex;
             }
+        }
 
-            .btn.save {
-                background-color: #0079bf;
-                color: #ffffff;
-                border-radius: 3px;
-                box-shadow: none;
+        .description-icon {
+            grid-row: 4/5;
+            grid-column: 1/2;
+            margin-top: 12px;
+            margin-left: 5px;
+        }
+
+        .description-container {
+            grid-row: 4/5;
+            grid-column: 2/3;
+            // display: flex;
+            // flex-direction: column;
+
+            .description-title {
+                // display: block;
+                font-size: 16px;
+                // position:absolute;
+                // margin-top: 10px;
+            }
+
+            .description-edit {
+                // display: block;
+
+                .static-description {
+                    // margin-top: 10px ;
+                }
+
+                .description-textarea {
+                    // display: block;
+                    margin-top: 10px;
+                    width: 100%;
+                    min-height: 100px;
+                }
+
+                .btn.save {
+                    background-color: #0079bf;
+                    color: #ffffff;
+                    border-radius: 3px;
+                    box-shadow: none;
+                }
 
             }
         }
-        // .task-details-middle {
-        //     grid-column: 2/3;
-        //     grid-row: 3/4;
+
+        // .activity-container {
+        //     grid-row: 5/6;
+        //     // grid-column: 1/3;
+        .activity-main-icon {
+            grid-row: 5/6;
+            margin-top: 2px;
+            margin-left: 5px;
+        }
+        .activity-icon {
+            // display:inline;
+            grid-column: 1/2;
+
+        }
+        .activity-title {
+            // display: block;
+            grid-column: 2/3;
+        }
+
         // }
+
         .task-abilities {
             grid-column: 3/4;
-            grid-row: 3/4;
+            grid-row: 3/-1;
             display: flex;
             flex-direction: column;
         }
     }
+
+    ///task-details-container
 
     .task-abilities {
         .btn {
@@ -187,3 +264,5 @@
     }
 
 }
+
+//task-details-main
