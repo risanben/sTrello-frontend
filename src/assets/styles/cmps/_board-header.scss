@@ -8,17 +8,19 @@
     display: flex;
     align-items: center;
     margin-left: 118px;
+    margin-bottom: 2px;
 
     .star-container {
         padding: 3px;
+        padding-top: 0;
         display: flex;
         background-color: rgba(255, 255, 255, 0.256);
         border-radius: 3px;
         margin-inline-start: 17px;
         // font-size: 16px;
         transition: all .5s;
-        height: 36px;
-        width: 36px;
+        height: 32px;
+        width: 32px;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -26,7 +28,10 @@
         &:hover {
             background-color: #00000029;
             color: #f2d600;
-            transform: scale(1.2);
+        }
+
+        &:hover+.star {
+            transform: scale(1.1);
         }
 
         .star {
@@ -34,6 +39,10 @@
             width: 16px;
             padding: 0;
             margin: 0;
+        }
+
+        .star.marked {
+            color: #f2d600;
         }
     }
 

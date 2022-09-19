@@ -86,14 +86,14 @@ export const Board = () => {
 
     return (
         <React.Fragment>
-            <section className='board-container'>
+            <section className='board-container' style={getBoradBg()}>
 
                 <SideMenu
                     isSideBarOpen={isSideBarOpen}
                     toggleMenu={toggleMenu} />
 
                 <DragDropContext onDragEnd={onEnd}>
-                    <section className="board" style={getBoradBg()}>
+                    <section className="board" >
                         {/* <section className="board" style={getBoradBg()}> */}
                         <BoardHeader
                             board={board} />

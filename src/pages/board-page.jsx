@@ -10,7 +10,7 @@ import { HiOutlineStar, HiStar } from 'react-icons/hi';
 export function BoardPage() {
     const boards = useSelector(state => state.boardModule.boards)
     const [isModalNewBoard, setIsModalNewBoard] = useState(false)
-    const [starredBoards, setStarredBoards] = useState([])
+    // const [starredBoards, setStarredBoards] = useState([])
 
     const dispatch = useDispatch()
     useEffect(() => {
@@ -22,7 +22,7 @@ export function BoardPage() {
         try {
             dispatch(loadBoards())
                 .then((boards1) => {
-                    filterBaordsByStarred()
+                    // filterBoardsByStarred()
                     console.log('boards', boards)
                 })
             console.log('after diapatch')
@@ -47,10 +47,8 @@ export function BoardPage() {
         setIsModalNewBoard(!isModalNewBoard)
     }
 
-    const filterBaordsByStarred = () => {
-        setStarredBoards(boards.filter(board => board.isStarred))
-        // console.log('starredBoards', starredBoards)
-        return starredBoards
+    const filterBoardsByStarred = () => {
+        return boards.filter(board => board.isStarred)
     }
 
     const toggleStarredBoard = async (ev, board) => {
@@ -58,7 +56,7 @@ export function BoardPage() {
         ev.stopPropagation()
         board.isStarred = !board.isStarred
         await dispatch(updateBoard(board))
-        filterBaordsByStarred()
+        // filterBoardsByStarred()
     }
 
     if (!boards) {
@@ -69,13 +67,13 @@ export function BoardPage() {
     return (
         <div className="board-page">
             <div className="board-list-conatiner">
-                {starredBoards[0] && <div className="baord-list-title">
+                {filterBoardsByStarred()[0] && <div className="baord-list-title">
                     <span className="board-list-title-icon"></span>
                     <h3>Starred boards</h3>
                 </div>}
                 <ul className="board-list">
 
-                    {starredBoards.map(board => {
+                    {filterBoardsByStarred().map(board => {
                         return <Link
                             to={`/board/${board._id}`}
                             key={board._id}>
