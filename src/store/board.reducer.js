@@ -1,6 +1,6 @@
 const initialState = {
     boards: [],
-    filterby: null,
+    filterBy: null,
     board: null,
     task: null,
     resizeLabel: false
@@ -40,7 +40,7 @@ export function boardReducer(state = initialState, action) {
             newState = { ...state, cart: [...state.cart, action.board] }
             break
         case 'SET_FILTER_BY':
-            newState = { ...state, filterby: [...state.filterby, action.filter] }
+            newState = { ...state, filterBy: [...state.filterBy, action.filter] }
             break
         case 'REMOVE_FROM_CART':
             cart = state.cart.filter(board => board._id !== action.boardId)
