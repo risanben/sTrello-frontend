@@ -106,13 +106,18 @@ export const TaskPreview = ({ task, groupId, index, taskRef, groupTitle }) => {
                                                 <div className="due-date-icon"></div>
                                                 <span className="due-date-txt">Sep 20</span>
                                             </div>
+                                            {task.desc && <div className="task-desc-icon"></div>}
                                             <div className="attachment-badge-container">
                                                 <div className="attachment-badge"></div>
                                                 <span>1</span>
                                             </div>
+                                            <div className="checklist-container">
+                                                <div className="checklist-icon"></div>
+                                                <span className="checklist-todos">1/2</span>
+                                            </div>
                                         </div>
-                                        <div className="right-badges-container">
 
+                                        <div className="right-badges-container">
                                             {task?.memberIds && <TaskMember
                                                 memberIds={task.memberIds}
                                                 taskRef={taskRef}

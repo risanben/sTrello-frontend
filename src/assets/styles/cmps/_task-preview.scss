@@ -7,6 +7,8 @@
     margin-bottom: 9px;
     // position: relative;
     // z-index: 10;
+    overflow: hidden;
+
     max-width: 254px;
 
 
@@ -23,6 +25,7 @@
         // display: flex;
         // flex-direction: column;
         position: relative;
+        // text-overflow: ellipsis;
 
         &.add-border {
             border-radius: 3px;
@@ -33,7 +36,8 @@
             // justify-content: space-between;
             width: 100%;
             margin: 0px 4px 4px 0px;
-            height: 30px;
+            min-height: 30px;
+            max-height: 60px;
             position: relative;
             // align-items: center;
 
@@ -65,8 +69,6 @@
                     }
 
                     span {
-                        margin: 0;
-                        padding: 0;
                         font-size: 12px;
                         color: #5e6c84;
                         padding: 0px 4px 0px 2px;
@@ -89,10 +91,70 @@
                     border-radius: 3px;
                     color: #fff;
                     margin-right: 4px;
+                    display: flex;
+                    // max-height: 20px;
+                    padding: 0px 2px 0px 4px;
+                    align-items: center;
+                    // padding-top: 2px;
+
+                    &:hover {
+                        background-color: #d9b51c;
+                    }
+
+
 
                     .due-date-txt {
-                        font-size: 12px;
+                        font-size: 11px;
                         padding: 0 4px 0 2px;
+                    }
+
+                    .due-date-icon {
+                        background-image: url('../../img/due-date-icon.svg');
+                        background-position: center;
+                        background-repeat: no-repeat;
+                        height: 16px;
+                        width: 16px;
+                        align-self: center;
+                        // padding-right: 2px;
+                    }
+
+                    &:hover .due-date-icon {
+                        background-image: url('../../img/check-box-icon.svg');
+                    }
+                }
+
+                .task-desc-icon {
+                    background-image: url('../../img/desc-icon.svg');
+                    background-position: center;
+                    background-repeat: no-repeat;
+                    height: 16px;
+                    width: 16px;
+                    margin-right: 4px;
+                    // margin: 0 4px 4px 0;
+                    padding: 2px;
+                }
+
+                .checklist-container {
+                    padding: 0 4px 0 2px;
+                    color: #5e6c84;
+                    display: flex;
+                    align-items: flex-end;
+                    justify-content: center;
+
+                    .checklist-todos {
+                        font-size: 12px;
+                        padding: 2px;
+                        margin-bottom: -4px;
+                        margin-right: 4px;
+                    }
+
+                    .checklist-icon {
+                        background-image: url('../../img/checklist-icon.svg');
+                        background-position: center;
+                        background-repeat: no-repeat;
+                        height: 16px;
+                        width: 16px;
+                        margin-right: 4px;
                     }
                 }
             }

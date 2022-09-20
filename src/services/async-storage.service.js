@@ -346,7 +346,8 @@ const dataBoards = [
                                 "imgUrl": "https://res.cloudinary.com/dqhrqqqul/image/upload/v1663348742/background-img-mountains_kqtnuv.jpg",
                                 "fullCover": false
                             }
-                        }
+                        },
+                        "desc": "Complete user routing"
                     },
                     {
                         "id": "c203",
@@ -358,7 +359,8 @@ const dataBoards = [
                                 "imgUrl": null,
                                 "fullCover": false
                             }
-                        }
+                        },
+                        "desc": "Complete Socket implementation after implementation beckend"
                     },
                     {
                         "id": "c204",
@@ -423,7 +425,8 @@ const dataBoards = [
                     },
                     {
                         "id": "c305",
-                        "title": "Implement Sass"
+                        "title": "Implement Sass",
+                        "desc": "Build full Sass architecture"
                     }
                 ],
                 "style": {}
@@ -455,7 +458,7 @@ const dataBoards = [
                                 "imgUrl": "https://trello-backgrounds.s3.amazonaws.com/SharedBackground/480x365/0eba7de903143c66f2ac55cdb0b7de58/photo-1662943523548-373718f22124.jpg",
                                 "fullCover": false
                             }
-                        }
+                        },
                     }
                 ],
                 "style": {}
@@ -476,7 +479,8 @@ const dataBoards = [
                                 "imgUrl": null,
                                 "fullCover": false
                             }
-                        }
+                        },
+                        "desc": "Create css variables and helpers"
                     },
                     {
                         "id": "c502",
@@ -510,7 +514,8 @@ const dataBoards = [
                     {
                         "id": "c601",
                         "title": "Meeting with head manager for planning the code progress",
-                        "labelIds": ["l103", "l104"]
+                        "labelIds": ["l103", "l104"],
+                        "desc": "Reviewing and fixing the code before the meeting"
                     },
                     {
                         "id": "c602",
@@ -567,7 +572,8 @@ const dataBoards = [
                                 "imgUrl": "https://res.cloudinary.com/dqhrqqqul/image/upload/v1663229153/code_mvpcmf.jpg",
                                 "fullCover": false
                             }
-                        }
+                        },
+                        "desc": "Create a connection to Atlas"
                     },
                     {
                         "id": "c702",
