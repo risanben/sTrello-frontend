@@ -1,42 +1,34 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { loadBoards, removeBoard, addToBoard } from '../store/board.actions'
-import { showSuccessMsg } from '../services/event-bus.service.js'
+import { loadBoards, updateBoard } from '../store/board.actions'
 import { useState } from 'react'
 import { BoardEdit } from '../cmps/board-edit'
-import { HiOutlineStar } from 'react-icons/hi';
+import { HiOutlineStar, HiStar } from 'react-icons/hi';
 
 
 export function BoardPage() {
     const boards = useSelector(state => state.boardModule.boards)
     const [isModalNewBoard, setIsModalNewBoard] = useState(false)
-    const [starredBoards, setStarredBoards] = useState([])
+    // const [starredBoards, setStarredBoards] = useState([])
 
     const dispatch = useDispatch()
     useEffect(() => {
         onLoad()
-        // dispatch(loadBoards())
-        // setStarredBoards(boards.filter(board => board.isStarred))
-
     }, [])
 
-    const onLoad = async () => {
+
+    const onLoad = () => {
         try {
-            await dispatch(loadBoards())
-            filterBaordsByStarred()
+            dispatch(loadBoards())
+                .then((boards1) => {
+                    // filterBoardsByStarred()
+                    console.log('boards', boards)
+                })
+            console.log('after diapatch')
         } catch (err) {
             console.log('Cannot load boards', err)
         }
-    }
-
-    const onRemoveBoard = (boardId) => {
-        removeBoard(boardId)
-    }
-
-    const onAddToBoard = (board) => {
-        addToBoard(board)
-        showSuccessMsg('Added to Board')
     }
 
     const getBoradBg = (board) => {
@@ -55,32 +47,47 @@ export function BoardPage() {
         setIsModalNewBoard(!isModalNewBoard)
     }
 
-    const filterBaordsByStarred = () => {
-        setStarredBoards(boards.filter(board => board.isStarred))
-        return starredBoards
+    const filterBoardsByStarred = () => {
+        return boards.filter(board => board.isStarred)
     }
 
-    if (!boards) return <div>Loading...</div>
-    // console.log('boards', boards)
+    const toggleStarredBoard = async (ev, board) => {
+        ev.preventDefault()
+        ev.stopPropagation()
+        board.isStarred = !board.isStarred
+        await dispatch(updateBoard(board))
+        // filterBoardsByStarred()
+    }
+
+    if (!boards) {
+        // console.log('lal')
+        return <div>Loading...</div>
+    }
+    // console.log('render BOARD PAGE', boards)
     return (
         <div className="board-page">
             <div className="board-list-conatiner">
-                {starredBoards[0] && <div className="baord-list-title">
+                {filterBoardsByStarred()[0] && <div className="baord-list-title">
                     <span className="board-list-title-icon"></span>
                     <h3>Starred boards</h3>
                 </div>}
                 <ul className="board-list">
 
-                    {starredBoards.map(board =>
-                        <Link
+                    {filterBoardsByStarred().map(board => {
+                        return <Link
                             to={`/board/${board._id}`}
                             key={board._id}>
                             <li className="board-preview" style={getBoradBg(board)}>
                                 <div className="baord-preview-content">
                                     <div className="board-title">{board.title}</div>
+                                    <div className="star marked"
+                                        onClick={(ev) => toggleStarredBoard(ev, board)}>
+                                        <HiStar />
+                                    </div>
                                 </div>
                             </li>
-                        </Link>)}
+                        </Link>
+                    })}
                 </ul>
             </div>
 
@@ -90,21 +97,33 @@ export function BoardPage() {
                     <h3>Your boards</h3>
                 </div>
                 <ul className="board-list">
-                    {boards.map(board =>
-                        <Link
+                    {boards.map(board => {
+                        return <Link
                             to={`/board/${board._id}`}
                             key={board._id}>
                             <li className="board-preview" style={getBoradBg(board)}>
                                 <div className="baord-preview-content">
                                     <div className="board-title">{board.title}</div>
-                                    {/* <div className="star"><HiOutlineStar /></div> */}
+                                    {board.isStarred &&
+                                        <div
+                                            className="star marked"
+                                            onClick={(ev) => toggleStarredBoard(ev, board)}>
+                                            <HiStar />
+                                        </div>}
+                                    {!board.isStarred &&
+                                        <div
+                                            className="star"
+                                            onClick={(ev) => toggleStarredBoard(ev, board)}>
+                                            <HiOutlineStar />
+                                        </div>}
                                 </div>
                             </li>
-                        </Link>)}
+                        </Link>
+                    })}
 
                     <li className="board-preview" onClick={toggleCreateBoardModal}>
-                        <div className="baord-preview-content">
-                            <div className="board-title create-new">Create new board</div>
+                        <div className="baord-preview-content full">
+                            <div className="board-title create-new"><span>Create new board</span></div>
                         </div>
                     </li>
                 </ul>

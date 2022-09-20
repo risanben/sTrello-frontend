@@ -59,7 +59,7 @@
             color: inherit;
         }
 
-        ul {
+        .nav-links-container {
             display: flex;
             margin: 0;
             padding: 0;
@@ -67,7 +67,7 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             font-weight: 400;
 
-            li {
+            .nav-link {
                 padding: 3px;
                 border-radius: 0.3em;
                 text-decoration: none;
@@ -250,4 +250,10 @@
     }
 
 
+}
+
+////////////////////////////// APPHEADER IN BOARD-PAGE ///////////////////////////
+
+.workspace {
+    position: unset;
 }

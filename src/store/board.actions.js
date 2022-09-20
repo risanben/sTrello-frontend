@@ -22,11 +22,11 @@ export function getActionUpdateBoard(board) {
     }
 }
 
-export function loadBoards() {
+export function loadBoards(filterBY = {}) {
     return async (dispatch) => {
         try {
-            const boards = await boardService.query()
-            // console.log('Boards from DB:', boards)
+            const boards = await boardService.query(filterBY)
+            console.log('Boards from DB:', boards)
             dispatch({
                 type: 'SET_BOARDS',
                 boards
@@ -135,24 +135,6 @@ export function checkout() {
         } catch (err) {
             showErrorMsg('Cannot checkout, login first')
             console.log('BoardActions: err in checkout', err)
-        }
-    }
-}
-
-export function getBoardMembers(boardId) {
-    return async (dispatch) => {
-        try {
-            const currentBoard = await boardService.getById(boardId)
-            const currentBoardMembers = currentBoard.members
-            console.log('currentBoardMembers', currentBoardMembers);
-            const { boardMembers } = dispatch({
-                type: 'SET_BOARD_MEMBERS',
-                boardMembers: currentBoardMembers
-            })
-
-            return boardMembers
-        } catch (err) {
-            console.log('Cannot load task', err)
         }
     }
 }

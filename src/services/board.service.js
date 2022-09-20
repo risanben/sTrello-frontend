@@ -25,7 +25,6 @@ export const boardService = {
     remove,
     getEmptyBoard,
     getGroupById,
-    // updateTask,
     getTaskById,
     removeGroup,
     getBackground

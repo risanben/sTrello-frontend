@@ -9,6 +9,7 @@ import { Link } from 'react-router-dom'
 import { useNavigate, useParams } from "react-router-dom"
 import { TaskLabel } from "./task-label"
 import { TaskMember } from "./task-members"
+import { HiOutlineEye } from 'react-icons/hi';
 
 
 export const TaskPreview = ({ task, groupId, index, taskRef, groupTitle }) => {
@@ -98,10 +99,26 @@ export const TaskPreview = ({ task, groupId, index, taskRef, groupTitle }) => {
                                         labelIds={task.labelIds}
                                     />}
                                     <span>{task.title}</span>
+                                    <div className="badges-container">
+                                        <div className="left-badges-container">
+                                            <div className="viewed-by-user"></div>
+                                            <div className="due-date-container">
+                                                <div className="due-date-icon"></div>
+                                                <span className="due-date-txt">Sep 20</span>
+                                            </div>
+                                            <div className="attachment-badge-container">
+                                                <div className="attachment-badge"></div>
+                                                <span>1</span>
+                                            </div>
+                                        </div>
+                                        <div className="right-badges-container">
 
-                                    {task?.memberIds && <TaskMember
-                                        memberIds={task.memberIds}
-                                         />}
+                                            {task?.memberIds && <TaskMember
+                                                memberIds={task.memberIds}
+                                                taskRef={taskRef}
+                                                index={index} />}
+                                        </div>
+                                    </div>
                                 </div>}
 
                             {isFullCover && task?.style?.bg?.imgUrl &&
