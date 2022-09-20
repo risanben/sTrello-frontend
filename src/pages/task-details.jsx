@@ -224,7 +224,7 @@ export const TaskDetails = (props) => {
                     <section className="task-abilities">
                         <AbilityCreator callBackF={toggleMembersModal} iconCmp={HiUser} name={'Members'} />
                         {/* <button className="btn abilities" onClick={onShowMembersModal}><span className="icon"><HiUser /></span><span className="ability">Members</span></button> */}
-                        <button className="btn abilities"><span className="icon"><BsTagFill /></span><span className="ability">Labels</span></button>
+                        <button className="btn abilities" onClick={toggleLabelsModal}><span className="icon"><BsTagFill /></span><span className="ability">Labels</span></button>
                         <button className="btn abilities"><span className="icon"><BsCheck2Square /></span><span className="ability">Checklist</span></button>
                         <button className="btn abilities"><span className="icon"><BsClock /></span><span className="ability">Dates</span></button>
                         <button className="btn abilities"><span className="icon"><GrAttachment /></span><span className="ability">Attachment</span></button>

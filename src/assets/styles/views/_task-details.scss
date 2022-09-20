@@ -31,7 +31,7 @@
         left: 50%;
         transform: translate(-50%, -50%);
         transition: .5s;
-        overflow-y: inherit;
+        overflow-y:auto;
         overflow-x: hidden;
         // padding-bottom: 50px;
     }
@@ -145,8 +145,7 @@
             grid-column: 2/3;
             grid-row: 3/4;
             display: flex;
-            gap: 20px;
-            margin: 20px;
+            margin-top: 20px;
 
             .tag-title {
                 font-size: 14px;
@@ -201,7 +200,7 @@
                     // display: block;
                     margin-top: 10px;
                     width: 100%;
-                    min-height: 100px;
+                    min-height: 100%;
                 }
 
                 .btn.save {

@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux"
 
-export const TaskMemberDetails = ({ memberIds, onSetMember }) => {
+export const TaskDetailsMember = ({ memberIds, onSetMember }) => {
     const board = useSelector(state => state.boardModule.board)
     // const boardMembers = useSelector(state => state.boardModule.boardMembers)
 
@@ -39,10 +39,11 @@ export const TaskMemberDetails = ({ memberIds, onSetMember }) => {
     }
 
     const checkTaskMember = (memberId) => {
-        if(!memberIds) return
-        const checkedMember = memberIds.find(member => member=== memberId)
-        if (checkedMember) return true
-        return false
+        if (!memberIds) return
+        const checkedMember = memberIds.find(member => member === memberId)
+        console.log('memberIds', memberIds);
+        console.log('memberId', memberId);
+        return checkedMember
     }
 
     if (!board.members) return <div>No board members found</div>
