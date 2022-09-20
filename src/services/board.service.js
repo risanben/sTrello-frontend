@@ -64,7 +64,7 @@ async function remove(boardId) {
 async function removeGroup(boardId, groupId) {
     try {
         let boardToUpdate = await getById(boardId)
-        console.log('boardToUpdate', boardToUpdate)
+        // console.log('boardToUpdate', boardToUpdate)
         boardToUpdate.groups = boardToUpdate.groups.filter(group => group.id !== groupId)
         return await save(boardToUpdate)
     } catch (err) {
@@ -75,12 +75,11 @@ async function removeGroup(boardId, groupId) {
 async function save(board) {
     var savedBoard
     if (board._id) {
-        console.log('update board')
         savedBoard = await storageService.put(STORAGE_KEY, board)
         boardChannel.postMessage(getActionUpdateBoard(savedBoard))
     } else {
         // Later, owner is set by the backend
-        console.log('new board')
+        // console.log('new board')
         // board.owner = userService.getLoggedinUser()
         savedBoard = await storageService.post(STORAGE_KEY, board)
         boardChannel.postMessage(getActionAddBoard(savedBoard))

@@ -35,6 +35,7 @@ export function Dnd() {
     }
 
     const onEnd = (result) => {
+        console.log('entered onEnd')
         if (!result.destination) return
         setList(reorder(list, result.source.index, result.destination.index))
     }
@@ -56,13 +57,34 @@ export function Dnd() {
                                 key={item.id}
                                 index={index}
                             >
-                                {(provided, snapshot) => (
+                                {(provided) => (
                                     <div
                                         ref={(el) => { taskRef.current = el; provided.innerRef(el) }}
                                         {...provided.draggableProps}
                                         {...provided.dragHandleProps}
                                     >
-                                        <div>{item.name}</div>
+                                        <div style={{ marginTop: "20px" }}>{item.name}
+                                            <br />
+                                            <Droppable droppableId='12345678'>
+                                                {(provided) => (
+                                                    <div ref={(el) => { taskRef.current = el; provided.innerRef(el) }} >
+                                                        <Draggable draggableId={item.name} key={item.name} index={index}>
+                                                            {(provided) => (
+                                                                <div
+                                                                    ref={(el) => { taskRef.current = el; provided.innerRef(el) }}
+                                                                    {...provided.draggableProps}
+                                                                    {...provided.dragHandleProps}
+                                                                >
+                                                                    <div>emoji{item.name}</div>
+                                                                </div>
+                                                            )}
+                                                        </Draggable>
+                                                        {provided.placeholder}
+                                                    </div>
+                                                )}
+                                            </Droppable>
+                                        </div>
+
                                     </div>
                                 )}
                             </Draggable>
@@ -76,3 +98,46 @@ export function Dnd() {
 }
 
 
+
+
+
+// return (
+//     <Droppable droppableId='12345678' type="member">
+//         {(provided) => (
+//             <div ref={(el) => { taskRef.current = el; provided.innerRef(el) }} >
+//                 <div className="task-member-container">
+//                     {memberIds.map((memberId, index) => {
+
+//                         return (
+//                             <Draggable draggableId={memberId} key={memberId} type="member"index={index}>
+
+//                                 {(provided) => (
+//                                     <div
+//                                         ref={(el) => { taskRef.current = el; provided.innerRef(el) }}
+//                                         {...provided.draggableProps}
+//                                         {...provided.dragHandleProps}
+//                                     >
+
+//                                         <div className="member"
+//                                             key={memberId}>
+//                                             {getMemberName(memberId)}
+//                                         </div>
+
+//                                         { provided.placeholder }
+//                                     </div>
+//                                 )}
+
+//                             </Draggable>
+
+//                         )
+
+
+//                     })}
+
+//                 </div>
+
+//             </div>
+
+//         )}
+//     </Droppable>
+// )

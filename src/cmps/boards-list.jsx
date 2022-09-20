@@ -1,4 +1,4 @@
-import { Link, useLocation } from "react-router-dom"
+import { Link, Navigate, useLocation, useNavigate } from "react-router-dom"
 
 export const BoardsList = ({ boards }) => {
 
@@ -7,6 +7,7 @@ export const BoardsList = ({ boards }) => {
         if (board.style?.bgColor) return <div style={{ backgroundColor: board.style.bgColor }} className="color-thumb"></div>
         else return <div style={{ backgroundColor: "grey" }} className="color-thumb"></div>
     }
+    const navigate = useNavigate()
 
     const _getActiveLink = (id) => {
         const pathname = useLocation().pathname
@@ -17,13 +18,18 @@ export const BoardsList = ({ boards }) => {
         }
     }
 
+    const onlinkClick=(boardId)=>{
+        
+        navigate(`/board/${boardId}`)
+    }
+
     return <ul className="boards-list">
         {boards.map(board => {
-            return <Link to={`board/${board._id}`} className='boards-link' key={board._id}>
-                <li className={_getActiveLink(board._id)}>
+            return <section className='boards-link' key={board._id}>
+                <li className={_getActiveLink(board._id)} onClick={()=>onlinkClick(board._id)}>
                     <span className='flex-left'>{_getBoardThumbnail(board)}{board.title}</span>
                 </li>
-            </Link>
+            </section>
         })}
     </ul>
 }

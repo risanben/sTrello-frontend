@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react';
-import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
-import { boardService } from '../services/board.service';
-import { BoardsList } from './boards-list';
-import { ImTrello } from 'react-icons/im';
+import { useEffect, useState } from 'react'
+import { FaChevronLeft, FaChevronRight } from 'react-icons/fa'
+import { boardService } from '../services/board.service'
+import { BoardsList } from './boards-list'
+import { ImTrello } from 'react-icons/im'
 
 
 
@@ -16,10 +16,8 @@ export const SideMenu = ({isSideBarOpen, toggleMenu}) => {
 
     const _getMenuClass = () => {
         if (isSideBarOpen) {
-            console.log('open')
             return "side-menu open"
         } else{ 
-            console.log('closed')
             return "side-menu"}
     }
 

@@ -53,7 +53,7 @@ async function update(user) {
     // user = await httpService.put(`user/${user._id}`, user)
     // Handle case in which admin updates other user's details
     if (getLoggedinUser()._id === user._id) saveLocalUser(user)
-    return user;
+    return user
 }
 
 async function login(userCred) {
@@ -66,7 +66,7 @@ async function login(userCred) {
     }
 }
 async function signup(userCred) {
-    userCred.score = 10000;
+    userCred.score = 10000
     const user = await storageService.post('user', userCred)
     // const user = await httpService.post('auth/signup', userCred)
     socketService.login(user._id)

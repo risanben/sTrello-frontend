@@ -1,7 +1,7 @@
 
-import React from 'react';
-import { Hero } from '../cmps/hero';
-import { SneakPeek } from '../cmps/sneak-peek';
+import React from 'react'
+import { Hero } from '../cmps/hero'
+import { SneakPeek } from '../cmps/sneak-peek'
 
 
 

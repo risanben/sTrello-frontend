@@ -1,10 +1,10 @@
-import { useState } from 'react';
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { GroupEdit } from './group-edit';
+import { GroupEdit } from './group-edit'
 import { GroupPreview } from './group-preview'
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux"
 import { updateBoard } from '../store/board.actions'
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react'
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
 
 
@@ -40,7 +40,7 @@ export const GroupList = () => {
 
     // console.log('render GROUP-LIST')
 
-    // console.log('board.groups', currBoard.groups);
+    // console.log('board.groups', currBoard.groups)
     if (!board) return <div>Loading...</div>
     return (
         <Droppable

@@ -2,14 +2,14 @@ import React, { useEffect, useState, useRef } from "react"
 import { BsFillPencilFill } from 'react-icons/bs'
 import { TaskQuickEdit } from "./task-quick-edit"
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
-// import { useDispatch } from "react-redux";
+// import { useDispatch } from "react-redux"
 // import { loadTasks } from "../store/task.actions"
 import { TaskDetails } from '../pages/task-details'
 import { Link } from 'react-router-dom'
 import { useNavigate, useParams } from "react-router-dom"
 import { TaskLabel } from "./task-label"
 import { TaskMember } from "./task-members"
-import { HiOutlineEye } from 'react-icons/hi';
+import { HiOutlineEye } from 'react-icons/hi'
 import { updateTask } from "../store/board.actions"
 import { useDispatch, useSelector } from "react-redux"
 
@@ -19,8 +19,7 @@ export const TaskPreview = ({ task, groupId, index, taskRef, groupTitle }) => {
     const [isFullCover, setIsFullCover] = useState(false)
     const [isQuickEditOn, setIsQuickEditOn] = useState(false)
     const [showDetailsModal, setShowDetailsModal] = useState(false)
-
-    // const [taskDoneStyle, setTaskDoneStyle] = useState({})
+    const [quickEditPos, setQuickEditPos] = useState(null)
     const refQuickEdit = useRef(null)
 
     const board = useSelector(state => state.boardModule.board)
@@ -31,7 +30,7 @@ export const TaskPreview = ({ task, groupId, index, taskRef, groupTitle }) => {
 
     const boardIdRef = useRef()
     boardIdRef.current = params.id
-    // console.log('boardIdRef', boardIdRef);
+    // console.log('boardIdRef', boardIdRef)
 
     useEffect(() => {
         if (task.style) setIsFullCover(task.style.bg.fullCover)
@@ -63,8 +62,22 @@ export const TaskPreview = ({ task, groupId, index, taskRef, groupTitle }) => {
     }
 
     const toggaleQuickEdit = (ev) => {
+        // console.log('entered toggle')
         ev.stopPropagation()
         setIsQuickEditOn(!isQuickEditOn)
+        //position of modal
+       const parentEl = ev.currentTarget.parentNode
+       const position = parentEl.getBoundingClientRect()
+       console.log('position:', position)
+       console.log('window.innerWidth:', window.innerWidth)
+
+       const pos = {
+        left:ev.target.offsetLeft - 218,
+        top:ev.target.offsetTop -6,
+        width:position.width
+    }
+
+        setQuickEditPos(pos)
     }
 
     const onGoToDetails = () => {
@@ -93,7 +106,7 @@ export const TaskPreview = ({ task, groupId, index, taskRef, groupTitle }) => {
         dispatch(updateTask(board._id, groupId, task))
     }
 
-    console.log('render TASK PREVIEW')
+    // console.log('render TASK PREVIEW')
     return (
         <React.Fragment>
             <Draggable
@@ -111,7 +124,7 @@ export const TaskPreview = ({ task, groupId, index, taskRef, groupTitle }) => {
                             <div className="btn-quick-edit hide" onClick={toggaleQuickEdit}>
                                 {/* <BsFillPencilFill /> */}
                             </div>
-                            {isQuickEditOn && <section ref={refQuickEdit}><TaskQuickEdit task={task} /></section>}
+                            {isQuickEditOn && <section ref={refQuickEdit}><TaskQuickEdit task={task} pos={quickEditPos} /></section>}
 
                             {!isFullCover && task?.style &&
                                 <div className="task-cover" style={setTaskCoverStyle()}></div>}

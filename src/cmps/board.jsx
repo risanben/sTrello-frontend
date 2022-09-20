@@ -6,8 +6,8 @@ import { loadBoards } from '../store/board.actions'
 import { GroupList } from './group-list'
 import { BoardHeader } from './board-header'
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
-import { useDispatch, useSelector } from 'react-redux';
-import { handleDrag } from '../store/board.actions';
+import { useDispatch, useSelector } from 'react-redux'
+import { handleDrag } from '../store/board.actions'
 import { getBoard } from '../store/board.actions'
 import { SideMenu } from './side-menu'
 
@@ -32,7 +32,7 @@ export const Board = () => {
         try {
             // const board = await dispatch(getBoard(boardId))
             await dispatch(getBoard(boardId))
-            // console.log('board', board);
+            // console.log('board', board)
             // setBoard(board)
         } catch (err) {
             // console.log('Cannot load board', err)
@@ -61,6 +61,7 @@ export const Board = () => {
 
 
     const onEnd = result => {
+    
         const { destination, source, type } = result
         if (!destination) return
 

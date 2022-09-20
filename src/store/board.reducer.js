@@ -13,7 +13,7 @@ export function boardReducer(state = initialState, action) {
     var resizeLabel
     switch (action.type) {
         case 'SET_BOARDS':
-            console.log('from reducer', action.boards)
+            // console.log('from reducer', action.boards)
             newState = { ...state, boards: action.boards }
             break
         case 'SET_BOARD':
@@ -33,7 +33,6 @@ export function boardReducer(state = initialState, action) {
         case 'UPDATE_BOARD':
             board = { ...action.board }
             boards = state.boards.map(board => (board._id === action.board._id) ? action.board : board)
-            console.log("board from action&&&", action.board)
             newState = { ...state, boards, board }
             break
         case 'ADD_TO_CART':
@@ -66,7 +65,7 @@ export function boardReducer(state = initialState, action) {
     // console.log('Prev State:', state)
     // console.log('Action:', action)
     // console.log('New State:', newState)
-    console.log('newState', newState.boards)
+
     return newState
 
 }
