@@ -41,7 +41,7 @@ export const GroupPreview = ({ group, addTask, index, taskRef }) => {
         if (!refTitle.current) return
         if (!refTitle.current.contains(e.target)) {
             onEditGroupTitle()
-        } 
+        }
     }
 
     const toggaleEditTitle = () => {
@@ -96,6 +96,7 @@ export const GroupPreview = ({ group, addTask, index, taskRef }) => {
                     ref={(el) => { taskRef.current = el; provided.innerRef(el) }}
                     {...provided.draggableProps}
                     {...provided.dragHandleProps}
+                    className="group-preview-dnd"
                 >
                     <section className="group-preview">
                         <div className="group-title">

@@ -47,11 +47,13 @@ export const GroupList = () => {
             droppableId='groups'
             direction="horizontal"
             type='group'
+
         >
             {(provided) => (
                 <div
                     ref={(el) => { taskRef.current = el; provided.innerRef(el) }}
                     {...provided.droppableProps}
+                    className="group-list-dnd"
                 >
                     <section className="group-list">
                         {board?.groups?.map((group, index) => {

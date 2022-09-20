@@ -25,6 +25,10 @@ export const TaskDetailsCoverModal = (props) => {
 
     return (
         <section className="cover-modal">
+            <div className="cover-modal-title">
+                <span>Cover</span>
+                <span>X</span>
+            </div>
             <input type="color" onChange={props.onSetColor} />
 
             <section>

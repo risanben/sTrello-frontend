@@ -5,9 +5,11 @@
     // width: 100vw;
     // position: absolute;
     overflow-x: auto;
-    overflow-y: hidden;
-    position: relative;
-    top: 44px;
+    display: flex;
+    flex-direction: column;
+    // overflow-y: hidden;
+    // position: relative;
+    // top: 44px;
     // &::-webkit-scrollbar {
     //     border-radius: 3px;
     //     height: 11px;
@@ -38,14 +40,10 @@
 
 .board-container {
     display: flex;
-    position: absolute;
-    // margin-top: 44px;
-    height: calc(100vh);
-    // width: calc(100vw - 100px);
-    min-width: 100vw;
     // position: absolute;
     overflow-x: auto;
     overflow-y: hidden;
+    height: 100%;
 
     // &::-webkit-scrollbar {
     //     border-radius: 3px;

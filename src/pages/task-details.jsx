@@ -154,17 +154,26 @@ export const TaskDetails = (props) => {
         }
     }
 
+    const clickedOnModal = (ev) => {
+        ev.stopPropagation()
+    }
+
     if (!task) return <div>Loading...</div>
     return (
         <section className="task-details-main" >
-            <div>
-                <section className="task-details-container focus">
+            <div className="black-screen" onClick={onBack}>
+                {/* <div className="task-details-content"> */}
+                <section className="task-details-container" onClick={clickedOnModal}>
                     {/* task cover */}
-                    <section style={{ backgroundColor: bgColor }} className="task-cover">
+                    <section className="task-cover" style={{ backgroundColor: bgColor }} >
                         <button onClick={onBack} className="btn close"></button>
-                        {task?.style?.bg?.imgUrl && <img className="img-cover" src={`${task.style.bg.imgUrl}`} ></img>}
-                        <div onClick={onShowModal} className="btn cover"> <span className="bts-icon"><FaWindowMaximize /></span>Cover</div>
-                        {showModal && <TaskDetailsCoverModal onSetColor={onSetColor} onSetImg={onSetImg} className="cover-modal" />}
+                        {task?.style?.bg?.imgUrl && <div className="img-cover" style={{ backgroundImage: `url(${task.style.bg.imgUrl})` }} ></div>}
+                        <div onClick={onShowModal} className="btn cover">
+                            <span className="bts-icon"><FaWindowMaximize /></span>
+                            <span className="btn-cover-txt">Cover</span>
+                            {showModal && <TaskDetailsCoverModal onSetColor={onSetColor} onSetImg={onSetImg} className="cover-modal" />}
+                        </div>
+
                     </section>{/*task-cover*/}
 
                     {/* task-details */}
@@ -201,7 +210,7 @@ export const TaskDetails = (props) => {
                     </section>{/*tags*/}
 
                     <span className="description-icon"> <GrTextAlignFull /> </span>
-                    <section className={`description-container ${isEditDescription? 'edit-status':''}`}>
+                    <section className={`description-container ${isEditDescription ? 'edit-status' : ''}`}>
                         <span className="description-title">Description</span>
                         {!isEditDescription && <button onClick={toggleEditDescription}>Edit</button>}
                         <div className="description-edit">
@@ -235,10 +244,12 @@ export const TaskDetails = (props) => {
                         <button className="btn abilities" onClick={onRemoveTask}><span className="icon"><HiArchive /> </span><span className="ability">Archive</span></button>
                     </section>
 
+
+
                 </section>{/*task-details-container focus*/}
             </div >
-            <div className="black-screen" onClick={onBack}>
-            </div>
+
+            {/* </div> */}
         </section >
     )
 }
