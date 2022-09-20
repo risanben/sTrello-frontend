@@ -113,10 +113,14 @@ export const TaskDetails = (props) => {
         if (!addOrRemove) {
             if (!task.memberIds) task.memberIds = [memberId]
             else task.memberIds.push(memberId)
+            if (!task.watcedMemberIds) task.watcedMemberIds = [memberId]
+            else task.watcedMemberIds.push(memberId)
         } else {
             console.log('task', task);
             const idx = task.memberIds.findIndex(member => member._id === memberId)
             task.memberIds.splice(idx, 1)
+            const watchIdx = task.watcedMemberIds.findIndex(member => member._id === memberId)
+            task.watcedMemberIds.splice(watchIdx, 1)
         }
         onUpdateTask(task)
     }
@@ -182,7 +186,7 @@ export const TaskDetails = (props) => {
                             <div className="select-members">
                                 {task?.memberIds && <TaskMember memberIds={task.memberIds} />}
                                 <span onClick={toggleMembersModal} className="plus-icon"><GrAdd /></span>
-                                {isMemberModal && <TaskDetailsMembersModal memberIds={task.memberIds} onSetMember={onSetMember} toggleMembersModal={toggleMembersModal}/>}
+                                {isMemberModal && <TaskDetailsMembersModal memberIds={task.memberIds} onSetMember={onSetMember} toggleMembersModal={toggleMembersModal} />}
                             </div>
                         </section>
                         <section className="labels">
@@ -190,8 +194,8 @@ export const TaskDetails = (props) => {
                             <div className="select-members">
                                 {task?.labelIds && <span className="label-container"><TaskLabel labelIds={task.labelIds} /></span>}
                                 <span onClick={toggleLabelsModal} className="plus-icon"><GrAdd /></span>
-                                {isLabelModal && <TaskDetailsLabelModal labelIds={task.labelIds} onSetLabel={onSetLabel} toggleLabelsModal={toggleLabelsModal}/>}
-                    
+                                {isLabelModal && <TaskDetailsLabelModal labelIds={task.labelIds} onSetLabel={onSetLabel} toggleLabelsModal={toggleLabelsModal} />}
+
                             </div>
                         </section>
                     </section>{/*tags*/}

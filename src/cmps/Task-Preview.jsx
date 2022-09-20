@@ -10,6 +10,8 @@ import { useNavigate, useParams } from "react-router-dom"
 import { TaskLabel } from "./task-label"
 import { TaskMember } from "./task-members"
 import { HiOutlineEye } from 'react-icons/hi';
+import { updateTask } from "../store/board.actions"
+import { useDispatch, useSelector } from "react-redux"
 
 
 export const TaskPreview = ({ task, groupId, index, taskRef, groupTitle }) => {
@@ -17,9 +19,13 @@ export const TaskPreview = ({ task, groupId, index, taskRef, groupTitle }) => {
     const [isFullCover, setIsFullCover] = useState(false)
     const [isQuickEditOn, setIsQuickEditOn] = useState(false)
     const [showDetailsModal, setShowDetailsModal] = useState(false)
+
+    // const [taskDoneStyle, setTaskDoneStyle] = useState({})
     const refQuickEdit = useRef(null)
 
+    const board = useSelector(state => state.boardModule.board)
     const params = useParams()
+    const dispatch = useDispatch()
     const navigate = useNavigate()
 
 
@@ -70,8 +76,24 @@ export const TaskPreview = ({ task, groupId, index, taskRef, groupTitle }) => {
     const onDarkClicked = (e) => {
         e.stopPropagation()
     }
+    const isWatchByUser = () => {
+        // console.log('isWatch function')
+        if (!task.memberIds || !task.watcedMemberIds) return
+        let isWatch = false
+        task.memberIds.forEach(member => {
+            if (task.watcedMemberIds.includes(member)) isWatch = true
+        })
+        // console.log('isWatch', isWatch)
+        return isWatch
+    }
 
-    // console.log('render TASK PREVIEW')
+    const completeDue = (ev) => {
+        ev.stopPropagation()
+        task.dueDate.isDone = !task.dueDate.isDone
+        dispatch(updateTask(board._id, groupId, task))
+    }
+
+    console.log('render TASK PREVIEW')
     return (
         <React.Fragment>
             <Draggable
@@ -85,7 +107,7 @@ export const TaskPreview = ({ task, groupId, index, taskRef, groupTitle }) => {
                         {...provided.draggableProps}
                         {...provided.dragHandleProps}
                     >
-                        <section className="task-preview" onClick={onGoToDetails}>
+                        <section className="task-preview" onClick={onGoToDetails} >
                             <div className="btn-quick-edit hide" onClick={toggaleQuickEdit}>
                                 {/* <BsFillPencilFill /> */}
                             </div>
@@ -99,22 +121,22 @@ export const TaskPreview = ({ task, groupId, index, taskRef, groupTitle }) => {
                                         labelIds={task.labelIds}
                                     />}
                                     <span>{task.title}</span>
-                                    <div className="badges-container">
+                                    <div className={"badges-container " + (!task?.memberIds && task?.dueDate ? "adjust-height" : "")} >
                                         <div className="left-badges-container">
-                                            <div className="viewed-by-user"></div>
-                                            <div className="due-date-container">
+                                            {isWatchByUser() && <div className="viewed-by-user"></div>}
+                                            {task?.dueDate && <div className={"due-date-container " + (task?.dueDate.isDone ? "done" : "")} onClick={completeDue}>
                                                 <div className="due-date-icon"></div>
                                                 <span className="due-date-txt">Sep 20</span>
-                                            </div>
+                                            </div>}
                                             {task.desc && <div className="task-desc-icon"></div>}
-                                            <div className="attachment-badge-container">
+                                            {task?.attachments && <div className="attachment-badge-container">
                                                 <div className="attachment-badge"></div>
-                                                <span>1</span>
-                                            </div>
-                                            <div className="checklist-container">
+                                                <span>{task.attachments.length}</span>
+                                            </div>}
+                                            {/* <div className="checklist-container">
                                                 <div className="checklist-icon"></div>
                                                 <span className="checklist-todos">1/2</span>
-                                            </div>
+                                            </div> */}
                                         </div>
 
                                         <div className="right-badges-container">
@@ -143,9 +165,10 @@ export const TaskPreview = ({ task, groupId, index, taskRef, groupTitle }) => {
                         </section >
                         {/* { isDetailsShown && <TaskDetails boardId={boardId} groupId={groupId} taskId={task.id}/>} */}
                     </div>
-                )}
-            </Draggable>
+                )
+                }
+            </Draggable >
             {showDetailsModal && <TaskDetails boardId={boardIdRef.current} groupId={groupId} taskId={task.id} task={task} closeModal={onGoToDetails} groupTitle={groupTitle} />}
-        </React.Fragment>
+        </React.Fragment >
     )
 }

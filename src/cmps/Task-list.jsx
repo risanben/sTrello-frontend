@@ -13,6 +13,8 @@ export const TaskList = ({ tasks, groupId, group, isAddTask, handleChangeTask, t
     }, [isAddTask])
 
     if (!tasks) return
+    console.log('render TASK LIST')
+
     return (
 
         <Droppable droppableId={group.id}>

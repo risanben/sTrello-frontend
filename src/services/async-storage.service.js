@@ -91,32 +91,32 @@ function postMany(entityType, newEntities) {
 const labelsData = [
     {
         "id": "l101",
-        "title": "None",
+        "title": "",
         "color": "#7BC86C" // Green
     },
     {
         "id": "l102",
-        "title": "None",
+        "title": "",
         "color": "#F5DD29" //Yellow
     },
     {
         "id": "l103",
-        "title": "None",
+        "title": "",
         "color": "#FFAF3F" // Orange
     },
     {
         "id": "l104",
-        "title": "None",
+        "title": "",
         "color": "#EF7564"//Red
     },
     {
         "id": "l105",
-        "title": "None",
+        "title": "",
         "color": "#CD8DE5"//Purple
     },
     {
         "id": "l106",
-        "title": "None",
+        "title": "",
         "color": "#5BA4CF" //Blue
     }
 ]
@@ -178,7 +178,10 @@ const dataBoards = [
                         "status": "in-progress",
                         "description": "description",
                         "createdAt": 1590999730348,
-                        "dueDate": 16156215211,
+                        "dueDate": {
+                            "date": 16156215211,
+                            "isDone": false
+                        },
                         "byMember": {
                             "_id": "u101",
                             "username": "Tal",
@@ -273,7 +276,10 @@ const dataBoards = [
                         "status": "in-progress",
                         "description": "description",
                         "createdAt": 1590999730348,
-                        "dueDate": 16156215211,
+                        "dueDate": {
+                            "date": 16156215211,
+                            "isDone": false
+                        },
                         "byMember": {
                             "_id": "u101",
                             "username": "Tal",
@@ -365,7 +371,10 @@ const dataBoards = [
                     {
                         "id": "c204",
                         "title": "Data Modal Approval",
-                        "dueDate": 16156215211
+                        "dueDate": {
+                            "date": 16156215211,
+                            "isDone": true
+                        },
                     },
                     {
                         "id": "c205",
@@ -390,20 +399,26 @@ const dataBoards = [
                     {
                         "id": "c302",
                         "title": "Add TaskDetails",
-                        "labelIds": ["l101", "l103"]
+                        "labelIds": ["l101", "l103"],
+                        "watcedMemberIds": ["u101"],
                     },
                     {
                         "id": "c303",
                         "title": "Adding npm libraries",
                         "labelIds": ["l101", "l103", "l104", "l106"],
-                        "memberIds": ["u101", "u103"]
+                        "memberIds": ["u101", "u103"],
+                        "watcedMemberIds": ["u101"]
                     },
                     {
                         "id": "c301",
                         "title": "Planning the components tree",
                         "labelIds": ["l101", "l103", "l104"],
                         "memberIds": ["u101", "u102", "u103"],
-                        "dueDate": 16156215211,
+                        "watcedMemberIds": ["u101"],
+                        "dueDate": {
+                            "date": 16156215211,
+                            "isDone": false
+                        },
                         "style": {
                             "bg": {
                                 "color": "#7bc86c",
@@ -440,7 +455,10 @@ const dataBoards = [
                         "id": "c401",
                         "title": "Functional testing for app header",
                         "labelIds": ["l103", "l104"],
-                        "dueDate": 16156215211,
+                        "dueDate": {
+                            "date": 16156215211,
+                            "isDone": true
+                        },
                         "style": {
                             "bg": {
                                 "color": "#ffaf3f",
@@ -480,17 +498,22 @@ const dataBoards = [
                                 "fullCover": false
                             }
                         },
-                        "desc": "Create css variables and helpers"
+                        "desc": "Create css variables and helpers",
+                        "attachments": ["https://www.w3schools.com/css/css3_variables.asp"]
                     },
                     {
                         "id": "c502",
                         "title": "Making functions and mixins",
-                        "memberIds": ["u102"]
+                        "memberIds": ["u102"],
+                        "attachments": ["https://www.w3schools.com/cssref/css_functions.asp", "hhttps://www.w3schools.com/sass/sass_mixin_include.php"]
                     },
                     {
                         "id": "c503",
                         "title": "CSS directory",
-                        "dueDate": 16156215211
+                        "dueDate": {
+                            "date": 16156215211,
+                            "isDone": false
+                        },
                     },
                     {
                         "id": "c504",
@@ -538,7 +561,8 @@ const dataBoards = [
                                 "imgUrl": "https://res.cloudinary.com/dqhrqqqul/image/upload/v1663229161/bug_bkvxx9.jpg",
                                 "fullCover": true
                             }
-                        }
+                        },
+                        "attachments": ["https://en.wikipedia.org/wiki/Bugs"]
                     },
                     {
                         "id": "c604",
@@ -566,6 +590,7 @@ const dataBoards = [
                         "title": "Creating database with mongo",
                         "labelIds": ["l104", "l106"],
                         "memberIds": ["u101", "u102", "u103"],
+                        "watcedMemberIds": ["u101"],
                         "style": {
                             "bg": {
                                 "color": null,
@@ -580,7 +605,11 @@ const dataBoards = [
                         "title": "App header",
                         "labelIds": ["l102"],
                         "memberIds": ["u101", "u103"],
-                        "dueDate": 16156215211
+                        "watcedMemberIds": ["u101"],
+                        "dueDate": {
+                            "date": 16156215211,
+                            "isDone": false
+                        },
                     }
                 ],
                 "style": {}
