@@ -197,7 +197,7 @@ export const TaskDetails = (props) => {
                     </section>{/*tags*/}
 
                     <span className="description-icon"> <GrTextAlignFull /> </span>
-                    <section className="description-container">
+                    <section className={`description-container ${isEditDescription? 'edit-status':''}`}>
                         <span className="description-title">Description</span>
                         {!isEditDescription && <button onClick={toggleEditDescription}>Edit</button>}
                         <div className="description-edit">
