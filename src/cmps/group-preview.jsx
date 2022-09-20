@@ -125,7 +125,8 @@ export const GroupPreview = ({ group, addTask, index, taskRef }) => {
                                 groupId={group.id}
                                 isAddTask={isAddTask}
                                 handleChangeTask={handleChangeTask}
-                                task={task} />
+                                task={task} 
+                                />
                             {isAddTask && <React.Fragment>
 
                                 <div className="add-task-btn-container">

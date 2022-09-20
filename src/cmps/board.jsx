@@ -61,6 +61,7 @@ export const Board = () => {
 
 
     const onEnd = result => {
+    
         const { destination, source, type } = result
         if (!destination) return
 

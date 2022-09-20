@@ -273,6 +273,12 @@ export function handleDrag(
     type
 ) {
     return async dispatch => {
+
+        if (type === 'member') {
+            console.log('a member has been dragged')
+            return
+        }
+
         if (type === 'group') {
             // remove group from origin
             const group = board.groups.splice(droppableIndexStart, 1)

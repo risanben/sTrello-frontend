@@ -98,10 +98,10 @@ export const TaskPreview = ({ task, groupId, index, taskRef, groupTitle }) => {
                                         labelIds={task.labelIds}
                                     />}
                                     <span>{task.title}</span>
+
                                     {task?.memberIds && <TaskMember
                                         memberIds={task.memberIds}
-                                        taskRef={taskRef}
-                                        index={index} />}
+                                         />}
                                 </div>}
 
                             {isFullCover && task?.style?.bg?.imgUrl &&
