@@ -1,4 +1,4 @@
-import { TaskMemberDetails } from "./task-members-details"
+import { TaskDetailsMember } from "./task-details-members"
 
 export const TaskDetailsMembersModal = ({ memberIds, onSetMember ,toggleMembersModal}) => {
     return (
@@ -9,7 +9,7 @@ export const TaskDetailsMembersModal = ({ memberIds, onSetMember ,toggleMembersM
                 <input type="text" placeholder="Search members" />
                 <h3>Board members</h3>
                 <section className="member-detail-container">
-                    <TaskMemberDetails memberIds={memberIds} onSetMember={onSetMember} />
+                    <TaskDetailsMember memberIds={memberIds} onSetMember={onSetMember} />
                 </section>
             {/* </div> */}
         </section>

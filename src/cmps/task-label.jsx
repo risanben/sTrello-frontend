@@ -10,6 +10,7 @@ export const TaskLabel = ({ labelIds }) => {
     const dispatch = useDispatch()
     const getColor = (labelId) => {
         const label = board.labels.find(label => label.id === labelId)
+        if(label?.color)
         return {
             backgroundColor: label.color
         }
