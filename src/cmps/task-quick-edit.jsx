@@ -1,12 +1,12 @@
 
-import { FaWindowMaximize } from 'react-icons/fa';
-import { BsTagFill } from 'react-icons/bs';
-import { HiUser } from 'react-icons/hi';
-import { HiArchive } from 'react-icons/hi';
-import { TaskLabel } from './task-label.jsx';
+import { FaWindowMaximize } from 'react-icons/fa'
+import { BsTagFill } from 'react-icons/bs'
+import { HiUser } from 'react-icons/hi'
+import { HiArchive } from 'react-icons/hi'
+import { TaskLabel } from './task-label.jsx'
 import { useState, useRef, useEffect } from 'react'
 import { LabelModal } from './label-modal'
-import { TaskMember } from './task-members.jsx';
+import { TaskMember } from './task-members.jsx'
 
 
 export const TaskQuickEdit = ({ task }) => {

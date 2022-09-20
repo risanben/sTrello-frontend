@@ -17,13 +17,13 @@ export const useFormRegister = (initialState, callBack) => {
             case 'number':
             case 'range':
                 value = +target.value || ''
-                break;
+                break
             case 'checkbox':
                 value = target.checked
-                break;
+                break
             case 'date':
                 value = new Date(value)
-                break;
+                break
             case 'time':
                 const newDate = new Date()
                 const hours = value.split(':')[0]

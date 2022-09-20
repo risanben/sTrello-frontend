@@ -2,14 +2,14 @@ import React, { useEffect, useState, useRef } from "react"
 import { BsFillPencilFill } from 'react-icons/bs'
 import { TaskQuickEdit } from "./task-quick-edit"
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
-// import { useDispatch } from "react-redux";
+// import { useDispatch } from "react-redux"
 // import { loadTasks } from "../store/task.actions"
 import { TaskDetails } from '../pages/task-details'
 import { Link } from 'react-router-dom'
 import { useNavigate, useParams } from "react-router-dom"
 import { TaskLabel } from "./task-label"
 import { TaskMember } from "./task-members"
-import { HiOutlineEye } from 'react-icons/hi';
+import { HiOutlineEye } from 'react-icons/hi'
 import { updateTask } from "../store/board.actions"
 import { useDispatch, useSelector } from "react-redux"
 
@@ -31,7 +31,7 @@ export const TaskPreview = ({ task, groupId, index, taskRef, groupTitle }) => {
 
     const boardIdRef = useRef()
     boardIdRef.current = params.id
-    // console.log('boardIdRef', boardIdRef);
+    // console.log('boardIdRef', boardIdRef)
 
     useEffect(() => {
         if (task.style) setIsFullCover(task.style.bg.fullCover)
@@ -93,7 +93,7 @@ export const TaskPreview = ({ task, groupId, index, taskRef, groupTitle }) => {
         dispatch(updateTask(board._id, groupId, task))
     }
 
-    console.log('render TASK PREVIEW')
+    // console.log('render TASK PREVIEW')
     return (
         <React.Fragment>
             <Draggable

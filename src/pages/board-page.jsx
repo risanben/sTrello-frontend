@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import { loadBoards, updateBoard } from '../store/board.actions'
 import { useState } from 'react'
 import { BoardEdit } from '../cmps/board-edit'
-import { HiOutlineStar, HiStar } from 'react-icons/hi';
+import { HiOutlineStar, HiStar } from 'react-icons/hi'
 
 
 export function BoardPage() {

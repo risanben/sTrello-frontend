@@ -1,13 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { NavLink, Link, useParams, useLocation } from 'react-router-dom';
-import { ImTrello } from 'react-icons/im';
-import { BsFillGrid3X3GapFill, BsChevronDown } from 'react-icons/bs';
-import { IoSearchSharp } from 'react-icons/io5';
-import { AiOutlineBell } from 'react-icons/ai';
+import { NavLink, Link, useParams, useLocation } from 'react-router-dom'
+import { ImTrello } from 'react-icons/im'
+import { BsFillGrid3X3GapFill, BsChevronDown } from 'react-icons/bs'
+import { IoSearchSharp } from 'react-icons/io5'
+import { AiOutlineBell } from 'react-icons/ai'
 import { boardService } from '../services/board.service'
-import { SearchResult } from './search-result';
-import { useSelector } from 'react-redux';
-import { BoardEdit } from './board-edit';
+import { SearchResult } from './search-result'
+import { useSelector } from 'react-redux'
+import { BoardEdit } from './board-edit'
 
 
 export function AppHeader() {
