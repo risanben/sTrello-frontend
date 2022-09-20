@@ -3,6 +3,8 @@
     // position: relative;
     left: -243px;
     height: 100%;
+    top: 44px;
+    z-index: 10;
 
 
     width: 260px;
@@ -90,6 +92,8 @@
         height: 28px;
         width: 28px;
         font-size: 11px;
+        z-index: 10;
+
 
         display: flex;
         justify-content: center;
@@ -110,8 +114,10 @@
 
 .side-menu.open {
     background-color: darken($header-bg-color , $amount: 10);
-    position: unset;
+    // position: unset;
     height: unset;
+    position: relative;
+    top: 44px;
 
     left: unset;
     border-right: none;
