@@ -1,6 +1,6 @@
 import { NavLink, Link, useNavigate } from 'react-router-dom'
 
-export const SearchResult = ({ boards }) => {
+export const SearchResult = ({ results, setResults, setIsSearching }) => {
 
 
     const _getBoardThumbnail=(board)=>{
@@ -9,12 +9,17 @@ export const SearchResult = ({ boards }) => {
      else return <div style={{backgroundColor:"grey"}} className="color-thumb"></div>
     }
 
+    const onLinkClicked=()=>{
+        setResults(null)
+        setIsSearching(false)
+    }
+console.log('results:', results)
     return <section className="search-result">
         <header>BOARDS</header>
         <ul>
-            {!boards.length && <li>No match found</li>}
-            {boards.map(board => {
-                return <Link to={`board/${board._id}`} className='boards-link' key={board._id}>
+            {!results.length && <li>No match found</li>}
+            {results.map(board => {
+                return <Link to={`board/${board._id}`} className='boards-link' key={board._id} onClick={onLinkClicked}>
                     <li>
                         <span className='flex-left'>{_getBoardThumbnail(board)}{board.title}</span>
                         <span className='flex-middle'></span>

@@ -9,7 +9,9 @@ import { LabelModal } from './label-modal'
 import { TaskMember } from './task-members.jsx';
 
 
-export const TaskQuickEdit = ({ task }) => {
+export const TaskQuickEdit = ({ task, pos }) => {
+
+  // console.log('pos.style:', pos.style)
 
   const [title, setTaskTitle] = useState(task.title)
   const [labelModal, setLabelModal] = useState(false)
@@ -48,9 +50,22 @@ export const TaskQuickEdit = ({ task }) => {
     ev.stopPropagation()
   }
 
-  return <section className="task-quick-edit" onClick={onEditClick}>
+  const _getTaskCoverStyle = (bg) => {
+    // console.log('bg:', bg)
+    if (bg.color) {
+      return bg.color
+    }
+
+    return "red"
+
+  }
+
+// console.log('style:', style)
+  return <section className="task-quick-edit" onClick={onEditClick} >
     {/* <div className="dark-screen"></div> */}
-    <div className='left-col'>
+    <div className='left-col' style={{top:`${pos.top}`, left:`${pos.left}`}}>
+      {task.style?.bg?.imgUrl && <div className='task-cover' style={{ backgroundImage: `url(${task.style.bg.imgUrl})`, height: "180px", backgroundSize: "cover" }}></div>}
+      {task.style?.bg?.color && <div className='task-cover' style={{ background: _getTaskCoverStyle(task.style.bg), height: "32px"}}></div>}
       <div className='input-side'>
         <section className='labels'>
           {task?.labelIds && <TaskLabel labelIds={task.labelIds} />}

@@ -26,7 +26,7 @@ export function loadBoards(filterBY = {}) {
     return async (dispatch) => {
         try {
             const boards = await boardService.query(filterBY)
-            console.log('Boards from DB:', boards)
+            // console.log('Boards from DB:', boards)
             dispatch({
                 type: 'SET_BOARDS',
                 boards

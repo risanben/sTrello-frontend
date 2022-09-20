@@ -17,6 +17,7 @@ export const TaskPreview = ({ task, groupId, index, taskRef, groupTitle }) => {
     const [isFullCover, setIsFullCover] = useState(false)
     const [isQuickEditOn, setIsQuickEditOn] = useState(false)
     const [showDetailsModal, setShowDetailsModal] = useState(false)
+    const [quickEditPos, setQuickEditPos] = useState(null)
     const refQuickEdit = useRef(null)
 
     const params = useParams()
@@ -57,8 +58,22 @@ export const TaskPreview = ({ task, groupId, index, taskRef, groupTitle }) => {
     }
 
     const toggaleQuickEdit = (ev) => {
+        // console.log('entered toggle')
         ev.stopPropagation()
         setIsQuickEditOn(!isQuickEditOn)
+        //position of modal
+       const parentEl = ev.currentTarget.parentNode
+       const position = parentEl.getBoundingClientRect()
+       console.log('position:', position)
+       console.log('window.innerWidth:', window.innerWidth)
+
+       const pos = {
+        left:ev.target.offsetLeft - 218,
+        top:ev.target.offsetTop -6,
+        width:position.width
+    }
+
+        setQuickEditPos(pos)
     }
 
     const onGoToDetails = () => {
@@ -86,10 +101,10 @@ export const TaskPreview = ({ task, groupId, index, taskRef, groupTitle }) => {
                         {...provided.dragHandleProps}
                     >
                         <section className="task-preview" onClick={onGoToDetails}>
-                            <div className="btn-quick-edit hide" onClick={toggaleQuickEdit}>
-                                {/* <BsFillPencilFill /> */}
+                            <div className="btn-quick-edit hide" onClick={(ev)=>{
+                                toggaleQuickEdit(ev)}}>
                             </div>
-                            {isQuickEditOn && <section ref={refQuickEdit}><TaskQuickEdit task={task} /></section>}
+                            {isQuickEditOn && <section ref={refQuickEdit}><TaskQuickEdit task={task} pos={quickEditPos} /></section>}
 
                             {!isFullCover && task?.style &&
                                 <div className="task-cover" style={setTaskCoverStyle()}></div>}

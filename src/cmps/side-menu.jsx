@@ -16,10 +16,8 @@ export const SideMenu = ({isSideBarOpen, toggleMenu}) => {
 
     const _getMenuClass = () => {
         if (isSideBarOpen) {
-            console.log('open')
             return "side-menu open"
         } else{ 
-            console.log('closed')
             return "side-menu"}
     }
 
