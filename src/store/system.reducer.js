@@ -1,6 +1,6 @@
 const initialState = {
   isLoading: false
-};
+}
 
 export function systemReducer (state = initialState, action = {}) {
   switch (action.type) {

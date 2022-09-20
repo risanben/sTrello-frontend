@@ -2,23 +2,74 @@
     display: flex;
     flex-direction: column;
     // justify-content: flex-end;
-    gap: 6px;
-    width: 100%;
+    gap: 10px;
+    width: 90%;
+    text-align: left;
 
-    & .member {
-        border-radius: 50%;
-        height: 28px;
-        width: 28px;
-        background-color: lightskyblue;
-        font-size: 12px;
-        font-weight: 500;
+    & .member-details {
         display: flex;
-        align-items: center;
-        justify-content: center;
+        text-align: left;
+        width: 90%;
 
+        .member-img-container {
+            // border-radius: 50%;
+            // height: 28px;
+            // width: 28px;
+            // background-color: lightskyblue;
+            // font-size: 12px;
+            // font-weight: 500;
+            // display: flex;
+            // align-items: center;
+            // justify-content: center;
+
+        }
+
+        .member-fullname {
+            margin-left: 10px;
+        }
+
+        .member-initials-container {
+            display: flex;
+
+            .member-initials {
+                border-radius: 50%;
+                height: 28px;
+                width: 28px;
+                background-color: lightskyblue;
+                font-size: 12px;
+                font-weight: 500;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .member-fullname {
+                margin-left: 10px;
+                justify-content: space-between;
+                color: #172b4d;
+                font-size: 14px;
+                line-height: 32px;
+                // background-color: #ffffff;
+
+
+            }
+
+
+        }
     }
-    .member-details{
+
+    .member {
         display: flex;
-        gap: 10px;
+        margin-left: 5px;
+        width: 100%;
+
+        &:hover {
+            background-color: antiquewhite;
+            // background-color: #091e42, opacity 4.00%;
+            color: #42526e;
+        }
+
+        .isMember {}
     }
+
 }

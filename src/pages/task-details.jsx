@@ -3,18 +3,18 @@ import { useEffect, useState, useRef } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import { TaskDetailsCoverModal } from "../cmps/task-details-cover-modal"
 import { useFormRegister } from '../hooks/useFormRegister'
-import { useDispatch } from "react-redux";
+import { useDispatch } from "react-redux"
 import { updateTask, removeTask, getTask, getBoardMembers } from '../store/board.actions'
 import { TaskMember } from "../cmps/task-members"
 import { TaskLabel } from "../cmps/task-label"
 import { TaskDetailsMembersModal } from "../cmps/task-details-members-modal"
-import { HiUser } from 'react-icons/hi';
-import { BsTagFill, BsCheck2Square, BsClock } from 'react-icons/bs';
-import { HiArchive } from 'react-icons/hi';
-import { FaWindowMaximize } from 'react-icons/fa';
-import { GrTextAlignFull, GrAdd, GrAttachment } from 'react-icons/gr';
-import { AbilityCreator } from "../cmps/ability-creator";
-import { TaskDetailsLabelModal } from "../cmps/task-details-labels-modal";
+import { HiUser } from 'react-icons/hi'
+import { BsTagFill, BsCheck2Square, BsClock } from 'react-icons/bs'
+import { HiArchive } from 'react-icons/hi'
+import { FaWindowMaximize } from 'react-icons/fa'
+import { GrTextAlignFull, GrAdd, GrAttachment } from 'react-icons/gr'
+import { AbilityCreator } from "../cmps/ability-creator"
+import { TaskDetailsLabelModal } from "../cmps/task-details-labels-modal"
 
 export const TaskDetails = (props) => {
 
@@ -110,14 +110,23 @@ export const TaskDetails = (props) => {
     }
 
     const onSetMember = (addOrRemove, memberId) => {
+        console.log('addOrRemove',addOrRemove)
+        console.log('memberId',memberId)
+        console.log('memberIds',task.memberIds)
+
         if (!addOrRemove) {
             if (!task.memberIds) task.memberIds = [memberId]
             else task.memberIds.push(memberId)
+            if (!task.watcedMemberIds) task.watcedMemberIds = [memberId]
+            else task.watcedMemberIds.push(memberId)
         } else {
-            console.log('task', task);
-            const idx = task.memberIds.findIndex(member => member._id === memberId)
+            console.log('task', task)
+            const idx = task.memberIds.findIndex(member => member=== memberId)
             task.memberIds.splice(idx, 1)
+            const watchIdx = task.watcedMemberIds.findIndex(member => member=== memberId)
+            task.watcedMemberIds.splice(watchIdx, 1)
         }
+        console.log('memberIds',task.memberIds)
         onUpdateTask(task)
     }
 
@@ -182,7 +191,7 @@ export const TaskDetails = (props) => {
                             <div className="select-members">
                                 {task?.memberIds && <TaskMember memberIds={task.memberIds} />}
                                 <span onClick={toggleMembersModal} className="plus-icon"><GrAdd /></span>
-                                {isMemberModal && <TaskDetailsMembersModal memberIds={task.memberIds} onSetMember={onSetMember} toggleMembersModal={toggleMembersModal}/>}
+                                {isMemberModal && <TaskDetailsMembersModal memberIds={task.memberIds} onSetMember={onSetMember} toggleMembersModal={toggleMembersModal} />}
                             </div>
                         </section>
                         <section className="labels">
@@ -190,14 +199,14 @@ export const TaskDetails = (props) => {
                             <div className="select-members">
                                 {task?.labelIds && <span className="label-container"><TaskLabel labelIds={task.labelIds} /></span>}
                                 <span onClick={toggleLabelsModal} className="plus-icon"><GrAdd /></span>
-                                {isLabelModal && <TaskDetailsLabelModal labelIds={task.labelIds} onSetLabel={onSetLabel} toggleLabelsModal={toggleLabelsModal}/>}
-                    
+                                {isLabelModal && <TaskDetailsLabelModal labelIds={task.labelIds} onSetLabel={onSetLabel} toggleLabelsModal={toggleLabelsModal} />}
+
                             </div>
                         </section>
                     </section>{/*tags*/}
 
                     <span className="description-icon"> <GrTextAlignFull /> </span>
-                    <section className="description-container">
+                    <section className={`description-container ${isEditDescription? 'edit-status':''}`}>
                         <span className="description-title">Description</span>
                         {!isEditDescription && <button onClick={toggleEditDescription}>Edit</button>}
                         <div className="description-edit">

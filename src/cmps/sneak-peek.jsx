@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom'
 import screenshot from '../assets/img/peek.jpg'
 
 

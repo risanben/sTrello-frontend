@@ -8,7 +8,6 @@ export const TaskDetailsLabel = ({ labelIds, onSetLabel }) => {
     const getLabel = (labelId) => {
         const currentLabel = board.labels.find(label => label.id === labelId)
         const isTaskLabel = checkTaskLabel(labelId)
-        console.log('isTaskLabel', isTaskLabel);
         if (currentLabel?.color)
             return (
                 <li key={currentLabel.id}>
@@ -24,9 +23,6 @@ export const TaskDetailsLabel = ({ labelIds, onSetLabel }) => {
     const checkTaskLabel = (labelId1) => {
         if (!labelIds) return
         const checkedLabel = labelIds.find(labelId => labelId === labelId1)
-        console.log('labelIds', labelIds);
-        console.log('labelId1', labelId1);
-        console.log('checkedLabel', checkedLabel);
         if (checkedLabel) return true
         return false
         // return checkedLabel

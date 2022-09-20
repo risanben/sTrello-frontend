@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react';
-import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
-import { boardService } from '../services/board.service';
-import { BoardsList } from './boards-list';
-import { ImTrello } from 'react-icons/im';
+import { useEffect, useState } from 'react'
+import { FaChevronLeft, FaChevronRight } from 'react-icons/fa'
+import { boardService } from '../services/board.service'
+import { BoardsList } from './boards-list'
+import { ImTrello } from 'react-icons/im'
 
 
 

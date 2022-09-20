@@ -1,6 +1,6 @@
 import { TaskPreview } from './Task-Preview'
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react'
 
 export const TaskList = ({ tasks, groupId, group, isAddTask, handleChangeTask, task }) => {
     const taskRef = useRef()
@@ -13,6 +13,8 @@ export const TaskList = ({ tasks, groupId, group, isAddTask, handleChangeTask, t
     }, [isAddTask])
 
     if (!tasks) return
+    // console.log('render TASK LIST')
+
     return (
 
         <Droppable droppableId={group.id}>

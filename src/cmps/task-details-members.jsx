@@ -1,8 +1,8 @@
 import { useSelector } from "react-redux"
 
 export const TaskDetailsMember = ({ memberIds, onSetMember }) => {
+
     const board = useSelector(state => state.boardModule.board)
-    // const boardMembers = useSelector(state => state.boardModule.boardMembers)
 
     const getMemberName = (memberId) => {
         const member = board.members.find(member => member._id === memberId)
@@ -25,15 +25,17 @@ export const TaskDetailsMember = ({ memberIds, onSetMember }) => {
                             borderRadius: "50%"
                         }}></div>
                     </div>
-                    <div>{fullname}</div>
+                    <div className="member-fullname">{member.fullname}</div>
                 </section>
             )
         }
 
         return (
             <section className="member-details">
-                <div>{initials}</div>
-                <div>{fullname}</div>
+                <div className="member-initials-container">
+                    <div className="member-initials">{initials}</div>
+                    <div className="member-fullname">{member.fullname}</div>
+                </div>
             </section>
         )
     }
@@ -41,9 +43,8 @@ export const TaskDetailsMember = ({ memberIds, onSetMember }) => {
     const checkTaskMember = (memberId) => {
         if (!memberIds) return
         const checkedMember = memberIds.find(member => member === memberId)
-        console.log('memberIds', memberIds);
-        console.log('memberId', memberId);
-        return checkedMember
+        if (checkedMember) return true
+        return false
     }
 
     if (!board.members) return <div>No board members found</div>
@@ -54,8 +55,7 @@ export const TaskDetailsMember = ({ memberIds, onSetMember }) => {
                     key={member._id}
                     onClick={() => onSetMember(checkTaskMember(member._id), member._id)}>
                     {getMemberName(member._id)}
-                    {console.log('checkTaskMember', checkTaskMember(member._id))}
-                    {checkTaskMember(member._id) && '✔'}
+                    {checkTaskMember(member._id) && <span className="isMember">✔</span>}
                 </div>
             })}
         </div>

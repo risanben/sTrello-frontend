@@ -1,6 +1,6 @@
 const initialState = {
     boards: [],
-    filterby: null,
+    filterBy: null,
     board: null,
     task: null,
     resizeLabel: false
@@ -33,14 +33,13 @@ export function boardReducer(state = initialState, action) {
         case 'UPDATE_BOARD':
             board = { ...action.board }
             boards = state.boards.map(board => (board._id === action.board._id) ? action.board : board)
-            console.log("board from action&&&", action.board)
             newState = { ...state, boards, board }
             break
         case 'ADD_TO_CART':
             newState = { ...state, cart: [...state.cart, action.board] }
             break
         case 'SET_FILTER_BY':
-            newState = { ...state, filterby: [...state.filterby, action.filter] }
+            newState = { ...state, filterBy: [...state.filterBy, action.filter] }
             break
         case 'REMOVE_FROM_CART':
             cart = state.cart.filter(board => board._id !== action.boardId)
@@ -66,7 +65,7 @@ export function boardReducer(state = initialState, action) {
     // console.log('Prev State:', state)
     // console.log('Action:', action)
     // console.log('New State:', newState)
-    // console.log('newState', newState.boards)
+
     return newState
 
 }
