@@ -26,7 +26,7 @@ export const BoardEdit = ({ toggleCreateBoardModal }) => {
 
     const onSaveBoard = async (ev) => {
         ev.preventDefault()
-        const savedBoard = await dispatch(addBoard(board))
+        const savedBoard = dispatch(addBoard(board))
         console.log('savedBoard', savedBoard)
         navigate(`/board/${savedBoard._id}`)
         // })

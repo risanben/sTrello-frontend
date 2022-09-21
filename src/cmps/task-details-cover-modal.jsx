@@ -34,7 +34,7 @@ export const TaskDetailsCoverModal = (props) => {
             <section>
                 <ul className="cover-imgs">
                     {imgs.map(imgUrl =>
-                        <li className="cover-img-container" >
+                        <li className="cover-img-container">
                             {/* <span className="cover-img" style={{ backgroundImage: `url(${img})` }}></span> */}
                             <img className="cover-img" src={`${imgUrl}`} onClick={() => props.onSetImg(imgUrl)}></img>
                         </li>

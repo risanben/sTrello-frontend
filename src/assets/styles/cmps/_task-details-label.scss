@@ -1,25 +1,30 @@
-.task-label-container {
-    display: flex;
-    flex-direction: column;
-    width: 95%;
-    text-align: left;
-
-    & .label-details {
+.members-modal {
+    .task-label-container {
         display: flex;
-        justify-content: space-between;
-        width: 90%;
+        flex-direction: column;
+        width: 95%;
+        text-align: left;
+        margin-bottom: 20px;
+        & .label-details {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 5px;
+            
+            // width: 90%;
+            .checkbox-label {
+                display: flex;
+                // justify-content: space-between;
+                width: 100%;
+                .label-details-body {
+                    width: 90%;
+                    border-radius: 3px;
+                    margin-left: 5px;
+                }
+            }
 
-.label-details-body{
-    width: 60%;
-    border-radius: 3px;
-}
-.btn-edit{
-    margin-left: 5px;
-}
-    
-
-
-
-
+            .btn-edit {
+                margin-left: 5px;
+            }
         }
     }
+}
