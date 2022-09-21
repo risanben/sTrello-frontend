@@ -1,22 +1,14 @@
 .side-menu {
-    // position: absolute;
-    // position: relative;
-    // left: -243px;
     height: 100%;
-    // top: 44px;
     z-index: 10;
-
     width: 25px;
-    // width: 260px;
-    // height: 100%;
-    background-color: darken($header-bg-color , $amount: 10);
-    background-color: rgba(0, 0, 0, 0.263);
+    background-color: white;
     display: flex;
     flex-direction: column;
     border-right: 1px solid $header-font-color ;
     opacity: 0.8;
-    // background-color: red;
-    // border: 3px solid green;
+    transition: width 1s;
+
 
     header {
         display: flex;
@@ -69,7 +61,7 @@
 
             .arrow {
                 font-size: 12px;
-                opacity: 0.6;
+                // opacity: 0.6;
 
             }
         }
@@ -89,8 +81,7 @@
         // position: relative;
         // right: -15px;
         border-radius: 50%;
-        height: 28px;
-        width: 25px;
+padding: 4px;
         font-size: 11px;
         z-index: 10;
 
@@ -118,14 +109,15 @@
     // height: unset;
     // position: relative;
     // top: 44px;
-    width: 200px;
+    width: 260px;
     // left: unset;
     border-right: none;
     opacity: 1;
 
     .open-arrow-div {
-        // display: none;
+        display: none;
         width: 200px;
+        // border: 2px solid red;
     }
 
     .arrow-div {

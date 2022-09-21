@@ -27,6 +27,8 @@ export const TaskPreview = ({ task, groupId, index, taskRef, groupTitle }) => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
+    const [windowWidth, setWidth] = useState(window.innerWidth);
+    const [windowHeight, setHeight] = useState(window.innerHeight);
 
     const boardIdRef = useRef()
     boardIdRef.current = params.id
@@ -61,24 +63,29 @@ export const TaskPreview = ({ task, groupId, index, taskRef, groupTitle }) => {
         return style
     }
 
+
     const toggaleQuickEdit = (ev) => {
-        // console.log('entered toggle')
         ev.stopPropagation()
-        setIsQuickEditOn(!isQuickEditOn)
         //position of modal
-       const parentEl = ev.currentTarget.parentNode
-       const position = parentEl.getBoundingClientRect()
-       console.log('position:', position)
-       console.log('window.innerWidth:', window.innerWidth)
+        const parentEl = ev.currentTarget.parentNode
+        const position = parentEl.getBoundingClientRect()
+        const style = _getPosition(ev.target.getBoundingClientRect(), parentEl.getBoundingClientRect())
 
-       const pos = {
-        left:ev.target.offsetLeft - 218,
-        top:ev.target.offsetTop -6,
-        width:position.width
-    }
-
+        let pos ={
+            position: position,
+            style: style
+        }
         setQuickEditPos(pos)
+        setIsQuickEditOn(!isQuickEditOn)
     }
+
+    const _getPosition = (evTarget, parent) => {
+        const { left, top } = evTarget
+        if (windowHeight - top < 160) return { top: top - 180, }
+        if (windowWidth - left < 200) return { right: 15, top }
+        if (windowWidth - left < 420 && windowHeight - top < 160) return { top: top - 160, right: 15}
+        else return { top: parent.top, left: parent.left } 
+      }
 
     const onGoToDetails = () => {
         // const boardId = params.id

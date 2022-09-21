@@ -1,17 +1,14 @@
 .task-quick-edit {
-    // background-color: rgba(0, 0, 0, 0.126);
     display: flex;
     flex-direction: row;
-    padding: 5px;
-    position: absolute;
-    top: 0;
-    left: 10px;
+    position: fixed;
     z-index: 20;
-    // border: 2px solid red;
 
 .left-col{
-   
+    // border: 2px solid red;
+
     min-width: 245px;
+  
 
 
     .task-cover{
@@ -61,10 +58,12 @@
 
 
 
-    ul {
+    ul.quick-edit-actions {
         padding: 0;
         margin: 0;
         margin-left: 10px;
+        // border: 2px solid green;
+        
 
         li {
             margin: 0;
