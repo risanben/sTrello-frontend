@@ -32,6 +32,13 @@ export const GroupPreview = ({ group, addTask, index, taskRef }) => {
 
     useEffect(() => {
         document.addEventListener("click", handleClickOutside, true)
+
+        return(
+            ()=>{
+              document.removeEventListener("click", handleClickOutside, false)
+              console.log('listener disabled:')}
+          )
+
     }, [])
 
     const handleClickOutside = (e) => {

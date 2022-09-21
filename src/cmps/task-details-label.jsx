@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
+import PenIcon from '../assets/img/pen-icon.svg'
 
 export const TaskDetailsLabel = ({ labelIds, onSetLabel }) => {
     const board = useSelector(state => state.boardModule.board)
@@ -17,7 +18,7 @@ export const TaskDetailsLabel = ({ labelIds, onSetLabel }) => {
                         {currentLabel.title}
                     </div>
                     </label>
-                    <button className="btn-edit">🖋</button>
+                    <button className="btn-edit"><img src={PenIcon} alt="pen" className="pen-icon" /></button>
                 </li>
             )
     }
@@ -32,11 +33,11 @@ export const TaskDetailsLabel = ({ labelIds, onSetLabel }) => {
 
     return (
         <div className="task-label-container" >
-            <ul>
+            <section className="label-list">
                 {board.labels.map(label => {
-                    return (getLabel(label.id))
+                    return getLabel(label.id)
                 })}
-            </ul>
+            </section>
         </div>
     )
 }

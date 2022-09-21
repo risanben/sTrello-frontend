@@ -11,7 +11,6 @@ const STORAGE_KEY = 'board'
 
 const boardChannel = new BroadcastChannel('boardChannel')
 
-
     ; (() => {
         boardChannel.addEventListener('message', (ev) => {
             store.dispatch(ev.data)
