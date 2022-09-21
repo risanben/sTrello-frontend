@@ -36,6 +36,8 @@ export const TaskPreview = ({ task, groupId, index, taskRef, groupTitle }) => {
 
     useEffect(() => {
         if (task.style) setIsFullCover(task.style.bg.fullCover)
+        setWidth(window.innerWidth)
+        setHeight(window.innerHeight)
     }, [])
 
     useEffect(() => {

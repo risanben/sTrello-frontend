@@ -4,19 +4,19 @@
     position: fixed;
     z-index: 20;
 
-.left-col{
-    // border: 2px solid red;
-
-    min-width: 245px;
-  
-
-
-    .task-cover{
+    .left-col {
         // border: 2px solid red;
-        border-top-left-radius: 3px;
-        border-top-right-radius: 3px;
+
+        min-width: 245px;
+
+
+
+        .task-cover {
+            // border: 2px solid red;
+            border-top-left-radius: 3px;
+            border-top-right-radius: 3px;
+        }
     }
-}
 
     .input-side {
         display: flex;
@@ -27,7 +27,7 @@
         border-bottom-right-radius: 3px;
         padding: 5px;
         margin-bottom: 10px;
-       
+
         // border: 2px solid red;
 
         .members {
@@ -63,17 +63,19 @@
         margin: 0;
         margin-left: 10px;
         // border: 2px solid green;
-        
+
 
         li {
+            margin: 10px auto;
+            padding: 4px;
             margin: 0;
             margin-bottom: 5px;
             border-radius: 3px;
             color: whitesmoke;
             width: max-content;
             background-color: rgba(0, 0, 0, 0.562);
-           padding-left: 10px;
-           padding-right: 10px;
+            padding-left: 10px;
+            padding-right: 10px;
 
             &:hover {
                 background-color: rgba(0, 0, 0, 0.767);
