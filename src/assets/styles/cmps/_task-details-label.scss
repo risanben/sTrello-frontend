@@ -1,0 +1,25 @@
+.task-label-container {
+    display: flex;
+    flex-direction: column;
+    width: 95%;
+    text-align: left;
+
+    & .label-details {
+        display: flex;
+        justify-content: space-between;
+        width: 90%;
+
+.label-details-body{
+    width: 60%;
+    border-radius: 3px;
+}
+.btn-edit{
+    margin-left: 5px;
+}
+    
+
+
+
+
+        }
+    }
