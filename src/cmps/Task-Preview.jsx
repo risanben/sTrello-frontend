@@ -65,7 +65,7 @@ export const TaskPreview = ({ task, groupId, index, taskRef, groupTitle }) => {
 
 
     const toggaleQuickEdit = (ev) => {
-        ev.stopPropagation()
+       if (ev) ev.stopPropagation()
         console.log('toggle was activated')
         //position of modal
 
@@ -143,7 +143,7 @@ export const TaskPreview = ({ task, groupId, index, taskRef, groupTitle }) => {
                         <section className="task-preview" onClick={onGoToDetails} >
                             <div className="btn-quick-edit hide" onClick={toggaleQuickEdit}>
                             </div>
-                            {isQuickEditOn && <section ref={refQuickEdit}><TaskQuickEdit task={task} pos={quickEditPos} toggaleQuickEdit={toggaleQuickEdit} /></section>}
+                            {isQuickEditOn && <section ref={refQuickEdit}><TaskQuickEdit task={task} boardId={boardIdRef.current} groupId={groupId} pos={quickEditPos} toggaleQuickEdit={toggaleQuickEdit} /></section>}
 
                             {!isFullCover && task?.style &&
                                 <div className="task-cover" style={setTaskCoverStyle()}></div>}

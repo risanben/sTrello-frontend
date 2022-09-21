@@ -7,17 +7,35 @@ import { TaskLabel } from './task-label.jsx'
 import { useState, useRef, useEffect } from 'react'
 import { LabelModal } from './label-modal'
 import { TaskMember } from './task-members.jsx'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { updateTask, removeTask } from '../store/board.actions'
 
 
-export const TaskQuickEdit = ({ task, pos, toggaleQuickEdit }) => {
+
+export const TaskQuickEdit = ({ task, pos, toggaleQuickEdit, boardId, groupId }) => {
 
   const [title, setTaskTitle] = useState(task.title)
   const [labelModal, setLabelModal] = useState(false)
+  const [currentBoardId, setBoardId] = useState(null)
+  const [currentGroupId, setGroupId] = useState(null)
+
   const refLabelModal = useRef(null)
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+
 
   useEffect(() => {
     document.addEventListener("click", handleClickOutside, true)
+  }, [])
+
+  useEffect(() => {
+
+    if (!boardId) return
+    setBoardId(boardId)
+    if (!groupId) return
+    setGroupId(groupId)
+
   }, [])
 
   const handleClickOutside = (e) => {
@@ -36,7 +54,9 @@ export const TaskQuickEdit = ({ task, pos, toggaleQuickEdit }) => {
     const taskToSave = {
       ...task
     }
-    task.title = title
+    taskToSave.title = title
+    onUpdateTask(taskToSave)
+    toggaleQuickEdit()
   }
 
   const openLabelModal = () => {
@@ -47,11 +67,20 @@ export const TaskQuickEdit = ({ task, pos, toggaleQuickEdit }) => {
     ev.stopPropagation()
   }
 
+  const onRemoveTask = () => {
+    dispatch(removeTask(currentBoardId, currentGroupId, task))
+    navigate(`/board/${currentBoardId}`)
+  }
 
-  return <section className="task-quick-edit" onClick={onEditClick} style={{...pos.style}}>
-    <div className='left-col' style={{width: pos.position.width}}>
-      {task.style?.bg?.imgUrl && <div className='task-cover' style={{backgroundImage: `url(${task.style.bg.imgUrl})`, height:"180px", backgroundSize:"cover",width:`${pos.width}px`}}></div>}
-      {task.style?.bg?.color && <div className='task-cover' style={{background:`${task.style.bg.color}`, height:"32px",width:`${pos.width}px`}}></div>}
+  const onUpdateTask = (task) => {
+    dispatch(updateTask(currentBoardId, currentGroupId, task))
+  }
+
+
+  return <section className="task-quick-edit" onClick={onEditClick} style={{ ...pos.style }}>
+    <div className='left-col' style={{ width: pos.position.width }}>
+      {task.style?.bg?.imgUrl && <div className='task-cover' style={{ backgroundImage: `url(${task.style.bg.imgUrl})`, height: "180px", backgroundSize: "cover", width: `${pos.width}px` }}></div>}
+      {task.style?.bg?.color && <div className='task-cover' style={{ background: `${task.style.bg.color}`, height: "32px", width: `${pos.width}px` }}></div>}
       <div className='input-side'>
         <section className='labels'>
           {task?.labelIds && <TaskLabel labelIds={task.labelIds} />}
@@ -68,7 +97,8 @@ export const TaskQuickEdit = ({ task, pos, toggaleQuickEdit }) => {
       <li onClick={openLabelModal}><BsTagFill /> Edit labels</li>
       {labelModal && <section ref={refLabelModal}><LabelModal /></section>}
       <li><HiUser /> Change members</li>
-      <li><HiArchive /> Archive</li>
+      <li><FaWindowMaximize /> Change Cover</li>
+      <li onClick={onRemoveTask}><HiArchive /> Archive</li>
     </ul>
   </section>
 
