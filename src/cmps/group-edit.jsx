@@ -20,28 +20,16 @@ export const GroupEdit = (props) => {
 
     useEffect(() => {
         inputRef.current.focus()
-        // const groupId = params.id
-        // if (!groupId) return
-        // groupService.getById(boardId)
-        //     .then(group => {
-        //         setGroup(group)
-        //     })
-        //     .catch(err => {
-        //     })
     }, [])
 
     const onSaveGroup = (ev) => {
         ev.preventDefault()
-        // boardService.saveGroup({ ...group }).then(() => {
-        //     props.onAddingGroup()
-        // })
         if (!group.title) return
         var board = props.board
         if (board?.groups) board.groups.push({ ...group })
         else board.groups = [group]
-        boardService.save({ ...board }).then(() => {
-            props.onAddingGroup()
-        })
+        boardService.save({ ...board })
+        props.onAddingGroup()
 
     }
 

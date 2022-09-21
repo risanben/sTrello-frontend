@@ -1,17 +1,17 @@
 import { useEffect, useState } from 'react'
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa'
-import { boardService } from '../services/board.service'
+// import { boardService } from '../services/board.service'
 import { BoardsList } from './boards-list'
 import { ImTrello } from 'react-icons/im'
-
-
+import { useSelector ,useDispatch} from 'react-redux'
+import { loadBoards } from '../store/board.actions';
 
 export const SideMenu = ({isSideBarOpen, toggleMenu}) => {
-    let [boards, setBoards] = useState(null)
+    const dispatch = useDispatch()
+    const boards = useSelector(state => state.boardModule.boards)
     
     useEffect(() => {
-        boards = boardService.query()
-            .then(boards => setBoards(boards))
+        dispatch(loadBoards())
     }, [])
 
     const _getMenuClass = () => {

@@ -4,7 +4,7 @@ import { useNavigate, useParams } from "react-router-dom"
 import { TaskDetailsCoverModal } from "../cmps/task-details-cover-modal"
 import { useFormRegister } from '../hooks/useFormRegister'
 import { useDispatch } from "react-redux"
-import { updateTask, removeTask, getTask, getBoardMembers } from '../store/board.actions'
+import { updateTask, removeTask, getTask } from '../store/board.actions'
 import { TaskMember } from "../cmps/task-members"
 import { TaskLabel } from "../cmps/task-label"
 import { TaskDetailsMembersModal } from "../cmps/task-details-members-modal"
@@ -142,21 +142,13 @@ export const TaskDetails = (props) => {
     }
 
     const onRemoveTask = () => {
-        try {
             dispatch(removeTask(currentBoardId, currentGroupId, task))
             navigate(`/board/${currentBoardId}`)
-        } catch (err) {
-            throw err
-        }
     }
 
     const onSaveTask = async (ev) => {
         ev.preventDefault()
-        try {
             dispatch(updateTask(currentBoardId, currentGroupId, task))
-        } catch (err) {
-            throw err
-        }
     }
 
     const clickedOnModal = (ev) => {
@@ -178,7 +170,6 @@ export const TaskDetails = (props) => {
                             <span className="btn-cover-txt">Cover</span>
                             {showModal && <TaskDetailsCoverModal onSetColor={onSetColor} onSetImg={onSetImg} className="cover-modal" />}
                         </div>
-
                     </section>{/*task-cover*/}
 
                     {/* task-details */}
@@ -208,8 +199,7 @@ export const TaskDetails = (props) => {
                             <div className="select-members">
                                 {task?.labelIds && <span className="label-container"><TaskLabel labelIds={task.labelIds} /></span>}
                                 <span onClick={toggleLabelsModal} className="plus-icon"><GrAdd /></span>
-                                {isLabelModal && <TaskDetailsLabelModal labelIds={task.labelIds} onSetLabel={onSetLabel} toggleLabelsModal={toggleLabelsModal} />}
-
+                                {isLabelModal && <TaskDetailsLabelModal labelIds={task.labelIds} onSetLabel={onSetLabel} toggleLabelsModal={toggleLabelsModal}/>}
                             </div>
                         </section>
                     </section>{/*tags*/}
@@ -232,12 +222,6 @@ export const TaskDetails = (props) => {
                     <textarea className="activity-input" placeholder="Write a comment..."></textarea>
                     <span className="activity-icon">icon</span>
                     <span className="activity-title">Activity</span>
-                    <span className="activity-icon">icon</span>
-                    <span className="activity-title">Activity</span>
-                    <span className="activity-icon">icon</span>
-                    <span className="activity-title">Activity</span>
-                    <span className="activity-icon">icon</span>
-                    <span className="activity-title">Activity</span>
 
                     <section className="task-abilities">
                         <AbilityCreator callBackF={toggleMembersModal} iconCmp={HiUser} name={'Members'} />
@@ -248,8 +232,6 @@ export const TaskDetails = (props) => {
                         <button className="btn abilities"><span className="icon"><GrAttachment /></span><span className="ability">Attachment</span></button>
                         <button className="btn abilities" onClick={onRemoveTask}><span className="icon"><HiArchive /> </span><span className="ability">Archive</span></button>
                     </section>
-
-
 
                 </section>{/*task-details-container focus*/}
             </div >
