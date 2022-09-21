@@ -12,7 +12,6 @@ import { useDispatch } from 'react-redux'
 import { updateTask, removeTask } from '../store/board.actions'
 
 
-
 export const TaskQuickEdit = ({ task, pos, toggaleQuickEdit, boardId, groupId }) => {
 
   const [title, setTaskTitle] = useState(task.title)
@@ -23,7 +22,6 @@ export const TaskQuickEdit = ({ task, pos, toggaleQuickEdit, boardId, groupId })
   const refLabelModal = useRef(null)
   const dispatch = useDispatch()
   const navigate = useNavigate()
-
 
   useEffect(() => {
     document.addEventListener("click", handleClickOutside, true)
@@ -76,7 +74,6 @@ export const TaskQuickEdit = ({ task, pos, toggaleQuickEdit, boardId, groupId })
     dispatch(updateTask(currentBoardId, currentGroupId, task))
   }
 
-
   return <section className="task-quick-edit" onClick={onEditClick} style={{ ...pos.style }}>
     <div className='left-col' style={{ width: pos.position.width }}>
       {task.style?.bg?.imgUrl && <div className='task-cover' style={{ backgroundImage: `url(${task.style.bg.imgUrl})`, height: "180px", backgroundSize: "cover", width: `${pos.width}px` }}></div>}
@@ -90,10 +87,10 @@ export const TaskQuickEdit = ({ task, pos, toggaleQuickEdit, boardId, groupId })
         </form>
         {task.memberIds && <TaskMember memberIds={task.memberIds} />}
       </div>
-      <button className='btn-add'>Save</button>
+      <button className='btn-add' onClick={onEditTaskTitle}>Save</button>
     </div>
     <ul className="quick-edit-actions">
-      <li onClick={toggaleQuickEdit}><FaWindowMaximize /> Open card</li>
+      <li onClick={()=>{toggaleQuickEdit(undefined,true)}}><FaWindowMaximize /> Open card</li>
       <li onClick={openLabelModal}><BsTagFill /> Edit labels</li>
       {labelModal && <section ref={refLabelModal}><LabelModal /></section>}
       <li><HiUser /> Change members</li>
