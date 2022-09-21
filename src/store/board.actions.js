@@ -153,9 +153,7 @@ export function updateTask(boardId, groupId, taskForUpdate) {
             const groupIdx = board.groups.findIndex(group => group.id === groupForUpdate.id)
             board.groups.splice(groupIdx, 1, groupForUpdate)
 
-            // console.log('board to save in store', board)
-            // save(board)
-            await dispatch(updateBoard(board))
+            dispatch(updateBoard(board))
             return board
         } catch (err) {
             throw err
@@ -176,9 +174,7 @@ export function removeTask(boardId, groupId, taskForUpdate) {
             const groupIdx = board.groups.findIndex(group => group.id === groupForUpdate.id)
             board.groups.splice(groupIdx, 1, groupForUpdate)
 
-            // console.log('board to save in store', board)
-            // save(board)
-            await dispatch(updateBoard(board))
+            dispatch(updateBoard(board))
             return board
         } catch (err) {
             throw err
@@ -206,6 +202,7 @@ export function getTask(boardId, groupId, taskId) {
 export function resizeLabel(resizeLabel) {
     return async (dispatch) => {
         try {
+            console.log('resizeLabel', resizeLabel)
             dispatch({
                 type: 'RESIZE_LABEL',
                 resizeLabel
@@ -223,25 +220,22 @@ export function resizeLabel(resizeLabel) {
 // (IOW - Assuming the server call will work, so updating the UI first)
 export function onRemoveBoardOptimistic(boardId) {
 
-    return (dispatch, getState) => {
-
+    return async (dispatch, getState) => {
         dispatch({
             type: 'REMOVE_BOARD',
             boardId
         })
         showSuccessMsg('Board removed')
 
-        boardService.remove(boardId)
-            .then(() => {
-                // console.log('Server Reported - Deleted Succesfully')
+        try {
+            await boardService.remove(boardId)
+        } catch (err) {
+            showErrorMsg('Cannot remove board')
+            console.log('Cannot load boards', err)
+            dispatch({
+                type: 'UNDO_REMOVE_BOARD',
             })
-            .catch(err => {
-                showErrorMsg('Cannot remove board')
-                console.log('Cannot load boards', err)
-                dispatch({
-                    type: 'UNDO_REMOVE_BOARD',
-                })
-            })
+        }
     }
 }
 
@@ -287,11 +281,15 @@ export function handleDrag(
             }
             // }
         }
-        const boardToUpdate = await boardService.save(board)
+        try {
+            const boardToUpdate = await boardService.save(board)
+            dispatch({
+                type: 'UPDATE_BOARD',
+                board: boardToUpdate,
+            })
+        } catch (err) {
+            console.log('Cannot update board', err)
 
-        dispatch({
-            type: 'UPDATE_BOARD',
-            board: boardToUpdate,
-        })
+        }
     }
 }

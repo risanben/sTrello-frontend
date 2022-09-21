@@ -44,13 +44,6 @@ export function AppHeader() {
             setResults(null)
             return
         }
-        // let filterBy = {
-        //     title: target.value
-        // }
-
-        // boardService.query(filterBy)
-        //     .then(results => setResults(results))
-
 
         setResults(boards.filter(b => b.title.toLowerCase().includes(target.value.toLowerCase())))
     }

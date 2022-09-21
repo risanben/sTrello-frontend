@@ -21,11 +21,6 @@ export function BoardPage() {
     const onLoad = () => {
         try {
             dispatch(loadBoards())
-                .then((boards1) => {
-                    // filterBoardsByStarred()
-                    console.log('boards', boards)
-                })
-            console.log('after diapatch')
         } catch (err) {
             console.log('Cannot load boards', err)
         }
