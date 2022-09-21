@@ -27,7 +27,7 @@ export const TaskLabel = ({ labelIds }) => {
                 return <button
                     key={labelId}
                     onClick={toggaleLabelSize}
-                    className={resizeLabelState ? 'clicked' : ''}
+                    className={`btn-label ${resizeLabelState ? 'clicked' : ''}`}
                     style={getColor(labelId)}></button>
             })}
         </div>

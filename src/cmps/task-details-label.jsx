@@ -11,10 +11,12 @@ export const TaskDetailsLabel = ({ labelIds, onSetLabel }) => {
         if (currentLabel?.color)
             return (
                 <li key={currentLabel.id} className="label-details">
+                    <label className="checkbox-label">
                     <input type="checkbox" defaultChecked={isTaskLabel} onChange={()=>onSetLabel(isTaskLabel,currentLabel.id)}></input>
                     <div className="label-details-body" style={{ backgroundColor: currentLabel.color }}>
                         {currentLabel.title}
                     </div>
+                    </label>
                     <button className="btn-edit">🖋</button>
                 </li>
             )

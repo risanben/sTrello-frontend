@@ -133,7 +133,7 @@ export const TaskDetails = (props) => {
             if (!task.labelIds) task.labelIds = [labelId]
             else task.labelIds.push(labelId)
         } else {
-            const idx = task.labelIds.findIndex(label => label.id === labelId)
+            const idx = task.labelIds.findIndex(label => label === labelId)
             task.labelIds.splice(idx, 1)
         }
         onUpdateTask(task)
@@ -180,7 +180,7 @@ export const TaskDetails = (props) => {
                         <div onClick={onShowModal} className="btn cover">
                             <span className="bts-icon"><FaWindowMaximize /></span>
                             <span className="btn-cover-txt">Cover</span>
-                            {showModal && <TaskDetailsCoverModal onSetColor={onSetColor} onSetImg={onSetImg} className="cover-modal" />}
+                            {showModal && <TaskDetailsCoverModal onSetColor={onSetColor} onSetImg={onSetImg} />}
                         </div>
                     </section>}
 
@@ -260,13 +260,6 @@ export const TaskDetails = (props) => {
                                 <textarea className="activity-input" placeholder="Write a comment..."></textarea>
                                 <span className="activity-icon">icon</span>
                                 <span className="activity-title">Activity</span>
-                                <span className="activity-icon">icon</span>
-                                <span className="activity-title">Activity</span>
-                                <span className="activity-icon">icon</span>
-                                <span className="activity-title">Activity</span>
-                                <span className="activity-icon">icon</span>
-                                <span className="activity-title">Activity</span>
-
                             </div>
 
                             <div className="task-main-container-right">
