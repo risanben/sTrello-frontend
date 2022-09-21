@@ -237,15 +237,16 @@ export const TaskDetails = (props) => {
                                 </section>}
 
                                 <section className={`description-container ${isEditDescription ? 'edit-status' : ''}`}>
-                                    <span className="description-icon"> <GrTextAlignFull /> </span>
-                                    <span className="description-title">Description</span>
-                                    {!isEditDescription &&
-                                        <button onClick={toggleEditDescription}>Edit</button>}
-                                    <div className="description-edit">
+                                    <div className="description-main-content">
+                                        <div className="description-icon"><GrTextAlignFull /></div>
+                                        <div className="description-title">Description</div>
+                                        {!isEditDescription && <button className="btn-edit-description" onClick={toggleEditDescription}>Edit</button>}
+                                    </div>
+                                    {!isEditDescription && <div className="static-description" onClick={toggleEditDescription}>{task.description}</div>}
+                                    <div className="description-edit-container">
                                         {isEditDescription && <textarea className="description-textarea" {...register('description', 'text')} value={task.description} ref={refInput} />}
                                         {isEditDescription && <button className="btn save" onClick={toggleEditDescription}>Save</button>}
                                         {isEditDescription && <button>Cancel</button>}
-                                        {!isEditDescription && <span className="static-description" onClick={toggleEditDescription}>{task.description} </span>}
                                     </div>
                                 </section>
 
