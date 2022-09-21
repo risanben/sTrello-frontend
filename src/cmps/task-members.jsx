@@ -26,7 +26,6 @@ export const TaskMember = ({ memberIds, taskRef, index }) => {
         return <div>{initials}</div>
     }
 
-    // if (!memberIds) return <span></span>
     return (
         <div className="task-member-container">
             {memberIds.map(memberId => {

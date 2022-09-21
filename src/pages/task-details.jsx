@@ -38,7 +38,6 @@ export const TaskDetails = (props) => {
     const [currentUser, setCurrentUser] = useState([])
 
     useEffect(() => {
-        // const { id, boardId, groupId } = params
         const { boardId, groupId, taskId, groupTitle } = props
 
         if (!boardId) return
@@ -73,7 +72,6 @@ export const TaskDetails = (props) => {
     const [register, setTask, task] = useFormRegister({}, onUpdateTask)
 
     const onBack = () => {
-        // navigate(`/board/${currentBoardId}`)
         props.closeModal()
     }
 
@@ -91,6 +89,7 @@ export const TaskDetails = (props) => {
     const toggleMembersModal = () => {
         setIsMemberModal(!isMemberModal)
     }
+
     const toggleLabelsModal = () => {
         console.log('clicked')
         setIsLabelModal(!isLabelModal)
@@ -153,12 +152,8 @@ export const TaskDetails = (props) => {
         ev.stopPropagation()
     }
 
-    const onOpenLabelsModal = (ev) => {
-        // ev.stopPropagation()
-
+    const onOpenLabelsModal = () => {
         dispatch(resizeLabel(false))
-        // 
-        console.log('labels')
     }
 
     const onCompleteDueDate = () => {

@@ -26,7 +26,6 @@ export function loadBoards(filterBY = {}) {
     return async (dispatch) => {
         try {
             const boards = await boardService.query(filterBY)
-            // console.log('Boards from DB:', boards)
             dispatch({
                 type: 'SET_BOARDS',
                 boards
@@ -43,14 +42,13 @@ export function getBoard(boardId) {
     return async (dispatch) => {
         try {
             const updatedBoard = await boardService.getById(boardId)
-            // console.log('board', updatedBoard)
             const { board } = dispatch({
                 type: 'SET_BOARD',
                 board: updatedBoard
             })
             return board
         } catch (err) {
-            // console.log('Cannot load board', err)
+            throw (err)
         }
     }
 }
@@ -59,11 +57,8 @@ export function removeBoard(boardId) {
     return async (dispatch) => {
         try {
             await boardService.remove(boardId)
-            console.log('Deleted Succesfully!')
             dispatch(getActionRemoveBoard(boardId))
-            showSuccessMsg('Board removed')
         } catch (err) {
-            showErrorMsg('Cannot remove board')
             console.log('Cannot remove board', err)
         }
     }
@@ -73,8 +68,6 @@ export function removeGroup(boardId, groupId) {
     return async (dispatch) => {
         try {
             const updateBoard = await boardService.removeGroup(boardId, groupId)
-            console.log('board after delete group', updateBoard)
-            console.log('Deleted Succesfully!')
             return dispatch(getActionUpdateBoard(updateBoard))
         } catch (err) {
             console.log('Cannot remove board', err)
@@ -86,7 +79,6 @@ export function addBoard(board) {
     return async (dispatch) => {
         try {
             const savedBoard = await boardService.save(board)
-            console.log('Added Board', savedBoard)
             return dispatch(getActionAddBoard(savedBoard)).board
         } catch (err) {
             console.log('Cannot add board', err)
@@ -98,7 +90,6 @@ export function updateBoard(board) {
     return async (dispatch) => {
         try {
             const savedBoard = await boardService.save(board)
-            showSuccessMsg('Board updated')
             return dispatch(getActionUpdateBoard(savedBoard))
         } catch (err) {
             showErrorMsg('Cannot update board')
@@ -107,41 +98,9 @@ export function updateBoard(board) {
     }
 }
 
-export function addToBoard(board) {
-    return (dispatch) => {
-        dispatch({
-            type: 'ADD_TO_CART',
-            board
-        })
-    }
-}
-export function removeFromBoard(boardId) {
-    return (dispatch) => {
-        dispatch({
-            type: 'REMOVE_FROM_CART',
-            boardId
-        })
-    }
-}
-export function checkout() {
-    return async (dispatch, getState) => {
-        try {
-            const state = getState()
-            const total = state.boardModule.boardt.reduce((acc, board) => acc + board.price, 0)
-            const score = await userService.changeScore(-total)
-            dispatch({ type: 'SET_SCORE', score })
-            dispatch({ type: 'CLEAR_CART' })
-            showSuccessMsg('Charged you: $' + total.toLocaleString())
-        } catch (err) {
-            showErrorMsg('Cannot checkout, login first')
-            console.log('BoardActions: err in checkout', err)
-        }
-    }
-}
 
 /*------------------------------------------------------------------------------*/
 export function updateTask(boardId, groupId, taskForUpdate) {
-    // console.log('board action updateTask')
     return async (dispatch) => {
         try {
             const groupForUpdate = await boardService.getGroupById(boardId, groupId)
@@ -164,7 +123,6 @@ export function updateTask(boardId, groupId, taskForUpdate) {
 export function removeTask(boardId, groupId, taskForUpdate) {
     return async (dispatch) => {
         try {
-            // console.log(boardId, groupId, taskForUpdate)
             const groupForUpdate = await boardService.getGroupById(boardId, groupId)
             const board = await boardService.getById(boardId)
 
@@ -186,12 +144,10 @@ export function getTask(boardId, groupId, taskId) {
     return async (dispatch) => {
         try {
             const updatedTask = await boardService.getTaskById(boardId, groupId, taskId)
-            // console.log('updatedTask', updatedTask)
             const { task } = dispatch({
                 type: 'SET_TASK',
                 task: updatedTask
             })
-            // console.log('task', task)
             return task
         } catch (err) {
             console.log('Cannot load task', err)

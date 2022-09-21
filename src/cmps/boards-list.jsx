@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux"
 import { Link, Navigate, useLocation, useNavigate } from "react-router-dom"
-import {getBoard} from '../store/board.actions'
+import { getBoard } from '../store/board.actions'
 
 export const BoardsList = ({ boards }) => {
 
@@ -23,6 +23,7 @@ export const BoardsList = ({ boards }) => {
     }
 
     const onlinkClick = (boardId) => {
+        console.log('boardId', boardId)
         dispatch(getBoard(boardId))
         navigate(`/board/${boardId}`)
     }

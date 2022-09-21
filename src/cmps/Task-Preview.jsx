@@ -57,7 +57,6 @@ export const TaskPreview = ({ task, groupId, index, taskRef, groupTitle }) => {
         return style
     }
 
-
     const toggaleQuickEdit = (ev, openDetails = false) => {
         if (ev) ev.stopPropagation()
 
@@ -81,7 +80,6 @@ export const TaskPreview = ({ task, groupId, index, taskRef, groupTitle }) => {
                 onGoToDetails()
             }
         }
-
     }
 
     const _getPosition = (evTarget, parent) => {
@@ -93,22 +91,18 @@ export const TaskPreview = ({ task, groupId, index, taskRef, groupTitle }) => {
     }
 
     const onGoToDetails = () => {
-        // const boardId = params.id
         setShowDetailsModal(!showDetailsModal)
-        // navigate(`/board/${boardId}/${groupId}/${task.id}`)
     }
 
     const onDarkClicked = (e) => {
         e.stopPropagation()
     }
     const isWatchByUser = () => {
-        // console.log('isWatch function')
         if (!task.memberIds || !task.watcedMemberIds) return
         let isWatch = false
         task.memberIds.forEach(member => {
             if (task.watcedMemberIds.includes(member)) isWatch = true
         })
-        // console.log('isWatch', isWatch)
         return isWatch
     }
 
@@ -118,7 +112,6 @@ export const TaskPreview = ({ task, groupId, index, taskRef, groupTitle }) => {
         dispatch(updateTask(board._id, groupId, task))
     }
 
-    // console.log('render TASK PREVIEW')
     return (
         <React.Fragment>
             <Draggable

@@ -9,7 +9,7 @@ export const storageService = {
     postMany
 }
 
-function query(entityType, delay = 200) {
+function query(entityType, delay = 0) {
     var entities = JSON.parse(localStorage.getItem(entityType)) || []
     if (!entities.length) entities = [...dataBoards]
     return new Promise((resolve, reject) => {
