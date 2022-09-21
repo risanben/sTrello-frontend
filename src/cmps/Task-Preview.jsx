@@ -57,10 +57,10 @@ export const TaskPreview = ({ task, groupId, index, taskRef, groupTitle }) => {
         return style
     }
 
-    const toggaleQuickEdit = (ev) => {
+
+    const toggaleQuickEdit = (ev, openDetails = false) => {
         if (ev) ev.stopPropagation()
-        console.log('toggle was activated')
-        //Modal position 
+
         if (!isQuickEditOn) {
             const parentEl = ev.currentTarget.parentNode
             const position = parentEl.getBoundingClientRect()
@@ -76,8 +76,10 @@ export const TaskPreview = ({ task, groupId, index, taskRef, groupTitle }) => {
             //closing quick edit modal
             setIsQuickEditOn(false)
 
-            //opening deatils modal
-            onGoToDetails()
+            //opening details modal
+            if (openDetails) {
+                onGoToDetails()
+            }
         }
 
     }

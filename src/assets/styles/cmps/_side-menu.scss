@@ -1,13 +1,25 @@
 .side-menu {
     height: 100%;
-    z-index: 10;
-    width: 25px;
-    background-color: white;
+    max-width: 17px;
+    min-width: 1px;
+    background-color: rgba(0, 0, 0, 0.242);
     display: flex;
     flex-direction: column;
-    border-right: 1px solid $header-font-color ;
+    border-right: 1px solid rgba(0, 0, 0, 0.271);
     opacity: 0.8;
-    transition: width 1s;
+    overflow-x: hidden;
+    transition: min-width 0.5s;
+    
+    header>*:not(.open-arrow-div){
+        opacity: 0;
+        transition: opacity 0.3s;
+    }
+
+    .main,
+    .boards{
+        opacity: 0;
+        transition: opacity 0.3s;
+    }
 
 
     header {
@@ -61,8 +73,6 @@
 
             .arrow {
                 font-size: 12px;
-                // opacity: 0.6;
-
             }
         }
     }
@@ -78,22 +88,17 @@
 
     .open-arrow-div {
         border: 1px solid $header-font-color;
-        // position: relative;
-        // right: -15px;
+        position: fixed;
+        left: 6px;
         border-radius: 50%;
 padding: 4px;
         font-size: 11px;
         z-index: 10;
-
-
         display: flex;
         justify-content: center;
         align-items: center;
         cursor: pointer;
         background-color: darken($header-bg-color , $amount: 20);
-        background-color: rgb(122, 130, 132);
-
-        // border: 2px solid green;
 
         &:hover {
             background-color: darken($header-bg-color , $amount: 30);
@@ -105,24 +110,27 @@ padding: 4px;
 
 .side-menu.open {
     background-color: darken($header-bg-color , $amount: 10);
-    // position: unset;
-    // height: unset;
-    // position: relative;
-    // top: 44px;
-    width: 260px;
-    // left: unset;
+    min-width: 260px;
     border-right: none;
     opacity: 1;
 
     .open-arrow-div {
         display: none;
         width: 200px;
-        // border: 2px solid red;
     }
 
     .arrow-div {
         display: block;
         display: flex;
+    }
+
+    header>*:not(.open-arrow-div){
+        opacity: 1;
+    }
+
+    .main,
+    .boards{
+        opacity: 1;
     }
 
 }
