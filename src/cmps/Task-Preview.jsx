@@ -66,26 +66,39 @@ export const TaskPreview = ({ task, groupId, index, taskRef, groupTitle }) => {
 
     const toggaleQuickEdit = (ev) => {
         ev.stopPropagation()
+        console.log('toggle was activated')
         //position of modal
-        const parentEl = ev.currentTarget.parentNode
-        const position = parentEl.getBoundingClientRect()
-        const style = _getPosition(ev.target.getBoundingClientRect(), parentEl.getBoundingClientRect())
 
-        let pos ={
-            position: position,
-            style: style
+        if (!isQuickEditOn) {
+
+            const parentEl = ev.currentTarget.parentNode
+            const position = parentEl.getBoundingClientRect()
+            const style = _getPosition(ev.target.getBoundingClientRect(), parentEl.getBoundingClientRect())
+
+            let pos = {
+                position: position,
+                style: style
+            }
+            setQuickEditPos(pos)
+            setIsQuickEditOn(!isQuickEditOn)
+
+        } else{
+            //closing quick edit modal
+            setIsQuickEditOn(false)
+
+            //opening deatils modal
+            onGoToDetails()
         }
-        setQuickEditPos(pos)
-        setIsQuickEditOn(!isQuickEditOn)
+
     }
 
     const _getPosition = (evTarget, parent) => {
         const { left, top } = evTarget
         if (windowHeight - top < 160) return { top: top - 180, }
         if (windowWidth - left < 200) return { right: 15, top }
-        if (windowWidth - left < 420 && windowHeight - top < 160) return { top: top - 160, right: 15}
-        else return { top: parent.top, left: parent.left } 
-      }
+        if (windowWidth - left < 420 && windowHeight - top < 160) return { top: top - 160, right: 15 }
+        else return { top: parent.top, left: parent.left }
+    }
 
     const onGoToDetails = () => {
         // const boardId = params.id
@@ -129,9 +142,8 @@ export const TaskPreview = ({ task, groupId, index, taskRef, groupTitle }) => {
                     >
                         <section className="task-preview" onClick={onGoToDetails} >
                             <div className="btn-quick-edit hide" onClick={toggaleQuickEdit}>
-                                {/* <BsFillPencilFill /> */}
                             </div>
-                            {isQuickEditOn && <section ref={refQuickEdit}><TaskQuickEdit task={task} pos={quickEditPos} /></section>}
+                            {isQuickEditOn && <section ref={refQuickEdit}><TaskQuickEdit task={task} pos={quickEditPos} toggaleQuickEdit={toggaleQuickEdit} /></section>}
 
                             {!isFullCover && task?.style &&
                                 <div className="task-cover" style={setTaskCoverStyle()}></div>}

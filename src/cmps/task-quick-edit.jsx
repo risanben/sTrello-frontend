@@ -10,7 +10,7 @@ import { TaskMember } from './task-members.jsx'
 import { Link } from 'react-router-dom'
 
 
-export const TaskQuickEdit = ({ task, pos }) => {
+export const TaskQuickEdit = ({ task, pos, toggaleQuickEdit }) => {
 
   const [title, setTaskTitle] = useState(task.title)
   const [labelModal, setLabelModal] = useState(false)
@@ -64,9 +64,7 @@ export const TaskQuickEdit = ({ task, pos }) => {
       <button className='btn-add'>Save</button>
     </div>
     <ul className="quick-edit-actions">
-      <Link to={`task/details`}> 
-      <li><FaWindowMaximize /> Open card</li>
-      </Link>
+      <li onClick={toggaleQuickEdit}><FaWindowMaximize /> Open card</li>
       <li onClick={openLabelModal}><BsTagFill /> Edit labels</li>
       {labelModal && <section ref={refLabelModal}><LabelModal /></section>}
       <li><HiUser /> Change members</li>
