@@ -38,7 +38,6 @@ export const TaskDetails = (props) => {
     const [currentUser, setCurrentUser] = useState([])
 
     useEffect(() => {
-        // const { id, boardId, groupId } = params
         const { boardId, groupId, taskId, groupTitle } = props
 
         if (!boardId) return
@@ -73,7 +72,6 @@ export const TaskDetails = (props) => {
     const [register, setTask, task] = useFormRegister({}, onUpdateTask)
 
     const onBack = () => {
-        // navigate(`/board/${currentBoardId}`)
         props.closeModal()
     }
 
@@ -91,12 +89,14 @@ export const TaskDetails = (props) => {
     const toggleMembersModal = () => {
         setIsMemberModal(!isMemberModal)
     }
+
     const toggleLabelsModal = () => {
         console.log('clicked')
         setIsLabelModal(!isLabelModal)
     }
 
     const onSetColor = (ev) => {
+        console.log('ev.target.value', ev.target.value)
         setBgColor(ev.target.value)
         if (!task.style) task.style = { bg: { color: ev.target.value } }
         task.style.bg.color = ev.target.value
@@ -113,23 +113,17 @@ export const TaskDetails = (props) => {
     }
 
     const onSetMember = (addOrRemove, memberId) => {
-        console.log('addOrRemove', addOrRemove)
-        console.log('memberId', memberId)
-        console.log('memberIds', task.memberIds)
-
         if (!addOrRemove) {
             if (!task.memberIds) task.memberIds = [memberId]
             else task.memberIds.push(memberId)
             if (!task.watcedMemberIds) task.watcedMemberIds = [memberId]
             else task.watcedMemberIds.push(memberId)
         } else {
-            console.log('task', task)
             const idx = task.memberIds.findIndex(member => member === memberId)
             task.memberIds.splice(idx, 1)
             const watchIdx = task.watcedMemberIds.findIndex(watcedMember => watcedMember === memberId)
             task.watcedMemberIds.splice(watchIdx, 1)
         }
-        console.log('memberIds', task.memberIds)
         onUpdateTask(task)
     }
 
@@ -138,7 +132,7 @@ export const TaskDetails = (props) => {
             if (!task.labelIds) task.labelIds = [labelId]
             else task.labelIds.push(labelId)
         } else {
-            const idx = task.labelIds.findIndex(label => label.id === labelId)
+            const idx = task.labelIds.findIndex(label => label === labelId)
             task.labelIds.splice(idx, 1)
         }
         onUpdateTask(task)
@@ -158,17 +152,13 @@ export const TaskDetails = (props) => {
         ev.stopPropagation()
     }
 
-    const onOpenLabelsModal = (ev) => {
-        // ev.stopPropagation()
-
+    const onOpenLabelsModal = () => {
         dispatch(resizeLabel(false))
-        // 
-        console.log('labels')
     }
 
     const onCompleteDueDate = () => {
         task.dueDate.isDone = !task.dueDate.isDone
-        dispatch(updateTask(currentBoardId, currentGroupId, task))
+        onUpdateTask(task)
     }
 
     if (!task) return <div>Loading...</div>
@@ -178,18 +168,15 @@ export const TaskDetails = (props) => {
 
                 <section className="task-details-container" onClick={clickedOnModal}>
 
-                    {/* task cover  */}
                     {task?.style && <section className="task-cover" style={{ backgroundColor: bgColor }} >
                         <button onClick={onBack} className="btn close"></button>
                         {task?.style?.bg?.imgUrl && <div className="img-cover" style={{ backgroundImage: `url(${task.style.bg.imgUrl})` }} ></div>}
                         <div onClick={onShowModal} className="btn cover">
                             <span className="bts-icon"><FaWindowMaximize /></span>
                             <span className="btn-cover-txt">Cover</span>
-                            {showModal && <TaskDetailsCoverModal onSetColor={onSetColor} onSetImg={onSetImg} className="cover-modal" />}
+                            {showModal && <TaskDetailsCoverModal onSetColor={onSetColor} onSetImg={onSetImg} />}
                         </div>
                     </section>}
-
-                    {/* task-details */}
 
                     <div className="task-main-container">
 
@@ -249,7 +236,8 @@ export const TaskDetails = (props) => {
                                 <section className={`description-container ${isEditDescription ? 'edit-status' : ''}`}>
                                     <span className="description-icon"> <GrTextAlignFull /> </span>
                                     <span className="description-title">Description</span>
-                                    {!isEditDescription && <button onClick={toggleEditDescription}>Edit</button>}
+                                    {!isEditDescription &&
+                                        <button onClick={toggleEditDescription}>Edit</button>}
                                     <div className="description-edit">
                                         {isEditDescription && <textarea className="description-textarea" {...register('description', 'text')} value={task.description} ref={refInput} />}
                                         {isEditDescription && <button className="btn save" onClick={toggleEditDescription}>Save</button>}
@@ -264,13 +252,6 @@ export const TaskDetails = (props) => {
                                 <textarea className="activity-input" placeholder="Write a comment..."></textarea>
                                 <span className="activity-icon">icon</span>
                                 <span className="activity-title">Activity</span>
-                                <span className="activity-icon">icon</span>
-                                <span className="activity-title">Activity</span>
-                                <span className="activity-icon">icon</span>
-                                <span className="activity-title">Activity</span>
-                                <span className="activity-icon">icon</span>
-                                <span className="activity-title">Activity</span>
-
                             </div>
 
                             <div className="task-main-container-right">

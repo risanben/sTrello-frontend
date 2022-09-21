@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom'
 import screenshot from '../assets/img/peek.jpg'
 
-
 export const SneakPeek = () => {
 
     return (

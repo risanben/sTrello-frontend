@@ -6,25 +6,15 @@ import { useState } from 'react'
 import { BoardEdit } from '../cmps/board-edit'
 import { HiOutlineStar, HiStar } from 'react-icons/hi'
 
-
 export function BoardPage() {
+
     const boards = useSelector(state => state.boardModule.boards)
     const [isModalNewBoard, setIsModalNewBoard] = useState(false)
-    // const [starredBoards, setStarredBoards] = useState([])
-
     const dispatch = useDispatch()
+
     useEffect(() => {
-        onLoad()
+        dispatch(loadBoards())
     }, [])
-
-
-    const onLoad = () => {
-        try {
-            dispatch(loadBoards())
-        } catch (err) {
-            console.log('Cannot load boards', err)
-        }
-    }
 
     const getBoradBg = (board) => {
         let style = {}
@@ -46,21 +36,17 @@ export function BoardPage() {
         return boards.filter(board => board.isStarred)
     }
 
-    const toggleStarredBoard = async (ev, board) => {
+    const toggleStarredBoard = (ev, board) => {
         ev.preventDefault()
         ev.stopPropagation()
         board.isStarred = !board.isStarred
-        await dispatch(updateBoard(board))
-        // filterBoardsByStarred()
+        dispatch(updateBoard(board))
     }
 
-    if (!boards) {
-        // console.log('lal')
-        return <div>Loading...</div>
-    }
-    // console.log('render BOARD PAGE', boards)
+    if (!boards) return <div>Loading...</div>
     return (
         <div className="board-page">
+
             <div className="board-list-conatiner">
                 {filterBoardsByStarred()[0] && <div className="baord-list-title">
                     <span className="board-list-title-icon"></span>
@@ -121,6 +107,7 @@ export function BoardPage() {
                             <div className="board-title create-new"><span>Create new board</span></div>
                         </div>
                     </li>
+
                 </ul>
             </div>
             {isModalNewBoard && <BoardEdit toggleCreateBoardModal={toggleCreateBoardModal} />}

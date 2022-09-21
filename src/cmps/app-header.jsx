@@ -9,9 +9,6 @@ import { SearchResult } from './search-result'
 import { useDispatch, useSelector } from 'react-redux'
 import { BoardEdit } from './board-edit'
 import { loadBoards } from '../store/board.actions';
-// import { useDispatch, useSelector } from 'react-redux'
-
-
 
 export function AppHeader() {
 
@@ -26,10 +23,10 @@ export function AppHeader() {
     useEffect(() => {
         document.addEventListener("click", handleClickOutside, true)
     }, [])
+
     useEffect(() => {
         dispatch(loadBoards())
     }, [])
-
 
     const handleClickOutside = (e) => {
         if (!refOne.current) return
@@ -44,7 +41,6 @@ export function AppHeader() {
             setResults(null)
             return
         }
-
         setResults(boards.filter(b => b.title.toLowerCase().includes(target.value.toLowerCase())))
     }
 
@@ -66,20 +62,15 @@ export function AppHeader() {
         setIsCreateModalOpen(!isCreateModalOpen)
     }
 
-
-
     return (
         <section className={_getHeaderClass()}>
-
             {/* <BsFillGrid3X3GapFill className='menu-logo' /> */}
-
             <Link to="/" className='home-logo-link'>
                 <ImTrello className='trello-logo' />
                 <section className="logo">
                     sTrello
                 </section>
             </Link>
-
             <section className='nav-header'>
                 <ul className='nav-links-container'>
                     <Link to="board" className='workspace-link'>

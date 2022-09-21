@@ -1,17 +1,10 @@
 .task-preview {
-
-    // overflow-y: auto;
     background-color: #fff;
     box-shadow: 0 1px 0 #091e4240;
     border-radius: 3px;
     margin-bottom: 9px;
-    // position: relative;
-    // z-index: 10;
     overflow: hidden;
-
     max-width: 254px;
-
-
 
     &:hover {
         border-bottom-color: #091e4240;
@@ -19,27 +12,18 @@
         cursor: pointer;
     }
 
-    // max-width: 300px;
     .task-preview-content {
         padding: 6px 8px 8px;
-        // display: flex;
-        // flex-direction: column;
-        // position: relative;
-        // text-overflow: ellipsis;
 
         &.add-border {
             border-radius: 3px;
         }
 
         .badges-container {
-            // display: flex;
-            // justify-content: space-between;
             width: 100%;
             margin: 0px 4px 4px 0px;
-            // min-height: 25px;
             max-height: 60px;
             position: relative;
-            // align-items: center;
 
             .right-badges-container {
                 float: right;
@@ -58,7 +42,6 @@
                     align-items: flex-end;
                     justify-content: center;
 
-
                     .attachment-badge {
 
                         background-image: url('../../img/attac-icon.svg');
@@ -66,7 +49,6 @@
                         background-repeat: no-repeat;
                         height: 16px;
                         width: 16px;
-                        // align-self: flex-end;
                     }
 
                     span {
@@ -87,24 +69,18 @@
                     margin-right: 4px;
                 }
 
-
-
                 .due-date-container {
                     background-color: #f2d600;
                     border-radius: 3px;
                     color: #fff;
                     margin-right: 4px;
                     display: flex;
-                    // max-height: 20px;
                     padding: 0px 2px 0px 4px;
                     align-items: center;
-                    // padding-top: 2px;
 
                     &:hover {
                         background-color: #d9b51c;
                     }
-
-
 
                     .due-date-txt {
                         font-size: 11px;
@@ -118,7 +94,6 @@
                         height: 16px;
                         width: 16px;
                         align-self: center;
-                        // padding-right: 2px;
                     }
 
                     &:hover .due-date-icon {
@@ -145,9 +120,6 @@
                     height: 16px;
                     width: 16px;
                     margin-right: 4px;
-                    // margin: 0 4px 4px 0;
-                    // margin-bottom: 4px;
-
                     padding: 2px;
                 }
 
@@ -188,18 +160,12 @@
                 &.title-img-cover {
                     display: flex;
                     position: relative;
-                    // bottom: 10px;
                     top: 90%;
-                    // flex-direction: column;
                     align-items: flex-start;
                     color: #fff;
-                    // color: black;
                     font-weight: 500;
                     font-size: 16px;
                     margin: 0;
-
-                    // background: linear-gradient(180deg, #00000080, #000);
-
                 }
             }
 
@@ -207,10 +173,8 @@
 
         .adjust-height {
             min-height: 26px;
-            // margin-bottom: 4px;
         }
     }
-
 
     .task-cover {
         width: 100%;
@@ -221,19 +185,11 @@
         border-top-right-radius: 3px;
     }
 
-
     .btn-quick-edit {
-        // background-color: inherit;
-        // color: $home-font-clr;
         margin: 0;
-        // position: absolute;
-        // top: 0;
-        // right: 0;
         float: right;
         border-radius: 3px;
-        // display: block;
         margin: 2px 2px 0 0;
-        // padding: 8px 8px 5px 8px;
         padding: 15px;
         background-image: url('../../img/btn-quick-edit.svg');
         background-position: center;
@@ -245,7 +201,6 @@
         &.hide {
             opacity: 0;
 
-            // pointer-events: unset;
             &:hover {
                 background-color: rgba(199, 199, 199, 0.514);
             }
@@ -256,8 +211,6 @@
     &:hover {
         .hide {
             opacity: 0.6;
-
-            // pointer-events: none;
         }
     }
 

@@ -13,8 +13,6 @@ const routes = [
         component: < BoardPage />,
         label: 'Boards'
     },
-
-    
 ]
 
 export default routes
