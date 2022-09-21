@@ -6,6 +6,7 @@ export const TaskMember = ({ memberIds, taskRef, index }) => {
     const board = useSelector(state => state.boardModule.board)
 
     const getMemberName = (memberId) => {
+        if (!board?.members) return
         const member = board.members.find(member => member._id === memberId)
         if (member.imgUrl) {
             return <div style={{
@@ -25,15 +26,15 @@ export const TaskMember = ({ memberIds, taskRef, index }) => {
         return <div>{initials}</div>
     }
 
-
-    return (   
-            <div className="task-member-container">
-                {memberIds.map(memberId => {
-                    return <div className="member"
-                        key={memberId}>
-                        {getMemberName(memberId)}
-                    </div>
-                })}
-            </div>
+    // if (!memberIds) return <span></span>
+    return (
+        <div className="task-member-container">
+            {memberIds.map(memberId => {
+                return <div className="member"
+                    key={memberId}>
+                    {getMemberName(memberId)}
+                </div>
+            })}
+        </div>
     )
 }

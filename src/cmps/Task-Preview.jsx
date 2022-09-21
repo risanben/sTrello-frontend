@@ -66,10 +66,8 @@ export const TaskPreview = ({ task, groupId, index, taskRef, groupTitle }) => {
     }
 
 
-    const toggaleQuickEdit = (ev) => {
-       if (ev) ev.stopPropagation()
-        console.log('toggle was activated')
-        //position of modal
+    const toggaleQuickEdit = (ev, openDetails = false) => {
+        if (ev) ev.stopPropagation()
 
         if (!isQuickEditOn) {
 
@@ -84,12 +82,14 @@ export const TaskPreview = ({ task, groupId, index, taskRef, groupTitle }) => {
             setQuickEditPos(pos)
             setIsQuickEditOn(!isQuickEditOn)
 
-        } else{
+        } else {
             //closing quick edit modal
             setIsQuickEditOn(false)
 
-            //opening deatils modal
-            onGoToDetails()
+            //opening details modal
+            if (openDetails) {
+                onGoToDetails()
+            }
         }
 
     }

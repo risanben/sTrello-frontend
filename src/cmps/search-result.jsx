@@ -13,7 +13,7 @@ export const SearchResult = ({ results, setResults, setIsSearching }) => {
         setResults(null)
         setIsSearching(false)
     }
-console.log('results:', results)
+    
     return <section className="search-result">
         <header>BOARDS</header>
         <ul>
