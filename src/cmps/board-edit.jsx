@@ -26,10 +26,12 @@ export const BoardEdit = ({ toggleCreateBoardModal }) => {
 
     const onSaveBoard = async (ev) => {
         ev.preventDefault()
-        const savedBoard = dispatch(addBoard(board))
-        console.log('savedBoard', savedBoard)
-        navigate(`/board/${savedBoard._id}`)
-        // })
+        try {
+            const savedBoard = await dispatch(addBoard(board))
+            navigate(`/board/${savedBoard._id}`)
+        } catch (err) {
+            console.log('Cannot add board', err)
+        }
     }
 
     const getBackground = (type) => {

@@ -3,8 +3,8 @@ import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
 import React, { useEffect, useRef } from 'react'
 
 export const TaskList = ({ tasks, groupId, group, isAddTask, handleChangeTask, task }) => {
-    const taskRef = useRef()
 
+    const taskRef = useRef()
     const inputRef = useRef()
 
     useEffect(() => {
@@ -13,16 +13,13 @@ export const TaskList = ({ tasks, groupId, group, isAddTask, handleChangeTask, t
     }, [isAddTask])
 
     if (!tasks) return
-    // console.log('render TASK LIST')
 
     return (
-
         <Droppable droppableId={group.id}>
             {(provided) => (
                 <section
                     ref={(el) => { taskRef.current = el; provided.innerRef(el) }}
-                    {...provided.droppableProps}
-                >
+                    {...provided.droppableProps}>
                     <section className="task-list" >
                         {tasks.map((task, index) => {
                             return <TaskPreview key={task.id} task={task} groupId={groupId} taskRef={taskRef} index={index} groupTitle={group.title} />
@@ -42,6 +39,5 @@ export const TaskList = ({ tasks, groupId, group, isAddTask, handleChangeTask, t
                 </section>
             )}
         </Droppable>
-
     )
 }

@@ -22,19 +22,25 @@ export const TaskDetailsCoverModal = (props) => {
     //         throw err
     //     }
     // }
+    const changeColor = (ev) => {
+        console.log('clicked')
+        console.log(ev.target.value)
+    }
 
+    console.log('props', props)
     return (
         <section className="cover-modal">
             <div className="cover-modal-title">
                 <span>Cover</span>
                 <span>X</span>
             </div>
-            <input type="color" onChange={props.onSetColor} />
+            {/* <input type="color" onChange={(ev) => props.onSetColor(ev)} /> */}
+            <input type="color" onChange={changeColor} />
 
             <section>
                 <ul className="cover-imgs">
                     {imgs.map(imgUrl =>
-                        <li className="cover-img-container">
+                        <li className="cover-img-container" key={imgUrl}>
                             {/* <span className="cover-img" style={{ backgroundImage: `url(${img})` }}></span> */}
                             <img className="cover-img" src={`${imgUrl}`} onClick={() => props.onSetImg(imgUrl)}></img>
                         </li>

@@ -38,7 +38,6 @@ export const TaskDetails = (props) => {
     const [currentUser, setCurrentUser] = useState([])
 
     useEffect(() => {
-        // const { id, boardId, groupId } = params
         const { boardId, groupId, taskId, groupTitle } = props
 
         if (!boardId) return
@@ -73,7 +72,6 @@ export const TaskDetails = (props) => {
     const [register, setTask, task] = useFormRegister({}, onUpdateTask)
 
     const onBack = () => {
-        // navigate(`/board/${currentBoardId}`)
         props.closeModal()
     }
 
@@ -91,12 +89,14 @@ export const TaskDetails = (props) => {
     const toggleMembersModal = () => {
         setIsMemberModal(!isMemberModal)
     }
+
     const toggleLabelsModal = () => {
         console.log('clicked')
         setIsLabelModal(!isLabelModal)
     }
 
     const onSetColor = (ev) => {
+        console.log('ev.target.value', ev.target.value)
         setBgColor(ev.target.value)
         if (!task.style) task.style = { bg: { color: ev.target.value } }
         task.style.bg.color = ev.target.value
@@ -113,23 +113,17 @@ export const TaskDetails = (props) => {
     }
 
     const onSetMember = (addOrRemove, memberId) => {
-        console.log('addOrRemove', addOrRemove)
-        console.log('memberId', memberId)
-        console.log('memberIds', task.memberIds)
-
         if (!addOrRemove) {
             if (!task.memberIds) task.memberIds = [memberId]
             else task.memberIds.push(memberId)
             if (!task.watcedMemberIds) task.watcedMemberIds = [memberId]
             else task.watcedMemberIds.push(memberId)
         } else {
-            console.log('task', task)
             const idx = task.memberIds.findIndex(member => member === memberId)
             task.memberIds.splice(idx, 1)
             const watchIdx = task.watcedMemberIds.findIndex(watcedMember => watcedMember === memberId)
             task.watcedMemberIds.splice(watchIdx, 1)
         }
-        console.log('memberIds', task.memberIds)
         onUpdateTask(task)
     }
 
@@ -158,17 +152,13 @@ export const TaskDetails = (props) => {
         ev.stopPropagation()
     }
 
-    const onOpenLabelsModal = (ev) => {
-        // ev.stopPropagation()
-
+    const onOpenLabelsModal = () => {
         dispatch(resizeLabel(false))
-        // 
-        console.log('labels')
     }
 
     const onCompleteDueDate = () => {
         task.dueDate.isDone = !task.dueDate.isDone
-        dispatch(updateTask(currentBoardId, currentGroupId, task))
+        onUpdateTask(task)
     }
 
     if (!task) return <div>Loading...</div>
@@ -246,7 +236,8 @@ export const TaskDetails = (props) => {
                                 <section className={`description-container ${isEditDescription ? 'edit-status' : ''}`}>
                                     <span className="description-icon"> <GrTextAlignFull /> </span>
                                     <span className="description-title">Description</span>
-                                    {!isEditDescription && <button onClick={toggleEditDescription}>Edit</button>}
+                                    {!isEditDescription &&
+                                        <button onClick={toggleEditDescription}>Edit</button>}
                                     <div className="description-edit">
                                         {isEditDescription && <textarea className="description-textarea" {...register('description', 'text')} value={task.description} ref={refInput} />}
                                         {isEditDescription && <button className="btn save" onClick={toggleEditDescription}>Save</button>}

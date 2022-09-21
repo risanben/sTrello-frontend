@@ -18,7 +18,6 @@ export const Board = () => {
 
     const board = useSelector(state => state.boardModule.board)
     const resizeLabel = useSelector(state => state.boardModule.resizeLabel)
-    // const [board, setBoard] = useState(null)
     const dispatch = useDispatch()
     const params = useParams()
     let [isSideBarOpen, setIsSideBarOpen] = useState(false)
@@ -30,12 +29,9 @@ export const Board = () => {
     const loadBoard = async () => {
         const boardId = params.id
         try {
-            // const board = await dispatch(getBoard(boardId))
             await dispatch(getBoard(boardId))
-            // console.log('board', board)
-            // setBoard(board)
         } catch (err) {
-            // console.log('Cannot load board', err)
+            console.log('Cannot load board', err)
         }
     }
 
@@ -48,23 +44,9 @@ export const Board = () => {
         }
     }
 
-
-    // const loadBoard = async () => {
-    //     const boardId = params.id
-    //     try {
-    //         const board = await boardService.getById(boardId)
-    //         setBoard(board)
-    //     } catch (err) {
-    //         console.log('Cannot load board', err)
-    //     }
-    // }
-
-
     const onEnd = result => {
-    
         const { destination, source, type } = result
         if (!destination) return
-
         dispatch(
             handleDrag(board, source.droppableId, destination.droppableId, source.index, destination.index, type)
         )
@@ -76,19 +58,16 @@ export const Board = () => {
             style = {
                 backgroundImage: `url(${board.style.imgUrl})`,
                 backgroundSize: "cover",
-
             }
         } else style = { backgroundColor: board?.style?.bgColor }
         return style
     }
-
 
     if (!board) return <div>Loading...</div>
 
     return (
         <React.Fragment>
             <section className='board-container' style={getBoradBg()}>
-
                 <SideMenu
                     isSideBarOpen={isSideBarOpen}
                     toggleMenu={toggleMenu} />
@@ -101,10 +80,7 @@ export const Board = () => {
                         <GroupList board={board} />
                     </section>
                 </DragDropContext>
-
-
             </section>
-
         </React.Fragment>
     )
 }

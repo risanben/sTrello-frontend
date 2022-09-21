@@ -1,5 +1,4 @@
 import { TaskList } from './Task-list'
-import { Link } from 'react-router-dom'
 import React, { useState, useRef } from 'react'
 import { useForm } from '../hooks/useForm'
 import { utilService } from '../services/util.service'
@@ -8,8 +7,6 @@ import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
 import { GroupActionModal } from './group-action'
 import { useDispatch, useSelector } from 'react-redux'
 import { removeGroup } from '../store/board.actions'
-
-
 
 export const GroupPreview = ({ group, addTask, index, taskRef }) => {
 
@@ -50,7 +47,6 @@ export const GroupPreview = ({ group, addTask, index, taskRef }) => {
 
     const onEditGroupTitle = (ev) => {
         if (ev) ev.preventDefault()
-        // console.log('groupToEdit', groupToEdit)
         addTask(groupToEdit)
         setIsEditTitle(!isEditTitle)
     }
@@ -66,25 +62,19 @@ export const GroupPreview = ({ group, addTask, index, taskRef }) => {
         const groupToSave = { ...group }
         if (groupToSave?.tasks) groupToSave.tasks.push(task)
         else groupToSave.tasks = [task]
-        // groupToSave.tasks = !groupToSave?.tasks ? [task] : [...groupToSave.tasks, task]
         addTask(groupToSave)
         setIsAddTask(!isAddTask)
     }
 
     const onDeleteGroup = (group) => {
-        // console.log('group', group)
-        // console.log('board from preview', board)
         disapcth(removeGroup(board._id, group.id))
     }
 
     const onOpenGroupAction = (ev) => {
-        // console.log('ev', ev)
-        // console.log('offsetLeft', ev.target.offsetLeft)
-        // console.log('offsetTop', ev.target.offsetTop)
         setLeftPosGroupMOdal(ev.target.offsetLeft)
         setIsOpenGroupAction(!isOpenGroupAction)
     }
-    // console.log('render GROUP-PREVIEW')
+
     return (
         <Draggable
             draggableId={group.id}
@@ -126,8 +116,8 @@ export const GroupPreview = ({ group, addTask, index, taskRef }) => {
                                 groupId={group.id}
                                 isAddTask={isAddTask}
                                 handleChangeTask={handleChangeTask}
-                                task={task} 
-                                />
+                                task={task}
+                            />
                             {isAddTask && <React.Fragment>
 
                                 <div className="add-task-btn-container">

@@ -1,27 +1,28 @@
 .boards-list {
-margin-top: 5px;
-    li{
+    margin-top: 5px;
+
+    li {
         list-style: none;
         padding: 5px 0;
         display: flex;
-        // align-items: center;
-        span{
+
+        span {
             display: flex;
             font-size: 14px;
             color: $header-font-color ;
         }
+
         &:hover {
             background-color: darken($color: $header-bg-color, $amount: 15);
         }
 
-        .flex-left{
+        .flex-left {
             display: flex;
-        // border: 2px solid black;
-        align-items: center;
+            align-items: center;
         }
 
-        &.active{
-            background-color:darken($color: $header-bg-color, $amount: 20);
+        &.active {
+            background-color: darken($color: $header-bg-color, $amount: 20);
         }
     }
 
@@ -39,7 +40,6 @@ margin-top: 5px;
         border-radius: 2px;
         margin-right: 10px;
         margin-left: 10px;
-
     }
 
     .boards-link {
