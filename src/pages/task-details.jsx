@@ -168,7 +168,6 @@ export const TaskDetails = (props) => {
 
                 <section className="task-details-container" onClick={clickedOnModal}>
 
-                    {/* task cover  */}
                     {task?.style && <section className="task-cover" style={{ backgroundColor: bgColor }} >
                         <button onClick={onBack} className="btn close"></button>
                         {task?.style?.bg?.imgUrl && <div className="img-cover" style={{ backgroundImage: `url(${task.style.bg.imgUrl})` }} ></div>}
@@ -178,8 +177,6 @@ export const TaskDetails = (props) => {
                             {showModal && <TaskDetailsCoverModal onSetColor={onSetColor} onSetImg={onSetImg} />}
                         </div>
                     </section>}
-
-                    {/* task-details */}
 
                     <div className="task-main-container">
 
