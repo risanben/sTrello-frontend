@@ -1,38 +1,30 @@
 import React, { useEffect, useState, useRef } from "react"
-import { BsFillPencilFill } from 'react-icons/bs'
 import { TaskQuickEdit } from "./task-quick-edit"
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
-// import { useDispatch } from "react-redux"
-// import { loadTasks } from "../store/task.actions"
 import { TaskDetails } from '../pages/task-details'
-import { Link } from 'react-router-dom'
-import { useNavigate, useParams } from "react-router-dom"
+import { useParams } from "react-router-dom"
 import { TaskLabel } from "./task-label"
 import { TaskMember } from "./task-members"
-import { HiOutlineEye } from 'react-icons/hi'
 import { updateTask } from "../store/board.actions"
 import { useDispatch, useSelector } from "react-redux"
 
-
 export const TaskPreview = ({ task, groupId, index, taskRef, groupTitle }) => {
+
+    const board = useSelector(state => state.boardModule.board)
+    const params = useParams()
+    const dispatch = useDispatch()
 
     const [isFullCover, setIsFullCover] = useState(false)
     const [isQuickEditOn, setIsQuickEditOn] = useState(false)
     const [showDetailsModal, setShowDetailsModal] = useState(false)
     const [quickEditPos, setQuickEditPos] = useState(null)
+
+    const [windowWidth, setWidth] = useState(window.innerWidth)
+    const [windowHeight, setHeight] = useState(window.innerHeight)
+
     const refQuickEdit = useRef(null)
-
-    const board = useSelector(state => state.boardModule.board)
-    const params = useParams()
-    const dispatch = useDispatch()
-    const navigate = useNavigate()
-
-    const [windowWidth, setWidth] = useState(window.innerWidth);
-    const [windowHeight, setHeight] = useState(window.innerHeight);
-
     const boardIdRef = useRef()
     boardIdRef.current = params.id
-    // console.log('boardIdRef', boardIdRef)
 
     useEffect(() => {
         if (task.style) setIsFullCover(task.style.bg.fullCover)
@@ -65,18 +57,14 @@ export const TaskPreview = ({ task, groupId, index, taskRef, groupTitle }) => {
         return style
     }
 
-
     const toggaleQuickEdit = (ev) => {
-       if (ev) ev.stopPropagation()
+        if (ev) ev.stopPropagation()
         console.log('toggle was activated')
-        //position of modal
-
+        //Modal position 
         if (!isQuickEditOn) {
-
             const parentEl = ev.currentTarget.parentNode
             const position = parentEl.getBoundingClientRect()
             const style = _getPosition(ev.target.getBoundingClientRect(), parentEl.getBoundingClientRect())
-
             let pos = {
                 position: position,
                 style: style
@@ -84,7 +72,7 @@ export const TaskPreview = ({ task, groupId, index, taskRef, groupTitle }) => {
             setQuickEditPos(pos)
             setIsQuickEditOn(!isQuickEditOn)
 
-        } else{
+        } else {
             //closing quick edit modal
             setIsQuickEditOn(false)
 
