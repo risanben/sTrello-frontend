@@ -1,7 +1,8 @@
 .cover-modal {
+    position: fixed;
     z-index: 100;
     background-color: #fff;
-    min-width: 200px;
+    width: 250px;
     height: 300px;
     border-radius: 3px;
     padding: 10px;

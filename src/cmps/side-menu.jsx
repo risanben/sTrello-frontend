@@ -21,7 +21,6 @@ export const SideMenu = ({isSideBarOpen, toggleMenu}) => {
             return "side-menu"}
     }
 
-
     return <section className={_getMenuClass()}>
 
         <header>

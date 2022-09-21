@@ -4,7 +4,7 @@ import { useNavigate, useParams } from "react-router-dom"
 import { TaskDetailsCoverModal } from "../cmps/task-details-cover-modal"
 import { useFormRegister } from '../hooks/useFormRegister'
 import { useDispatch } from "react-redux"
-import { updateTask, removeTask, getTask } from '../store/board.actions'
+import { updateTask, removeTask, getTask, getBoardMembers, resizeLabel } from '../store/board.actions'
 import { TaskMember } from "../cmps/task-members"
 import { TaskLabel } from "../cmps/task-label"
 import { TaskDetailsMembersModal } from "../cmps/task-details-members-modal"
@@ -23,6 +23,7 @@ export const TaskDetails = (props) => {
     const dispatch = useDispatch()
     const refInput = useRef(null)
     const refDesc = useRef(null)
+
 
     const [bgColor, setBgColor] = useState(null)
     const [showModal, setShowModal] = useState(null)
@@ -110,9 +111,9 @@ export const TaskDetails = (props) => {
     }
 
     const onSetMember = (addOrRemove, memberId) => {
-        console.log('addOrRemove',addOrRemove)
-        console.log('memberId',memberId)
-        console.log('memberIds',task.memberIds)
+        console.log('addOrRemove', addOrRemove)
+        console.log('memberId', memberId)
+        console.log('memberIds', task.memberIds)
 
         if (!addOrRemove) {
             if (!task.memberIds) task.memberIds = [memberId]
@@ -121,12 +122,12 @@ export const TaskDetails = (props) => {
             else task.watcedMemberIds.push(memberId)
         } else {
             console.log('task', task)
-            const idx = task.memberIds.findIndex(member => member=== memberId)
+            const idx = task.memberIds.findIndex(member => member === memberId)
             task.memberIds.splice(idx, 1)
-            const watchIdx = task.watcedMemberIds.findIndex(member => member=== memberId)
+            const watchIdx = task.watcedMemberIds.findIndex(watcedMember => watcedMember === memberId)
             task.watcedMemberIds.splice(watchIdx, 1)
         }
-        console.log('memberIds',task.memberIds)
+        console.log('memberIds', task.memberIds)
         onUpdateTask(task)
     }
 
@@ -155,14 +156,23 @@ export const TaskDetails = (props) => {
         ev.stopPropagation()
     }
 
+    const onOpenLabelsModal = (ev) => {
+        // ev.stopPropagation()
+
+        dispatch(resizeLabel(false))
+
+        console.log('labels')
+    }
+
     if (!task) return <div>Loading...</div>
     return (
         <section className="task-details-main" >
             <div className="black-screen" onClick={onBack}>
-                {/* <div className="task-details-content"> */}
+
                 <section className="task-details-container" onClick={clickedOnModal}>
-                    {/* task cover */}
-                    <section className="task-cover" style={{ backgroundColor: bgColor }} >
+
+                    {/* task cover  */}
+                    {task?.style && <section className="task-cover" style={{ backgroundColor: bgColor }} >
                         <button onClick={onBack} className="btn close"></button>
                         {task?.style?.bg?.imgUrl && <div className="img-cover" style={{ backgroundImage: `url(${task.style.bg.imgUrl})` }} ></div>}
                         <div onClick={onShowModal} className="btn cover">
@@ -170,68 +180,112 @@ export const TaskDetails = (props) => {
                             <span className="btn-cover-txt">Cover</span>
                             {showModal && <TaskDetailsCoverModal onSetColor={onSetColor} onSetImg={onSetImg} className="cover-modal" />}
                         </div>
-                    </section>{/*task-cover*/}
+                    </section>}
 
                     {/* task-details */}
-                    <span className="task-title-icon"><FaWindowMaximize /></span>
-                    <div className="title-container">
-                        <form className="task-details" onSubmit={onSaveTask}>
+
+                    <div className="task-main-container">
+
+                        <div className="title-container">
+                            <span className="task-title-icon"><FaWindowMaximize /></span>
                             <section className="title-input">
-                                {isEditTitle && <input {...register('title', 'text')} value={task.title} ref={refInput} />}
-                                {!isEditTitle && <span className="static-input" onClick={toggleEditTitle} >{task.title}</span>}
-                                <span className="group-title-in-task">in list {currentGroupTitle}</span>
+                                {!isEditTitle && <div className="static-input" onClick={toggleEditTitle} >{task.title}</div>}
+                                {isEditTitle && <form className="task-details-form" onSubmit={onSaveTask}>
+                                    <input className="title-text-area" {...register('title', 'text')} value={task.title} ref={refInput} />
+                                </form>}
+                                <div className="group-title-in-task">in list {currentGroupTitle}</div>
                             </section>
-                        </form>
-                    </div> {/*title-container*/}
+                        </div> {/*title-container*/}
 
-                    <section className="tags">
-                        <section className="members" >
-                            <span className="tag-title">Members</span>
-                            <br />
-                            <div className="select-members">
-                                {task?.memberIds && <TaskMember memberIds={task.memberIds} />}
-                                <span onClick={toggleMembersModal} className="plus-icon"><GrAdd /></span>
-                                {isMemberModal && <TaskDetailsMembersModal memberIds={task.memberIds} onSetMember={onSetMember} toggleMembersModal={toggleMembersModal} />}
-                            </div>
-                        </section>
-                        <section className="labels">
-                            <span className="tag-title">Labels</span>
-                            <div className="select-members">
-                                {task?.labelIds && <span className="label-container"><TaskLabel labelIds={task.labelIds} /></span>}
-                                <span onClick={toggleLabelsModal} className="plus-icon"><GrAdd /></span>
-                                {isLabelModal && <TaskDetailsLabelModal labelIds={task.labelIds} onSetLabel={onSetLabel} toggleLabelsModal={toggleLabelsModal}/>}
-                            </div>
-                        </section>
-                    </section>{/*tags*/}
+                        <div className="task-main-middle-container">
 
-                    <span className="description-icon"> <GrTextAlignFull /> </span>
-                    <section className={`description-container ${isEditDescription ? 'edit-status' : ''}`}>
-                        <span className="description-title">Description</span>
-                        {!isEditDescription && <button onClick={toggleEditDescription}>Edit</button>}
-                        <div className="description-edit">
-                            {isEditDescription && <textarea className="description-textarea" {...register('description', 'text')} value={task.description} ref={refInput} />}
-                            {isEditDescription && <button className="btn save" onClick={toggleEditDescription}>Save</button>}
-                            {isEditDescription && <button>Cancel</button>}
-                            {!isEditDescription && <span className="static-description" onClick={toggleEditDescription}>{task.description} </span>}
+                            <div className="task-main-container-left">
+
+                                <section className="tags">
+
+                                    {task?.memberIds && <section className="members">
+                                        <div className="tag-title">Members</div>
+                                        <div className="select-members">
+                                            <TaskMember memberIds={task.memberIds} />
+                                            <div onClick={toggleMembersModal} className="plus-icon"><GrAdd /></div>
+                                            {isMemberModal && <TaskDetailsMembersModal memberIds={task.memberIds} onSetMember={onSetMember} toggleMembersModal={toggleMembersModal} />}
+                                        </div>
+                                    </section>}
+
+                                    {task?.labelIds && <section className="labels">
+                                        <div className="tag-title">Labels</div>
+                                        <div className="select-labels">
+                                            <div className="label-container" onClick={onOpenLabelsModal}>
+                                                <TaskLabel labelIds={task.labelIds} />
+                                            </div>
+                                            <div onClick={toggleLabelsModal} className="plus-icon">
+                                                <GrAdd />
+                                            </div>
+                                            {isLabelModal && <TaskDetailsLabelModal labelIds={task.labelIds} onSetLabel={onSetLabel} toggleLabelsModal={toggleLabelsModal} />}
+                                        </div>
+                                    </section>}
+
+                                </section>{/*tags*/}
+
+
+                                <section className={`description-container ${isEditDescription ? 'edit-status' : ''}`}>
+                                    <span className="description-icon"> <GrTextAlignFull /> </span>
+                                    <span className="description-title">Description</span>
+                                    {!isEditDescription && <button onClick={toggleEditDescription}>Edit</button>}
+                                    <div className="description-edit">
+                                        {isEditDescription && <textarea className="description-textarea" {...register('description', 'text')} value={task.description} ref={refInput} />}
+                                        {isEditDescription && <button className="btn save" onClick={toggleEditDescription}>Save</button>}
+                                        {isEditDescription && <button>Cancel</button>}
+                                        {!isEditDescription && <span className="static-description" onClick={toggleEditDescription}>{task.description} </span>}
+                                    </div>
+                                </section>
+
+                                <span className="activity-main-icon"> <GrTextAlignFull /></span>
+                                <span className="activity-title">Activity</span>
+                                <span className="user-icon"><TaskMember memberIds={currentUser} /></span>
+                                <textarea className="activity-input" placeholder="Write a comment..."></textarea>
+                                <span className="activity-icon">icon</span>
+                                <span className="activity-title">Activity</span>
+                                <span className="activity-icon">icon</span>
+                                <span className="activity-title">Activity</span>
+                                <span className="activity-icon">icon</span>
+                                <span className="activity-title">Activity</span>
+                                <span className="activity-icon">icon</span>
+                                <span className="activity-title">Activity</span>
+
+                            </div>
+
+                            <div className="task-main-container-right">
+                                <span>Add to card</span>
+                                {/* <section className="task-abilities"> */}
+                                <AbilityCreator callBackF={toggleMembersModal} iconCmp={HiUser} name={'Members'} />
+                                {/* <button className="btn abilities" onClick={onShowMembersModal}><span className="icon"><HiUser /></span><span className="ability">Members</span></button> */}
+                                <button className="btn abilities" onClick={toggleLabelsModal}>
+                                    <span className="icon"><BsTagFill /></span>
+                                    <span className="ability">Labels</span>
+                                </button>
+                                <button className="btn abilities">
+                                    <span className="icon"><BsCheck2Square /></span>
+                                    <span className="ability">Checklist</span>
+                                </button>
+                                <button className="btn abilities">
+                                    <span className="icon"><BsClock /></span>
+                                    <span className="ability">Dates</span>
+                                </button>
+                                <button className="btn abilities">
+                                    <span className="icon"><GrAttachment /></span>
+                                    <span className="ability">Attachment</span></button>
+                                <button className="btn abilities" onClick={onRemoveTask}>
+                                    <span className="icon"><HiArchive /> </span>
+                                    <span className="ability">Archive</span>
+                                </button>
+                                {/* </section> */}
+
+                            </div>
+
+
                         </div>
-                    </section>
-
-                    <span className="activity-main-icon"> <GrTextAlignFull /></span>
-                    <span className="activity-title">Activity</span>
-                    <span className="user-icon"><TaskMember memberIds={currentUser} /></span>
-                    <textarea className="activity-input" placeholder="Write a comment..."></textarea>
-                    <span className="activity-icon">icon</span>
-                    <span className="activity-title">Activity</span>
-
-                    <section className="task-abilities">
-                        <AbilityCreator callBackF={toggleMembersModal} iconCmp={HiUser} name={'Members'} />
-                        {/* <button className="btn abilities" onClick={onShowMembersModal}><span className="icon"><HiUser /></span><span className="ability">Members</span></button> */}
-                        <button className="btn abilities" onClick={toggleLabelsModal}><span className="icon"><BsTagFill /></span><span className="ability">Labels</span></button>
-                        <button className="btn abilities"><span className="icon"><BsCheck2Square /></span><span className="ability">Checklist</span></button>
-                        <button className="btn abilities"><span className="icon"><BsClock /></span><span className="ability">Dates</span></button>
-                        <button className="btn abilities"><span className="icon"><GrAttachment /></span><span className="ability">Attachment</span></button>
-                        <button className="btn abilities" onClick={onRemoveTask}><span className="icon"><HiArchive /> </span><span className="ability">Archive</span></button>
-                    </section>
+                    </div>
 
                 </section>{/*task-details-container focus*/}
             </div >

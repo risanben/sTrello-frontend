@@ -202,6 +202,7 @@ export function getTask(boardId, groupId, taskId) {
 export function resizeLabel(resizeLabel) {
     return async (dispatch) => {
         try {
+            console.log('resizeLabel', resizeLabel)
             dispatch({
                 type: 'RESIZE_LABEL',
                 resizeLabel
