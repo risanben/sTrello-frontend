@@ -13,6 +13,7 @@ import { BsTagFill, BsCheck2Square, BsClock } from 'react-icons/bs'
 import { HiArchive } from 'react-icons/hi'
 import { FaWindowMaximize } from 'react-icons/fa'
 import { GrTextAlignFull, GrAdd, GrAttachment } from 'react-icons/gr'
+import { IoIosArrowDown } from 'react-icons/io'
 import { AbilityCreator } from "../cmps/ability-creator"
 import { TaskDetailsLabelModal } from "../cmps/task-details-labels-modal"
 
@@ -91,6 +92,7 @@ export const TaskDetails = (props) => {
         setIsMemberModal(!isMemberModal)
     }
     const toggleLabelsModal = () => {
+        console.log('clicked')
         setIsLabelModal(!isLabelModal)
     }
 
@@ -143,13 +145,13 @@ export const TaskDetails = (props) => {
     }
 
     const onRemoveTask = () => {
-            dispatch(removeTask(currentBoardId, currentGroupId, task))
-            navigate(`/board/${currentBoardId}`)
+        dispatch(removeTask(currentBoardId, currentGroupId, task))
+        navigate(`/board/${currentBoardId}`)
     }
 
     const onSaveTask = async (ev) => {
         ev.preventDefault()
-            dispatch(updateTask(currentBoardId, currentGroupId, task))
+        dispatch(updateTask(currentBoardId, currentGroupId, task))
     }
 
     const clickedOnModal = (ev) => {
@@ -160,8 +162,13 @@ export const TaskDetails = (props) => {
         // ev.stopPropagation()
 
         dispatch(resizeLabel(false))
-
+        // 
         console.log('labels')
+    }
+
+    const onCompleteDueDate = () => {
+        task.dueDate.isDone = !task.dueDate.isDone
+        dispatch(updateTask(currentBoardId, currentGroupId, task))
     }
 
     if (!task) return <div>Loading...</div>
@@ -208,9 +215,9 @@ export const TaskDetails = (props) => {
                                         <div className="select-members">
                                             <TaskMember memberIds={task.memberIds} />
                                             <div onClick={toggleMembersModal} className="plus-icon"><GrAdd /></div>
-                                            {isMemberModal && <TaskDetailsMembersModal memberIds={task.memberIds} onSetMember={onSetMember} toggleMembersModal={toggleMembersModal} />}
                                         </div>
                                     </section>}
+                                    {isMemberModal && <TaskDetailsMembersModal memberIds={task.memberIds} onSetMember={onSetMember} toggleMembersModal={toggleMembersModal} />}
 
                                     {task?.labelIds && <section className="labels">
                                         <div className="tag-title">Labels</div>
@@ -221,12 +228,23 @@ export const TaskDetails = (props) => {
                                             <div onClick={toggleLabelsModal} className="plus-icon">
                                                 <GrAdd />
                                             </div>
-                                            {isLabelModal && <TaskDetailsLabelModal labelIds={task.labelIds} onSetLabel={onSetLabel} toggleLabelsModal={toggleLabelsModal} />}
                                         </div>
                                     </section>}
-
+                                    {isLabelModal && <TaskDetailsLabelModal labelIds={task.labelIds} onSetLabel={onSetLabel} toggleLabelsModal={toggleLabelsModal} />}
                                 </section>{/*tags*/}
 
+                                {task?.dueDate && <section className="due-date">
+                                    <div className="tag-title">Due date</div>
+                                    <div className="due-date-container">
+                                        <div className={"due-date-checkbox " + (task.dueDate.isDone ? "is-done" : "")} onClick={onCompleteDueDate}></div>
+                                        <div className={"due-date-content " + (task.dueDate.isDone ? "is-done" : "")}>
+                                            <div className="due-date-time">Sep 19 at 8:30 PM</div>
+                                            {!task.dueDate.isDone && <div className="due-date-tag">due soon</div>}
+                                            {task.dueDate.isDone && <div className="due-date-tag is-done">complete</div>}
+                                            <div className="due-date-dropdwon-icon"><IoIosArrowDown /></div>
+                                        </div>
+                                    </div>
+                                </section>}
 
                                 <section className={`description-container ${isEditDescription ? 'edit-status' : ''}`}>
                                     <span className="description-icon"> <GrTextAlignFull /> </span>
