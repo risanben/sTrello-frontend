@@ -17,7 +17,7 @@ function makeId(length = 6) {
     return txt
 }
 
-function  getCreatedTime(time) {
+function getCreatedTime(time) {
     if (Date.now() - new Date(time) > 24 * 60 * 60 * 1000) {
         return `at ${time.toLocaleDateString}`
     }

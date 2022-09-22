@@ -53,7 +53,7 @@ export const TaskDetailsMember = ({ memberIds, onSetMember }) => {
             {board.members.map(member => {
                 return <div className="member"
                     key={member._id}
-                    onClick={() => onSetMember(checkTaskMember(member._id), member._id)}>
+                    onClick={() => onSetMember(checkTaskMember(member._id), member._id, member.fullname)}>
                     {getMemberName(member._id)}
                     {checkTaskMember(member._id) && <span className="isMember">✔</span>}
                 </div>

@@ -96,8 +96,8 @@ export const TaskPreview = ({ task, groupId, index, taskRef, groupTitle }) => {
         //     console.log('ent third')
         //     return { top: top - 160, right: 15 }}
         // else{
-            // console.log('entered else:')
-            return { top: parent.top, left: parent.left }
+        // console.log('entered else:')
+        return { top: parent.top, left: parent.left }
         // }
     }
 
@@ -108,6 +108,7 @@ export const TaskPreview = ({ task, groupId, index, taskRef, groupTitle }) => {
     const onDarkClicked = (e) => {
         e.stopPropagation()
     }
+
     const isWatchByUser = () => {
         if (!task.memberIds || !task.watcedMemberIds) return
         let isWatch = false

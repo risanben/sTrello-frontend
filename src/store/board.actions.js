@@ -66,10 +66,10 @@ export function removeBoard(boardId) {
     }
 }
 
-export function removeGroup(boardId, groupId) {
+export function addGroup(boardId, group, activity) {
     return async (dispatch) => {
         try {
-            const updateBoard = await boardService.removeGroup(boardId, groupId)
+            const updateBoard = await boardService.addGroup(boardId, group, activity)
             return dispatch(getActionUpdateBoard(updateBoard))
         } catch (err) {
             console.log('Cannot remove board', err)
@@ -77,10 +77,21 @@ export function removeGroup(boardId, groupId) {
     }
 }
 
-export function addBoard(board) {
+export function removeGroup(boardId, groupId, activity) {
     return async (dispatch) => {
         try {
-            const savedBoard = await boardService.save(board)
+            const updateBoard = await boardService.removeGroup(boardId, groupId, activity)
+            return dispatch(getActionUpdateBoard(updateBoard))
+        } catch (err) {
+            console.log('Cannot remove board', err)
+        }
+    }
+}
+
+export function addBoard(board, activity) {
+    return async (dispatch) => {
+        try {
+            const savedBoard = await boardService.save(board, activity)
             return dispatch(getActionAddBoard(savedBoard)).board
         } catch (err) {
             console.log('Cannot add board', err)
@@ -88,10 +99,10 @@ export function addBoard(board) {
     }
 }
 
-export function updateBoard(board) {
+export function updateBoard(board, activity) {
     return async (dispatch) => {
         try {
-            const savedBoard = await boardService.save(board)
+            const savedBoard = await boardService.save(board, activity)
             return dispatch(getActionUpdateBoard(savedBoard))
         } catch (err) {
             showErrorMsg('Cannot update board')
@@ -102,7 +113,7 @@ export function updateBoard(board) {
 
 
 /*------------------------------------------------------------------------------*/
-export function updateTask(boardId, groupId, taskForUpdate) {
+export function updateTask(boardId, groupId, taskForUpdate, activity) {
     return async (dispatch) => {
         try {
             const groupForUpdate = await boardService.getGroupById(boardId, groupId)
@@ -114,7 +125,7 @@ export function updateTask(boardId, groupId, taskForUpdate) {
             const groupIdx = board.groups.findIndex(group => group.id === groupForUpdate.id)
             board.groups.splice(groupIdx, 1, groupForUpdate)
 
-            dispatch(updateBoard(board))
+            dispatch(updateBoard(board, activity))
             return board
         } catch (err) {
             console.log('Cannot complete the function:', err)

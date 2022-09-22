@@ -22,11 +22,11 @@ export const boardService = {
     getById,
     save,
     remove,
-    getEmptyBoard,
     getGroupById,
     getTaskById,
     removeGroup,
-    getBackground
+    getBackground,
+    addGroup
 }
 window.cs = boardService
 
@@ -67,39 +67,47 @@ async function remove(boardId) {
         throw err
     }
 }
-
-async function removeGroup(boardId, groupId) {
+async function addGroup(boardId, group, activity) {
+    try {
+        console.log('boardId', boardId)
+        let boardToUpdate = await getById(boardId)
+        console.log('boardToUpdate', boardToUpdate)
+        if (boardToUpdate?.groups) boardToUpdate.groups.push({ ...group })
+        else boardToUpdate.groups = [group]
+        return await save(boardToUpdate, activity)
+    } catch (err) {
+        console.log('Cannot complete the function:', err)
+        throw err
+    }
+}
+async function removeGroup(boardId, groupId, activity) {
     try {
         let boardToUpdate = await getById(boardId)
         // console.log('boardToUpdate', boardToUpdate)
         boardToUpdate.groups = boardToUpdate.groups.filter(group => group.id !== groupId)
-        return await save(boardToUpdate)
+        return await save(boardToUpdate, activity)
     } catch (err) {
         console.log('Cannot complete the function:', err)
         throw err
     }
 }
 
-async function save(board) {
+async function save(board, activity) {
     var savedBoard
+    _addActivityDetails(activity)
     if (board._id) {
+        board.activities.unshift(activity)
         savedBoard = await storageService.put(STORAGE_KEY, board)
         boardChannel.postMessage(getActionUpdateBoard(savedBoard))
     } else {
         // Later, owner is set by the backend
         // console.log('new board')
         // board.owner = userService.getLoggedinUser()
+        board.activities = [activity]
         savedBoard = await storageService.post(STORAGE_KEY, board)
         boardChannel.postMessage(getActionAddBoard(savedBoard))
     }
     return savedBoard
-}
-
-function getEmptyBoard() {
-    return {
-        _id: utilService.makeId(),
-        price: utilService.getRandomIntInclusive(1000, 9000),
-    }
 }
 
 async function getGroupById(boardId, groupId) {
@@ -111,6 +119,17 @@ async function getGroupById(boardId, groupId) {
         console.log('Cannot complete the function:', err)
         throw err
     }
+}
+
+function _addActivityDetails(activity) {
+    activity.id = utilService.makeId()
+    activity.createdAt = Date.now()
+    activity.byMember = {
+        "_id": "u999",
+        "fullname": "Guset",
+        "imgUrl": null
+    }
+    return activity
 }
 
 async function getTaskById(boardId, groupId, taskId) {
