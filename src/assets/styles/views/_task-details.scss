@@ -368,6 +368,21 @@
                                 background-color: #091e420a;
                                 margin-left: 8px;
                             }
+
+                        }
+
+                        .description-placeholder {
+                            background-color: #091e420a;
+                            border-radius: 3px;
+                            color: inherit;
+                            min-height: 56px;
+                            padding: 8px 12px;
+                            font-size: 14px;
+                            font-weight: 400;
+                            line-height: 20px;
+                            margin-left: 40px;
+                            width: 510px;
+
                         }
 
                         .description-edit-container {
@@ -400,11 +415,42 @@
 
                             }
 
-                            .btn.save {
+                            .btn-desc {
+                                margin: 0 4px 0 0;
+                                align-items: center;
+                                font-size: 14px;
+                                font-weight: 400;
+                                justify-content: center;
+                                line-height: 20px;
+                                padding: 6px 12px;
+                            }
+
+                            .btn-desc.save {
                                 background-color: #0079bf;
                                 color: #ffffff;
                                 border-radius: 3px;
-                                box-shadow: none;
+
+                                &:hover {
+                                    background-color: #026aa7;
+                                }
+
+                                &:active {
+                                    background-color: #055a8c;
+                                }
+                            }
+
+                            .btn-desc.close {
+                                background-color: #00000000;
+                                color: #172b4d;
+
+                                &:hover {
+                                    background-color: #091e4214;
+                                }
+
+                                &:active {
+                                    color: #0079bf;
+                                    background-color: #e4f0f6;
+                                }
                             }
 
                         }
@@ -445,6 +491,7 @@
                 display: flex;
                 flex-direction: column;
                 padding: 0 16px 8px 8px;
+                margin-bottom: 25px;
 
                 span {
                     font-size: 12px;

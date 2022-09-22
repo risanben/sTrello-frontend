@@ -12,10 +12,10 @@ export const TaskDetailsLabel = ({ labelIds, onSetLabel }) => {
             return (
                 <li key={currentLabel.id} className="label-details">
                     <label className="checkbox-label">
-                    <input type="checkbox" defaultChecked={isTaskLabel} onChange={()=>onSetLabel(isTaskLabel,currentLabel.id)}></input>
-                    <div className="label-details-body" style={{ backgroundColor: currentLabel.color }}>
-                        {currentLabel.title}
-                    </div>
+                        <input type="checkbox" defaultChecked={isTaskLabel} onChange={() => onSetLabel(isTaskLabel, currentLabel.id)}></input>
+                        <div className="label-details-body" style={{ backgroundColor: currentLabel.color }}>
+                            {currentLabel.title}
+                        </div>
                     </label>
                     <button className="btn-edit">🖋</button>
                 </li>
@@ -25,11 +25,12 @@ export const TaskDetailsLabel = ({ labelIds, onSetLabel }) => {
     const checkTaskLabel = (labelId1) => {
         if (!labelIds) return
         const checkedLabel = labelIds.find(labelId => labelId === labelId1)
+        console.log('checkedLabel', checkedLabel)
         if (checkedLabel) return true
         return false
         // return checkedLabel
     }
-
+    console.log("render modal")
     return (
         <div className="task-label-container" >
             <ul>

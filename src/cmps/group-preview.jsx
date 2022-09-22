@@ -17,7 +17,7 @@ export const GroupPreview = ({ group, addTask, index, taskRef }) => {
     const [isAddTask, setIsAddTask] = useState(false)
     const [isEditTitle, setIsEditTitle] = useState(false)
     const [isOpenGroupAction, setIsOpenGroupAction] = useState(false)
-    const [leftPosGroupMOdal, setLeftPosGroupMOdal] = useState(null)
+    const [leftPosGroupMOdal, setLeftPosGroupModal] = useState(null)
     const [task, handleChangeTask, setTask] = useForm({
         title: ''
     })
@@ -71,7 +71,7 @@ export const GroupPreview = ({ group, addTask, index, taskRef }) => {
     }
 
     const onOpenGroupAction = (ev) => {
-        setLeftPosGroupMOdal(ev.target.offsetLeft)
+        setLeftPosGroupModal(ev.target.offsetLeft)
         setIsOpenGroupAction(!isOpenGroupAction)
     }
 

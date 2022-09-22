@@ -162,6 +162,7 @@ export const TaskDetails = (props) => {
     }
 
     if (!task) return <div>Loading...</div>
+    console.log('task.desc', task.desc)
     return (
         <section className="task-details-main" >
             <div className="black-screen" onClick={onBack}>
@@ -231,28 +232,30 @@ export const TaskDetails = (props) => {
                                             <div className="due-date-dropdwon-icon"><IoIosArrowDown /></div>
                                         </div>
                                     </div>
+                                    <label htmlFor=""></label>
                                 </section>}
 
                                 <section className={`description-container ${isEditDescription ? 'edit-status' : ''}`}>
                                     <div className="description-main-content">
                                         <div className="description-icon"><GrTextAlignFull /></div>
                                         <div className="description-title">Description</div>
-                                        {!isEditDescription && <button className="btn-edit-description" onClick={toggleEditDescription}>Edit</button>}
+                                        {!isEditDescription && task.desc && <button className="btn-edit-description" onClick={toggleEditDescription}>Edit</button>}
                                     </div>
+                                    {!isEditDescription && !task.desc && <div className="description-placeholder" onClick={toggleEditDescription} >Add a more detailed description...</div>}
                                     {!isEditDescription && <div className="static-description" onClick={toggleEditDescription}>{task.description}</div>}
                                     <div className="description-edit-container">
                                         {isEditDescription && <textarea className="description-textarea" {...register('description', 'text')} value={task.description} ref={refInput} />}
-                                        {isEditDescription && <button className="btn save" onClick={toggleEditDescription}>Save</button>}
-                                        {isEditDescription && <button>Cancel</button>}
+                                        {isEditDescription && <button className="btn-desc save" onClick={toggleEditDescription}>Save</button>}
+                                        {isEditDescription && <button className="btn-desc close">Cancel</button>}
                                     </div>
                                 </section>
 
-                                <span className="activity-main-icon"> <GrTextAlignFull /></span>
+                                {/* <span className="activity-main-icon"> <GrTextAlignFull /></span>
                                 <span className="activity-title">Activity</span>
                                 <span className="user-icon"><TaskMember memberIds={currentUser} /></span>
                                 <textarea className="activity-input" placeholder="Write a comment..."></textarea>
                                 <span className="activity-icon">icon</span>
-                                <span className="activity-title">Activity</span>
+                                <span className="activity-title">Activity</span> */}
                             </div>
 
                             <div className="task-main-container-right">
@@ -278,6 +281,10 @@ export const TaskDetails = (props) => {
                                 <button className="btn abilities" onClick={onRemoveTask}>
                                     <span className="icon"><HiArchive /> </span>
                                     <span className="ability">Archive</span>
+                                </button>
+                                <button className="btn abilities" onClick={onRemoveTask}>
+                                    <span className="icon"><FaWindowMaximize /> </span>
+                                    <span className="ability">Cover</span>
                                 </button>
                                 {/* </section> */}
 
