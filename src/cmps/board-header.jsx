@@ -3,6 +3,7 @@ import { TaskMember } from './task-members'
 import memberSvg from '../assets/img/add-mem.svg'
 import { useDispatch } from 'react-redux'
 import { updateBoard } from '../store/board.actions'
+import dots from '../assets/img/menu-icon-new.svg'
 
 export const BoardHeader = ({ board }) => {
     const dispatch = useDispatch()
@@ -18,6 +19,10 @@ export const BoardHeader = ({ board }) => {
         const boardToSave = { ...board }
         boardToSave.isStarred = !board.isStarred
         dispatch(updateBoard(boardToSave))
+    }
+
+    const toggleBoardMenu = () => {
+        console.log('openMenu')
     }
 
     if (!board) return <section>Loading...</section>
@@ -46,6 +51,7 @@ export const BoardHeader = ({ board }) => {
                 {board.members?.length && <TaskMember memberIds={getMembersIds()} />}
             </section>
             <button className='btn-add'><img className='mem-svg' src={memberSvg} /> Share</button>
+            <section className='menu-img-container' onClick={toggleBoardMenu}><img src={dots} alt="menu" className='dots' /></section>
         </section>
 
     </section>

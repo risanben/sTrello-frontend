@@ -82,19 +82,20 @@ export function AppHeader() {
                 <ul className='nav-links-container'>
                     <Link to="board" className='workspace-link'>
                         <li className='nav-link'>
-                            Workspaces <BsChevronDown className='downArr' />
+                            Workspaces 
+                            {/* <BsChevronDown className='downArr' /> */}
                         </li>
                     </Link>
-                    <li className='nav-link'>
+                    {/* <li className='nav-link'>
                         Recent <BsChevronDown className='downArr' />
                     </li>
                     <Link to="board" className='workspace-link'>
                         <li className='nav-link'>
                             Templates <BsChevronDown className='downArr' />
                         </li>
-                    </Link>
+                    </Link> */}
                 </ul>
-                <span className='create' onClick={showCreateBoardMoadl}>Create</span>
+                {/* <span className='create' onClick={showCreateBoardMoadl}>Create</span> */}
                 {isCreateModalOpen && <BoardEdit toggleCreateBoardModal={showCreateBoardMoadl} />}
             </section>
 
