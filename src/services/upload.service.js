@@ -1,10 +1,12 @@
-import{utilService } from '../services/util.service.js'
+import { utilService } from '../services/util.service.js'
 
 export const uploadService = {
   uploadImg
 }
+
 function uploadImg(ev) {
   console.log('ev', ev);
+  // const ImgId = utilService.makeId
   const CLOUD_NAME = "dln4kbx1f"
   const UPLOAD_PRESET = "hvy2mzrd"
   const UPLOAD_URL = `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`
@@ -19,13 +21,12 @@ function uploadImg(ev) {
   })
     .then(res => res.json())
     .then(res => {
-    //  id:utilService.makeId,
-      console.log(res);
-      console.log(res.asset_id);
-      console.log(res.original_filename);
-      console.log(res.secure_url);
-      console.log(new Date());
-      return res
+      return ({
+        id: res.asset_id,
+        urlName: res.original_filename,
+        url: res.secure_url,
+        addedAt: new Date()
+      })
     })
     .catch(err => console.error(err))
 }

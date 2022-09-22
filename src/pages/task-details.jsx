@@ -21,8 +21,7 @@ import { AttachmentModal } from "../cmps/attachment-modal"
 
 export const TaskDetails = (props) => {
 
-    const imgUrl = useSelector(state => state.boardModule.imgUrl)
-    console.log('imgUrl', imgUrl);
+    const imgJson = useSelector(state => state.boardModule.imgJson)
 
     const params = useParams()
     const navigate = useNavigate()
@@ -65,14 +64,14 @@ export const TaskDetails = (props) => {
     }, [])
 
     useEffect(() => {
-        document.addEventListener("click", handleClickOutside, true)
-        document.addEventListener("click", handleClickOutsideLabelModal, true)
+        // document.addEventListener("click", handleClickOutside, true)
+        // document.addEventListener("click", handleClickOutsideLabelModal, true)
 
         return (
             () => {
-                document.removeEventListener("click", handleClickOutside, false)
-                document.removeEventListener("click", handleClickOutsideLabelModal, false)
-                console.log('listener disabled:')
+                // document.removeEventListener("click", handleClickOutside, false)
+                // document.removeEventListener("click", handleClickOutsideLabelModal, false)
+                // console.log('listener disabled:')
             }
         )
     }, [])
@@ -80,8 +79,8 @@ export const TaskDetails = (props) => {
     useEffect(() => {
         setIsAttachmentModal(false)
         // if (imgUrl) setIsAttachedFile(true)
-        if (imgUrl) onSetAttachment(false)
-    }, [imgUrl])
+        if (imgJson) onSetAttachment(false)
+    }, [imgJson])
 
     const handleClickOutside = (e) => {
         if (e) e.preventDefault()
@@ -98,7 +97,6 @@ export const TaskDetails = (props) => {
             toggleLabelsModal()
         }
     }
-
 
     const onUpdateTask = (task) => {
         dispatch(updateTask(currentBoardId, currentGroupId, task))
@@ -152,18 +150,18 @@ export const TaskDetails = (props) => {
         setIsAttachmentModal(!isAttachmentModal)
     }
 
-    const onSetColor = (ev) => {
-        console.log('ev.target.value', ev.target.value)
-        setBgColor(ev.target.value)
-        if (!task.style) task.style = { bg: { color: ev.target.value } }
-        task.style.bg.color = ev.target.value
+    const onSetColor = (newColor) => {
+        console.log('color', newColor)
+        if (!task.style) task.style = { bg: { color: newColor } }
+        task.style.bg.color = newColor
         task.style.bg.imgUrl = null
+        setBgColor(newColor)
         onUpdateTask(task)
     }
 
-    const onSetImg = (imgUrl) => {
-        if (!task.style) task.style = { bg: { imgUrl } }
-        task.style.bg.imgUrl = imgUrl
+    const onSetImg = (imgJson) => {
+        if (!task.style) task.style = { bg: { imgUrl: imgJson.url } }
+        task.style.bg.imgUrl = imgJson.url
         task.style.bg.color = null
         setBgColor(null)
         onUpdateTask(task)
@@ -197,16 +195,10 @@ export const TaskDetails = (props) => {
 
     const onSetAttachment = (addOrRemove) => {
         if (!addOrRemove) {
-            // const attach = {
-            //     id: '',
-            //     linkName:'',
-            //     imgUrl: imgUrl,
-            //     addedAt: '',
-            // }
-            if (!task.attachments) task.attachments = [imgUrl]
-            else task.attachments.push(imgUrl)
+            if (!task.attachments) task.attachments = [(imgJson)]
+            else task.attachments.push((imgJson))
         } else {
-            const idx = task.attachments.findIndex(img => img === imgUrl)
+            const idx = task.attachments.findIndex(img => img.id === imgJson.id)
             task.attachments.splice(idx, 1)
         }
         onUpdateTask(task)
@@ -236,20 +228,22 @@ export const TaskDetails = (props) => {
     }
 
     if (!task) return <div>Loading...</div>
-    console.log('task.desc', task.desc)
+    // console.log('task.desc', task.desc)
+    // console.log('task', task);
     return (
         <section className="task-details-main" >
             <div className="black-screen" onClick={onBack}>
 
                 <section className="task-details-container" onClick={clickedOnModal}>
 
-                    {task?.style && <section className="task-cover" style={{ backgroundColor: bgColor }} >
+                    {task?.style && <section className="task-cover"/* style={{ backgroundColor:bgColor }} */>
+                        <div className="color-cover" style={{ backgroundColor: bgColor }}></div>
                         <button onClick={onBack} className="btn close"></button>
                         {task?.style?.bg?.imgUrl && <div className="img-cover" style={{ backgroundImage: `url(${task.style.bg.imgUrl})` }} ></div>}
                         <div onClick={onShowModal} className="btn cover">
                             <span className="bts-icon"><FaWindowMaximize /></span>
                             <span className="btn-cover-txt">Cover</span>
-                            {showModal && <TaskDetailsCoverModal onSetColor={onSetColor} onSetImg={onSetImg} />}
+                            {showModal && <TaskDetailsCoverModal onSetColor={onSetColor} onSetImg={onSetImg} onShowModal={onShowModal} />}
                         </div>
                     </section>}
 
@@ -332,8 +326,8 @@ export const TaskDetails = (props) => {
                                         <span className="ability">Attachment</span>
                                     </div>
                                     <div className="attachment-body">
-                                        <img className="img-attached" src={`${imgUrl.url}`} ></img>
-                                        <span className="img-attached">{imgUrl.urlName}</span>
+                                        <img className="img-attached" src={`${imgJson.url}`} ></img>
+                                        <span className="img-attached">{imgJson.urlName}</span>
                                         {/* <span className="Added-at">Added at</span>
                                         <span className="btn-delete-attachment">Delete</span> */}
                                     </div>
@@ -369,13 +363,13 @@ export const TaskDetails = (props) => {
                                     <span className="icon"><GrAttachment /></span>
                                     <span className="ability">Attachment</span>
                                 </button>
+                                <button className="btn abilities" onClick={onShowModal}>
+                                    <span className="icon"><FaWindowMaximize /> </span>
+                                    <span className="ability">Cover</span>
+                                </button>
                                 <button className="btn abilities" onClick={onRemoveTask}>
                                     <span className="icon"><HiArchive /> </span>
                                     <span className="ability">Archive</span>
-                                </button>
-                                <button className="btn abilities" onClick={onRemoveTask}>
-                                    <span className="icon"><FaWindowMaximize /> </span>
-                                    <span className="ability">Cover</span>
                                 </button>
                                 {/* </section> */}
 

@@ -159,32 +159,29 @@ export function getTask(boardId, groupId, taskId) {
     }
 }
 
-
 export function getImgUrl(ev) {
     return async (dispatch) => {
         try {
             const imgEv = await uploadService.uploadImg(ev)
-            // const imgUrl = imgEv.secure_url
-            const { imgUrl } = dispatch({
+            console.log('imgEv- board action', imgEv);
+            const { imgJson } = dispatch({
                 type: 'SET_IMG_URL',
-                imgUrl: imgEv.secure_url
+                imgJson: imgEv
             })
-            console.log('imgUrl-getImgUrl-board action', imgUrl);
-            return imgUrl
         } catch (err) {
             console.log('Cannot load img url', err)
         }
     }
 }
 
-export function getImgFromUrl(currentImgUrl) {
+export function getImgFromUrl(currentImgJson) {
     return async (dispatch) => {
         try {
-            const { imgUrl } = dispatch({
+            const { imgJson } = dispatch({
                 type: 'SET_IMG_URL',
-                imgUrl: currentImgUrl
+                imgJson: currentImgJson
             })
-            return imgUrl
+            return imgJson
         } catch (err) {
             console.log('Cannot load img url', err)
         }
