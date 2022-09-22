@@ -1,26 +1,25 @@
 
 .members-modal {
-    display: flex;
-    flex-direction: column;
-    width: 300px;
+    width: 304px;
+    padding: 10px;
     position: absolute;
-    top: 250px;
-    background-color: #fff;
+    background-color: whitesmoke;
     box-shadow: var(--ds-shadow-overlay, 0 8px 16px -4px #091e4240, 0 0 0 1px #091e4214);
     z-index: 300;
     border-radius: 3px;
-    // align-items: center;
-    // display: grid;
-    // grid-template-rows: 50px 20px auto;
+    display: flex;
+    flex-direction: column;
 
     &:hover {
         cursor: auto;
     }
 
     .members-modal-title {
-        padding: 6px 0 6px 20px;
+        padding: 6px 0;
         color: #5e6c84;
         text-align: center;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.24);
+        margin-bottom: 7px;
     }
 
     .sub-title{
@@ -31,6 +30,9 @@
         line-height: 20px;
         letter-spacing: normal;
         text-align: start;
+        // border: 2px solid red;
+        font-size: 12px;
+        font-weight: 500;
     }
 
 }

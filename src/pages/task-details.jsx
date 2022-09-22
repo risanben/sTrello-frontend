@@ -44,8 +44,8 @@ export const TaskDetails = (props) => {
     const [isAttachedFile, setIsAttachedFile] = useState(null)
     const [currentUser, setCurrentUser] = useState([])
     const [labelModalPos, setLabelModalPos] = useState(null)
-    const [windowWidth, setWidth] = useState(window.innerWidth)
-    const [windowHeight, setHeight] = useState(window.innerHeight)
+    // const [windowWidth, setWidth] = useState(window.innerWidth)
+    // const [windowHeight, setHeight] = useState(window.innerHeight)
 
 
     useEffect(() => {
@@ -131,11 +131,11 @@ export const TaskDetails = (props) => {
         if (!isLabelModal && isLabelModal !== null) {
             const parentEl = ev.currentTarget.parentNode
             const position = parentEl.getBoundingClientRect()
-            //updating screen size before calc
-            setWidth(window.innerWidth)
-            setHeight(window.innerHeight)
 
-            const style = _getPosition(ev.target.getBoundingClientRect(), parentEl.getBoundingClientRect())
+            const style = {
+                top: ev.target.offsetTop,
+                left: ev.target.offsetLeft
+            }
             let pos = {
                 position: position,
                 style: style
@@ -151,16 +151,6 @@ export const TaskDetails = (props) => {
     const toggleAttachmentModal = () => {
         setIsAttachmentModal(!isAttachmentModal)
     }
-
-    const _getPosition = (evTarget, parent) => {
-        const { left, top } = evTarget
-        if (windowHeight - top < 160) return { top: top - 180, }
-        if (windowWidth - left < 200) return { right: 15, top }
-        if (windowWidth - left < 420 && windowHeight - top < 160) return { top: top - 160, right: 15 }
-        else return { top: parent.top, left: parent.left }
-    }
-
-
 
     const onSetColor = (ev) => {
         console.log('ev.target.value', ev.target.value)

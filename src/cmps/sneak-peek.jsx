@@ -7,7 +7,7 @@ export const SneakPeek = () => {
         <section className="sneak-peek">
             <header> It's more than work. It's a way of working together.</header>
             <p>
-                Start with a Trello board,
+                Start with a sTrello board,
                 lists, and cards. Customize and expand with more features as your
                 teamwork grows. Manage projects, organize tasks, and build team
                 spirit—all in one place.
