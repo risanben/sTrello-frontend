@@ -188,6 +188,21 @@ export function getImgUrl(ev) {
     }
 }
 
+export function getImgFromUrl(currentImgUrl) {
+    return async (dispatch) => {
+        try {
+            const { imgUrl } = dispatch({
+                type: 'SET_IMG_URL',
+                imgUrl: currentImgUrl
+            })
+            return imgUrl
+        } catch (err) {
+            console.log('Cannot load img url', err)
+        }
+    }
+}
+
+
 export function resizeLabel(resizeLabel) {
     return async (dispatch) => {
         try {
