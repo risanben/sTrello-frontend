@@ -67,14 +67,15 @@ export const TaskDetails = (props) => {
     useEffect(() => {
         document.addEventListener("click", handleClickOutside, true)
         document.addEventListener("click", handleClickOutsideLabelModal, true)
-    
-        return(
-          ()=>{
-            document.removeEventListener("click", handleClickOutside, false)
-            document.removeEventListener("click", handleClickOutsideLabelModal, false)
-            console.log('listener disabled:')}
+
+        return (
+            () => {
+                document.removeEventListener("click", handleClickOutside, false)
+                document.removeEventListener("click", handleClickOutsideLabelModal, false)
+                console.log('listener disabled:')
+            }
         )
-      }, [])
+    }, [])
 
     useEffect(() => {
         setIsAttachmentModal(false)
@@ -83,7 +84,7 @@ export const TaskDetails = (props) => {
     }, [imgUrl])
 
     const handleClickOutside = (e) => {
-        if(e) e.preventDefault()
+        if (e) e.preventDefault()
         if (!refInput.current) return
         if (!refInput.current.contains(e.target)) {
             setEditTitle(false)
@@ -91,13 +92,13 @@ export const TaskDetails = (props) => {
         }
     }
     const handleClickOutsideLabelModal = (e) => {
-        if(e) e.preventDefault()
+        if (e) e.preventDefault()
         if (!refLabelModal.current) return
         if (!refLabelModal.current.contains(e.target)) {
             toggleLabelsModal()
         }
     }
-   
+
 
     const onUpdateTask = (task) => {
         dispatch(updateTask(currentBoardId, currentGroupId, task))
@@ -208,7 +209,7 @@ export const TaskDetails = (props) => {
         if (!addOrRemove) {
             const attach = {
                 id: '',
-                linkName:'',
+                linkName: '',
                 imgUrl: imgUrl,
                 addedAt: '',
             }
@@ -302,7 +303,7 @@ export const TaskDetails = (props) => {
                                         </div>
                                     </section>}
                                     <section ref={refLabelModal}>
-                                    {isLabelModal && <TaskDetailsLabelModal labelIds={task.labelIds} onSetLabel={onSetLabel} toggleLabelsModal={toggleLabelsModal} labelModalPos={labelModalPos} />}
+                                        {isLabelModal && <TaskDetailsLabelModal labelIds={task.labelIds} onSetLabel={onSetLabel} toggleLabelsModal={toggleLabelsModal} labelModalPos={labelModalPos} />}
                                     </section>
                                 </section>{/*tags*/}
 
@@ -327,9 +328,9 @@ export const TaskDetails = (props) => {
                                         {!isEditDescription && task.desc && <button className="btn-edit-description" onClick={toggleEditDescription}>Edit</button>}
                                     </div>
                                     {!isEditDescription && !task.desc && <div className="description-placeholder" onClick={toggleEditDescription} >Add a more detailed description...</div>}
-                                    {!isEditDescription && <div className="static-description" onClick={toggleEditDescription}>{task.description}</div>}
+                                    {!isEditDescription && task.desc && <div className="static-description" onClick={toggleEditDescription}>{task.desc}</div>}
                                     <div className="description-edit-container">
-                                        {isEditDescription && <textarea className="description-textarea" {...register('description', 'text')} value={task.description} ref={refInput} />}
+                                        {isEditDescription && <textarea className="description-textarea" placeholder="Add a more detailed description..." {...register('desc', 'text')} value={task.desc} ref={refInput} />}
                                         {isEditDescription && <button className="btn-desc save" onClick={toggleEditDescription}>Save</button>}
                                         {isEditDescription && <button className="btn-desc close">Cancel</button>}
                                     </div>
@@ -354,7 +355,7 @@ export const TaskDetails = (props) => {
                                 <span className="user-icon"><TaskMember memberIds={currentUser} /></span>
                                 <textarea className="activity-input" placeholder="Write a comment..."></textarea>
                                 <span className="activity-icon">icon</span>
-                                <span className="activity-title">Activity</span> 
+                                <span className="activity-title">Activity</span>
                             </div>
 
                             <div className="task-main-container-right">

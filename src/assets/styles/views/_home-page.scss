@@ -1,9 +1,9 @@
-
-
-.home-page{
+.home-page {
     background-color: $home-bg-color;
+    height: 100%;
+    overflow-x: auto;
 
-    .line-through{
+    .line-through {
         max-width: 70vw;
         margin: auto;
         margin-top: 60px;

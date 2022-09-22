@@ -9,7 +9,7 @@ export const HomePage = () => {
     return (
         <section className='home-page'>
             <Hero />
-            <hr className='line-through'/>
+            {/* <hr className='line-through'/> */}
             <SneakPeek />
         </section>
     )
