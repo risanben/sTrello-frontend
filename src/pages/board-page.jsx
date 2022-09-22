@@ -16,7 +16,7 @@ export function BoardPage() {
         dispatch(loadBoards())
     }, [])
 
-    const getBoradBg = (board) => {
+    const getBoardBg = (board) => {
         let style = {}
         if (board.style?.imgUrl) {
             style = {
@@ -47,8 +47,8 @@ export function BoardPage() {
     return (
         <div className="board-page">
 
-            <div className="board-list-conatiner">
-                {filterBoardsByStarred()[0] && <div className="baord-list-title">
+            <div className="board-list-container">
+                {filterBoardsByStarred()[0] && <div className="board-list-title">
                     <span className="board-list-title-icon"></span>
                     <h3>Starred boards</h3>
                 </div>}
@@ -58,8 +58,8 @@ export function BoardPage() {
                         return <Link
                             to={`/board/${board._id}`}
                             key={board._id}>
-                            <li className="board-preview" style={getBoradBg(board)}>
-                                <div className="baord-preview-content">
+                            <li className="board-preview" style={getBoardBg(board)}>
+                                <div className="board-preview-content">
                                     <div className="board-title">{board.title}</div>
                                     <div className="star marked"
                                         onClick={(ev) => toggleStarredBoard(ev, board)}>
@@ -72,8 +72,8 @@ export function BoardPage() {
                 </ul>
             </div>
 
-            <div className="board-list-conatiner">
-                <div className="baord-list-title">
+            <div className="board-list-container">
+                <div className="board-list-title">
                     <span className="board-list-title-icon"></span>
                     <h3>Your boards</h3>
                 </div>
@@ -82,8 +82,8 @@ export function BoardPage() {
                         return <Link
                             to={`/board/${board._id}`}
                             key={board._id}>
-                            <li className="board-preview" style={getBoradBg(board)}>
-                                <div className="baord-preview-content">
+                            <li className="board-preview" style={getBoardBg(board)}>
+                                <div className="board-preview-content">
                                     <div className="board-title">{board.title}</div>
                                     {board.isStarred &&
                                         <div
@@ -103,7 +103,7 @@ export function BoardPage() {
                     })}
 
                     <li className="board-preview" onClick={toggleCreateBoardModal}>
-                        <div className="baord-preview-content full">
+                        <div className="board-preview-content full">
                             <div className="board-title create-new"><span>Create new board</span></div>
                         </div>
                     </li>

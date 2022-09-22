@@ -6,7 +6,7 @@ import { Routes, Route } from 'react-router'
 import { AppHeader } from './cmps/app-header'
 import './assets/styles/main.scss'
 import { BoardPage } from './pages/board-page'
-import { TaskPreview } from './cmps/Task-Preview'
+import { TaskPreview } from './cmps/task-Preview'
 import { HomePage } from './pages/home-page'
 import { Board } from './cmps/board'
 import { Dnd } from './pages/dnd'
@@ -16,7 +16,7 @@ export class App extends React.Component {
 
     render() {
         return (
-            <div className="app-conatiner">
+            <div className="app-container">
                 <AppHeader />
                 <main>
                     <Routes>

@@ -2,7 +2,9 @@ const initialState = {
     boards: [],
     filterBy: null,
     board: null,
-    resizeLabel: false
+    task:null,
+    resizeLabel: false,
+    imgUrl: '',
 }
 export function boardReducer(state = initialState, action) {
     var newState = state
@@ -18,6 +20,9 @@ export function boardReducer(state = initialState, action) {
             break
         case 'SET_TASK':
             newState = { ...state, task: action.task }
+            break
+        case 'SET_IMG_URL':
+            newState = { ...state, imgUrl: action.imgUrl }
             break
         case 'REMOVE_BOARD':
             const lastRemovedBoard = state.boards.find(board => board._id === action.boardId)
