@@ -11,6 +11,7 @@
     border-radius: 3px;
     display: flex;
     flex-direction: column;
+    // border: 3px solid red;
 
 
     &:hover {
@@ -23,6 +24,7 @@
         text-align: center;
         border-bottom: 1px solid rgba(0, 0, 0, 0.24);
         margin-bottom: 7px;
+
     }
 
     .sub-title{

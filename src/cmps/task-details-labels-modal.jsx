@@ -4,7 +4,6 @@ import { useEffect, useRef } from "react"
 
 export const TaskDetailsLabelModal = ({ labelIds, onSetLabel, toggleLabelsModal, labelModalPos }) => {
 
-
     return (
         <section className="labels-modal" style={{ ...labelModalPos.style }}>
             <img src={closeIcon} onClick={toggleLabelsModal} alt="close" className="close-btn" />

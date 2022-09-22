@@ -5,11 +5,11 @@ import { HiUser } from 'react-icons/hi'
 import { HiArchive } from 'react-icons/hi'
 import { TaskLabel } from './task-label.jsx'
 import { useState, useRef, useEffect } from 'react'
-import { LabelModal } from './label-modal'
 import { TaskMember } from './task-members.jsx'
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { updateTask, removeTask } from '../store/board.actions'
+import { TaskDetailsLabelModal } from './task-details-labels-modal.jsx'
 
 
 export const TaskQuickEdit = ({ task, pos, toggaleQuickEdit, boardId, groupId }) => {
@@ -18,6 +18,9 @@ export const TaskQuickEdit = ({ task, pos, toggaleQuickEdit, boardId, groupId })
   const [labelModal, setLabelModal] = useState(false)
   const [currentBoardId, setBoardId] = useState(null)
   const [currentGroupId, setGroupId] = useState(null)
+  const [labelModalPos, setLabelModalPos] = useState(null)
+  const [windowWidth, setWidth] = useState(window.innerWidth)
+  const [windowHeight, setHeight] = useState(window.innerHeight)
 
   const refLabelModal = useRef(null)
   const dispatch = useDispatch()
@@ -26,10 +29,10 @@ export const TaskQuickEdit = ({ task, pos, toggaleQuickEdit, boardId, groupId })
   useEffect(() => {
     document.addEventListener("click", handleClickOutside, true)
 
-    return(
-      ()=>{
+    return (
+      () => {
         document.removeEventListener("click", handleClickOutside, false)
-        console.log('listener disabled:')}
+      }
     )
   }, [])
 
@@ -63,9 +66,30 @@ export const TaskQuickEdit = ({ task, pos, toggaleQuickEdit, boardId, groupId })
     toggaleQuickEdit()
   }
 
-  const openLabelModal = () => {
-    setLabelModal(true)
+  const toggleLabelModal = (ev) => {
+    if (ev) ev.stopPropagation()
+    if (!labelModal && labelModal !== null) {
+    
+  
+      const parentEl = ev.currentTarget.parentNode
+      console.log('parentEl:', parentEl)
+      const position = parentEl.getBoundingClientRect()
+      
+      const style = _getPosition(ev.target.getBoundingClientRect(), parentEl.getBoundingClientRect())
+      let pos = {
+          position: position,
+          style: style
+      }
+      setLabelModalPos(pos)
+      setLabelModal(true)
+    } else {
+      setLabelModal(false)
+    }
   }
+
+    const _getPosition = (evTarget, parent) => { 
+          return { top: parent.top, left: parent.left }
+    }
 
   const onEditClick = (ev) => {
     ev.stopPropagation()
@@ -79,6 +103,18 @@ export const TaskQuickEdit = ({ task, pos, toggaleQuickEdit, boardId, groupId })
   const onUpdateTask = (task) => {
     dispatch(updateTask(currentBoardId, currentGroupId, task))
   }
+
+  const onSetLabel = (addOrRemove, labelId) => {
+    if (!addOrRemove) {
+      if (!task.labelIds) task.labelIds = [labelId]
+      else task.labelIds.push(labelId)
+    } else {
+      const idx = task.labelIds.findIndex(label => label === labelId)
+      task.labelIds.splice(idx, 1)
+    }
+    onUpdateTask(task)
+  }
+
 
   return <section className="task-quick-edit" onClick={onEditClick} style={{ ...pos.style }}>
     <div className='left-col' style={{ width: pos.position.width }}>
@@ -96,9 +132,15 @@ export const TaskQuickEdit = ({ task, pos, toggaleQuickEdit, boardId, groupId })
       <button className='btn-add' onClick={onEditTaskTitle}>Save</button>
     </div>
     <ul className="quick-edit-actions">
-      <li onClick={()=>{toggaleQuickEdit(undefined,true)}}><FaWindowMaximize /> Open card</li>
-      <li onClick={openLabelModal}><BsTagFill /> Edit labels</li>
-      {labelModal && <section ref={refLabelModal}><LabelModal /></section>}
+      <li onClick={() => { toggaleQuickEdit(undefined, true) }}><FaWindowMaximize /> Open card</li>
+      <li onClick={toggleLabelModal}><BsTagFill /> Edit labels</li>
+      {labelModal && <section ref={refLabelModal}>
+
+        {/* started changing here */}
+        <TaskDetailsLabelModal labelIds={task.labelIds} onSetLabel={onSetLabel} toggleLabelsModal={toggleLabelModal} labelModalPos={labelModalPos}/>
+
+
+      </section>}
       <li><HiUser /> Change members</li>
       <li><FaWindowMaximize /> Change Cover</li>
       <li onClick={onRemoveTask}><HiArchive /> Archive</li>
