@@ -26,8 +26,15 @@ export const BoardEdit = ({ toggleCreateBoardModal }) => {
 
     const onSaveBoard = async (ev) => {
         ev.preventDefault()
+        const activity = {
+            txt: 'created this board',
+            task: {
+                task: "",
+                title: ""
+            }
+        }
         try {
-            const savedBoard = await dispatch(addBoard(board))
+            const savedBoard = await dispatch(addBoard(board, activity))
             navigate(`/board/${savedBoard._id}`)
         } catch (err) {
             console.log('Cannot add board', err)

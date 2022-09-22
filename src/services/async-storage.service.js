@@ -199,7 +199,8 @@ const dataBoards = [
                 ],
                 "style": {}
             }
-        ]
+        ],
+        "activities": []
     },
     {
         "_id": utilService.makeId(),
@@ -297,7 +298,8 @@ const dataBoards = [
                 ],
                 "style": {}
             }
-        ]
+        ],
+        "activities": []
     },
     {
         "_id": utilService.makeId(),
@@ -613,6 +615,35 @@ const dataBoards = [
                     }
                 ],
                 "style": {}
+            }
+        ],
+        "activities": [
+            {
+                "id": "a998",
+                "txt": "changed color",
+                "createdAt": 1663007630419,
+                "byMember": {
+                    "_id": "u999",
+                    "fullname": "Guset",
+                    "imgUrl": null
+                },
+                "task": {
+                    "id": "c701",
+                    "title": "Replace Logo"
+                }
+            }, {
+                "id": "a999",
+                "txt": "added checklist",
+                "createdAt": 1663800630419,
+                "byMember": {
+                    "_id": "u999",
+                    "fullname": "Guset",
+                    "imgUrl": null
+                },
+                "task": {
+                    "id": "c701",
+                    "title": "Becklog-Client"
+                }
             }
         ]
     }

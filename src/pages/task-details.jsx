@@ -22,7 +22,7 @@ import { AttachmentModal } from "../cmps/attachment-modal"
 export const TaskDetails = (props) => {
 
     const imgUrl = useSelector(state => state.boardModule.imgUrl)
-    console.log('imgUrl', imgUrl);
+    // console.log('imgUrl', imgUrl);
 
     const params = useParams()
     const navigate = useNavigate()
@@ -100,8 +100,8 @@ export const TaskDetails = (props) => {
     }
 
 
-    const onUpdateTask = (task) => {
-        dispatch(updateTask(currentBoardId, currentGroupId, task))
+    const onUpdateTask = (task, activity) => {
+        dispatch(updateTask(currentBoardId, currentGroupId, task, activity))
     }
 
     const [register, setTask, task] = useFormRegister({}, onUpdateTask)
@@ -169,19 +169,29 @@ export const TaskDetails = (props) => {
         onUpdateTask(task)
     }
 
-    const onSetMember = (addOrRemove, memberId) => {
+    const onSetMember = (addOrRemove, memberId, fullname) => {
+        const activity = {
+            task: {
+                task: task.id,
+                title: task.title
+            }
+        }
         if (!addOrRemove) {
+            activity.txt = `added ${fullname} to`
             if (!task.memberIds) task.memberIds = [memberId]
             else task.memberIds.push(memberId)
             if (!task.watcedMemberIds) task.watcedMemberIds = [memberId]
             else task.watcedMemberIds.push(memberId)
         } else {
+            activity.txt = `remove ${fullname} from`
+
             const idx = task.memberIds.findIndex(member => member === memberId)
             task.memberIds.splice(idx, 1)
             const watchIdx = task.watcedMemberIds.findIndex(watcedMember => watcedMember === memberId)
             task.watcedMemberIds.splice(watchIdx, 1)
         }
-        onUpdateTask(task)
+
+        onUpdateTask(task, activity)
     }
 
     const onSetLabel = (addOrRemove, labelId) => {
@@ -236,7 +246,7 @@ export const TaskDetails = (props) => {
     }
 
     if (!task) return <div>Loading...</div>
-    console.log('task.desc', task.desc)
+    // console.log('task.desc', task.desc)
     return (
         <section className="task-details-main" >
             <div className="black-screen" onClick={onBack}>

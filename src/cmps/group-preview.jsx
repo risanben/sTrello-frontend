@@ -70,12 +70,27 @@ export const GroupPreview = ({ group, addTask, index, taskRef }) => {
         const groupToSave = { ...group }
         if (groupToSave?.tasks) groupToSave.tasks.push(task)
         else groupToSave.tasks = [task]
-        addTask(groupToSave)
+        const activity = {
+            txt: 'added',
+            groupTitle: ` to ${groupToSave.title}`,
+            task: {
+                task: task.id,
+                title: task.title
+            }
+        }
+        addTask(groupToSave, activity)
         setIsAddTask(!isAddTask)
     }
 
     const onDeleteGroup = (group) => {
-        disapcth(removeGroup(board._id, group.id))
+        const activity = {
+            txt: `archived list  ${group.title}`,
+            task: {
+                task: "",
+                title: ""
+            }
+        }
+        disapcth(removeGroup(board._id, group.id, activity))
     }
 
     const onOpenGroupAction = (ev) => {

@@ -5,11 +5,11 @@ import { useForm } from '../hooks/useForm'
 import { boardService } from '../services/board.service'
 import { useFormRegister } from '../hooks/useFormRegister'
 import { utilService } from '../services/util.service'
+import { addGroup } from '../store/board.actions'
+import { useDispatch } from 'react-redux'
 
-export const GroupEdit = (props) => {
-    const params = useParams()
-    const navigate = useNavigate()
-
+export const GroupEdit = ({ boardId, onAddingGroup }) => {
+    const disapcth = useDispatch()
     const [group, handleChange, setGroup] = useForm({
         id: utilService.makeId(),
         title: '',
@@ -25,11 +25,15 @@ export const GroupEdit = (props) => {
     const onSaveGroup = (ev) => {
         ev.preventDefault()
         if (!group.title) return
-        var board = props.board
-        if (board?.groups) board.groups.push({ ...group })
-        else board.groups = [group]
-        boardService.save({ ...board })
-        props.onAddingGroup()
+        const activity = {
+            txt: `added ${group.title} list to this board`,
+            task: {
+                task: "",
+                title: ""
+            }
+        }
+        disapcth(addGroup(boardId, group, activity))
+        onAddingGroup()
 
     }
 
@@ -48,7 +52,7 @@ export const GroupEdit = (props) => {
                 />
                 <div className="add-list-btn-container">
                     <button className="btn-add">Add list</button>
-                    <div className="btn-close-add" onClick={props.onAddingGroup}></div>
+                    <div className="btn-close-add" onClick={onAddingGroup}></div>
                 </div>
             </form>
         </section>
