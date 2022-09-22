@@ -1,6 +1,7 @@
 import { boardService } from "../services/board.service.js"
 import { userService } from "../services/user.service.js"
 import { showSuccessMsg, showErrorMsg } from '../services/event-bus.service.js'
+import { uploadService } from "../services/upload.service.js"
 
 // Action Creators:
 export function getActionRemoveBoard(boardId) {
@@ -48,6 +49,7 @@ export function getBoard(boardId) {
             })
             return board
         } catch (err) {
+            console.log('Cannot complete the function:', err)
             throw (err)
         }
     }
@@ -115,6 +117,7 @@ export function updateTask(boardId, groupId, taskForUpdate) {
             dispatch(updateBoard(board))
             return board
         } catch (err) {
+            console.log('Cannot complete the function:', err)
             throw err
         }
     }
@@ -135,6 +138,7 @@ export function removeTask(boardId, groupId, taskForUpdate) {
             dispatch(updateBoard(board))
             return board
         } catch (err) {
+            console.log('Cannot complete the function:', err)
             throw err
         }
     }
@@ -155,6 +159,24 @@ export function getTask(boardId, groupId, taskId) {
     }
 }
 
+
+export function getImgUrl(ev) {
+    return async (dispatch) => {
+        try {
+            const imgEv = await uploadService.uploadImg(ev)
+            // const imgUrl = imgEv.secure_url
+            const { imgUrl } = dispatch({
+                type: 'SET_IMG_URL',
+                imgUrl: imgEv.secure_url
+            })
+            console.log('imgUrl-getImgUrl-board action', imgUrl);
+            return imgUrl
+        } catch (err) {
+            console.log('Cannot load img url', err)
+        }
+    }
+}
+
 export function resizeLabel(resizeLabel) {
     return async (dispatch) => {
         try {
@@ -168,6 +190,10 @@ export function resizeLabel(resizeLabel) {
 
         }
     }
+}
+
+export function getUploadedImg(imgUrl) {
+
 }
 /*------------------------------------------------------------------------------*/
 
@@ -194,7 +220,6 @@ export function onRemoveBoardOptimistic(boardId) {
         }
     }
 }
-
 
 export function handleDrag(
     board,

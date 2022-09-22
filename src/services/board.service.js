@@ -41,6 +41,7 @@ async function query(filterBy) {
 
         return boards
     } catch (err) {
+        console.log('Cannot complete the function:', err)
         throw err
     }
 }
@@ -49,6 +50,7 @@ async function getById(boardId) {
         return await storageService.get(STORAGE_KEY, boardId)
     }
     catch (err) {
+        console.log('Cannot complete the function:', err)
         throw err
     }
     // return axios.get(`/api/board/${boardId}`)
@@ -56,8 +58,14 @@ async function getById(boardId) {
 }
 
 async function remove(boardId) {
-    await storageService.remove(STORAGE_KEY, boardId)
-    boardChannel.postMessage(getActionRemoveBoard(boardId))
+    try {
+        await storageService.remove(STORAGE_KEY, boardId)
+        boardChannel.postMessage(getActionRemoveBoard(boardId))
+    }
+    catch (err) {
+        console.log('Cannot complete the function:', err)
+        throw err
+    }
 }
 
 async function removeGroup(boardId, groupId) {
@@ -67,6 +75,7 @@ async function removeGroup(boardId, groupId) {
         boardToUpdate.groups = boardToUpdate.groups.filter(group => group.id !== groupId)
         return await save(boardToUpdate)
     } catch (err) {
+        console.log('Cannot complete the function:', err)
         throw err
     }
 }
@@ -99,6 +108,7 @@ async function getGroupById(boardId, groupId) {
         return board.groups.find(group => group.id === groupId)
     }
     catch (err) {
+        console.log('Cannot complete the function:', err)
         throw err
     }
 }
@@ -110,6 +120,7 @@ async function getTaskById(boardId, groupId, taskId) {
         return task
 
     } catch (err) {
+        console.log('Cannot complete the function:', err)
         throw err
     }
 }

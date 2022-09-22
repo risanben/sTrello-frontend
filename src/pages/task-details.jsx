@@ -4,7 +4,7 @@ import { useNavigate, useParams } from "react-router-dom"
 import { TaskDetailsCoverModal } from "../cmps/task-details-cover-modal"
 import { useFormRegister } from '../hooks/useFormRegister'
 import { useDispatch } from "react-redux"
-import { updateTask, removeTask, getTask, getBoardMembers, resizeLabel } from '../store/board.actions'
+import { updateTask, removeTask, getTask, getBoardMembers, resizeLabel, getImgUrl } from '../store/board.actions'
 import { TaskMember } from "../cmps/task-members"
 import { TaskLabel } from "../cmps/task-label"
 import { TaskDetailsMembersModal } from "../cmps/task-details-members-modal"
@@ -16,8 +16,13 @@ import { GrTextAlignFull, GrAdd, GrAttachment } from 'react-icons/gr'
 import { IoIosArrowDown } from 'react-icons/io'
 import { AbilityCreator } from "../cmps/ability-creator"
 import { TaskDetailsLabelModal } from "../cmps/task-details-labels-modal"
+import { useSelector } from "react-redux"
+import { AttachmentModal } from "../cmps/attachment-modal"
 
 export const TaskDetails = (props) => {
+
+    const imgUrl = useSelector(state => state.boardModule.imgUrl)
+    console.log('imgUrl', imgUrl);
 
     const params = useParams()
     const navigate = useNavigate()
@@ -25,7 +30,6 @@ export const TaskDetails = (props) => {
     const refInput = useRef(null)
     const refDesc = useRef(null)
     const refLabelModal = useRef(null)
-
 
     const [bgColor, setBgColor] = useState(null)
     const [showModal, setShowModal] = useState(null)
@@ -36,6 +40,8 @@ export const TaskDetails = (props) => {
     const [isEditTitle, setEditTitle] = useState(null)
     const [isEditDescription, setEditDescription] = useState(null)
     const [isLabelModal, setIsLabelModal] = useState(null)
+    const [isAttachmentModal, setIsAttachmentModal] = useState(null)
+    const [isAttachedFile, setIsAttachedFile] = useState(null)
     const [currentUser, setCurrentUser] = useState([])
     const [labelModalPos, setLabelModalPos] = useState(null)
     const [windowWidth, setWidth] = useState(window.innerWidth)
@@ -69,6 +75,12 @@ export const TaskDetails = (props) => {
             console.log('listener disabled:')}
         )
       }, [])
+
+    useEffect(() => {
+        setIsAttachmentModal(false)
+        // if (imgUrl) setIsAttachedFile(true)
+        if (imgUrl) onSetAttachment(false)
+    }, [imgUrl])
 
     const handleClickOutside = (e) => {
         if(e) e.preventDefault()
@@ -133,7 +145,10 @@ export const TaskDetails = (props) => {
         } else {
             setIsLabelModal(false)
         }
+    }
 
+    const toggleAttachmentModal = () => {
+        setIsAttachmentModal(!isAttachmentModal)
     }
 
     const _getPosition = (evTarget, parent) => {
@@ -185,6 +200,23 @@ export const TaskDetails = (props) => {
         } else {
             const idx = task.labelIds.findIndex(label => label === labelId)
             task.labelIds.splice(idx, 1)
+        }
+        onUpdateTask(task)
+    }
+
+    const onSetAttachment = (addOrRemove) => {
+        if (!addOrRemove) {
+            const attach = {
+                id: '',
+                linkName:'',
+                imgUrl: imgUrl,
+                addedAt: '',
+            }
+            if (!task.attachments) task.attachments = [imgUrl]
+            else task.attachments.push(imgUrl)
+        } else {
+            const idx = task.attachments.findIndex(img => img === imgUrl)
+            task.attachments.splice(idx, 1)
         }
         onUpdateTask(task)
     }
@@ -303,12 +335,26 @@ export const TaskDetails = (props) => {
                                     </div>
                                 </section>
 
-                                {/* <span className="activity-main-icon"> <GrTextAlignFull /></span>
+                                {task?.attachments && <section className="attachment">
+                                    <div className="attachment-title">
+                                        <span className="icon"><GrAttachment /></span>
+                                        <span className="ability">Attachment</span>
+                                    </div>
+                                    <div className="attachment-body">
+                                        <img className="img-attached" src={`${imgUrl}`} ></img>
+                                        <span className="img-attached">file name</span>
+                                        <span className="Added-at">Added at</span>
+                                        <span className="btn-delete-attachment">Delete</span>
+                                    </div>
+                                </section>}
+                                {isAttachmentModal && <AttachmentModal toggleAttachmentModal={toggleAttachmentModal} />}
+
+                                <span className="activity-main-icon"> <GrTextAlignFull /></span>
                                 <span className="activity-title">Activity</span>
                                 <span className="user-icon"><TaskMember memberIds={currentUser} /></span>
                                 <textarea className="activity-input" placeholder="Write a comment..."></textarea>
                                 <span className="activity-icon">icon</span>
-                                <span className="activity-title">Activity</span> */}
+                                <span className="activity-title">Activity</span> 
                             </div>
 
                             <div className="task-main-container-right">
@@ -328,9 +374,10 @@ export const TaskDetails = (props) => {
                                     <span className="icon"><BsClock /></span>
                                     <span className="ability">Dates</span>
                                 </button>
-                                <button className="btn abilities">
+                                <button className="btn abilities" onClick={toggleAttachmentModal}>
                                     <span className="icon"><GrAttachment /></span>
-                                    <span className="ability">Attachment</span></button>
+                                    <span className="ability">Attachment</span>
+                                </button>
                                 <button className="btn abilities" onClick={onRemoveTask}>
                                     <span className="icon"><HiArchive /> </span>
                                     <span className="ability">Archive</span>

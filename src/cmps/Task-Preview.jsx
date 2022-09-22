@@ -57,7 +57,7 @@ export const TaskPreview = ({ task, groupId, index, taskRef, groupTitle }) => {
         return style
     }
 
-    const toggaleQuickEdit = (ev, openDetails = false) => {
+    const toggleQuickEdit = (ev, openDetails = false) => {
         if (ev) ev.stopPropagation()
 
         if (!isQuickEditOn) {
@@ -137,9 +137,9 @@ export const TaskPreview = ({ task, groupId, index, taskRef, groupTitle }) => {
                         {...provided.dragHandleProps}
                     >
                         <section className="task-preview" onClick={onGoToDetails} >
-                            <div className="btn-quick-edit hide" onClick={toggaleQuickEdit}>
+                            <div className="btn-quick-edit hide" onClick={toggleQuickEdit}>
                             </div>
-                            {isQuickEditOn && <section ref={refQuickEdit}><TaskQuickEdit task={task} boardId={boardIdRef.current} groupId={groupId} pos={quickEditPos} toggaleQuickEdit={toggaleQuickEdit} /></section>}
+                            {isQuickEditOn && <section ref={refQuickEdit}><TaskQuickEdit task={task} boardId={boardIdRef.current} groupId={groupId} pos={quickEditPos} toggaleQuickEdit={toggleQuickEdit} /></section>}
 
                             {!isFullCover && task?.style &&
                                 <div className="task-cover" style={setTaskCoverStyle()}></div>}

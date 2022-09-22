@@ -325,6 +325,22 @@
                         }
                     }
 
+                    .attachment {
+                        display: flex;
+                        flex-direction: column;
+                        .attachment-title{
+                            display: flex;
+                            .icon{
+                                margin-right: 5px ;
+                            }
+                        }
+                        .img-attached {
+                            //////////////////////////////
+                            width: 112px;
+                            height: 80px;
+                        }
+                    }
+
                     .description-icon {
                         width: 24px;
                         height: 24px;
