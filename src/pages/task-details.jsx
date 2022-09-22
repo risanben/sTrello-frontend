@@ -41,7 +41,7 @@ export const TaskDetails = (props) => {
     const [isEditDescription, setEditDescription] = useState(null)
     const [isLabelModal, setIsLabelModal] = useState(null)
     const [isAttachmentModal, setIsAttachmentModal] = useState(null)
-    const [isAttachedFile, setIsAttachedFile] = useState(null)
+    // const [isAttachedFile, setIsAttachedFile] = useState(null)
     const [currentUser, setCurrentUser] = useState([])
     const [labelModalPos, setLabelModalPos] = useState(null)
     const [windowWidth, setWidth] = useState(window.innerWidth)
@@ -159,8 +159,6 @@ export const TaskDetails = (props) => {
         else return { top: parent.top, left: parent.left }
     }
 
-
-
     const onSetColor = (ev) => {
         console.log('ev.target.value', ev.target.value)
         setBgColor(ev.target.value)
@@ -206,12 +204,12 @@ export const TaskDetails = (props) => {
 
     const onSetAttachment = (addOrRemove) => {
         if (!addOrRemove) {
-            const attach = {
-                id: '',
-                linkName:'',
-                imgUrl: imgUrl,
-                addedAt: '',
-            }
+            // const attach = {
+            //     id: '',
+            //     linkName:'',
+            //     imgUrl: imgUrl,
+            //     addedAt: '',
+            // }
             if (!task.attachments) task.attachments = [imgUrl]
             else task.attachments.push(imgUrl)
         } else {
@@ -341,10 +339,10 @@ export const TaskDetails = (props) => {
                                         <span className="ability">Attachment</span>
                                     </div>
                                     <div className="attachment-body">
-                                        <img className="img-attached" src={`${imgUrl}`} ></img>
-                                        <span className="img-attached">file name</span>
-                                        <span className="Added-at">Added at</span>
-                                        <span className="btn-delete-attachment">Delete</span>
+                                        <img className="img-attached" src={`${imgUrl.url}`} ></img>
+                                        <span className="img-attached">{imgUrl.urlName}</span>
+                                        {/* <span className="Added-at">Added at</span>
+                                        <span className="btn-delete-attachment">Delete</span> */}
                                     </div>
                                 </section>}
                                 {isAttachmentModal && <AttachmentModal toggleAttachmentModal={toggleAttachmentModal} />}
