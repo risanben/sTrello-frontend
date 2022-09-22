@@ -29,16 +29,11 @@
         }
     }
 
-    .menu-logo {
-        font-size: 15px;
-        margin-inline-end: 14px;
-    }
 
     .trello-logo {
         font-size: 15px;
         margin-inline-end: 5px;
-        margin-top: 9px;
-
+        margin-top: 6px;
     }
 
     .logo {
@@ -191,7 +186,7 @@
 .app-header.home {
     background-color: white;
     max-height: unset;
-    height: 70px;
+    height: 60px;
     border-bottom: none;
     padding: 0 0 0 13px;
 
@@ -243,6 +238,18 @@
         &:hover {
             background: rgb(6, 85, 204);
         }
+    }
+
+    .sign-up {
+        display: block;
+        background-color: rgb(0, 101, 255);
+        color: white;
+        font-family: sans-serif;
+        font-size: 1.25rem;
+        letter-spacing: 1.4px;
+        padding: 0 25px;
+        height: 100%;
+        text-align: center;
     }
 
     .space {

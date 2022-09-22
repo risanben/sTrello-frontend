@@ -10,6 +10,7 @@ import { TaskPreview } from './cmps/task-preview'
 import { HomePage } from './pages/home-page'
 import { Board } from './cmps/board'
 import { Dnd } from './pages/dnd'
+import { Signup } from './pages/signup'
 
 
 export class App extends React.Component {
@@ -22,6 +23,7 @@ export class App extends React.Component {
                     <Routes>
                         <Route path='' element={<HomePage />} />
                         <Route path='dnd' element={<Dnd />} />
+                        <Route path='signup' element={<Signup />} />
                         <Route path="board" element={<BoardPage />} />
                         <Route path="board/:id" element={<Board />} />
                         <Route path="board/:id" element={<TaskPreview />} />

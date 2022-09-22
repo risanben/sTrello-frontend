@@ -20,26 +20,23 @@ export const TaskDetailsLabel = ({ labelIds, onSetLabel }) => {
                         <div className="label-details-body" style={{ backgroundColor: currentLabel.color }}>
                             {currentLabel.title}
                         </div>
-
                     </div>
                     <button className="btn-edit"><img src={PenIcon} alt="pen" className="pen-icon" /></button>
                 </li>
             )
-
         }
-
     }
 
     const checkTaskLabel = (labelId1) => {
         if (!labelIds) return
         const checkedLabel = labelIds.find(labelId => labelId === labelId1)
-        console.log('checkedLabel:', checkedLabel)
+        // console.log('checkedLabel:', checkedLabel)
         if (checkedLabel) return true
         return false
         // return checkedLabel
     }
 
-    console.log('rendered:')
+    // console.log('rendered:')
     return (
         <div className="task-label-container" >
             <ul className="label-list">
