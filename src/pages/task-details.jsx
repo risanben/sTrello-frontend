@@ -42,6 +42,10 @@ export const TaskDetails = (props) => {
     const [isAttachmentModal, setIsAttachmentModal] = useState(null)
     const [isAttachedFile, setIsAttachedFile] = useState(null)
     const [currentUser, setCurrentUser] = useState([])
+    const [labelModalPos, setLabelModalPos] = useState(null)
+    const [windowWidth, setWidth] = useState(window.innerWidth)
+    const [windowHeight, setHeight] = useState(window.innerHeight)
+
 
     useEffect(() => {
         const { boardId, groupId, taskId, groupTitle } = props
@@ -61,7 +65,15 @@ export const TaskDetails = (props) => {
 
     useEffect(() => {
         document.addEventListener("click", handleClickOutside, true)
-    }, [])
+        document.addEventListener("click", handleClickOutsideLabelModal, true)
+    
+        return(
+          ()=>{
+            document.removeEventListener("click", handleClickOutside, false)
+            document.removeEventListener("click", handleClickOutsideLabelModal, false)
+            console.log('listener disabled:')}
+        )
+      }, [])
 
     useEffect(() => {
         setIsAttachmentModal(false)
@@ -70,12 +82,21 @@ export const TaskDetails = (props) => {
     }, [imgUrl])
 
     const handleClickOutside = (e) => {
+        if(e) e.preventDefault()
         if (!refInput.current) return
         if (!refInput.current.contains(e.target)) {
             setEditTitle(false)
             setEditDescription(false)
         }
     }
+    const handleClickOutsideLabelModal = (e) => {
+        if(e) e.preventDefault()
+        if (!refLabelModal.current) return
+        if (!refLabelModal.current.contains(e.target)) {
+            toggleLabelsModal()
+        }
+    }
+   
 
     const onUpdateTask = (task) => {
         dispatch(updateTask(currentBoardId, currentGroupId, task))
@@ -102,14 +123,43 @@ export const TaskDetails = (props) => {
         setIsMemberModal(!isMemberModal)
     }
 
-    const toggleLabelsModal = () => {
-        console.log('clicked')
-        setIsLabelModal(!isLabelModal)
-    }
+    const toggleLabelsModal = (ev) => {
+        if (ev) ev.stopPropagation()
+
+        if (!isLabelModal && isLabelModal !== null) {
+            const parentEl = ev.currentTarget.parentNode
+            const position = parentEl.getBoundingClientRect()
+            //updating screen size before calc
+            setWidth(window.innerWidth)
+            setHeight(window.innerHeight)
+
+            const style = _getPosition(ev.target.getBoundingClientRect(), parentEl.getBoundingClientRect())
+            let pos = {
+                position: position,
+                style: style
+            }
+
+            setLabelModalPos(pos)
+            setIsLabelModal(!isLabelModal)
+        } else {
+            setIsLabelModal(false)
+        }
 
     const toggleAttachmentModal = () => {
         setIsAttachmentModal(!isAttachmentModal)
     }
+
+    }
+
+    const _getPosition = (evTarget, parent) => {
+        const { left, top } = evTarget
+        if (windowHeight - top < 160) return { top: top - 180, }
+        if (windowWidth - left < 200) return { right: 15, top }
+        if (windowWidth - left < 420 && windowHeight - top < 160) return { top: top - 160, right: 15 }
+        else return { top: parent.top, left: parent.left }
+    }
+
+
 
     const onSetColor = (ev) => {
         console.log('ev.target.value', ev.target.value)
@@ -195,6 +245,7 @@ export const TaskDetails = (props) => {
     }
 
     if (!task) return <div>Loading...</div>
+    console.log('task.desc', task.desc)
     return (
         <section className="task-details-main" >
             <div className="black-screen" onClick={onBack}>
@@ -250,7 +301,9 @@ export const TaskDetails = (props) => {
                                             </div>
                                         </div>
                                     </section>}
-                                    {isLabelModal && <TaskDetailsLabelModal labelIds={task.labelIds} onSetLabel={onSetLabel} toggleLabelsModal={toggleLabelsModal} />}
+                                    <section ref={refLabelModal}>
+                                    {isLabelModal && <TaskDetailsLabelModal labelIds={task.labelIds} onSetLabel={onSetLabel} toggleLabelsModal={toggleLabelsModal} labelModalPos={labelModalPos} />}
+                                    </section>
                                 </section>{/*tags*/}
 
                                 {task?.dueDate && <section className="due-date">
@@ -264,18 +317,21 @@ export const TaskDetails = (props) => {
                                             <div className="due-date-dropdwon-icon"><IoIosArrowDown /></div>
                                         </div>
                                     </div>
+                                    <label htmlFor=""></label>
                                 </section>}
 
                                 <section className={`description-container ${isEditDescription ? 'edit-status' : ''}`}>
-                                    <span className="description-icon"> <GrTextAlignFull /> </span>
-                                    <span className="description-title">Description</span>
-                                    {!isEditDescription &&
-                                        <button onClick={toggleEditDescription}>Edit</button>}
-                                    <div className="description-edit">
+                                    <div className="description-main-content">
+                                        <div className="description-icon"><GrTextAlignFull /></div>
+                                        <div className="description-title">Description</div>
+                                        {!isEditDescription && task.desc && <button className="btn-edit-description" onClick={toggleEditDescription}>Edit</button>}
+                                    </div>
+                                    {!isEditDescription && !task.desc && <div className="description-placeholder" onClick={toggleEditDescription} >Add a more detailed description...</div>}
+                                    {!isEditDescription && <div className="static-description" onClick={toggleEditDescription}>{task.description}</div>}
+                                    <div className="description-edit-container">
                                         {isEditDescription && <textarea className="description-textarea" {...register('description', 'text')} value={task.description} ref={refInput} />}
-                                        {isEditDescription && <button className="btn save" onClick={toggleEditDescription}>Save</button>}
-                                        {isEditDescription && <button>Cancel</button>}
-                                        {!isEditDescription && <span className="static-description" onClick={toggleEditDescription}>{task.description} </span>}
+                                        {isEditDescription && <button className="btn-desc save" onClick={toggleEditDescription}>Save</button>}
+                                        {isEditDescription && <button className="btn-desc close">Cancel</button>}
                                     </div>
                                 </section>
 
@@ -298,7 +354,7 @@ export const TaskDetails = (props) => {
                                 <span className="user-icon"><TaskMember memberIds={currentUser} /></span>
                                 <textarea className="activity-input" placeholder="Write a comment..."></textarea>
                                 <span className="activity-icon">icon</span>
-                                <span className="activity-title">Activity</span>
+                                <span className="activity-title">Activity</span> */}
                             </div>
 
                             <div className="task-main-container-right">
@@ -325,6 +381,10 @@ export const TaskDetails = (props) => {
                                 <button className="btn abilities" onClick={onRemoveTask}>
                                     <span className="icon"><HiArchive /> </span>
                                     <span className="ability">Archive</span>
+                                </button>
+                                <button className="btn abilities" onClick={onRemoveTask}>
+                                    <span className="icon"><FaWindowMaximize /> </span>
+                                    <span className="ability">Cover</span>
                                 </button>
                                 {/* </section> */}
 

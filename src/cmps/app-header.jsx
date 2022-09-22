@@ -22,6 +22,12 @@ export function AppHeader() {
 
     useEffect(() => {
         document.addEventListener("click", handleClickOutside, true)
+
+        return(
+            ()=>{
+              document.removeEventListener("click", handleClickOutside, false)
+              console.log('listener disabled:')}
+          )
     }, [])
 
     useEffect(() => {

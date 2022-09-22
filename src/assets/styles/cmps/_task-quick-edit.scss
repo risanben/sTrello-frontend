@@ -65,7 +65,8 @@
         // border: 2px solid green;
 
 
-        li {
+        & >li {
+        // border: 2px solid green;
             margin: 10px auto;
             padding: 4px;
             margin: 0;
