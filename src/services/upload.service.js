@@ -19,7 +19,7 @@ function uploadImg(ev) {
   })
     .then(res => res.json())
     .then(res => {
-     id:utilService.makeId,
+    //  id:utilService.makeId,
       console.log(res);
       console.log(res.asset_id);
       console.log(res.original_filename);

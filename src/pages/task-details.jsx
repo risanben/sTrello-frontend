@@ -29,6 +29,7 @@ export const TaskDetails = (props) => {
     const dispatch = useDispatch()
     const refInput = useRef(null)
     const refDesc = useRef(null)
+    const refLabelModal = useRef(null)
 
     const [bgColor, setBgColor] = useState(null)
     const [showModal, setShowModal] = useState(null)
@@ -144,11 +145,10 @@ export const TaskDetails = (props) => {
         } else {
             setIsLabelModal(false)
         }
+    }
 
     const toggleAttachmentModal = () => {
         setIsAttachmentModal(!isAttachmentModal)
-    }
-
     }
 
     const _getPosition = (evTarget, parent) => {
@@ -354,7 +354,7 @@ export const TaskDetails = (props) => {
                                 <span className="user-icon"><TaskMember memberIds={currentUser} /></span>
                                 <textarea className="activity-input" placeholder="Write a comment..."></textarea>
                                 <span className="activity-icon">icon</span>
-                                <span className="activity-title">Activity</span> */}
+                                <span className="activity-title">Activity</span> 
                             </div>
 
                             <div className="task-main-container-right">

@@ -1,4 +1,4 @@
-import { TaskPreview } from './task-Preview'
+import { TaskPreview } from './task-preview.jsx'
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
 import React, { useEffect, useRef } from 'react'
 

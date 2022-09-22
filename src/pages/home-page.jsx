@@ -4,7 +4,6 @@ import { Hero } from '../cmps/hero'
 import { SneakPeek } from '../cmps/sneak-peek'
 
 
-
 export const HomePage = () => {
 
     return (
