@@ -13,7 +13,7 @@ export const Hero = () => {
                 </p>
                 <Link to="/board" className='try-yourself'>
                     Try it yourself
-                </Link>           
+                </Link>
             </article>
             <section className='hero-img-container'>
                 <img className="hero-img" src={heroImg} alt="" />
