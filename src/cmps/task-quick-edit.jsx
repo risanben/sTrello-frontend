@@ -11,7 +11,6 @@ import { useDispatch } from 'react-redux'
 import { updateTask, removeTask } from '../store/board.actions'
 import { TaskDetailsLabelModal } from './task-details-labels-modal.jsx'
 
-
 export const TaskQuickEdit = ({ task, pos, toggaleQuickEdit, boardId, groupId }) => {
 
   const [title, setTaskTitle] = useState(task.title)
@@ -69,27 +68,24 @@ export const TaskQuickEdit = ({ task, pos, toggaleQuickEdit, boardId, groupId })
   const toggleLabelModal = (ev) => {
     if (ev) ev.stopPropagation()
     if (!labelModal && labelModal !== null) {
-    
-  
+
       const parentEl = ev.currentTarget.parentNode
-      console.log('parentEl:', parentEl)
       const position = parentEl.getBoundingClientRect()
-      
-      const style = _getPosition(ev.target.getBoundingClientRect(), parentEl.getBoundingClientRect())
+
+      const style = {
+        top: ev.target.offsetTop,
+        left: ev.target.offsetLeft
+      }
       let pos = {
-          position: position,
-          style: style
+        position: position,
+        style: style
       }
       setLabelModalPos(pos)
       setLabelModal(true)
     } else {
       setLabelModal(false)
     }
-  }
-
-    const _getPosition = (evTarget, parent) => { 
-          return { top: parent.top, left: parent.left }
-    }
+  }            
 
   const onEditClick = (ev) => {
     ev.stopPropagation()
@@ -137,9 +133,7 @@ export const TaskQuickEdit = ({ task, pos, toggaleQuickEdit, boardId, groupId })
       {labelModal && <section ref={refLabelModal}>
 
         {/* started changing here */}
-        <TaskDetailsLabelModal labelIds={task.labelIds} onSetLabel={onSetLabel} toggleLabelsModal={toggleLabelModal} labelModalPos={labelModalPos}/>
-
-
+        <TaskDetailsLabelModal labelIds={task.labelIds} onSetLabel={onSetLabel} toggleLabelsModal={toggleLabelModal} labelModalPos={labelModalPos} />
       </section>}
       <li><HiUser /> Change members</li>
       <li><FaWindowMaximize /> Change Cover</li>
