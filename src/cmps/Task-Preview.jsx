@@ -83,11 +83,22 @@ export const TaskPreview = ({ task, groupId, index, taskRef, groupTitle }) => {
     }
 
     const _getPosition = (evTarget, parent) => {
-        const { left, top } = evTarget
-        if (windowHeight - top < 160) return { top: top - 180, }
-        if (windowWidth - left < 200) return { right: 15, top }
-        if (windowWidth - left < 420 && windowHeight - top < 160) return { top: top - 160, right: 15 }
-        else return { top: parent.top, left: parent.left }
+        // const { left, top } = evTarget
+        // if (windowHeight - top < 160) {
+        //     console.log('entered first:')
+        //     return { top: top - 180, }
+        // }
+        // if (windowWidth - left < 200) {
+        //     console.log('entered second')
+        //     return { right: 15, top }
+        // }
+        // if (windowWidth - left < 420 && windowHeight - top < 160){ 
+        //     console.log('ent third')
+        //     return { top: top - 160, right: 15 }}
+        // else{
+            // console.log('entered else:')
+            return { top: parent.top, left: parent.left }
+        // }
     }
 
     const onGoToDetails = () => {

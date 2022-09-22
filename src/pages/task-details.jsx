@@ -24,6 +24,7 @@ export const TaskDetails = (props) => {
     const dispatch = useDispatch()
     const refInput = useRef(null)
     const refDesc = useRef(null)
+    const refLabelModal = useRef(null)
 
 
     const [bgColor, setBgColor] = useState(null)
@@ -36,6 +37,10 @@ export const TaskDetails = (props) => {
     const [isEditDescription, setEditDescription] = useState(null)
     const [isLabelModal, setIsLabelModal] = useState(null)
     const [currentUser, setCurrentUser] = useState([])
+    const [labelModalPos, setLabelModalPos] = useState(null)
+    const [windowWidth, setWidth] = useState(window.innerWidth)
+    const [windowHeight, setHeight] = useState(window.innerHeight)
+
 
     useEffect(() => {
         const { boardId, groupId, taskId, groupTitle } = props
@@ -55,15 +60,32 @@ export const TaskDetails = (props) => {
 
     useEffect(() => {
         document.addEventListener("click", handleClickOutside, true)
-    }, [])
+        document.addEventListener("click", handleClickOutsideLabelModal, true)
+    
+        return(
+          ()=>{
+            document.removeEventListener("click", handleClickOutside, false)
+            document.removeEventListener("click", handleClickOutsideLabelModal, false)
+            console.log('listener disabled:')}
+        )
+      }, [])
 
     const handleClickOutside = (e) => {
+        if(e) e.preventDefault()
         if (!refInput.current) return
         if (!refInput.current.contains(e.target)) {
             setEditTitle(false)
             setEditDescription(false)
         }
     }
+    const handleClickOutsideLabelModal = (e) => {
+        if(e) e.preventDefault()
+        if (!refLabelModal.current) return
+        if (!refLabelModal.current.contains(e.target)) {
+            toggleLabelsModal()
+        }
+    }
+   
 
     const onUpdateTask = (task) => {
         dispatch(updateTask(currentBoardId, currentGroupId, task))
@@ -90,10 +112,39 @@ export const TaskDetails = (props) => {
         setIsMemberModal(!isMemberModal)
     }
 
-    const toggleLabelsModal = () => {
-        console.log('clicked')
-        setIsLabelModal(!isLabelModal)
+    const toggleLabelsModal = (ev) => {
+        if (ev) ev.stopPropagation()
+
+        if (!isLabelModal && isLabelModal !== null) {
+            const parentEl = ev.currentTarget.parentNode
+            const position = parentEl.getBoundingClientRect()
+            //updating screen size before calc
+            setWidth(window.innerWidth)
+            setHeight(window.innerHeight)
+
+            const style = _getPosition(ev.target.getBoundingClientRect(), parentEl.getBoundingClientRect())
+            let pos = {
+                position: position,
+                style: style
+            }
+
+            setLabelModalPos(pos)
+            setIsLabelModal(!isLabelModal)
+        } else {
+            setIsLabelModal(false)
+        }
+
     }
+
+    const _getPosition = (evTarget, parent) => {
+        const { left, top } = evTarget
+        if (windowHeight - top < 160) return { top: top - 180, }
+        if (windowWidth - left < 200) return { right: 15, top }
+        if (windowWidth - left < 420 && windowHeight - top < 160) return { top: top - 160, right: 15 }
+        else return { top: parent.top, left: parent.left }
+    }
+
+
 
     const onSetColor = (ev) => {
         console.log('ev.target.value', ev.target.value)
@@ -218,7 +269,9 @@ export const TaskDetails = (props) => {
                                             </div>
                                         </div>
                                     </section>}
-                                    {isLabelModal && <TaskDetailsLabelModal labelIds={task.labelIds} onSetLabel={onSetLabel} toggleLabelsModal={toggleLabelsModal} />}
+                                    <section ref={refLabelModal}>
+                                    {isLabelModal && <TaskDetailsLabelModal labelIds={task.labelIds} onSetLabel={onSetLabel} toggleLabelsModal={toggleLabelsModal} labelModalPos={labelModalPos} />}
+                                    </section>
                                 </section>{/*tags*/}
 
                                 {task?.dueDate && <section className="due-date">
