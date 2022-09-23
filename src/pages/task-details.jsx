@@ -24,10 +24,10 @@ import { AttachmentNameEditModal } from "../cmps/task-details-modals/attachment-
 import { DatePicker } from '../cmps/date-picker'
 import { DatePickerModal } from "../cmps/date-picker-modal"
 
-export const TaskDetails = ({ boardId, groupId, taskId, groupTitle, closeModal }) => {
+export const TaskDetails = ({ boardId, groupId, taskId,taskFromProps, groupTitle, closeModal }) => {
 
     const imgJson = useSelector(state => state.boardModule.imgJson)
-    const currentTask = useSelector(state => state.boardModule.task)
+    // const currentTask = useSelector(state => state.boardModule.task)
 
     const params = useParams()
     const navigate = useNavigate()
@@ -70,27 +70,21 @@ export const TaskDetails = ({ boardId, groupId, taskId, groupTitle, closeModal }
         setGroupId(groupId)
         if (!taskId) return
         setGroupTitle(groupTitle)
+        setTask(taskFromProps)
+
+        if (task?.style?.bg.color) setBgColor(task.style.bg.color)
 
         //When we operate with a real user we will place here a user sent to the component and use is ID
         setCurrentUser(['u102'])
 
-        dispatch(getTask(boardId, groupId, taskId))
-        // loadTasks(boardId, groupId, taskId)
+        // dispatch(getTask(boardId, groupId, taskId))
 
     }, [])
 
-    // const loadTasks = async (boardId, groupId, taskId) => {
-    //     try {
-    //         await dispatch(getTask(boardId, groupId, taskId))
-    //     } catch (err) {
-    //         throw err
-    //     }
-    // }
-
-    useEffect(() => {
-        if (currentTask?.style?.bg.color) setBgColor(currentTask.style.bg.color)
-        setTask(currentTask)
-    }, [currentTask])
+    // useEffect(() => {
+    //     if (currentTask?.style?.bg.color) setBgColor(currentTask.style.bg.color)
+    //     setTask(currentTask)
+    // }, [currentTask])
 
     useEffect(() => {
         setIsAttachmentModal(false)
@@ -275,12 +269,12 @@ export const TaskDetails = ({ boardId, groupId, taskId, groupTitle, closeModal }
         }
         console.log('task', task);
         onUpdateTask(task)
-        navigate(`/board/${currentBoardId}/${currentGroupId}/${task.id}`)
+        // navigate(`/board/${currentBoardId}/${currentGroupId}/${task.id}`)
     }
 
     const onRemoveTask = () => {
         dispatch(removeTask(currentBoardId, currentGroupId, task))
-        navigate(`/board/${currentBoardId}`)
+        // navigate(`/board/${currentBoardId}`)
     }
 
     const onSaveTask = async (ev) => {
