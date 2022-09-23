@@ -335,7 +335,7 @@ export const TaskDetails = ({ boardId, groupId, taskId,taskFromProps, groupTitle
 
     if (!task) return <div>Loading...</div>
     // console.log('task.desc', task.desc)
-    console.log('cmp DETAILS rendered, task is:', props.task)
+    console.log('cmp DETAILS rendered, task is:', task)
 
     return (
         <section className="task-details-main" >
@@ -458,11 +458,11 @@ export const TaskDetails = ({ boardId, groupId, taskId,taskFromProps, groupTitle
                                 {isAttachmentModal && <AttachmentModal toggleAttachmentModal={toggleAttachmentModal} attachModalPos={attachModalPos} />}
 
                                 {/* CHECKLISTS */}
-                                {props.task?.checklists?.length && <TaskChecklist 
-                                checklists={props.task.checklists}
+                                {taskFromProps?.checklists?.length && <TaskChecklist 
+                                checklists={taskFromProps.checklists}
                                 board={currentBoardId} 
                                 group={currentGroupId} 
-                                task={props.task}
+                                task={taskFromProps}
                                 />}
 
                                 <div className="activity-container">
