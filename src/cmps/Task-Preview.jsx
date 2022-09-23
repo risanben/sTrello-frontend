@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from "react"
 import { TaskQuickEdit } from "./task-quick-edit"
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
 import { TaskDetails } from '../pages/task-details'
-import { useNavigate,useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import { TaskLabel } from "./task-label"
 import { TaskMember } from "./task-members"
 import { updateTask } from "../store/board.actions"
@@ -108,7 +108,9 @@ export const TaskPreview = ({ task, groupId, index, taskRef, groupTitle }) => {
 
     const onGoToDetails = () => {
         const boardId = params.id
-        navigate(`/board/${boardId}/${groupId}/${task.id}`)
+        // navigate(`/board/${boardId}/${groupId}/${task.id}`)
+        setShowDetailsModal(!showDetailsModal)
+
     }
 
     const onDarkClicked = (e) => {
@@ -211,7 +213,7 @@ export const TaskPreview = ({ task, groupId, index, taskRef, groupTitle }) => {
                 )
                 }
             </Draggable >
-            {/* {showDetailsModal && <TaskDetails boardId={boardIdRef.current} groupId={groupId} taskId={task.id} task={task} closeModal={onGoToDetails} groupTitle={groupTitle} />} */}
+            {showDetailsModal && <TaskDetails boardId={boardIdRef.current} groupId={groupId} taskId={task.id} task={task} closeModal={onGoToDetails} groupTitle={groupTitle} />}
         </React.Fragment >
     )
 }

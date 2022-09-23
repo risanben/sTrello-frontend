@@ -24,7 +24,7 @@ import { AttachmentNameEditModal } from "../cmps/task-details-modals/attachment-
 import { DatePicker } from '../cmps/date-picker'
 import { DatePickerModal } from "../cmps/date-picker-modal"
 
-export const TaskDetails = (/*props*/) => {
+export const TaskDetails = ({ boardId, groupId, taskId, groupTitle, closeModal }) => {
 
     const imgJson = useSelector(state => state.boardModule.imgJson)
     const currentTask = useSelector(state => state.boardModule.task)
@@ -58,7 +58,7 @@ export const TaskDetails = (/*props*/) => {
 
     useEffect(() => {
         // const { boardId, groupId, taskId, groupTitle } = props
-        const { taskId, boardId, groupId } = params
+        // const { taskId, boardId, groupId } = params
 
         console.log('boardId', boardId);
         console.log('groupId', groupId);
@@ -69,7 +69,7 @@ export const TaskDetails = (/*props*/) => {
         if (!groupId) return
         setGroupId(groupId)
         if (!taskId) return
-        // setGroupTitle(groupTitle)
+        setGroupTitle(groupTitle)
 
         //When we operate with a real user we will place here a user sent to the component and use is ID
         setCurrentUser(['u102'])
@@ -140,8 +140,9 @@ export const TaskDetails = (/*props*/) => {
     const [register, setTask, task] = useFormRegister({}, onUpdateTask)
 
     const onBack = () => {
-        // props.closeModal()
-        navigate(`/board/${currentBoardId}`)
+        closeModal()
+
+        // navigate(`/board/${currentBoardId}`)
     }
 
     const toggleEditTitle = () => {
