@@ -21,9 +21,9 @@ export const AttachmentNameEditModal = ({ toggleEditAttachNameModal,attachment,t
         console.log('urlName',urlName);
         console.log('attachment',attachment);
         console.log('attachmentForUpdate',attachmentForUpdate);
-        task.attachments.map(attach => (attach.id === attachment.id) ? attachmentForUpdate : attach)
-        console.log('task',task);
-        onUpdateTask(task)
+        const updatedTask= task.attachments.map(attach => (attach.id === attachment.id) ? attachmentForUpdate : attach)
+        console.log('task',updatedTask);
+        onUpdateTask(updatedTask)
    
     }
 

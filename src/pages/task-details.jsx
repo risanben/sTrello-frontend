@@ -127,6 +127,10 @@ export const TaskDetails = ({ boardId, groupId, taskId,taskFromProps, groupTitle
 
     const onUpdateTask = (taskForUpdate, activity = { "_id": "u999", "fullname": "Guset", "imgUrl": null }) => {
         if (!taskForUpdate) return
+        console.log('taskForUpdate',taskForUpdate);
+        console.log('currentBoardId',currentBoardId);
+        console.log('taskForUpdate',taskForUpdate);
+        console.log('taskForUpdate',taskForUpdate);
         dispatch(updateTask(currentBoardId, currentGroupId, taskForUpdate, activity))
         // navigate(`/board/${currentBoardId}/${currentGroupId}/${task.id}`)
     }
@@ -400,7 +404,7 @@ export const TaskDetails = ({ boardId, groupId, taskId,taskFromProps, groupTitle
                                     </div>
                                 </section>
 
-                                {task?.attachments && <section className="attachment">
+                                {task?.attachments && task?.attachments?.length>0 && <section className="attachment">
                                     <div className="attachment-title">
                                         <span className="icon"><GrAttachment /></span>
                                         <span className="ability">Attachment</span>
