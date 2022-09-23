@@ -119,6 +119,7 @@ export function updateTask(boardId, groupId, taskForUpdate, activity) {
             const groupForUpdate = await boardService.getGroupById(boardId, groupId)
             const board = await boardService.getById(boardId)
 
+            console.log('taskForUpdate', taskForUpdate);
             const idx = groupForUpdate.tasks.findIndex(task => task.id === taskForUpdate.id)
             groupForUpdate.tasks.splice(idx, 1, taskForUpdate)
 
@@ -126,6 +127,12 @@ export function updateTask(boardId, groupId, taskForUpdate, activity) {
             board.groups.splice(groupIdx, 1, groupForUpdate)
 
             dispatch(updateBoard(board, activity))
+
+            dispatch({
+                type: 'SET_TASK',
+                task: taskForUpdate
+            })
+
             return board
         } catch (err) {
             console.log('Cannot complete the function:', err)

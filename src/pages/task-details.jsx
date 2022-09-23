@@ -4,7 +4,7 @@ import { useNavigate, useParams } from "react-router-dom"
 import { TaskDetailsCoverModal } from "../cmps/task-details-cover-modal"
 import { useFormRegister } from '../hooks/useFormRegister'
 import { useDispatch } from "react-redux"
-import { updateTask, removeTask, getTask, getBoardMembers, resizeLabel, getImgUrl } from '../store/board.actions'
+import { updateTask, removeTask, getTask, getBoardMembers, resizeLabel, getImgUrl, getImgFromUrl } from '../store/board.actions'
 import { TaskMember } from "../cmps/task-members"
 import { TaskLabel } from "../cmps/task-label"
 import { TaskDetailsMembersModal } from "../cmps/task-details-members-modal"
@@ -18,10 +18,14 @@ import { AbilityCreator } from "../cmps/ability-creator"
 import { TaskDetailsLabelModal } from "../cmps/task-details-labels-modal"
 import { useSelector } from "react-redux"
 import { AttachmentModal } from "../cmps/attachment-modal"
+import moment from 'moment'
+import { TaskDetailsAttachments } from "../cmps/task-details-sections/task-details-attachments"
+import { AttachmentNameEditModal } from "../cmps/task-details-modals/attachment-name-edit-modal"
 
-export const TaskDetails = (props) => {
+export const TaskDetails = (/*props*/) => {
 
     const imgJson = useSelector(state => state.boardModule.imgJson)
+    const currentTask = useSelector(state => state.boardModule.task)
 
     const params = useParams()
     const navigate = useNavigate()
@@ -39,29 +43,57 @@ export const TaskDetails = (props) => {
     const [isEditTitle, setEditTitle] = useState(null)
     const [isEditDescription, setEditDescription] = useState(null)
     const [isLabelModal, setIsLabelModal] = useState(null)
-    const [isAttachmentModal, setIsAttachmentModal] = useState(null)
+    const [isAttachmentModal, setIsAttachmentModal] = useState(false)
+    const [isEditAttachName, setIsEditAttachName] = useState(false)
     // const [isAttachedFile, setIsAttachedFile] = useState(null)
     const [currentUser, setCurrentUser] = useState([])
     const [labelModalPos, setLabelModalPos] = useState(null)
+    const [attachModalPos, setAttachModalPos] = useState(null)
     // const [windowWidth, setWidth] = useState(window.innerWidth)
     // const [windowHeight, setHeight] = useState(window.innerHeight)
 
 
     useEffect(() => {
-        const { boardId, groupId, taskId, groupTitle } = props
+        // const { boardId, groupId, taskId, groupTitle } = props
+        const { taskId, boardId, groupId } = params
+
+        console.log('boardId', boardId);
+        console.log('groupId', groupId);
+        console.log('taskId', taskId);
 
         if (!boardId) return
         setBoardId(boardId)
         if (!groupId) return
         setGroupId(groupId)
         if (!taskId) return
-        setGroupTitle(groupTitle)
+        // setGroupTitle(groupTitle)
+
         //When we operate with a real user we will place here a user sent to the component and use is ID
         setCurrentUser(['u102'])
 
-        if (props?.task?.style?.bg.color) setBgColor(props.task.style.bg.color)
-        setTask(props.task)
+        dispatch(getTask(boardId, groupId, taskId))
+        // loadTasks(boardId, groupId, taskId)
+
     }, [])
+
+    // const loadTasks = async (boardId, groupId, taskId) => {
+    //     try {
+    //         await dispatch(getTask(boardId, groupId, taskId))
+    //     } catch (err) {
+    //         throw err
+    //     }
+    // }
+
+    useEffect(() => {
+        if (currentTask?.style?.bg.color) setBgColor(currentTask.style.bg.color)
+        setTask(currentTask)
+    }, [currentTask])
+
+    useEffect(() => {
+        setIsAttachmentModal(false)
+        // if (imgUrl) setIsAttachedFile(true)
+        if (imgJson) onSetAttachment(false)
+    }, [imgJson])
 
     useEffect(() => {
         // document.addEventListener("click", handleClickOutside, true)
@@ -75,12 +107,6 @@ export const TaskDetails = (props) => {
             }
         )
     }, [])
-
-    useEffect(() => {
-        setIsAttachmentModal(false)
-        // if (imgUrl) setIsAttachedFile(true)
-        if (imgJson) onSetAttachment(false)
-    }, [imgJson])
 
     const handleClickOutside = (e) => {
         if (e) e.preventDefault()
@@ -98,15 +124,21 @@ export const TaskDetails = (props) => {
         }
     }
 
+    const getTime = (imgJson) => {
+        return moment(imgJson.addedAt).fromNow()
+    }
 
-    const onUpdateTask = (task, activity) => {
-        dispatch(updateTask(currentBoardId, currentGroupId, task, activity))
+    const onUpdateTask = (taskForUpdate, activity = { "_id": "u999", "fullname": "Guset", "imgUrl": null }) => {
+        if (!taskForUpdate) return
+        dispatch(updateTask(currentBoardId, currentGroupId, taskForUpdate, activity))
+        // navigate(`/board/${currentBoardId}/${currentGroupId}/${task.id}`)
     }
 
     const [register, setTask, task] = useFormRegister({}, onUpdateTask)
 
     const onBack = () => {
-        props.closeModal()
+        // props.closeModal()
+        navigate(`/board/${currentBoardId}`)
     }
 
     const toggleEditTitle = () => {
@@ -122,6 +154,10 @@ export const TaskDetails = (props) => {
 
     const toggleMembersModal = () => {
         setIsMemberModal(!isMemberModal)
+    }
+
+    const toggleEditAttachNameModal = () => {
+        setIsEditAttachName(!isEditAttachName)
     }
 
     const toggleLabelsModal = (ev) => {
@@ -147,8 +183,27 @@ export const TaskDetails = (props) => {
         }
     }
 
-    const toggleAttachmentModal = () => {
-        setIsAttachmentModal(!isAttachmentModal)
+    const toggleAttachmentModal = (ev) => {
+        // setIsAttachmentModal(!isAttachmentModal)
+
+        if (!isAttachmentModal) {
+            const parentEl = ev.currentTarget.parentNode
+            const position = parentEl.getBoundingClientRect()
+
+            const style = {
+                top: ev.target.offsetTop,
+                left: ev.target.offsetLeft
+            }
+            let pos = {
+                position: position,
+                style: style
+            }
+
+            setAttachModalPos(pos)
+            setIsAttachmentModal(!isAttachmentModal)
+        } else {
+            setIsAttachmentModal(false)
+        }
     }
 
     const onSetColor = (newColor) => {
@@ -201,18 +256,22 @@ export const TaskDetails = (props) => {
             const idx = task.labelIds.findIndex(label => label === labelId)
             task.labelIds.splice(idx, 1)
         }
+
         onUpdateTask(task)
     }
 
-    const onSetAttachment = (addOrRemove) => {
+    const onSetAttachment = (addOrRemove, attachId /*, taskToAttach, boardId, groupId*/) => {
+        // console.log('taskToAttach', taskToAttach, 'boardId:', boardId, "groupId:", groupId);
         if (!addOrRemove) {
             if (!task.attachments) task.attachments = [(imgJson)]
-            else task.attachments.push((imgJson))
+            else task.attachments.unshift((imgJson))
         } else {
-            const idx = task.attachments.findIndex(img => img.id === imgJson.id)
+            const idx = task.attachments.findIndex(img => img.id === attachId)
             task.attachments.splice(idx, 1)
         }
+        console.log('task', task);
         onUpdateTask(task)
+        navigate(`/board/${currentBoardId}/${currentGroupId}/${task.id}`)
     }
 
     const onRemoveTask = () => {
@@ -336,21 +395,39 @@ export const TaskDetails = (props) => {
                                         <span className="icon"><GrAttachment /></span>
                                         <span className="ability">Attachment</span>
                                     </div>
-                                    <div className="attachment-body">
-                                        <img className="img-attached" src={`${imgJson.url}`} ></img>
-                                        <span className="img-attached">{imgJson.urlName}</span>
-                                        {/* <span className="Added-at">Added at</span>
-                                        <span className="btn-delete-attachment">Delete</span> */}
+                                    <div className="attachment-body-and-btn">
+                                        {task?.attachments.map(attachment => {
+                                            return <div className="attachment-body" key={attachment.id}>
+                                                <img className="img-attached" src={`${attachment.url}`} />
+                                                <div className="attachment-details">
+                                                    <span className="url-name">{attachment.urlName}.{attachment.fileFormat ? attachment.fileFormat : ''}</span>
+                                                    <div className="add-time-and-btns">
+                                                        <span className="Added-at">Added {getTime(attachment)}</span>
+                                                        <span>-</span>
+                                                        <span key={`${attachment.id}-dBtn`} className="btn-delete-attachment" onClick={() => onSetAttachment(true, attachment.id)} title={'Delete attachment for ever'}>Delete</span>
+                                                        <span>-</span>
+                                                        <span key={`${attachment.id}-eBtn`} className="btn-delete-attachment" onClick={() => toggleEditAttachNameModal()} title={'Edit attachment name'}>Edit</span>
+                                                        {isEditAttachName && <AttachmentNameEditModal toggleEditAttachNameModal={toggleEditAttachNameModal} attachment={attachment} task={task} onUpdateTask={onUpdateTask} />}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        })}
+                                        <button className="btn attachment" onClick={toggleAttachmentModal}>
+                                            <span className="ability">Add an attachment</span>
+                                        </button>
                                     </div>
                                 </section>}
-                                {isAttachmentModal && <AttachmentModal toggleAttachmentModal={toggleAttachmentModal} />}
+                                {/* {task?.attachments && <TaskDetailsAttachments task={task} imgJson={imgJson} onSetAttachment={onSetAttachment} currentBoardId={currentBoardId} currentGroupId={currentGroupId} />} */}
+                                {isAttachmentModal && <AttachmentModal toggleAttachmentModal={toggleAttachmentModal} attachModalPos={attachModalPos} />}
 
-                                <span className="activity-main-icon"> <GrTextAlignFull /></span>
-                                <span className="activity-title">Activity</span>
-                                <span className="user-icon"><TaskMember memberIds={currentUser} /></span>
-                                <textarea className="activity-input" placeholder="Write a comment..."></textarea>
-                                <span className="activity-icon">icon</span>
-                                <span className="activity-title">Activity</span>
+                                <div className="activity-container">
+                                    <span className="activity-main-icon"> <GrTextAlignFull /></span>
+                                    <span className="activity-title">Activity</span>
+                                    <span className="user-icon"><TaskMember memberIds={currentUser} /></span>
+                                    <textarea className="activity-input" placeholder="Write a comment..."></textarea>
+                                    <span className="activity-icon">icon</span>
+                                    <span className="activity-title">Activity</span>
+                                </div>
                             </div>
 
                             <div className="task-main-container-right">

@@ -7,7 +7,6 @@ const initialState = {
     imgJson: '',
 }
 export function boardReducer(state = initialState, action) {
-    console.log('action- from reducer', action);
     var newState = state
     var boards
     var board
@@ -23,8 +22,6 @@ export function boardReducer(state = initialState, action) {
             newState = { ...state, task: action.task }
             break
         case 'SET_IMG_URL':
-            console.log('action- from reducer', action);
-            console.log('action- from reducer', action.imgJson);
             newState = { ...state, imgJson: (action.imgJson) }
             break
         case 'REMOVE_BOARD':
@@ -56,7 +53,7 @@ export function boardReducer(state = initialState, action) {
     // console.log('Prev State:', state)
     // console.log('Action:', action)
     // console.log('New State:', newState)
-    console.log('newState', newState);
+
     return newState
 
 }

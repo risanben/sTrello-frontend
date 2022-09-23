@@ -6,8 +6,7 @@ import { useState } from 'react'
 import { utilService } from '../services/util.service'
 
 
-export const AttachmentModal = ({ toggleAttachmentModal }) => {
-
+export const AttachmentModal = ({ toggleAttachmentModal,attachModalPos }) => {
     const [url, setUrl] = useState(null)
     const [urlName, setUrlName] = useState(null)
 
@@ -38,14 +37,13 @@ export const AttachmentModal = ({ toggleAttachmentModal }) => {
             urlName,
             addedAt: new Date(),
         }
-        console.log('urlJson-AttachmentModal', imgJson);
         dispatch(getImgFromUrl(imgJson))
     }
 
     // const [register, setUrl, url] = useFormRegister({}, onUpdateInput)
 
     return (
-        <section className="labels-modal">
+        <section className="labels-modal" style={{ ...attachModalPos.style }}>
             <img src={closeIcon} onClick={toggleAttachmentModal} alt="close" className="close-btn" />
             {/* <div onClick={toggleAttachmentModal}>X</div> */}
             <div className="labels-modal-title">Attach from...</div>

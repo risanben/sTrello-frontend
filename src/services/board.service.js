@@ -122,6 +122,7 @@ async function getGroupById(boardId, groupId) {
 }
 
 function _addActivityDetails(activity) {
+    console.log('activity!!!!',activity);
     activity.id = utilService.makeId()
     activity.createdAt = Date.now()
     activity.byMember = {

@@ -21,10 +21,13 @@ function uploadImg(ev) {
   })
     .then(res => res.json())
     .then(res => {
+      console.log(res);
       return ({
-        id: res.asset_id,
+        // id: res.asset_id,
+        id: utilService.makeId(),
         urlName: res.original_filename,
         url: res.secure_url,
+        fileFormat:res.format,
         addedAt: new Date()
       })
     })
