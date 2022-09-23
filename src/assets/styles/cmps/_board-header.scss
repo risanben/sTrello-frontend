@@ -78,21 +78,48 @@
             }
         }
 
-        .menu-img-container {
+        .activitis-menu-container {
+            font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
             display: flex;
-            // border: 1px solid red;
-            background-color: rgba(0, 0, 0, 0.074);
-            padding: 6px;
+            align-items: center;
+            justify-content: center;
+            background-color: #00000014;
+            // padding-left: 32px;
+            height: 32px;
+            line-height: 32px;
+            margin: 0 4px 4px 0;
+            // padding: 6px;
             border-radius: 3px;
+            margin-top: 4px;
             margin-left: 10px;
-            &:hover{
-                background-color: rgba(0, 0, 0, 0.140);
+
+            &:hover {
+                background-color: #00000024;
+                cursor: pointer;
             }
+
+            .show-menu-title {
+                font-size: 14px;
+                font-weight: 400;
+                padding-right: 12px;
+            }
+
+            .menu-img-container {
+                width: 32px;
+                height: 32px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+            }
+
             .dots {
-                max-width: 20px;
+                width: 16px;
+                height: 16px;
 
             }
         }
+
 
     }
 }

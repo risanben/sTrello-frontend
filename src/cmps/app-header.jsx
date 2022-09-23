@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { NavLink, Link, useParams, useLocation } from 'react-router-dom'
+import { NavLink, Link, useParams, useLocation, useNavigate } from 'react-router-dom'
 import { ImTrello } from 'react-icons/im'
 import { BsFillGrid3X3GapFill, BsChevronDown } from 'react-icons/bs'
 import { IoSearchSharp } from 'react-icons/io5'
@@ -11,7 +11,7 @@ import { BoardEdit } from './board-edit'
 import { loadBoards } from '../store/board.actions';
 
 export function AppHeader() {
-
+    const navigate = useNavigate()
     const refOne = useRef(null)
     const [results, setResults] = useState(null)
     const [isSearching, setIsSearching] = useState(false)
@@ -23,11 +23,12 @@ export function AppHeader() {
     useEffect(() => {
         document.addEventListener("click", handleClickOutside, true)
 
-        return(
-            ()=>{
-              document.removeEventListener("click", handleClickOutside, false)
-              console.log('listener disabled:')}
-          )
+        return (
+            () => {
+                // document.removeEventListener("click", handleClickOutside, false)
+                // console.log('listener disabled:')
+            }
+        )
     }, [])
 
     useEffect(() => {
@@ -67,7 +68,7 @@ export function AppHeader() {
     const showCreateBoardMoadl = () => {
         setIsCreateModalOpen(!isCreateModalOpen)
     }
-
+    if ('params', pathname.includes("/signup")) return <section></section>
     return (
         <section className={_getHeaderClass()}>
             {/* <BsFillGrid3X3GapFill className='menu-logo' /> */}
@@ -114,8 +115,9 @@ export function AppHeader() {
 
             <section className='space'></section>
             <button className='login'>Log in</button>
+            {/* <Link to='/signup' className='sign-up'>Sing up</Link> */}
 
-        </section>
+        </section >
     )
 
 }

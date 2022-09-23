@@ -66,10 +66,11 @@ export function removeBoard(boardId) {
     }
 }
 
-export function removeGroup(boardId, groupId) {
+export function addGroup(boardId, group, activity) {
     return async (dispatch) => {
         try {
-            const updateBoard = await boardService.removeGroup(boardId, groupId)
+            console.log('group', group)
+            const updateBoard = await boardService.addGroupToBoard(boardId, group, activity)
             return dispatch(getActionUpdateBoard(updateBoard))
         } catch (err) {
             console.log('Cannot remove board', err)
@@ -77,10 +78,21 @@ export function removeGroup(boardId, groupId) {
     }
 }
 
-export function addBoard(board) {
+export function removeGroup(boardId, groupId, activity) {
     return async (dispatch) => {
         try {
-            const savedBoard = await boardService.save(board)
+            const updateBoard = await boardService.removeGroup(boardId, groupId, activity)
+            return dispatch(getActionUpdateBoard(updateBoard))
+        } catch (err) {
+            console.log('Cannot remove board', err)
+        }
+    }
+}
+
+export function addBoard(board, activity) {
+    return async (dispatch) => {
+        try {
+            const savedBoard = await boardService.save(board, activity)
             return dispatch(getActionAddBoard(savedBoard)).board
         } catch (err) {
             console.log('Cannot add board', err)
@@ -88,10 +100,12 @@ export function addBoard(board) {
     }
 }
 
-export function updateBoard(board) {
+export function updateBoard(board, activity) {
     return async (dispatch) => {
         try {
-            const savedBoard = await boardService.save(board)
+            console.log('activity from action', activity)
+
+            const savedBoard = await boardService.save(board, activity)
             return dispatch(getActionUpdateBoard(savedBoard))
         } catch (err) {
             showErrorMsg('Cannot update board')
@@ -102,19 +116,28 @@ export function updateBoard(board) {
 
 
 /*------------------------------------------------------------------------------*/
-export function updateTask(boardId, groupId, taskForUpdate) {
+export function updateTask(boardId, groupId, taskForUpdate, activity) {
     return async (dispatch) => {
         try {
+            console.log('activity from UPDATETASK', activity)
+
             const groupForUpdate = await boardService.getGroupById(boardId, groupId)
             const board = await boardService.getById(boardId)
 
+            console.log('taskForUpdate', taskForUpdate);
             const idx = groupForUpdate.tasks.findIndex(task => task.id === taskForUpdate.id)
             groupForUpdate.tasks.splice(idx, 1, taskForUpdate)
 
             const groupIdx = board.groups.findIndex(group => group.id === groupForUpdate.id)
             board.groups.splice(groupIdx, 1, groupForUpdate)
 
-            dispatch(updateBoard(board))
+            dispatch(updateBoard(board, activity))
+
+            dispatch({
+                type: 'SET_TASK',
+                task: taskForUpdate
+            })
+
             return board
         } catch (err) {
             console.log('Cannot complete the function:', err)
@@ -159,23 +182,35 @@ export function getTask(boardId, groupId, taskId) {
     }
 }
 
-
 export function getImgUrl(ev) {
     return async (dispatch) => {
         try {
             const imgEv = await uploadService.uploadImg(ev)
-            // const imgUrl = imgEv.secure_url
-            const { imgUrl } = dispatch({
+            console.log('imgEv- board action', imgEv);
+            const { imgJson } = dispatch({
                 type: 'SET_IMG_URL',
-                imgUrl: imgEv.secure_url
+                imgJson: imgEv
             })
-            console.log('imgUrl-getImgUrl-board action', imgUrl);
-            return imgUrl
         } catch (err) {
             console.log('Cannot load img url', err)
         }
     }
 }
+
+export function getImgFromUrl(currentImgJson) {
+    return async (dispatch) => {
+        try {
+            const { imgJson } = dispatch({
+                type: 'SET_IMG_URL',
+                imgJson: currentImgJson
+            })
+            return imgJson
+        } catch (err) {
+            console.log('Cannot load img url', err)
+        }
+    }
+}
+
 
 export function resizeLabel(resizeLabel) {
     return async (dispatch) => {

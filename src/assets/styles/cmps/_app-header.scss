@@ -240,6 +240,18 @@
         }
     }
 
+    .sign-up {
+        display: block;
+        background-color: rgb(0, 101, 255);
+        color: white;
+        font-family: sans-serif;
+        font-size: 1.25rem;
+        letter-spacing: 1.4px;
+        padding: 0 25px;
+        height: 100%;
+        text-align: center;
+    }
+
     .space {
         flex-grow: 1;
         display: block;

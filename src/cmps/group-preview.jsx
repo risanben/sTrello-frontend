@@ -35,8 +35,8 @@ export const GroupPreview = ({ group, addTask, index, taskRef }) => {
 
         return (
             () => {
-                document.removeEventListener("click", handleClickOutside, false)
-                console.log('listener disabled:')
+                // document.removeEventListener("click", handleClickOutside, false)
+                // console.log('listener disabled:')
             }
         )
 
@@ -70,12 +70,27 @@ export const GroupPreview = ({ group, addTask, index, taskRef }) => {
         const groupToSave = { ...group }
         if (groupToSave?.tasks) groupToSave.tasks.push(task)
         else groupToSave.tasks = [task]
-        addTask(groupToSave)
+        const activity = {
+            txt: 'added',
+            groupTitle: ` to ${groupToSave.title}`,
+            task: {
+                id: task.id,
+                title: task.title
+            }
+        }
+        addTask(groupToSave, activity)
         setIsAddTask(!isAddTask)
     }
 
     const onDeleteGroup = (group) => {
-        disapcth(removeGroup(board._id, group.id))
+        const activity = {
+            txt: `archived list  ${group.title}`,
+            task: {
+                id: "",
+                title: ""
+            }
+        }
+        disapcth(removeGroup(board._id, group.id, activity))
     }
 
     const onOpenGroupAction = (ev) => {

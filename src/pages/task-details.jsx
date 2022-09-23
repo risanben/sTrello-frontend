@@ -4,7 +4,7 @@ import { useNavigate, useParams } from "react-router-dom"
 import { TaskDetailsCoverModal } from "../cmps/task-details-cover-modal"
 import { useFormRegister } from '../hooks/useFormRegister'
 import { useDispatch } from "react-redux"
-import { updateTask, removeTask, getTask, getBoardMembers, resizeLabel, getImgUrl } from '../store/board.actions'
+import { updateTask, removeTask, getTask, getBoardMembers, resizeLabel, getImgUrl, getImgFromUrl } from '../store/board.actions'
 import { TaskMember } from "../cmps/task-members"
 import { TaskLabel } from "../cmps/task-label"
 import { TaskDetailsMembersModal } from "../cmps/task-details-members-modal"
@@ -18,14 +18,18 @@ import { AbilityCreator } from "../cmps/ability-creator"
 import { TaskDetailsLabelModal } from "../cmps/task-details-labels-modal"
 import { useSelector } from "react-redux"
 import { AttachmentModal } from "../cmps/attachment-modal"
+import moment from 'moment'
+import { TaskDetailsAttachments } from "../cmps/task-details-sections/task-details-attachments"
+import { AttachmentNameEditModal } from "../cmps/task-details-modals/attachment-name-edit-modal"
+import { DatePicker } from '../cmps/date-picker'
+import { DatePickerModal } from "../cmps/date-picker-modal"
 import { ChecklistModal } from "../cmps/checklist-modal"
 import { TaskChecklist } from "../cmps/task-checklist"
 
-export const TaskDetails = (props) => {
+export const TaskDetails = ({ boardId, groupId, taskId,taskFromProps, groupTitle, closeModal }) => {
 
-
-    const imgUrl = useSelector(state => state.boardModule.imgUrl)
-    // console.log('imgUrl', imgUrl);
+    const imgJson = useSelector(state => state.boardModule.imgJson)
+    // const currentTask = useSelector(state => state.boardModule.task)
 
     const params = useParams()
     const navigate = useNavigate()
@@ -43,19 +47,27 @@ export const TaskDetails = (props) => {
     const [isEditTitle, setEditTitle] = useState(null)
     const [isEditDescription, setEditDescription] = useState(null)
     const [isLabelModal, setIsLabelModal] = useState(null)
-    const [isAttachmentModal, setIsAttachmentModal] = useState(null)
-    const [isAttachedFile, setIsAttachedFile] = useState(null)
+    const [isAttachmentModal, setIsAttachmentModal] = useState(false)
+    const [isEditAttachName, setIsEditAttachName] = useState(false)
+    // const [isAttachedFile, setIsAttachedFile] = useState(null)
     const [currentUser, setCurrentUser] = useState([])
     const [labelModalPos, setLabelModalPos] = useState(null)
     const [isChecklistModal, setIsChecklistModal] = useState(false)
     const [checklistModalPos, setChecklistModalPos] = useState(null)
 
+    const [attachModalPos, setAttachModalPos] = useState(null)
     // const [windowWidth, setWidth] = useState(window.innerWidth)
     // const [windowHeight, setHeight] = useState(window.innerHeight)
+    const [isDatePickerOpen, setIsDatePickerOpen] = useState(null)
 
 
     useEffect(() => {
-        const { boardId, groupId, taskId, groupTitle } = props
+        // const { boardId, groupId, taskId, groupTitle } = props
+        // const { taskId, boardId, groupId } = params
+
+        console.log('boardId', boardId);
+        console.log('groupId', groupId);
+        console.log('taskId', taskId);
 
         if (!boardId) return
         setBoardId(boardId)
@@ -63,31 +75,40 @@ export const TaskDetails = (props) => {
         setGroupId(groupId)
         if (!taskId) return
         setGroupTitle(groupTitle)
+        setTask(taskFromProps)
+
+        if (task?.style?.bg.color) setBgColor(task.style.bg.color)
+
         //When we operate with a real user we will place here a user sent to the component and use is ID
         setCurrentUser(['u102'])
 
-        if (props?.task?.style?.bg.color) setBgColor(props.task.style.bg.color)
-        setTask(props.task)
+        // dispatch(getTask(boardId, groupId, taskId))
+
     }, [])
 
-    useEffect(() => {
-        document.addEventListener("click", handleClickOutside, true)
-        document.addEventListener("click", handleClickOutsideLabelModal, true)
-
-        return (
-            () => {
-                document.removeEventListener("click", handleClickOutside, false)
-                document.removeEventListener("click", handleClickOutsideLabelModal, false)
-                console.log('listener disabled:')
-            }
-        )
-    }, [])
+    // useEffect(() => {
+    //     if (currentTask?.style?.bg.color) setBgColor(currentTask.style.bg.color)
+    //     setTask(currentTask)
+    // }, [currentTask])
 
     useEffect(() => {
         setIsAttachmentModal(false)
         // if (imgUrl) setIsAttachedFile(true)
-        if (imgUrl) onSetAttachment(false)
-    }, [imgUrl])
+        if (imgJson) onSetAttachment(false)
+    }, [imgJson])
+
+    useEffect(() => {
+        // document.addEventListener("click", handleClickOutside, true)
+        // document.addEventListener("click", handleClickOutsideLabelModal, true)
+
+        return (
+            () => {
+                // document.removeEventListener("click", handleClickOutside, false)
+                // document.removeEventListener("click", handleClickOutsideLabelModal, false)
+                // console.log('listener disabled:')
+            }
+        )
+    }, [])
 
     const handleClickOutside = (e) => {
         if (e) e.preventDefault()
@@ -105,15 +126,26 @@ export const TaskDetails = (props) => {
         }
     }
 
+    const getTime = (imgJson) => {
+        return moment(imgJson.addedAt).fromNow()
+    }
 
-    const onUpdateTask = (task) => {
-        dispatch(updateTask(currentBoardId, currentGroupId, task))
+    const onUpdateTask = (taskForUpdate, activity = { "_id": "u999", "fullname": "Guset", "imgUrl": null }) => {
+        if (!taskForUpdate) return
+        console.log('taskForUpdate',taskForUpdate);
+        console.log('currentBoardId',currentBoardId);
+        console.log('taskForUpdate',taskForUpdate);
+        console.log('taskForUpdate',taskForUpdate);
+        dispatch(updateTask(currentBoardId, currentGroupId, taskForUpdate, activity))
+        // navigate(`/board/${currentBoardId}/${currentGroupId}/${task.id}`)
     }
 
     const [register, setTask, task] = useFormRegister({}, onUpdateTask)
 
     const onBack = () => {
-        props.closeModal()
+        closeModal()
+
+        // navigate(`/board/${currentBoardId}`)
     }
 
     const toggleEditTitle = () => {
@@ -145,6 +177,10 @@ export const TaskDetails = (props) => {
         }
     }
 
+    const toggleEditAttachNameModal = () => {
+        setIsEditAttachName(!isEditAttachName)
+    }
+
     const toggleLabelsModal = (ev) => {
         if (ev) ev.stopPropagation()
 
@@ -168,40 +204,69 @@ export const TaskDetails = (props) => {
         }
     }
 
-    const toggleAttachmentModal = () => {
-        setIsAttachmentModal(!isAttachmentModal)
+    const toggleAttachmentModal = (ev) => {
+        // setIsAttachmentModal(!isAttachmentModal)
+
+        if (!isAttachmentModal) {
+            const parentEl = ev.currentTarget.parentNode
+            const position = parentEl.getBoundingClientRect()
+
+            const style = {
+                top: ev.target.offsetTop,
+                left: ev.target.offsetLeft
+            }
+            let pos = {
+                position: position,
+                style: style
+            }
+
+            setAttachModalPos(pos)
+            setIsAttachmentModal(!isAttachmentModal)
+        } else {
+            setIsAttachmentModal(false)
+        }
     }
 
-    const onSetColor = (ev) => {
-        console.log('ev.target.value', ev.target.value)
-        setBgColor(ev.target.value)
-        if (!task.style) task.style = { bg: { color: ev.target.value } }
-        task.style.bg.color = ev.target.value
+    const onSetColor = (newColor) => {
+        console.log('color', newColor)
+        if (!task.style) task.style = { bg: { color: newColor } }
+        task.style.bg.color = newColor
         task.style.bg.imgUrl = null
+        setBgColor(newColor)
         onUpdateTask(task)
     }
 
-    const onSetImg = (imgUrl) => {
-        if (!task.style) task.style = { bg: { imgUrl } }
-        task.style.bg.imgUrl = imgUrl
+    const onSetImg = (imgJson) => {
+        if (!task.style) task.style = { bg: { imgUrl: imgJson.url } }
+        task.style.bg.imgUrl = imgJson.url
         task.style.bg.color = null
         setBgColor(null)
         onUpdateTask(task)
     }
 
-    const onSetMember = (addOrRemove, memberId) => {
+    const onSetMember = (addOrRemove, memberId, fullname) => {
+        const activity = {
+            task: {
+                id: task.id,
+                title: task.title
+            }
+        }
         if (!addOrRemove) {
+            activity.txt = `added ${fullname} to`
             if (!task.memberIds) task.memberIds = [memberId]
             else task.memberIds.push(memberId)
             if (!task.watcedMemberIds) task.watcedMemberIds = [memberId]
             else task.watcedMemberIds.push(memberId)
         } else {
+            activity.txt = `remove ${fullname} from`
+
             const idx = task.memberIds.findIndex(member => member === memberId)
             task.memberIds.splice(idx, 1)
             const watchIdx = task.watcedMemberIds.findIndex(watcedMember => watcedMember === memberId)
             task.watcedMemberIds.splice(watchIdx, 1)
         }
-        onUpdateTask(task)
+
+        onUpdateTask(task, activity)
     }
 
     const onSetLabel = (addOrRemove, labelId) => {
@@ -212,29 +277,27 @@ export const TaskDetails = (props) => {
             const idx = task.labelIds.findIndex(label => label === labelId)
             task.labelIds.splice(idx, 1)
         }
+
         onUpdateTask(task)
     }
 
-    const onSetAttachment = (addOrRemove) => {
+    const onSetAttachment = (addOrRemove, attachId /*, taskToAttach, boardId, groupId*/) => {
+        // console.log('taskToAttach', taskToAttach, 'boardId:', boardId, "groupId:", groupId);
         if (!addOrRemove) {
-            const attach = {
-                id: '',
-                linkName: '',
-                imgUrl: imgUrl,
-                addedAt: '',
-            }
-            if (!task.attachments) task.attachments = [imgUrl]
-            else task.attachments.push(imgUrl)
+            if (!task.attachments) task.attachments = [(imgJson)]
+            else task.attachments.unshift((imgJson))
         } else {
-            const idx = task.attachments.findIndex(img => img === imgUrl)
+            const idx = task.attachments.findIndex(img => img.id === attachId)
             task.attachments.splice(idx, 1)
         }
+        console.log('task', task);
         onUpdateTask(task)
+        // navigate(`/board/${currentBoardId}/${currentGroupId}/${task.id}`)
     }
 
     const onRemoveTask = () => {
         dispatch(removeTask(currentBoardId, currentGroupId, task))
-        navigate(`/board/${currentBoardId}`)
+        // navigate(`/board/${currentBoardId}`)
     }
 
     const onSaveTask = async (ev) => {
@@ -252,7 +315,19 @@ export const TaskDetails = (props) => {
 
     const onCompleteDueDate = () => {
         task.dueDate.isDone = !task.dueDate.isDone
-        onUpdateTask(task)
+        const dueDateAction = task.dueDate.isDone ? 'complete' : 'incomplete'
+        const activity = {
+            txt: `marked the due date on ${task.title} ${dueDateAction}`,
+            task: {
+                id: task.id,
+                title: ""
+            }
+        }
+        onUpdateTask(task, activity)
+    }
+
+    const onToggleDatePicker = () => {
+        setIsDatePickerOpen(!isDatePickerOpen)
     }
 
 
@@ -268,13 +343,14 @@ export const TaskDetails = (props) => {
 
                 <section className="task-details-container" onClick={clickedOnModal}>
 
-                    {task?.style && <section className="task-cover" style={{ backgroundColor: bgColor }} >
+                    {task?.style && <section className="task-cover"/* style={{ backgroundColor:bgColor }} */>
+                        <div className="color-cover" style={{ backgroundColor: bgColor }}></div>
                         <button onClick={onBack} className="btn close"></button>
                         {task?.style?.bg?.imgUrl && <div className="img-cover" style={{ backgroundImage: `url(${task.style.bg.imgUrl})` }} ></div>}
                         <div onClick={onShowModal} className="btn cover">
                             <span className="bts-icon"><FaWindowMaximize /></span>
                             <span className="btn-cover-txt">Cover</span>
-                            {showModal && <TaskDetailsCoverModal onSetColor={onSetColor} onSetImg={onSetImg} />}
+                            {showModal && <TaskDetailsCoverModal onSetColor={onSetColor} onSetImg={onSetImg} onShowModal={onShowModal} />}
                         </div>
                     </section>}
 
@@ -351,19 +427,35 @@ export const TaskDetails = (props) => {
                                     </div>
                                 </section>
 
-                                {task?.attachments && <section className="attachment">
+                                {task?.attachments && task?.attachments?.length>0 && <section className="attachment">
                                     <div className="attachment-title">
                                         <span className="icon"><GrAttachment /></span>
                                         <span className="ability">Attachment</span>
                                     </div>
-                                    <div className="attachment-body">
-                                        <img className="img-attached" src={`${imgUrl}`} ></img>
-                                        <span className="img-attached">file name</span>
-                                        <span className="Added-at">Added at</span>
-                                        <span className="btn-delete-attachment">Delete</span>
+                                    <div className="attachment-body-and-btn">
+                                        {task?.attachments.map(attachment => {
+                                            return <div className="attachment-body" key={attachment.id}>
+                                                <img className="img-attached" src={`${attachment.url}`} />
+                                                <div className="attachment-details">
+                                                    <span className="url-name">{attachment.urlName}.{attachment.fileFormat ? attachment.fileFormat : ''}</span>
+                                                    <div className="add-time-and-btns">
+                                                        <span className="Added-at">Added {getTime(attachment)}</span>
+                                                        <span>-</span>
+                                                        <span key={`${attachment.id}-dBtn`} className="btn-delete-attachment" onClick={() => onSetAttachment(true, attachment.id)} title={'Delete attachment for ever'}>Delete</span>
+                                                        <span>-</span>
+                                                        <span key={`${attachment.id}-eBtn`} className="btn-delete-attachment" onClick={() => toggleEditAttachNameModal()} title={'Edit attachment name'}>Edit</span>
+                                                        {isEditAttachName && <AttachmentNameEditModal toggleEditAttachNameModal={toggleEditAttachNameModal} attachment={attachment} task={task} onUpdateTask={onUpdateTask} />}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        })}
+                                        <button className="btn attachment" onClick={toggleAttachmentModal}>
+                                            <span className="ability">Add an attachment</span>
+                                        </button>
                                     </div>
                                 </section>}
-                                {isAttachmentModal && <AttachmentModal toggleAttachmentModal={toggleAttachmentModal} />}
+                                {/* {task?.attachments && <TaskDetailsAttachments task={task} imgJson={imgJson} onSetAttachment={onSetAttachment} currentBoardId={currentBoardId} currentGroupId={currentGroupId} />} */}
+                                {isAttachmentModal && <AttachmentModal toggleAttachmentModal={toggleAttachmentModal} attachModalPos={attachModalPos} />}
 
                                 {/* CHECKLISTS */}
                                 {props.task?.checklists?.length && <TaskChecklist 
@@ -373,12 +465,14 @@ export const TaskDetails = (props) => {
                                 task={props.task}
                                 />}
 
-                                <span className="activity-main-icon"> <GrTextAlignFull /></span>
-                                <span className="activity-title">Activity</span>
-                                <span className="user-icon"><TaskMember memberIds={currentUser} /></span>
-                                <textarea className="activity-input" placeholder="Write a comment..."></textarea>
-                                <span className="activity-icon">icon</span>
-                                <span className="activity-title">Activity</span>
+                                <div className="activity-container">
+                                    <span className="activity-main-icon"> <GrTextAlignFull /></span>
+                                    <span className="activity-title">Activity</span>
+                                    <span className="user-icon"><TaskMember memberIds={currentUser} /></span>
+                                    <textarea className="activity-input" placeholder="Write a comment..."></textarea>
+                                    <span className="activity-icon">icon</span>
+                                    <span className="activity-title">Activity</span>
+                                </div>
                             </div>
 
                             <div className="task-main-container-right">
@@ -390,12 +484,14 @@ export const TaskDetails = (props) => {
                                     <span className="icon"><BsTagFill /></span>
                                     <span className="ability">Labels</span>
                                 </button>
+                                {/* {isDatePickerOpen && <DatePicker />} */}
+                                {isDatePickerOpen && <DatePickerModal />}
                                 <button className="btn abilities" onClick={toggleChecklistModal}>
                                     <span className="icon"><BsCheck2Square /></span>
                                     <span className="ability">Checklist</span>
                                 </button>
                                 {isChecklistModal && <ChecklistModal toggleChecklistModal={toggleChecklistModal} pos={checklistModalPos} boardId={currentBoardId} groupId={currentGroupId} task={task} />}
-                                <button className="btn abilities">
+                                <button className="btn abilities" onClick={onToggleDatePicker}>
                                     <span className="icon"><BsClock /></span>
                                     <span className="ability">Dates</span>
                                 </button>
@@ -403,13 +499,13 @@ export const TaskDetails = (props) => {
                                     <span className="icon"><GrAttachment /></span>
                                     <span className="ability">Attachment</span>
                                 </button>
+                                <button className="btn abilities" onClick={onShowModal}>
+                                    <span className="icon"><FaWindowMaximize /> </span>
+                                    <span className="ability">Cover</span>
+                                </button>
                                 <button className="btn abilities" onClick={onRemoveTask}>
                                     <span className="icon"><HiArchive /> </span>
                                     <span className="ability">Archive</span>
-                                </button>
-                                <button className="btn abilities" onClick={onRemoveTask}>
-                                    <span className="icon"><FaWindowMaximize /> </span>
-                                    <span className="ability">Cover</span>
                                 </button>
                                 {/* </section> */}
 

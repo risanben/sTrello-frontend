@@ -26,81 +26,86 @@
         flex-direction: column;
         margin: 48px 0 80px;
         overflow-y: visible;
-        max-height: 100%;
+        // max-height: 100%;
         width: 770px;
         border-radius: 3px;
         background-color: #f4f5f7;
 
-        .task-cover {
-            border-radius: 3px;
-            // grid-column: 1/-1;
-            background-color: #969899;
-            display: grid;
-            grid-template-columns: minmax(auto, 256px) 256px minmax(auto, 256px);
-            grid-template-rows: 30px 100px 30px;
+        // .task-cover {
+        //     border-radius: 3px;
+        //     // grid-column: 1/-1;
+        //     background-color: #969899;
+        //     display: grid;
+        //     grid-template-columns: minmax(auto, 256px) 256px minmax(auto, 256px);
+        //     grid-template-rows: 30px 100px 30px;
 
-            .img-cover {
-                grid-column: 2/3;
-                background-position: center;
-                background-size: cover;
-                grid-row: 1/-1;
-                max-width: 100%;
-                height: 160px;
-                object-fit: contain;
-                padding: 0px;
-            }
+        //     .color-cover {
+        //         width: 100%;
+        //         height: 100%;
+        //     }
 
-            .btn {
-                max-height: 30px;
-                grid-column: 3/-1;
-            }
+        //     .img-cover {
+        //         grid-column: 2/3;
+        //         background-position: center;
+        //         background-size: cover;
+        //         grid-row: 1/-1;
+        //         max-width: 100%;
+        //         height: 160px;
+        //         object-fit: contain;
+        //         padding: 0px;
+        //     }
 
-            .btn.cover {
-                width: 100%;
-                grid-column: 3/-1;
-                align-self: flex-end;
-                justify-self: flex-end;
-                grid-row: 3/-1;
-                font-size: 14px;
-                background-color: #ffffff3d;
-                color: #fff;
-                width: 72px;
-                min-height: 32px;
-                border-radius: 3px;
-                margin: 0 8px 8px 0;
-                display: flex;
-                justify-content: center;
-                align-items: center;
+        //     .btn {
+        //         max-height: 30px;
+        //         grid-column: 3/-1;
+        //     }
 
-                &:hover {
-                    background-color: #ffffff52;
-                }
+        //     .btn.cover {
+        //         width: 100%;
+        //         grid-column: 3/-1;
+        //         align-self: flex-end;
+        //         justify-self: flex-end;
+        //         grid-row: 3/-1;
+        //         font-size: 14px;
+        //         background-color: #ffffff3d;
+        //         color: #fff;
+        //         width: 72px;
+        //         min-height: 32px;
+        //         border-radius: 3px;
+        //         margin: 0 8px 8px 0;
+        //         display: flex;
+        //         justify-content: center;
+        //         align-items: center;
 
-                .bts-icon {
-                    margin-right: 7px;
-                    margin-top: 4px;
-                    font-size: 13px;
-                }
-            }
+        //         &:hover {
+        //             background-color: #ffffff52;
+        //         }
 
-            .btn.close {
-                // margin: 0;
-                // padding: 0px;
-                border-radius: 50%;
-                height: 30px;
-                width: 30px;
-                padding: 2px;
-                margin: 4px;
-                justify-self: right;
-                background-color: #f4f5f7;
-                opacity: 0.6;
-                color: #172b4d;
-                font-size: 14px;
-                background-image: url('../../img/icon-close-task-details.svg');
-                background-position: center;
-                background-repeat: no-repeat;
-            }
-        }
+        //         .bts-icon {
+        //             margin-right: 7px;
+        //             margin-top: 4px;
+        //             font-size: 13px;
+        //         }
+        //     }
+
+        //     .btn.close {
+        //         // margin: 0;
+        //         // padding: 0px;
+        //         border-radius: 50%;
+        //         height: 30px;
+        //         width: 30px;
+        //         padding: 2px;
+        //         margin: 4px;
+        //         justify-self: right;
+        //         background-color: #f4f5f7;
+        //         opacity: 0.6;
+        //         color: #172b4d;
+        //         font-size: 14px;
+        //         background-image: url('../../img/icon-close-task-details.svg');
+        //         background-position: center;
+        //         background-repeat: no-repeat;
+        //     }
+        // }
 
         //task-cover
         .task-main-container {
@@ -325,21 +330,42 @@
                         }
                     }
 
-                    .attachment {
-                        display: flex;
-                        flex-direction: column;
-                        .attachment-title{
-                            display: flex;
-                            .icon{
-                                margin-right: 5px ;
-                            }
-                        }
-                        .img-attached {
-                            //////////////////////////////
-                            width: 112px;
-                            height: 80px;
-                        }
-                    }
+                    // .attachment {
+                    //     display: flex;
+                    //     flex-direction: column;
+
+                    //     .attachment-title {
+                    //         display: flex;
+
+                    //         .icon {
+                    //             margin-right: 5px;
+                    //         }
+                    //     }
+
+                    //     .attachment-body {
+                    //         display: flex;
+
+                    //         .img-attached {
+                    //             //////////////////////////////
+                    //             width: 112px;
+                    //             height: 80px;
+                    //         }
+
+                    //         .attachment-details {
+                    //             display: flex;
+                    //             flex-direction: column;
+                    //             margin-left: 15px;
+
+                    //             .url-name {
+                    //                 margin-bottom: 7px;
+                    //                 font-weight: 100;
+                    //                 color: #172b4d;
+                    //                 font-size: 14px;
+                    //                 font-weight: 700;
+                    //             }
+                    //         }
+                    //     }
+                    // }
 
                     .description-icon {
                         width: 24px;
@@ -472,25 +498,27 @@
                         }
                     }
 
-                    // .activity-container {
-                    .activity-main-icon {
-                        grid-row: 5/6;
-                        margin-top: 2px;
-                        margin-left: 5px;
+                    .activity-container {
+                        margin-top: 10px;
+
+                        .activity-main-icon {
+                            grid-row: 5/6;
+                            margin-top: 2px;
+                            margin-left: 5px;
+                        }
+
+                        .activity-icon {
+                            // display:inline;
+                            grid-column: 1/2;
+
+                        }
+
+                        .activity-title {
+                            // display: block;
+                            grid-column: 2/3;
+                        }
+
                     }
-
-                    .activity-icon {
-                        // display:inline;
-                        grid-column: 1/2;
-
-                    }
-
-                    .activity-title {
-                        // display: block;
-                        grid-column: 2/3;
-                    }
-
-                    // }
 
                     .task-abilities {
                         grid-column: 3/4;
@@ -509,7 +537,7 @@
                 padding: 0 16px 8px 8px;
                 margin-bottom: 25px;
 
-                span {
+                .ability {
                     font-size: 12px;
                     color: #5e6c84;
                 }

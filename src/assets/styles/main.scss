@@ -17,6 +17,7 @@
 @import "views/home-page";
 @import "views/board-page";
 @import "views/task-details";
+@import "views/signup";
 
 // Components
 @import "cmps/app-header";
@@ -36,7 +37,6 @@
 @import "cmps/task-label";
 @import "cmps/task-member-details";
 @import "cmps/task-member";
-@import "cmps/label-modal";
 @import "cmps/group-action";
 @import "cmps/task-members-modal";
 @import "cmps/board-edit";
@@ -48,3 +48,9 @@
 @import "cmps/checklist-modal";
 @import "cmps/task-checklist";
 @import "cmps/todo-preview";
+@import "cmps/activity-menu.scss";
+
+@import "cmps/task-details-sections/task-details-attachments";
+@import "cmps/task-details-sections/task-details-cover";
+@import "cmps/date-picker.scss";
+@import "cmps/date-picker-modal.scss";

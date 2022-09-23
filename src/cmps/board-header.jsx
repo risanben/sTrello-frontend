@@ -4,10 +4,12 @@ import memberSvg from '../assets/img/add-mem.svg'
 import { useDispatch } from 'react-redux'
 import { updateBoard } from '../store/board.actions'
 import dots from '../assets/img/menu-icon-new.svg'
+import { useState } from 'react'
+import { ActivityMenu } from './activity-menu'
 
 export const BoardHeader = ({ board }) => {
     const dispatch = useDispatch()
-
+    const [isActivityMenuOpen, setIsActivityMenuOpen] = useState(false)
     const getMembersIds = () => {
         let idsArr = []
         board.members.forEach(mem => {
@@ -22,7 +24,8 @@ export const BoardHeader = ({ board }) => {
     }
 
     const toggleBoardMenu = () => {
-        console.log('openMenu')
+        // console.log('openMenu')
+        setIsActivityMenuOpen(!isActivityMenuOpen)
     }
 
     if (!board) return <section>Loading...</section>
@@ -50,8 +53,15 @@ export const BoardHeader = ({ board }) => {
             <section className='members'>
                 {board.members?.length && <TaskMember memberIds={getMembersIds()} />}
             </section>
-            <button className='btn-add'><img className='mem-svg' src={memberSvg} /> Share</button>
-            <section className='menu-img-container' onClick={toggleBoardMenu}><img src={dots} alt="menu" className='dots' /></section>
+            <button className="btn-add"><img className="mem-svg" src={memberSvg} /> Share</button>
+
+            {!isActivityMenuOpen && <section className="activitis-menu-container" onClick={toggleBoardMenu}>
+                <div className="menu-img-container">
+                    <img src={dots} alt="menu" className="dots" />
+                </div>
+                <div className="show-menu-title">Show menu</div>
+            </section>}
+            {isActivityMenuOpen && <ActivityMenu toggleBoardMenu={toggleBoardMenu} />}
         </section>
 
     </section>

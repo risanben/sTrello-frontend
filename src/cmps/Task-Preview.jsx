@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from "react"
 import { TaskQuickEdit } from "./task-quick-edit"
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
 import { TaskDetails } from '../pages/task-details'
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import { TaskLabel } from "./task-label"
 import { TaskMember } from "./task-members"
 import { updateTask } from "../store/board.actions"
@@ -12,6 +12,7 @@ export const TaskPreview = ({ task, groupId, index, taskRef, groupTitle }) => {
 
     const board = useSelector(state => state.boardModule.board)
     const params = useParams()
+    const navigate = useNavigate()
     const dispatch = useDispatch()
 
     const [isFullCover, setIsFullCover] = useState(false)
@@ -96,18 +97,26 @@ export const TaskPreview = ({ task, groupId, index, taskRef, groupTitle }) => {
         //     console.log('ent third')
         //     return { top: top - 160, right: 15 }}
         // else{
-            // console.log('entered else:')
-            return { top: parent.top, left: parent.left }
+        // console.log('entered else:')
+        return { top: parent.top, left: parent.left }
         // }
     }
 
+    // const onGoToDetails = () => {
+    //     setShowDetailsModal(!showDetailsModal)
+    // }
+
     const onGoToDetails = () => {
+        const boardId = params.id
+        // navigate(`/board/${boardId}/${groupId}/${task.id}`)
         setShowDetailsModal(!showDetailsModal)
+
     }
 
     const onDarkClicked = (e) => {
         e.stopPropagation()
     }
+
     const isWatchByUser = () => {
         if (!task.memberIds || !task.watcedMemberIds) return
         let isWatch = false
@@ -120,7 +129,15 @@ export const TaskPreview = ({ task, groupId, index, taskRef, groupTitle }) => {
     const completeDue = (ev) => {
         ev.stopPropagation()
         task.dueDate.isDone = !task.dueDate.isDone
-        dispatch(updateTask(board._id, groupId, task))
+        const dueDateAction = task.dueDate.isDone ? 'complete' : 'incomplete'
+        const activity = {
+            txt: `marked the due date on ${task.title} ${dueDateAction}`,
+            task: {
+                id: task.id,
+                title: ""
+            }
+        }
+        dispatch(updateTask(board._id, groupId, task, activity))
     }
 
     return (
@@ -196,7 +213,7 @@ export const TaskPreview = ({ task, groupId, index, taskRef, groupTitle }) => {
                 )
                 }
             </Draggable >
-            {showDetailsModal && <TaskDetails boardId={boardIdRef.current} groupId={groupId} taskId={task.id} task={task} closeModal={onGoToDetails} groupTitle={groupTitle} />}
+            {showDetailsModal && <TaskDetails boardId={boardIdRef.current} groupId={groupId} taskId={task.id} taskFromProps={task} closeModal={onGoToDetails} groupTitle={groupTitle}/>}
         </React.Fragment >
     )
 }

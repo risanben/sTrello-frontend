@@ -28,13 +28,10 @@ export const GroupList = () => {
         setIsAddingGroup(!isAddingGroup)
     }
 
-    const addTask = async (groupToUpdate) => {
-        // console.log('from add task+++++++++++++++++++++++++++', groupToUpdate)
+    const addTask = async (groupToUpdate, activity) => {
         let boardToSave = { ...board }
         boardToSave.groups = boardToSave.groups.map(group => (group.id === groupToUpdate.id) ? groupToUpdate : group)
-        const savedBoard = await dispatch(updateBoard(boardToSave))
-        // console.log('saved board***', savedBoard)
-        // setCurrBoard(savedBoard.board)
+         dispatch(updateBoard(boardToSave, activity))
     }
 
 
@@ -70,7 +67,7 @@ export const GroupList = () => {
                                 {/* <span>+</span> */}
                                 <span className="btn-add-group">+ Add another list</span>
                             </div>}
-                        {isAddingGroup && <GroupEdit onAddingGroup={onAddingGroup} board={board} />}
+                        {isAddingGroup && <GroupEdit onAddingGroup={onAddingGroup} boardId={board._id} />}
                         {/* <Link to="/group/edit" className='nice-button'>Add group</Link> */}
                     </section>
                     {provided.placeholder}

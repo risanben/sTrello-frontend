@@ -22,13 +22,13 @@ export const boardService = {
     getById,
     save,
     remove,
-    getEmptyBoard,
     getGroupById,
     getTaskById,
     removeGroup,
     getBackground,
     addChecklist,
-    addTodo
+    addTodo,
+    addGroupToBoard
 }
 window.cs = boardService
 
@@ -69,39 +69,49 @@ async function remove(boardId) {
         throw err
     }
 }
-
-async function removeGroup(boardId, groupId) {
+async function addGroupToBoard(boardId, group, activity) {
     try {
+        console.log('boardId', boardId)
+        let boardToUpdate = await getById(boardId)
+        console.log('boardToUpdate', boardToUpdate)
+        if (boardToUpdate?.groups) boardToUpdate.groups.push({ ...group })
+        else boardToUpdate.groups = [group]
+        return await save(boardToUpdate, activity)
+    } catch (err) {
+        console.log('Cannot complete the function:', err)
+        throw err
+    }
+}
+async function removeGroup(boardId, groupId, activity) {
+    try {
+
         let boardToUpdate = await getById(boardId)
         // console.log('boardToUpdate', boardToUpdate)
         boardToUpdate.groups = boardToUpdate.groups.filter(group => group.id !== groupId)
-        return await save(boardToUpdate)
+        return await save(boardToUpdate, activity)
     } catch (err) {
         console.log('Cannot complete the function:', err)
         throw err
     }
 }
 
-async function save(board) {
+async function save(board, activity = null) {
     var savedBoard
+    console.log('activity from save board', activity)
+    if (activity) _addActivityDetails(activity)
     if (board._id) {
+        if (activity) board.activities.unshift(activity)
         savedBoard = await storageService.put(STORAGE_KEY, board)
         boardChannel.postMessage(getActionUpdateBoard(savedBoard))
     } else {
         // Later, owner is set by the backend
         // console.log('new board')
         // board.owner = userService.getLoggedinUser()
+        if (activity) board.activities = [activity]
         savedBoard = await storageService.post(STORAGE_KEY, board)
         boardChannel.postMessage(getActionAddBoard(savedBoard))
     }
     return savedBoard
-}
-
-function getEmptyBoard() {
-    return {
-        _id: utilService.makeId(),
-        price: utilService.getRandomIntInclusive(1000, 9000),
-    }
 }
 
 async function getGroupById(boardId, groupId) {
@@ -113,6 +123,18 @@ async function getGroupById(boardId, groupId) {
         console.log('Cannot complete the function:', err)
         throw err
     }
+}
+
+function _addActivityDetails(activity) {
+    console.log('activity!!!!', activity);
+    activity.id = utilService.makeId()
+    activity.createdAt = Date.now()
+    activity.byMember = {
+        "_id": "u199",
+        "fullname": "Guest",
+        "imgUrl": "https://trello-members.s3.amazonaws.com/63197a231392a3015ea3b649/1af72162e2d7c08fd66a6b36476c1515/170.png"
+    }
+    return activity
 }
 
 async function getTaskById(boardId, groupId, taskId) {
