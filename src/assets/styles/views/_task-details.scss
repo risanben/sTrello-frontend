@@ -328,12 +328,15 @@
                     .attachment {
                         display: flex;
                         flex-direction: column;
-                        .attachment-title{
+
+                        .attachment-title {
                             display: flex;
-                            .icon{
-                                margin-right: 5px ;
+
+                            .icon {
+                                margin-right: 5px;
                             }
                         }
+
                         .img-attached {
                             //////////////////////////////
                             width: 112px;
@@ -509,7 +512,7 @@
                 padding: 0 16px 8px 8px;
                 margin-bottom: 25px;
 
-                span {
+                .ability {
                     font-size: 12px;
                     color: #5e6c84;
                 }

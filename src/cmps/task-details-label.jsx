@@ -36,7 +36,7 @@ export const TaskDetailsLabel = ({ labelIds, onSetLabel }) => {
         // return checkedLabel
     }
 
-    // console.log('rendered:')
+    console.log('rendered task label')
     return (
         <div className="task-label-container" >
             <ul className="label-list">

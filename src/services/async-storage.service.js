@@ -624,7 +624,7 @@ const dataBoards = [
                 "createdAt": 1663007630419,
                 "byMember": {
                     "_id": "u999",
-                    "fullname": "Guset",
+                    "fullname": "Guest",
                     "imgUrl": null
                 },
                 "task": {
@@ -637,8 +637,8 @@ const dataBoards = [
                 "createdAt": 1663800630419,
                 "byMember": {
                     "_id": "u999",
-                    "fullname": "Guset",
-                    "imgUrl": null
+                    "fullname": "Guest",
+                    "imgUrl": "https://trello-members.s3.amazonaws.com/63197a231392a3015ea3b649/1af72162e2d7c08fd66a6b36476c1515/170.png"
                 },
                 "task": {
                     "id": "c701",

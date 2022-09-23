@@ -26,7 +26,7 @@ export const boardService = {
     getTaskById,
     removeGroup,
     getBackground,
-    addGroup
+    addGroupToBoard
 }
 window.cs = boardService
 
@@ -67,7 +67,7 @@ async function remove(boardId) {
         throw err
     }
 }
-async function addGroup(boardId, group, activity) {
+async function addGroupToBoard(boardId, group, activity) {
     try {
         console.log('boardId', boardId)
         let boardToUpdate = await getById(boardId)
@@ -82,6 +82,7 @@ async function addGroup(boardId, group, activity) {
 }
 async function removeGroup(boardId, groupId, activity) {
     try {
+
         let boardToUpdate = await getById(boardId)
         // console.log('boardToUpdate', boardToUpdate)
         boardToUpdate.groups = boardToUpdate.groups.filter(group => group.id !== groupId)
@@ -92,18 +93,19 @@ async function removeGroup(boardId, groupId, activity) {
     }
 }
 
-async function save(board, activity) {
+async function save(board, activity = null) {
     var savedBoard
-    _addActivityDetails(activity)
+    console.log('activity from save board', activity)
+    if (activity) _addActivityDetails(activity)
     if (board._id) {
-        board.activities.unshift(activity)
+        if (activity) board.activities.unshift(activity)
         savedBoard = await storageService.put(STORAGE_KEY, board)
         boardChannel.postMessage(getActionUpdateBoard(savedBoard))
     } else {
         // Later, owner is set by the backend
         // console.log('new board')
         // board.owner = userService.getLoggedinUser()
-        board.activities = [activity]
+        if (activity) board.activities = [activity]
         savedBoard = await storageService.post(STORAGE_KEY, board)
         boardChannel.postMessage(getActionAddBoard(savedBoard))
     }
@@ -122,12 +124,13 @@ async function getGroupById(boardId, groupId) {
 }
 
 function _addActivityDetails(activity) {
+    console.log('add new activity')
     activity.id = utilService.makeId()
     activity.createdAt = Date.now()
     activity.byMember = {
-        "_id": "u999",
-        "fullname": "Guset",
-        "imgUrl": null
+        "_id": "u199",
+        "fullname": "Guest",
+        "imgUrl": "https://trello-members.s3.amazonaws.com/63197a231392a3015ea3b649/1af72162e2d7c08fd66a6b36476c1515/170.png"
     }
     return activity
 }

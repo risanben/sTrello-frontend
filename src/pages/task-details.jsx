@@ -18,6 +18,8 @@ import { AbilityCreator } from "../cmps/ability-creator"
 import { TaskDetailsLabelModal } from "../cmps/task-details-labels-modal"
 import { useSelector } from "react-redux"
 import { AttachmentModal } from "../cmps/attachment-modal"
+import { DatePicker } from '../cmps/date-picker'
+import { DatePickerModal } from "../cmps/date-picker-modal"
 
 export const TaskDetails = (props) => {
 
@@ -46,6 +48,7 @@ export const TaskDetails = (props) => {
     const [labelModalPos, setLabelModalPos] = useState(null)
     // const [windowWidth, setWidth] = useState(window.innerWidth)
     // const [windowHeight, setHeight] = useState(window.innerHeight)
+    const [isDatePickerOpen, setIsDatePickerOpen] = useState(null)
 
 
     useEffect(() => {
@@ -172,7 +175,7 @@ export const TaskDetails = (props) => {
     const onSetMember = (addOrRemove, memberId, fullname) => {
         const activity = {
             task: {
-                task: task.id,
+                id: task.id,
                 title: task.title
             }
         }
@@ -242,7 +245,19 @@ export const TaskDetails = (props) => {
 
     const onCompleteDueDate = () => {
         task.dueDate.isDone = !task.dueDate.isDone
-        onUpdateTask(task)
+        const dueDateAction = task.dueDate.isDone ? 'complete' : 'incomplete'
+        const activity = {
+            txt: `marked the due date on ${task.title} ${dueDateAction}`,
+            task: {
+                id: task.id,
+                title: ""
+            }
+        }
+        onUpdateTask(task, activity)
+    }
+
+    const onToggleDatePicker = () => {
+        setIsDatePickerOpen(!isDatePickerOpen)
     }
 
     if (!task) return <div>Loading...</div>
@@ -367,11 +382,13 @@ export const TaskDetails = (props) => {
                                     <span className="icon"><BsTagFill /></span>
                                     <span className="ability">Labels</span>
                                 </button>
+                                {/* {isDatePickerOpen && <DatePicker />} */}
+                                {isDatePickerOpen && <DatePickerModal />}
                                 <button className="btn abilities">
                                     <span className="icon"><BsCheck2Square /></span>
                                     <span className="ability">Checklist</span>
                                 </button>
-                                <button className="btn abilities">
+                                <button className="btn abilities" onClick={onToggleDatePicker}>
                                     <span className="icon"><BsClock /></span>
                                     <span className="ability">Dates</span>
                                 </button>

@@ -79,23 +79,24 @@
     }
 
     .main-content {
-        padding: 12px 6px 8px 12px;
+        padding: 0 6px 8px 12px;
+        margin-top: 12px;
         height: 100%;
         overflow-x: auto;
 
         &::-webkit-scrollbar {
-            border-radius: 3px;
+            border-radius: 15px;
             width: 10px;
         }
 
         &::-webkit-scrollbar-track {
             background: #091e4213;
-            border-radius: 3px;
+            border-radius: 15px;
         }
 
         &::-webkit-scrollbar-thumb {
             background: #abb6bfb7;
-            border-radius: 3px;
+            border-radius: 15px;
         }
 
         .activity-container {
@@ -118,6 +119,9 @@
                     border-radius: 50%;
                     background-color: lightblue;
                     margin: 0 4px 4px 0;
+                    background-position: center;
+                    background-size: cover;
+                    background-repeat: no-repeat;
                 }
 
                 .activity-content {
@@ -135,6 +139,7 @@
                     .activity-time {
                         font-size: 12px;
                         color: #5e6c84;
+
                     }
                 }
             }

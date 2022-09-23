@@ -74,7 +74,7 @@ export const GroupPreview = ({ group, addTask, index, taskRef }) => {
             txt: 'added',
             groupTitle: ` to ${groupToSave.title}`,
             task: {
-                task: task.id,
+                id: task.id,
                 title: task.title
             }
         }
@@ -86,7 +86,7 @@ export const GroupPreview = ({ group, addTask, index, taskRef }) => {
         const activity = {
             txt: `archived list  ${group.title}`,
             task: {
-                task: "",
+                id: "",
                 title: ""
             }
         }

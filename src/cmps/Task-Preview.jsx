@@ -121,7 +121,15 @@ export const TaskPreview = ({ task, groupId, index, taskRef, groupTitle }) => {
     const completeDue = (ev) => {
         ev.stopPropagation()
         task.dueDate.isDone = !task.dueDate.isDone
-        dispatch(updateTask(board._id, groupId, task))
+        const dueDateAction = task.dueDate.isDone ? 'complete' : 'incomplete'
+        const activity = {
+            txt: `marked the due date on ${task.title} ${dueDateAction}`,
+            task: {
+                id: task.id,
+                title: ""
+            }
+        }
+        dispatch(updateTask(board._id, groupId, task, activity))
     }
 
     return (

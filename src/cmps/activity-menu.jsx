@@ -45,7 +45,7 @@ export const ActivityMenu = ({ toggleBoardMenu }) => {
                         <div className="activities-content">
                             {activities && activities.map(activity => {
                                 return <div key={activity.id} className="activity-container">
-                                    <div className="user-icon"></div>
+                                    <div className="user-icon" style={{ backgroundImage: `url(${activity.byMember.imgUrl})` }}></div>
 
                                     <div className="activity-content">
                                         <span className="user-name">{activity.byMember.fullname} </span>
