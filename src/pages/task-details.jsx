@@ -18,11 +18,14 @@ import { AbilityCreator } from "../cmps/ability-creator"
 import { TaskDetailsLabelModal } from "../cmps/task-details-labels-modal"
 import { useSelector } from "react-redux"
 import { AttachmentModal } from "../cmps/attachment-modal"
+import { ChecklistModal } from "../cmps/checklist-modal"
+import { TaskChecklist } from "../cmps/task-checklist"
 
 export const TaskDetails = (props) => {
 
+
     const imgUrl = useSelector(state => state.boardModule.imgUrl)
-    console.log('imgUrl', imgUrl);
+    // console.log('imgUrl', imgUrl);
 
     const params = useParams()
     const navigate = useNavigate()
@@ -44,6 +47,9 @@ export const TaskDetails = (props) => {
     const [isAttachedFile, setIsAttachedFile] = useState(null)
     const [currentUser, setCurrentUser] = useState([])
     const [labelModalPos, setLabelModalPos] = useState(null)
+    const [isChecklistModal, setIsChecklistModal] = useState(false)
+    const [checklistModalPos, setChecklistModalPos] = useState(null)
+
     // const [windowWidth, setWidth] = useState(window.innerWidth)
     // const [windowHeight, setHeight] = useState(window.innerHeight)
 
@@ -123,6 +129,20 @@ export const TaskDetails = (props) => {
 
     const toggleMembersModal = () => {
         setIsMemberModal(!isMemberModal)
+    }
+
+    const toggleChecklistModal = (ev) => {
+        if (ev) ev.preventDefault()
+        if (!isChecklistModal) {
+            const pos = {
+                top: ev.target.offsetTop,
+                left: ev.target.offsetLeft
+            }
+            setChecklistModalPos(pos)
+            setIsChecklistModal(true)
+        } else {
+            setIsChecklistModal(false)
+        }
     }
 
     const toggleLabelsModal = (ev) => {
@@ -235,8 +255,13 @@ export const TaskDetails = (props) => {
         onUpdateTask(task)
     }
 
+
+
+
     if (!task) return <div>Loading...</div>
-    console.log('task.desc', task.desc)
+    // console.log('task.desc', task.desc)
+    console.log('cmp DETAILS rendered, task is:', props.task)
+
     return (
         <section className="task-details-main" >
             <div className="black-screen" onClick={onBack}>
@@ -340,6 +365,14 @@ export const TaskDetails = (props) => {
                                 </section>}
                                 {isAttachmentModal && <AttachmentModal toggleAttachmentModal={toggleAttachmentModal} />}
 
+                                {/* CHECKLISTS */}
+                                {props.task?.checklists?.length && <TaskChecklist 
+                                checklists={props.task.checklists}
+                                board={currentBoardId} 
+                                group={currentGroupId} 
+                                task={props.task}
+                                />}
+
                                 <span className="activity-main-icon"> <GrTextAlignFull /></span>
                                 <span className="activity-title">Activity</span>
                                 <span className="user-icon"><TaskMember memberIds={currentUser} /></span>
@@ -357,10 +390,11 @@ export const TaskDetails = (props) => {
                                     <span className="icon"><BsTagFill /></span>
                                     <span className="ability">Labels</span>
                                 </button>
-                                <button className="btn abilities">
+                                <button className="btn abilities" onClick={toggleChecklistModal}>
                                     <span className="icon"><BsCheck2Square /></span>
                                     <span className="ability">Checklist</span>
                                 </button>
+                                {isChecklistModal && <ChecklistModal toggleChecklistModal={toggleChecklistModal} pos={checklistModalPos} boardId={currentBoardId} groupId={currentGroupId} task={task} />}
                                 <button className="btn abilities">
                                     <span className="icon"><BsClock /></span>
                                     <span className="ability">Dates</span>

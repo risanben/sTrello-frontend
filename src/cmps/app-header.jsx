@@ -82,7 +82,6 @@ export function AppHeader() {
                     <Link to="board" className='workspace-link'>
                         <li className='nav-link'>
                             Workspaces 
-                            {/* <BsChevronDown className='downArr' /> */}
                         </li>
                     </Link>
                     {/* <li className='nav-link'>

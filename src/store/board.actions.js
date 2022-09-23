@@ -274,3 +274,39 @@ export function handleDrag(
         }
     }
 }
+
+export function addChecklist(board, group, task, title) {
+
+    return async dispatch => {
+        try {
+            const boardToSave = await boardService.addChecklist(
+                board,
+                group,
+                task,
+                title
+            )
+            // console.log('boardToSave FROM ACTION:', boardToSave)
+            dispatch({
+                type: 'UPDATE_BOARD',
+                board: boardToSave,
+            });
+        } catch (err) {
+            console.log('Cannot add checklist', err);
+        }
+    };
+}
+
+export function addNewTodo(board, groupId, taskId, checklistId, title) {
+ 
+    return async dispatch => {
+        try {
+            const updatedBoard = await boardService.addTodo(board, groupId, taskId, checklistId, title);
+            dispatch({
+                type: 'UPDATE_BOARD',
+                board: updatedBoard,
+            });
+        } catch (err) {
+            console.log('Cannot add Todo. Heres why:', err);
+        }
+    };
+}
