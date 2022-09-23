@@ -3,10 +3,10 @@ import { getImgUrl, getImgFromUrl } from '../store/board.actions'
 import closeIcon from '../assets/img/icon-close-task-details.svg'
 import { useFormRegister } from '../hooks/useFormRegister'
 import { useState } from 'react'
+import { utilService } from '../services/util.service'
 
 
-export const AttachmentModal = ({ toggleAttachmentModal }) => {
-
+export const AttachmentModal = ({ toggleAttachmentModal,attachModalPos }) => {
     const [url, setUrl] = useState(null)
     const [urlName, setUrlName] = useState(null)
 
@@ -22,29 +22,28 @@ export const AttachmentModal = ({ toggleAttachmentModal }) => {
     // }
 
     const onUpdateUrl = (ev) => {
-        console.log(ev.target.value);
         setUrl(ev.target.value)
     }
 
     const onUpdateName = (ev) => {
-        console.log(ev.target.value);
         setUrlName(ev.target.value)
     }
 
     const onGetImgFromUrl = (ev) => {
         ev.preventDefault()
-        console.log(ev.target.value);
-        const urlJson = {
+        const imgJson = {
+            id: utilService.makeId(),
             url,
-            urlName
+            urlName,
+            addedAt: new Date(),
         }
-        dispatch(getImgFromUrl(urlJson))
+        dispatch(getImgFromUrl(imgJson))
     }
 
     // const [register, setUrl, url] = useFormRegister({}, onUpdateInput)
 
     return (
-        <section className="labels-modal">
+        <section className="labels-modal" style={{ ...attachModalPos.style }}>
             <img src={closeIcon} onClick={toggleAttachmentModal} alt="close" className="close-btn" />
             {/* <div onClick={toggleAttachmentModal}>X</div> */}
             <div className="labels-modal-title">Attach from...</div>
@@ -61,7 +60,7 @@ export const AttachmentModal = ({ toggleAttachmentModal }) => {
                 <span className="sub-title">Link name (optional)</span>
                 <input type="text" onChange={onUpdateName} />
                 {/* <input {...register('name', 'text')} /> */}
-                <button onClick={onGetImgFromUrl}>Attach</button>
+                <button /*onClick={onGetImgFromUrl}*/>Attach</button>
             </form>
 
         </section>

@@ -11,6 +11,7 @@ import { HomePage } from './pages/home-page'
 import { Board } from './cmps/board'
 import { Dnd } from './pages/dnd'
 import { Signup } from './pages/signup'
+import { TaskDetails } from './pages/task-details'
 
 
 export class App extends React.Component {
@@ -27,6 +28,7 @@ export class App extends React.Component {
                         <Route path="board" element={<BoardPage />} />
                         <Route path="board/:id" element={<Board />} />
                         <Route path="board/:id" element={<TaskPreview />} />
+                        <Route path="board/:boardId/:groupId/:taskId" element={<TaskDetails />} />
                     </Routes>
                 </main>
             </div>

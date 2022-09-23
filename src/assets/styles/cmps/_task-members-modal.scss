@@ -10,6 +10,27 @@
     display: flex;
     flex-direction: column;
 
+    .close-btn {
+        max-width: 20px;
+        position: absolute;
+        right: 10px;
+       top: 15px;
+       cursor: pointer;
+    }
+
+    .label-search-input {
+        border: 3px solid lightblue;
+        padding: 10px 5px 5px 10px;
+        border-radius: 3px;
+        margin-bottom: 10px;
+        font-size: 14px;
+
+        &:focus {
+            outline: none;
+            // border: none;
+        }
+    }
+
     &:hover {
         cursor: auto;
     }

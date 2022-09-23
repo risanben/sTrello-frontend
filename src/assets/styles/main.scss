@@ -37,7 +37,6 @@
 @import "cmps/task-label";
 @import "cmps/task-member-details";
 @import "cmps/task-member";
-@import "cmps/label-modal";
 @import "cmps/group-action";
 @import "cmps/task-members-modal";
 @import "cmps/board-edit";
@@ -47,5 +46,8 @@
 @import "cmps/task-labels-modal";
 @import "cmps/task-details-members";
 @import "cmps/activity-menu.scss";
+
+@import "cmps/task-details-sections/task-details-attachments";
+@import "cmps/task-details-sections/task-details-cover";
 @import "cmps/date-picker.scss";
 @import "cmps/date-picker-modal.scss";

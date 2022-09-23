@@ -31,7 +31,7 @@ export const GroupList = () => {
     const addTask = async (groupToUpdate, activity) => {
         let boardToSave = { ...board }
         boardToSave.groups = boardToSave.groups.map(group => (group.id === groupToUpdate.id) ? groupToUpdate : group)
-        await dispatch(updateBoard(boardToSave, activity))
+         dispatch(updateBoard(boardToSave, activity))
     }
 
 

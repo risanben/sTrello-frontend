@@ -1,6 +1,21 @@
 import { useEffect } from "react"
+import closeIcon from '../assets/img/icon-close-task-details.svg'
 
-export const TaskDetailsCoverModal = (props) => {
+export const TaskDetailsCoverModal = ({ onSetImg, onShowModal,onSetColor }) => {
+    const colors =
+        [
+            '#7BC86C',//green
+            '#F5DD29',//yellow
+            '#FFAF3F',//orange
+            '#EF7564',//red
+            '#CD8DE5',//purple
+            '#5BA4CF',//accent-blue
+            '#29CCE5',//accent-teal
+            '#6DECA9',//light-green
+            '#FF8ED4',//pink
+            '#172B4D',//accent-gray
+        ]
+
     const imgs =
         [
             'https://res.cloudinary.com/dqhrqqqul/image/upload/v1663348742/background-img-mountains_kqtnuv.jpg',
@@ -22,27 +37,31 @@ export const TaskDetailsCoverModal = (props) => {
     //         throw err
     //     }
     // }
-    const changeColor = (ev) => {
-        console.log('clicked')
-        console.log(ev.target.value)
-    }
 
-    console.log('props', props)
     return (
         <section className="cover-modal">
-            <div className="cover-modal-title">
-                <span>Cover</span>
-                <span>X</span>
-            </div>
-            {/* <input type="color" onChange={(ev) => props.onSetColor(ev)} /> */}
-            <input type="color" onChange={changeColor} />
+            <img src={closeIcon} onClick={onShowModal} alt="close" className="close-btn" />
+            <div className="cover-modal-title">Cover</div>
+            {/* <input type="color" onChange={changeColor} /> */}
 
             <section>
+                <span className="sub-title">Colors</span>
+                <ul className="cover-imgs">
+                    {colors.map(color =>
+                        <li className="cover-img-container" key={color}>
+                            <div onClick={()=>onSetColor({color})} className="cover-img" style={{ backgroundColor:  color }}/>
+                        </li>
+                    )}
+                </ul>
+            </section>
+
+            <section>
+            <span className="sub-title">Photos</span>
                 <ul className="cover-imgs">
                     {imgs.map(imgUrl =>
                         <li className="cover-img-container" key={imgUrl}>
                             {/* <span className="cover-img" style={{ backgroundImage: `url(${img})` }}></span> */}
-                            <img className="cover-img" src={`${imgUrl}`} onClick={() => props.onSetImg(imgUrl)}></img>
+                            <img className="cover-img" src={`${imgUrl}`} onClick={() => onSetImg(imgUrl)}></img>
                         </li>
                     )}
                 </ul>

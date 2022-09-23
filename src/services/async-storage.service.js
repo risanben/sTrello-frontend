@@ -501,13 +501,25 @@ const dataBoards = [
                             }
                         },
                         "desc": "Create css variables and helpers",
-                        "attachments": ["https://www.w3schools.com/css/css3_variables.asp"]
+                        "attachments":
+                            [
+                                {
+                                    id: 'at101',
+                                    url: "https://www.w3schools.com/css/css3_variables.asp",
+                                    urlName: 'nice pic',
+                                    addedAt: new Date(),
+                                }
+                            ]
                     },
                     {
                         "id": "c502",
                         "title": "Making functions and mixins",
                         "memberIds": ["u102"],
-                        "attachments": ["https://www.w3schools.com/cssref/css_functions.asp", "hhttps://www.w3schools.com/sass/sass_mixin_include.php"]
+                        "attachments": [
+                            { id: 'at102', url: "https://www.w3schools.com/cssref/css_functions.asp", urlName: 'css function', addedAt: new Date() },
+                            { id: 'at103', url: "hhttps://www.w3schools.com/sass/sass_mixin_include.php", urlName: 'mixin include', addedAt: new Date() }
+
+                        ]
                     },
                     {
                         "id": "c503",
@@ -564,7 +576,7 @@ const dataBoards = [
                                 "fullCover": true
                             }
                         },
-                        "attachments": ["https://en.wikipedia.org/wiki/Bugs"]
+                        "attachments": [{ id: 'at104', url: "https://en.wikipedia.org/wiki/Bugs", urlName: 'Bugs', addedAt: new Date() }]
                     },
                     {
                         "id": "c604",

@@ -23,7 +23,6 @@ export const BoardsList = ({ boards }) => {
     }
 
     const onlinkClick = (boardId) => {
-        console.log('boardId', boardId)
         dispatch(getBoard(boardId))
         navigate(`/board/${boardId}`)
     }

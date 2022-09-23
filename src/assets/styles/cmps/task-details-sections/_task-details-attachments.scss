@@ -1,0 +1,86 @@
+.attachment {
+    display: flex;
+    flex-direction: column;
+
+    .attachment-title {
+        display: flex;
+
+        .icon {
+            margin-right: 5px;
+        }
+    }
+
+    .attachment-body-and-btn {
+        margin-left: 22px;
+
+        .btn {
+            // display: flex;
+            color: #172b4d;
+            background-color: #091e420a;
+            font-size: 14px;
+            border-radius: 3px;
+            height: 32px;
+            margin-top: 15px;
+            padding: 6px 12px;
+            width: 170px;
+
+            &:hover {
+                background-color: #091e4214;
+            }
+
+            .ability {
+                background-color: #091e42, opacity 8.00%;
+                font-size: 14px;
+                text-align: center;
+                letter-spacing: normal;
+            }
+
+            .icon {
+                color: #42526e;
+                background-color: #091e42, opacity 4.00%;
+                font-size: 16px;
+                margin: 0 6px 0 -6px;
+
+            }
+        }
+
+        .attachment-body {
+            display: flex;
+            margin-top: 10px;
+
+            .img-attached {
+                width: 112px;
+                height: 80px;
+                object-fit: contain;
+                background-color: #ffffff;
+            }
+
+            .attachment-details {
+                display: flex;
+                flex-direction: column;
+                margin-left: 15px;
+
+                .url-name {
+                    margin-bottom: 7px;
+                    font-weight: 100;
+                    color: #172b4d;
+                    font-size: 14px;
+                    font-weight: 700;
+                }
+
+                .add-time-and-btns {
+                    .Added-at {
+                        margin-right: 5px;
+                    }
+
+                    .btn-delete-attachment {
+                        margin-left: 5px;
+                        margin-right: 5px;
+                        text-decoration: underline;
+                    }
+                }
+            }
+        }
+
+    }
+}
