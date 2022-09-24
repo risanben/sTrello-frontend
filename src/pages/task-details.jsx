@@ -25,6 +25,7 @@ import { DatePicker } from '../cmps/date-picker'
 import { DatePickerModal } from "../cmps/date-picker-modal"
 import { ChecklistModal } from "../cmps/checklist-modal"
 import { TaskChecklist } from "../cmps/task-checklist"
+import { DetailsActivities } from "../cmps/task-details-activities"
 import { utilService } from "../services/util.service"
 
 export const TaskDetails = ({ boardId, groupId, taskId, taskFromProps, groupTitle, closeModal }) => {
@@ -161,9 +162,11 @@ export const TaskDetails = ({ boardId, groupId, taskId, taskFromProps, groupTitl
     const toggleChecklistModal = (ev) => {
         if (ev) ev.preventDefault()
         if (!isChecklistModal) {
+            const grandadEl = ev.currentTarget.parentNode.parentNode
+
             const pos = {
-                top: ev.target.offsetTop,
-                left: ev.target.offsetLeft
+                top: grandadEl.offsetTop,
+                left: grandadEl.offsetLeft + 426
             }
             setChecklistModalPos(pos)
             setIsChecklistModal(true)
@@ -201,13 +204,15 @@ export const TaskDetails = ({ boardId, groupId, taskId, taskFromProps, groupTitl
     const toggleLabelsModal = (ev) => {
         if (ev) ev.stopPropagation()
 
-        if (!isLabelModal && isLabelModal !== null) {
+        if (!isLabelModal) {
             const parentEl = ev.currentTarget.parentNode
             const position = parentEl.getBoundingClientRect()
 
+            const grandFatherEl = parentEl.parentNode
+            console.log('grandFatherEl:', grandFatherEl)
             const style = {
-                top: ev.target.offsetTop,
-                left: ev.target.offsetLeft
+                top: grandFatherEl.offsetTop,
+                left: grandFatherEl.offsetLeft + (730 - 304)
             }
             let pos = {
                 position: position,
@@ -215,7 +220,7 @@ export const TaskDetails = ({ boardId, groupId, taskId, taskFromProps, groupTitl
             }
 
             setLabelModalPos(pos)
-            setIsLabelModal(!isLabelModal)
+            setIsLabelModal(true)
         } else {
             setIsLabelModal(false)
         }
@@ -418,9 +423,12 @@ export const TaskDetails = ({ boardId, groupId, taskId, taskFromProps, groupTitl
                                             </div>
                                         </div>
                                     </section>}
+
+                                    {/* LABEL MODAL */}
                                     <section ref={refLabelModal}>
                                         {isLabelModal && <TaskDetailsLabelModal labelIds={task.labelIds} onSetLabel={onSetLabel} toggleLabelsModal={toggleLabelsModal} labelModalPos={labelModalPos} />}
                                     </section>
+
                                 </section>{/*tags*/}
 
                                 {task?.dueDate && <section className="due-date">
@@ -492,14 +500,18 @@ export const TaskDetails = ({ boardId, groupId, taskId, taskFromProps, groupTitl
                                     task={taskFromProps}
                                 />}
 
-                                <div className="activity-container">
+                                    {/* ACTIVITIES  */}
+                                    <DetailsActivities
+                                    task={task}/>
+                                {/* <div className="activity-container">
                                     <span className="activity-main-icon"> <GrTextAlignFull /></span>
                                     <span className="activity-title">Activity</span>
                                     <span className="user-icon"><TaskMember memberIds={currentUser} /></span>
                                     <textarea className="activity-input" placeholder="Write a comment..."></textarea>
                                     <span className="activity-icon">icon</span>
                                     <span className="activity-title">Activity</span>
-                                </div>
+                                </div> */}
+                                
                             </div>
 
                             <div className="task-main-container-right">

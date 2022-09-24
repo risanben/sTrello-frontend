@@ -98,7 +98,7 @@ async function removeGroup(boardId, groupId, activity) {
 
 async function save(board, activity = null) {
     var savedBoard
-    console.log('activity from save board', activity)
+    // console.log('activity from save board', activity)
     if (activity) _addActivityDetails(activity)
     if (board._id) {
         if (activity) board.activities.unshift(activity)
@@ -127,7 +127,7 @@ async function getGroupById(boardId, groupId) {
 }
 
 function _addActivityDetails(activity) {
-    console.log('activity!!!!', activity);
+    // console.log('activity!!!!', activity)
     activity.id = utilService.makeId()
     activity.createdAt = Date.now()
     activity.byMember = {

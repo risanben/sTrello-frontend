@@ -103,7 +103,7 @@ export function addBoard(board, activity) {
 export function updateBoard(board, activity) {
     return async (dispatch) => {
         try {
-            console.log('activity from action', activity)
+            // console.log('activity from action', activity)
 
             const savedBoard = await boardService.save(board, activity)
             return dispatch(getActionUpdateBoard(savedBoard))
@@ -126,12 +126,9 @@ export function updateTask(boardId, groupId, taskForUpdate, activity) {
             const groupForUpdate = await boardService.getGroupById(boardId, groupId)
             const board = await boardService.getById(boardId)
 
-            console.log('taskForUpdate', taskForUpdate);
+            // console.log('taskForUpdate', taskForUpdate)
             const idx = groupForUpdate.tasks.findIndex(task => task.id === taskForUpdate.id)
             groupForUpdate.tasks.splice(idx, 1, taskForUpdate)
-
-            console.log('task idx', idx);
-            console.log('tasks', groupForUpdate.tasks);
 
             const groupIdx = board.groups.findIndex(group => group.id === groupForUpdate.id)
             board.groups.splice(groupIdx, 1, groupForUpdate)
@@ -143,7 +140,6 @@ export function updateTask(boardId, groupId, taskForUpdate, activity) {
                 task: taskForUpdate
             })
 
-            console.log('board', board);
             return board
         } catch (err) {
             console.log('Cannot complete the function:', err)
