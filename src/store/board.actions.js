@@ -119,7 +119,9 @@ export function updateBoard(board, activity) {
 export function updateTask(boardId, groupId, taskForUpdate, activity) {
     return async (dispatch) => {
         try {
-            console.log('activity from UPDATETASK', activity)
+            console.log('boardId', boardId)
+            console.log('groupId', groupId)
+            console.log('taskForUpdate', taskForUpdate)
 
             const groupForUpdate = await boardService.getGroupById(boardId, groupId)
             const board = await boardService.getById(boardId)
@@ -127,6 +129,9 @@ export function updateTask(boardId, groupId, taskForUpdate, activity) {
             console.log('taskForUpdate', taskForUpdate);
             const idx = groupForUpdate.tasks.findIndex(task => task.id === taskForUpdate.id)
             groupForUpdate.tasks.splice(idx, 1, taskForUpdate)
+
+            console.log('task idx', idx);
+            console.log('tasks', groupForUpdate.tasks);
 
             const groupIdx = board.groups.findIndex(group => group.id === groupForUpdate.id)
             board.groups.splice(groupIdx, 1, groupForUpdate)
@@ -138,6 +143,7 @@ export function updateTask(boardId, groupId, taskForUpdate, activity) {
                 task: taskForUpdate
             })
 
+            console.log('board', board);
             return board
         } catch (err) {
             console.log('Cannot complete the function:', err)

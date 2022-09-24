@@ -24,7 +24,7 @@ import { AttachmentNameEditModal } from "../cmps/task-details-modals/attachment-
 import { DatePicker } from '../cmps/date-picker'
 import { DatePickerModal } from "../cmps/date-picker-modal"
 
-export const TaskDetails = ({ boardId, groupId, taskId,taskFromProps, groupTitle, closeModal }) => {
+export const TaskDetails = ({ boardId, groupId, taskId, taskFromProps, groupTitle, closeModal }) => {
 
     const imgJson = useSelector(state => state.boardModule.imgJson)
     // const currentTask = useSelector(state => state.boardModule.task)
@@ -51,18 +51,16 @@ export const TaskDetails = ({ boardId, groupId, taskId,taskFromProps, groupTitle
     const [currentUser, setCurrentUser] = useState([])
     const [labelModalPos, setLabelModalPos] = useState(null)
     const [attachModalPos, setAttachModalPos] = useState(null)
+    const [editAttachNameModalPos, setEditAttachNameModalPos] = useState(null)
     // const [windowWidth, setWidth] = useState(window.innerWidth)
     // const [windowHeight, setHeight] = useState(window.innerHeight)
     const [isDatePickerOpen, setIsDatePickerOpen] = useState(null)
+    const [attachmentToEdit, setAttachmentToEdit] = useState(null)
 
 
     useEffect(() => {
         // const { boardId, groupId, taskId, groupTitle } = props
         // const { taskId, boardId, groupId } = params
-
-        console.log('boardId', boardId);
-        console.log('groupId', groupId);
-        console.log('taskId', taskId);
 
         if (!boardId) return
         setBoardId(boardId)
@@ -125,12 +123,8 @@ export const TaskDetails = ({ boardId, groupId, taskId,taskFromProps, groupTitle
         return moment(imgJson.addedAt).fromNow()
     }
 
-    const onUpdateTask = (taskForUpdate, activity = { "_id": "u999", "fullname": "Guset", "imgUrl": null }) => {
+    const onUpdateTask = (taskForUpdate, activity) => {
         if (!taskForUpdate) return
-        console.log('taskForUpdate',taskForUpdate);
-        console.log('currentBoardId',currentBoardId);
-        console.log('taskForUpdate',taskForUpdate);
-        console.log('taskForUpdate',taskForUpdate);
         dispatch(updateTask(currentBoardId, currentGroupId, taskForUpdate, activity))
         // navigate(`/board/${currentBoardId}/${currentGroupId}/${task.id}`)
     }
@@ -158,8 +152,30 @@ export const TaskDetails = ({ boardId, groupId, taskId,taskFromProps, groupTitle
         setIsMemberModal(!isMemberModal)
     }
 
-    const toggleEditAttachNameModal = () => {
+    const toggleEditAttachNameModal = (ev, attachmentId) => {
+
+        setAttachmentToEdit(attachmentId)
         setIsEditAttachName(!isEditAttachName)
+
+        if (!isEditAttachName) {
+            const parentEl = ev.currentTarget.parentNode
+            const position = parentEl.getBoundingClientRect()
+
+            const style = {
+                top: ev.target.offsetTop,
+                left: ev.target.offsetLeft
+            }
+            let pos = {
+                position: position,
+                style: style
+            }
+
+            setEditAttachNameModalPos(pos)
+            setIsEditAttachName(!isEditAttachName)
+        } else {
+            setIsEditAttachName(false)
+        }
+
     }
 
     const toggleLabelsModal = (ev) => {
@@ -189,12 +205,12 @@ export const TaskDetails = ({ boardId, groupId, taskId,taskFromProps, groupTitle
         // setIsAttachmentModal(!isAttachmentModal)
 
         if (!isAttachmentModal) {
-            const parentEl = ev.currentTarget.parentNode
-            const position = parentEl.getBoundingClientRect()
+            const grandParentEl = ev.currentTarget.parentNode.parentNode
+            const position = grandParentEl.getBoundingClientRect()
 
             const style = {
-                top: ev.target.offsetTop,
-                left: ev.target.offsetLeft
+                top: grandParentEl.offsetTop,
+                left: grandParentEl.offsetLeft + (730 - 304)
             }
             let pos = {
                 position: position,
@@ -217,12 +233,19 @@ export const TaskDetails = ({ boardId, groupId, taskId,taskFromProps, groupTitle
         onUpdateTask(task)
     }
 
-    const onSetImg = (imgJson) => {
-        if (!task.style) task.style = { bg: { imgUrl: imgJson.url } }
-        task.style.bg.imgUrl = imgJson.url
+    const onSetImg = (imgUrl) => {
+        if (!task.style) task.style = { bg: { imgUrl } }
+        task.style.bg.imgUrl = imgUrl
         task.style.bg.color = null
         setBgColor(null)
         onUpdateTask(task)
+    }
+
+    const onRemoveCover = () => {
+        // task.style.bg.imgUrl = null
+        // task.style.bg.color = null
+        delete task.style
+        setShowModal(false)
     }
 
     const onSetMember = (addOrRemove, memberId, fullname) => {
@@ -271,7 +294,6 @@ export const TaskDetails = ({ boardId, groupId, taskId,taskFromProps, groupTitle
             const idx = task.attachments.findIndex(img => img.id === attachId)
             task.attachments.splice(idx, 1)
         }
-        console.log('task', task);
         onUpdateTask(task)
         // navigate(`/board/${currentBoardId}/${currentGroupId}/${task.id}`)
     }
@@ -320,19 +342,21 @@ export const TaskDetails = ({ boardId, groupId, taskId,taskFromProps, groupTitle
 
                 <section className="task-details-container" onClick={clickedOnModal}>
 
-                    {task?.style && <section className="task-cover"/* style={{ backgroundColor:bgColor }} */>
-                        <div className="color-cover" style={{ backgroundColor: bgColor }}></div>
-                        <button onClick={onBack} className="btn close"></button>
-                        {task?.style?.bg?.imgUrl && <div className="img-cover" style={{ backgroundImage: `url(${task.style.bg.imgUrl})` }} ></div>}
-                        <div onClick={onShowModal} className="btn cover">
-                            <span className="bts-icon"><FaWindowMaximize /></span>
-                            <span className="btn-cover-txt">Cover</span>
-                            {showModal && <TaskDetailsCoverModal onSetColor={onSetColor} onSetImg={onSetImg} onShowModal={onShowModal} />}
-                        </div>
-                    </section>}
+                    {task?.style && (task.style.bg.imgUrl !== null || task.style.bg.color !== null) &&
+                        <section className="task-cover" style={{ backgroundColor: task.style.bg.color }} >
+                            {/* <div className="color-cover" style={{ backgroundColor: bgColor }}></div> */}
+                            <button onClick={onBack} className="btn close"></button>
+                            {task?.style?.bg?.imgUrl && <div className="img-cover" style={{ backgroundImage: `url(${task.style.bg.imgUrl})` }} ></div>}
+                            <div onClick={onShowModal} className="btn cover">
+                                <span className="bts-icon"><FaWindowMaximize /></span>
+                                <span className="btn-cover-txt">Cover</span>
+                            </div>
+                        </section>}
+                    {showModal && <TaskDetailsCoverModal onSetColor={onSetColor} onSetImg={onSetImg} onShowModal={onShowModal} onRemoveCover={onRemoveCover} attachments={task.attachments}/>}
 
                     <div className="task-main-container">
-
+                        {!(task?.style && (task.style.bg.imgUrl !== null || task.style.bg.color !== null) )&&
+                         <button onClick={onBack} className="btn close"></button>}
                         <div className="title-container">
                             <span className="task-title-icon"><FaWindowMaximize /></span>
                             <section className="title-input">
@@ -404,13 +428,13 @@ export const TaskDetails = ({ boardId, groupId, taskId,taskFromProps, groupTitle
                                     </div>
                                 </section>
 
-                                {task?.attachments && task?.attachments?.length>0 && <section className="attachment">
+                                {taskFromProps?.attachments && taskFromProps?.attachments?.length > 0 && <section className="attachment">
                                     <div className="attachment-title">
                                         <span className="icon"><GrAttachment /></span>
-                                        <span className="ability">Attachment</span>
+                                        <span className="section-title">Attachment</span>
                                     </div>
                                     <div className="attachment-body-and-btn">
-                                        {task?.attachments.map(attachment => {
+                                        {taskFromProps?.attachments.map(attachment => {
                                             return <div className="attachment-body" key={attachment.id}>
                                                 <img className="img-attached" src={`${attachment.url}`} />
                                                 <div className="attachment-details">
@@ -420,12 +444,12 @@ export const TaskDetails = ({ boardId, groupId, taskId,taskFromProps, groupTitle
                                                         <span>-</span>
                                                         <span key={`${attachment.id}-dBtn`} className="btn-delete-attachment" onClick={() => onSetAttachment(true, attachment.id)} title={'Delete attachment for ever'}>Delete</span>
                                                         <span>-</span>
-                                                        <span key={`${attachment.id}-eBtn`} className="btn-delete-attachment" onClick={() => toggleEditAttachNameModal()} title={'Edit attachment name'}>Edit</span>
-                                                        {isEditAttachName && <AttachmentNameEditModal toggleEditAttachNameModal={toggleEditAttachNameModal} attachment={attachment} task={task} onUpdateTask={onUpdateTask} />}
+                                                        <span key={`${attachment.id}-eBtn`} className="btn-delete-attachment" onClick={(ev) => toggleEditAttachNameModal(ev, attachment.id)} title={'Edit attachment name'}>Edit</span>
                                                     </div>
                                                 </div>
                                             </div>
                                         })}
+                                        {isEditAttachName && <AttachmentNameEditModal toggleEditAttachNameModal={toggleEditAttachNameModal} attachmentId={attachmentToEdit} task={taskFromProps} onUpdateTask={onUpdateTask} editAttachNameModalPos={editAttachNameModalPos} />}
                                         <button className="btn attachment" onClick={toggleAttachmentModal}>
                                             <span className="ability">Add an attachment</span>
                                         </button>
@@ -467,10 +491,11 @@ export const TaskDetails = ({ boardId, groupId, taskId,taskFromProps, groupTitle
                                     <span className="icon"><GrAttachment /></span>
                                     <span className="ability">Attachment</span>
                                 </button>
+                                {!(task?.style && (task.style.bg.imgUrl !== null || task.style.bg.color !== null) )&&
                                 <button className="btn abilities" onClick={onShowModal}>
                                     <span className="icon"><FaWindowMaximize /> </span>
                                     <span className="ability">Cover</span>
-                                </button>
+                                </button>}
                                 <button className="btn abilities" onClick={onRemoveTask}>
                                     <span className="icon"><HiArchive /> </span>
                                     <span className="ability">Archive</span>

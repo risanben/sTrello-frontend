@@ -24,8 +24,8 @@
         max-width: 20px;
         position: absolute;
         right: 10px;
-       top: 15px;
-       cursor: pointer;
+        top: 15px;
+        cursor: pointer;
     }
 
     &:hover {
@@ -41,10 +41,27 @@
         text-align: center;
         border-bottom: 1px solid rgba(0, 0, 0, 0.24);
         margin-bottom: 7px;
-
     }
 
-    .sub-title{
+    .cover-modal-img-preview {
+        min-height: 62px;
+        padding: 6px 4px 4px 6px;
+        background-size: cover;
+        background-position: center;
+        box-shadow: none;
+        cursor: pointer;
+        background: #FFFFFF;
+        border-radius: 3px;
+        position: relative;
+        width: 134px;
+        border: 1px solid rgba(9, 30, 66, 0.08);
+
+        &:hover {
+            filter: saturate(85%) brightness(85%);
+        }
+    }
+
+    .sub-title {
         color: #172b4d;
         // background-color: #ffffff;
         background-color: 'blue';
@@ -58,16 +75,61 @@
     }
 
 
+    // .cover-color {
+    //     display: flex;
+    //     flex-wrap: wrap;
+
+    //     .cover-color-container {
+    //         .cover-color {
+    //             width: 50px;
+    //             height: 40px;
+    //             margin-right: 4px ;
+    //             margin-top: 4px;
+    //         }
+    //     }
+    // }
+    .cover-color {
+        -webkit-transform: translate3d(0, 0, 0);
+        display: grid;
+        gap: 8px;
+        padding: 4px;
+        margin: 0 -4px;
+        overflow-x: hidden;
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+
+        .cover-color-container {
+            .cover-color {
+                margin: 0;
+                border-radius: 3px;
+                background-size: cover;
+                background-repeat: no-repeat;
+                background-position: center;
+                box-shadow: none;
+                width: 50px;
+                height: 32px;
+                cursor: pointer;
+            }
+        }
+    }
+
     .cover-imgs {
-        display: flex;
-        flex-wrap: wrap;
+        display: grid;
+        gap: 8px;
+        padding: 4px;
+        margin: 0 -4px;
+        overflow-x: hidden;
+        grid-template-columns: 1fr 1fr 1fr;
 
         .cover-img-container {
+
             .cover-img {
-                width: 50px;
-                height: 40px;
-                margin-right: 4px ;
-                margin-top: 4px;
+
+                cursor: pointer;
+                border-radius: 3px;
+                // width: 50px;
+                // height: 40px;
+                // margin-right: 4px ;
+                // margin-top: 4px;
             }
         }
     }
