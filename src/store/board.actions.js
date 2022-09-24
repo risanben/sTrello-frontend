@@ -119,7 +119,9 @@ export function updateBoard(board, activity) {
 export function updateTask(boardId, groupId, taskForUpdate, activity) {
     return async (dispatch) => {
         try {
-            // console.log('activity from UPDATETASK', activity)
+            console.log('boardId', boardId)
+            console.log('groupId', groupId)
+            console.log('taskForUpdate', taskForUpdate)
 
             const groupForUpdate = await boardService.getGroupById(boardId, groupId)
             const board = await boardService.getById(boardId)

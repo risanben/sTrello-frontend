@@ -6,9 +6,10 @@ import { useState } from 'react'
 import { utilService } from '../services/util.service'
 
 
-export const AttachmentModal = ({ toggleAttachmentModal,attachModalPos }) => {
+export const AttachmentModal = ({ toggleAttachmentModal, attachModalPos }) => {
     const [url, setUrl] = useState(null)
     const [urlName, setUrlName] = useState(null)
+    const [isLinkName, setIsLinkName] = useState(null)
 
     const dispatch = useDispatch()
 
@@ -22,6 +23,7 @@ export const AttachmentModal = ({ toggleAttachmentModal,attachModalPos }) => {
     // }
 
     const onUpdateUrl = (ev) => {
+        setIsLinkName(!isLinkName)
         setUrl(ev.target.value)
     }
 
@@ -57,10 +59,15 @@ export const AttachmentModal = ({ toggleAttachmentModal,attachModalPos }) => {
             <form onSubmit={onGetImgFromUrl}>
                 <label className="sub-title">Attach a link</label>
                 <input type="text" /*ref={refInput}*/ placeholder="Paste any link here..." onChange={onUpdateUrl} />
-                <span className="sub-title">Link name (optional)</span>
-                <input type="text" onChange={onUpdateName} />
-                {/* <input {...register('name', 'text')} /> */}
-                <button /*onClick={onGetImgFromUrl}*/>Attach</button>
+
+                {isLinkName &&
+                    <div>
+                        <span className="sub-title">Link name (optional)</span>
+                        <input type="text" onChange={onUpdateName} />
+                    </div>
+                }
+
+                <button>Attach</button>
             </form>
 
         </section>

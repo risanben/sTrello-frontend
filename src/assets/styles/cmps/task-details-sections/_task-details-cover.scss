@@ -1,7 +1,8 @@
 .task-details-main {
 
     .task-cover {
-        border-radius: 3px;
+        border-top-left-radius: 3px;
+        border-top-right-radius: 3px;
         // grid-column: 1/-1;
         background-color: #969899;
         display: grid;

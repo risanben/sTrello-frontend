@@ -5,7 +5,7 @@ import { useState } from 'react'
 // import { getImgFromUrl } from '../../store/board.actions'
 
 
-export const AttachmentNameEditModal = ({ toggleEditAttachNameModal,attachment,task,onUpdateTask }) => {
+export const AttachmentNameEditModal = ({ toggleEditAttachNameModal, attachmentId, task, onUpdateTask ,/*editAttachNameModalPos*/}) => {
 
     const [urlName, setUrlName] = useState(null)
     // const dispatch = useDispatch()
@@ -17,23 +17,16 @@ export const AttachmentNameEditModal = ({ toggleEditAttachNameModal,attachment,t
     const onGetImgFromUrl = (ev) => {
         ev.preventDefault()
         toggleEditAttachNameModal()
-        const attachmentForUpdate = {...attachment,urlName}
-        console.log('urlName',urlName);
-        console.log('attachment',attachment);
-        console.log('attachmentForUpdate',attachmentForUpdate);
-        const updatedTask= task.attachments.map(attach => (attach.id === attachment.id) ? attachmentForUpdate : attach)
-        console.log('task',updatedTask);
-        onUpdateTask(updatedTask)
-   
+
+        const attachmentForUpdate = task.attachments.find(att => att.id === attachmentId)
+        const updatedAtt = { ...attachmentForUpdate, urlName }
+        const idx = task.attachments.findIndex(attach => attach.id === attachmentId)
+        task.attachments.splice(idx, 1, updatedAtt)
+        onUpdateTask(task)
     }
 
-    // const onUpdateTask = (taskForUpdate, activity = { "_id": "u999", "fullname": "Guset", "imgUrl": null }) => {
-    //     if (!taskForUpdate) return
-    //     dispatch(updateTask(currentBoardId, currentGroupId, taskForUpdate, activity))
-    // }
-
     return (
-        <section className="labels-modal" /*style={{ ...attachModalPos.style }}*/>
+        <section className="labels-modal" /*style={{ ...editAttachNameModalPos.style }}*/>
             <img src={closeIcon} onClick={toggleEditAttachNameModal} alt="close" className="close-btn" />
             <div className="labels-modal-title">Edit attachment</div>
 

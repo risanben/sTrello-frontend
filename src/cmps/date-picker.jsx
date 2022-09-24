@@ -2,21 +2,22 @@ import { useState } from "react"
 import Calendar from 'react-calendar';
 import { RiArrowLeftSLine, RiArrowRightSLine } from 'react-icons/ri'
 
-export function DatePicker() {
+export function DatePicker({ dateClicked, onDayClick }) {
 
     const [value, onChange] = useState(new Date());
-    const [isClicked, setIsClicked] = useState(false);
 
-    const setTielColor = (ev) => {
-        // console.log('ev', ev)
-        setIsClicked(!isClicked)
-    }
 
-    const selectedDatStyle = () => {
-        const style = {
-            backgroundColor: "blue"
+    const handleDayColors = ({ date }) => {
+        let tileClassName = "day-view "
+        if (dateClicked.getMonth() === date.getMonth()) {
+            tileClassName += "curr-month-day "
         }
-        return style
+        if (dateClicked.getDate() === date.getDate() &&
+            dateClicked.getMonth() === date.getMonth()) {
+            tileClassName += "clicked "
+        }
+
+        return tileClassName
     }
 
     return (
@@ -28,21 +29,14 @@ export function DatePicker() {
                 defaultView="month"
                 locale="en-US"
                 maxDetail="month"
-                minDetail="year"
-                // nextLabel="›"
+                minDetail="month"
                 nextLabel={<RiArrowRightSLine />}
                 prevLabel={<RiArrowLeftSLine />}
                 next2Label=""
                 prev2Label=""
-                // tileClassName={"day-view " + (isClicked ? "clicked" : "")}
-                dayPropGetter={selectedDatStyle()}
-                tileClassName="day-view"
+                tileClassName={handleDayColors}
                 className="calendar-view"
-                se
-                // onClickDay={(value, event) => console.log('Clicked day: ', value)}
-                onClickDay={(val, ev) => setTielColor(ev)}
-            // onDrillDown={({ activeStartDate, view }) => alert('Drilled down to: ', activeStartDate, view)}
-            // returnValue="start"
+                onClickDay={(val, ev) => onDayClick(val)}
             />
         </div>
     )

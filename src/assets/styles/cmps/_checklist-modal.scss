@@ -1,4 +1,4 @@
-.checklist-modal{
+.checklist-modal {
     width: 304px;
     padding: 10px;
     position: absolute;
@@ -9,7 +9,7 @@
     display: flex;
     flex-direction: column;
 
-    .header{
+    .header {
         padding: 6px 0;
         color: #5e6c84;
         text-align: center;
@@ -17,7 +17,7 @@
         margin-bottom: 7px;
     }
 
-    .title{
+    .title {
         color: #172b4d;
         background-color: 'blue';
         font-size: 14px;
@@ -32,11 +32,11 @@
         max-width: 20px;
         position: absolute;
         right: 10px;
-       top: 15px;
-       cursor: pointer;
+        top: 15px;
+        cursor: pointer;
     }
 
-    .btn-add{
+    .btn-add {
         margin-top: 10px;
     }
 
