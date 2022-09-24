@@ -502,7 +502,7 @@ export const TaskDetails = ({ boardId, groupId, taskId, taskFromProps, groupTitl
 
                                     {/* ACTIVITIES  */}
                                     <DetailsActivities
-                                    currentUser={currentUser}/>
+                                    task={task}/>
                                 {/* <div className="activity-container">
                                     <span className="activity-main-icon"> <GrTextAlignFull /></span>
                                     <span className="activity-title">Activity</span>
