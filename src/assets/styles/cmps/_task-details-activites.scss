@@ -1,0 +1,50 @@
+.details-activities {
+
+    // border: 2px solid red;
+    color: inherit;
+
+    .title-containerr {
+        // border: 1px solid green;
+        display: flex;
+
+
+        .activity-icon {
+            font-size: 19px;
+        }
+
+        .title {
+            margin-left: 20px;
+            font-size: 16px;
+            font-weight: 600;
+        }
+    }
+
+    .text-area-container {
+        margin-left: 37px;
+        margin-top: 15px;
+        .txt-area-normal {
+            background-color: white;
+            padding: 10px 12px 0 12px;
+            border: 1px solid rgba(128, 128, 128, 0.278);
+            // height: 30px;
+            &:focus{
+                box-shadow: inset 0 0 0 2px rgba(128, 128, 128, 0.278)
+            }
+        }
+    }
+
+    .checklist-btn{
+        vertical-align: top;
+    background-color: rgba(9, 30, 66, 0.0392156863);
+    color: inherit;
+    border-radius: 3px;
+    font-size: 14px;
+    justify-content: center;
+    line-height: 20px;
+    height: 32px;
+    text-align: center;
+    margin: 4px 4px 0 0;
+    padding: 0 10px;
+    }
+
+}

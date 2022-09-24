@@ -25,8 +25,9 @@ import { DatePicker } from '../cmps/date-picker'
 import { DatePickerModal } from "../cmps/date-picker-modal"
 import { ChecklistModal } from "../cmps/checklist-modal"
 import { TaskChecklist } from "../cmps/task-checklist"
+import { DetailsActivities } from "../cmps/task-details-activities"
 
-export const TaskDetails = ({ boardId, groupId, taskId,taskFromProps, groupTitle, closeModal }) => {
+export const TaskDetails = ({ boardId, groupId, taskId, taskFromProps, groupTitle, closeModal }) => {
 
     const imgJson = useSelector(state => state.boardModule.imgJson)
     // const currentTask = useSelector(state => state.boardModule.task)
@@ -65,9 +66,9 @@ export const TaskDetails = ({ boardId, groupId, taskId,taskFromProps, groupTitle
         // const { boardId, groupId, taskId, groupTitle } = props
         // const { taskId, boardId, groupId } = params
 
-        console.log('boardId', boardId);
-        console.log('groupId', groupId);
-        console.log('taskId', taskId);
+        // console.log('boardId', boardId)
+        // console.log('groupId', groupId)
+        // console.log('taskId', taskId)
 
         if (!boardId) return
         setBoardId(boardId)
@@ -132,10 +133,10 @@ export const TaskDetails = ({ boardId, groupId, taskId,taskFromProps, groupTitle
 
     const onUpdateTask = (taskForUpdate, activity = { "_id": "u999", "fullname": "Guset", "imgUrl": null }) => {
         if (!taskForUpdate) return
-        console.log('taskForUpdate',taskForUpdate);
-        console.log('currentBoardId',currentBoardId);
-        console.log('taskForUpdate',taskForUpdate);
-        console.log('taskForUpdate',taskForUpdate);
+        // console.log('taskForUpdate',taskForUpdate)
+        // console.log('currentBoardId',currentBoardId)
+        // console.log('taskForUpdate',taskForUpdate)
+        // console.log('taskForUpdate',taskForUpdate)
         dispatch(updateTask(currentBoardId, currentGroupId, taskForUpdate, activity))
         // navigate(`/board/${currentBoardId}/${currentGroupId}/${task.id}`)
     }
@@ -166,9 +167,11 @@ export const TaskDetails = ({ boardId, groupId, taskId,taskFromProps, groupTitle
     const toggleChecklistModal = (ev) => {
         if (ev) ev.preventDefault()
         if (!isChecklistModal) {
+            const grandadEl = ev.currentTarget.parentNode.parentNode
+
             const pos = {
-                top: ev.target.offsetTop,
-                left: ev.target.offsetLeft
+                top: grandadEl.offsetTop,
+                left: grandadEl.offsetLeft + 426
             }
             setChecklistModalPos(pos)
             setIsChecklistModal(true)
@@ -184,13 +187,15 @@ export const TaskDetails = ({ boardId, groupId, taskId,taskFromProps, groupTitle
     const toggleLabelsModal = (ev) => {
         if (ev) ev.stopPropagation()
 
-        if (!isLabelModal && isLabelModal !== null) {
+        if (!isLabelModal) {
             const parentEl = ev.currentTarget.parentNode
             const position = parentEl.getBoundingClientRect()
 
+            const grandFatherEl = parentEl.parentNode
+            console.log('grandFatherEl:', grandFatherEl)
             const style = {
-                top: ev.target.offsetTop,
-                left: ev.target.offsetLeft
+                top: grandFatherEl.offsetTop,
+                left: grandFatherEl.offsetLeft + (730 - 304)
             }
             let pos = {
                 position: position,
@@ -198,7 +203,7 @@ export const TaskDetails = ({ boardId, groupId, taskId,taskFromProps, groupTitle
             }
 
             setLabelModalPos(pos)
-            setIsLabelModal(!isLabelModal)
+            setIsLabelModal(true)
         } else {
             setIsLabelModal(false)
         }
@@ -335,7 +340,7 @@ export const TaskDetails = ({ boardId, groupId, taskId,taskFromProps, groupTitle
 
     if (!task) return <div>Loading...</div>
     // console.log('task.desc', task.desc)
-    console.log('cmp DETAILS rendered, task is:', task)
+    // console.log('cmp DETAILS rendered, task is:', task)
 
     return (
         <section className="task-details-main" >
@@ -393,9 +398,12 @@ export const TaskDetails = ({ boardId, groupId, taskId,taskFromProps, groupTitle
                                             </div>
                                         </div>
                                     </section>}
+
+                                    {/* LABEL MODAL */}
                                     <section ref={refLabelModal}>
                                         {isLabelModal && <TaskDetailsLabelModal labelIds={task.labelIds} onSetLabel={onSetLabel} toggleLabelsModal={toggleLabelsModal} labelModalPos={labelModalPos} />}
                                     </section>
+
                                 </section>{/*tags*/}
 
                                 {task?.dueDate && <section className="due-date">
@@ -427,7 +435,7 @@ export const TaskDetails = ({ boardId, groupId, taskId,taskFromProps, groupTitle
                                     </div>
                                 </section>
 
-                                {task?.attachments && task?.attachments?.length>0 && <section className="attachment">
+                                {task?.attachments && task?.attachments?.length > 0 && <section className="attachment">
                                     <div className="attachment-title">
                                         <span className="icon"><GrAttachment /></span>
                                         <span className="ability">Attachment</span>
@@ -458,21 +466,25 @@ export const TaskDetails = ({ boardId, groupId, taskId,taskFromProps, groupTitle
                                 {isAttachmentModal && <AttachmentModal toggleAttachmentModal={toggleAttachmentModal} attachModalPos={attachModalPos} />}
 
                                 {/* CHECKLISTS */}
-                                {taskFromProps?.checklists?.length && <TaskChecklist 
-                                checklists={taskFromProps.checklists}
-                                board={currentBoardId} 
-                                group={currentGroupId} 
-                                task={taskFromProps}
+                                {taskFromProps?.checklists?.length && <TaskChecklist
+                                    checklists={taskFromProps.checklists}
+                                    board={currentBoardId}
+                                    group={currentGroupId}
+                                    task={taskFromProps}
                                 />}
 
-                                <div className="activity-container">
+                                    {/* ACTIVITIES  */}
+                                    <DetailsActivities
+                                    currentUser={currentUser}/>
+                                {/* <div className="activity-container">
                                     <span className="activity-main-icon"> <GrTextAlignFull /></span>
                                     <span className="activity-title">Activity</span>
                                     <span className="user-icon"><TaskMember memberIds={currentUser} /></span>
                                     <textarea className="activity-input" placeholder="Write a comment..."></textarea>
                                     <span className="activity-icon">icon</span>
                                     <span className="activity-title">Activity</span>
-                                </div>
+                                </div> */}
+                                
                             </div>
 
                             <div className="task-main-container-right">

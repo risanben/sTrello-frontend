@@ -103,7 +103,7 @@ export function addBoard(board, activity) {
 export function updateBoard(board, activity) {
     return async (dispatch) => {
         try {
-            console.log('activity from action', activity)
+            // console.log('activity from action', activity)
 
             const savedBoard = await boardService.save(board, activity)
             return dispatch(getActionUpdateBoard(savedBoard))
@@ -119,12 +119,12 @@ export function updateBoard(board, activity) {
 export function updateTask(boardId, groupId, taskForUpdate, activity) {
     return async (dispatch) => {
         try {
-            console.log('activity from UPDATETASK', activity)
+            // console.log('activity from UPDATETASK', activity)
 
             const groupForUpdate = await boardService.getGroupById(boardId, groupId)
             const board = await boardService.getById(boardId)
 
-            console.log('taskForUpdate', taskForUpdate);
+            // console.log('taskForUpdate', taskForUpdate)
             const idx = groupForUpdate.tasks.findIndex(task => task.id === taskForUpdate.id)
             groupForUpdate.tasks.splice(idx, 1, taskForUpdate)
 
