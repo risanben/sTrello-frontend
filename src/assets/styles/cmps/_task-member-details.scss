@@ -26,6 +26,11 @@
 
         .member-fullname {
             margin-left: 10px;
+            margin-left: 10px;
+            justify-content: space-between;
+            color: #172b4d;
+            font-size: 14px;
+            line-height: 32px;
         }
 
         .member-initials-container {
@@ -44,12 +49,12 @@
             }
 
             .member-fullname {
-                margin-left: 10px;
-                justify-content: space-between;
-                color: #172b4d;
-                font-size: 14px;
-                line-height: 32px;
-                // background-color: #ffffff;
+                // margin-left: 10px;
+                // justify-content: space-between;
+                // color: #172b4d;
+                // font-size: 14px;
+                // line-height: 32px;
+
             }
 
         }
@@ -60,13 +65,32 @@
         margin-left: 5px;
         width: 100%;
 
-        &:hover {
-            background-color: antiquewhite;
-            // background-color: #091e42, opacity 4.00%;
-            color: #42526e;
+        border-radius: 3px;
+        height: 32px;
+        line-height: 32px;
+        margin-bottom: 2px;
+        overflow: hidden;
+        padding: 4px;
+        position: relative;
+        text-decoration: none;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+
+        &active{
+            outline: 0;
         }
 
-        .isMember {}
+        &:hover {
+            background-color: antiquewhite; 
+            // opacity: 0.4;
+            // background-color: #091e42, 0.04;
+            color: var(--ds-link,#091e42);
+            // color: #42526e;
+        }
+
+        .isMember {
+            margin: 0;
+        }
     }
 
 }

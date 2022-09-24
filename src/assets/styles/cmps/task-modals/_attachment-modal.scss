@@ -1,0 +1,112 @@
+.attachment-modal {
+    width: 304px;
+    padding: 10px;
+    position: absolute;
+    background-color: whitesmoke;
+    box-shadow: var(--ds-shadow-overlay, 0 8px 16px -4px #091e4240, 0 0 0 1px #091e4214);
+    z-index: 300;
+    border-radius: 3px;
+    display: flex;
+    flex-direction: column;
+    // border: 3px solid red;
+
+    .close-btn {
+        max-width: 20px;
+        position: absolute;
+        right: 10px;
+        top: 15px;
+        cursor: pointer;
+    }
+
+    // &:hover {
+    //     cursor: auto;
+    // }
+
+    .labels-modal-title {
+        padding: 6px 0;
+        color: #5e6c84;
+        text-align: center;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.24);
+        margin-bottom: 7px;
+
+    }
+
+    .sub-title {
+        margin-top: 5px;
+        color: #172b4d;
+        // background-color: #ffffff;
+        background-color: 'blue';
+        font-size: 14px;
+        line-height: 20px;
+        letter-spacing: normal;
+        text-align: start;
+        // border: 2px solid red;
+        font-size: 12px;
+        font-weight: 500;
+    }
+
+    .link-input {
+        margin: 4px 0 12px;
+        width: 100%;
+        -webkit-appearance: none;
+        background-color: var(--ds-background-input, #fafbfc);
+        border: none;
+        border-radius: 3px;
+        box-shadow: inset 0 0 0 2px var(--ds-border-input, #dfe1e6);
+        box-sizing: border-box;
+        display: block;
+        line-height: 20px;
+        outline: none;
+        padding: 8px 12px;
+        transition-duration: 85ms;
+        transition-property: background-color, border-color, box-shadow;
+        transition-timing-function: ease;
+        font-size: 14px;
+        font-weight: 400;
+
+        &:focus {
+            outline: 0;
+            background-color: var(--ds-background-input,#fff);
+    box-shadow: inset 0 0 0 2px var(--ds-border-focused,#0079bf);
+            // border: none;
+        }
+    }
+
+    .link-name{
+        width: 100%;
+    }
+
+    .btn-attach{
+        background-color: var(--ds-background-neutral,#091e420a);
+    border: none;
+    box-shadow: none;
+    color: var(--ds-text,inherit);
+    cursor: pointer;
+    display: inline-block;
+    font-weight: 400;
+    line-height: 20px;
+    width: 55px;
+    padding: 6px 12px;
+    text-align: center;
+    border-radius: 3px;
+    transition-duration: 85ms;
+    transition-property: background-color,border-color,box-shadow;
+    transition-timing-function: ease;
+    color: #172B4D;
+
+    &:hover{
+        background-color: var(--ds-background-neutral-hovered,#091e4214);
+        border: none;
+        box-shadow: none;
+        color: var(--ds-text,inherit);
+    }
+
+    &:active{
+        background-color: var(--ds-background-neutral-pressed,#e4f0f6);
+        border: none;
+        box-shadow: none;
+        color: var(--ds-text,#0079bf);
+        outline: 0;
+    }
+    }
+}

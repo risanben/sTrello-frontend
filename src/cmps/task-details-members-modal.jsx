@@ -4,7 +4,7 @@ import closeIcon from '../assets/img/icon-close-task-details.svg'
 export const TaskDetailsMembersModal = ({ memberIds, onSetMember, toggleMembersModal }) => {
     return (
         <section className="members-modal">
-             <img src={closeIcon} onClick={toggleMembersModal} alt="close" className="close-btn" />
+            <img src={closeIcon} onClick={toggleMembersModal} alt="close" className="close-btn" />
             {/* <div className="members-modal-container"> */}
             {/* <div onClick={toggleMembersModal}>X</div> */}
             <div className="members-modal-title">Members</div>

@@ -464,7 +464,7 @@ export const TaskDetails = ({ boardId, groupId, taskId, taskFromProps, groupTitl
                                             return <div className="attachment-body" key={attachment.id}>
                                                 <img className="img-attached" src={`${attachment.url}`} />
                                                 <div className="attachment-details">
-                                                    <span className="url-name">{attachment.urlName}.{attachment.fileFormat ? attachment.fileFormat : ''}</span>
+                                                    <span className="url-name">{attachment.urlName}{attachment.fileFormat ? `.${attachment.fileFormat}` : ''}</span>
                                                     <div className="add-time-and-btns">
                                                         <span className="Added-at">Added {getTime(attachment)}</span>
                                                         <span>-</span>
@@ -485,7 +485,7 @@ export const TaskDetails = ({ boardId, groupId, taskId, taskFromProps, groupTitl
                                 {isAttachmentModal && <AttachmentModal toggleAttachmentModal={toggleAttachmentModal} attachModalPos={attachModalPos} />}
 
                                 {/* CHECKLISTS */}
-                                {taskFromProps?.checklists?.length && <TaskChecklist
+                                {taskFromProps?.checklists?.length > 0  && <TaskChecklist
                                     checklists={taskFromProps.checklists}
                                     board={currentBoardId}
                                     group={currentGroupId}

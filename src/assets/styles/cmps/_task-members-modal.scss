@@ -18,7 +18,7 @@
        cursor: pointer;
     }
 
-    .label-search-input {
+    .member-search-input {
         border: 3px solid lightblue;
         padding: 10px 5px 5px 10px;
         border-radius: 3px;
@@ -54,6 +54,10 @@
         // border: 2px solid red;
         font-size: 12px;
         font-weight: 500;
+    }
+
+    .member-detail-container{
+        margin-top: 10px;
     }
 
 }

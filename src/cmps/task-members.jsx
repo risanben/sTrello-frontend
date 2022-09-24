@@ -9,7 +9,8 @@ export const TaskMember = ({ memberIds, taskRef, index }) => {
         if (!board?.members) return
         const member = board.members.find(member => member._id === memberId)
         if (member.imgUrl) {
-            return <div style={{
+            return <div className="member-img-icon"
+            style={{
                 backgroundImage: `url(${member.imgUrl})`,
                 backgroundSize: "cover",
                 height: "28px",

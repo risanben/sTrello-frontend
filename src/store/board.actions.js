@@ -193,6 +193,7 @@ export function getImgUrl(ev) {
         try {
             const imgEv = await uploadService.uploadImg(ev)
             console.log('imgEv- board action', imgEv);
+            if(!imgEv.fileFormat) imgEv.url='https://res.cloudinary.com/dln4kbx1f/image/upload/v1664031478/a7aqgf6kxvow44jn3qzf.png'
             const { imgJson } = dispatch({
                 type: 'SET_IMG_URL',
                 imgJson: imgEv
