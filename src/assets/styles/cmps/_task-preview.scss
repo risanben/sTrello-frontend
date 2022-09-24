@@ -70,30 +70,47 @@
                 }
 
                 .due-date-container {
-                    background-color: #f2d600;
+                    // background-color: #f2d600;
                     border-radius: 3px;
-                    color: #fff;
+                    color: #5e6c84;
                     margin-right: 4px;
                     display: flex;
                     padding: 0px 2px 0px 4px;
                     align-items: center;
+                    margin-bottom: 2px;
 
                     &:hover {
-                        background-color: #d9b51c;
+                        background-color: #ebecf0;
                     }
 
                     .due-date-txt {
-                        font-size: 11px;
+                        font-size: 12px;
                         padding: 0 4px 0 2px;
+                        margin-top: 2px;
                     }
 
                     .due-date-icon {
-                        background-image: url('../../img/due-date-icon.svg');
+                        // background-image: url('../../img/due-date-icon.svg');
+                        background-image: url('../../img/due-date-icon-normal.svg');
                         background-position: center;
                         background-repeat: no-repeat;
                         height: 16px;
                         width: 16px;
                         align-self: center;
+                        color: #5e6c84;
+                    }
+
+                    &:hover .due-date-icon {
+                        background-image: url('../../img/check-box-icon-normal.svg');
+                        // background-image: url('../../img/check-box-icon.svg');
+                    }
+                }
+
+                .due-task-display {
+                    color: #fff;
+
+                    .due-date-icon {
+                        background-image: url('../../img/due-date-icon.svg');
                     }
 
                     &:hover .due-date-icon {
@@ -101,8 +118,48 @@
                     }
                 }
 
+                .due-soon {
+                    background-color: #F2D600;
+                    // color: #fff;
+
+                    &:hover {
+                        background-color: #d9b51c;
+                    }
+
+                    // .due-date-icon {
+                    //     background-image: url('../../img/due-date-icon.svg');
+                    // }
+
+                    // &:hover .due-date-icon {
+                    //     background-image: url('../../img/checklist-is-done-icon.svg');
+                    // }
+                }
+
+                .over-due {
+                    background-color: #EC9488;
+                    // color: #fff;
+
+                    &:hover {
+                        background-color: #eb5a46;
+                    }
+
+                    //     .due-date-icon {
+                    //         background-image: url('../../img/due-date-icon.svg');
+                    //     }
+
+                    //     &:hover .due-date-icon {
+                    //         background-image: url('../../img/checklist-is-done-icon.svg');
+                    //     }
+                }
+
                 .done {
                     background-color: #61bd4f;
+                    // color: #fff;
+
+                    .due-date-icon {
+                        background-image: url('../../img/due-date-icon.svg');
+
+                    }
 
                     &:hover {
                         background-color: #519839;

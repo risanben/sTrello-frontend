@@ -180,7 +180,8 @@ const dataBoards = [
                         "createdAt": 1590999730348,
                         "dueDate": {
                             "date": 16156215211,
-                            "isDone": false
+                            "isDone": false,
+                            "createdAt": 1590999730348
                         },
                         "byMember": {
                             "_id": "u101",
@@ -279,7 +280,8 @@ const dataBoards = [
                         "createdAt": 1590999730348,
                         "dueDate": {
                             "date": 16156215211,
-                            "isDone": false
+                            "isDone": false,
+                            "createdAt": 1590999730348
                         },
                         "byMember": {
                             "_id": "u101",
@@ -375,7 +377,8 @@ const dataBoards = [
                         "title": "Data Modal Approval",
                         "dueDate": {
                             "date": 16156215211,
-                            "isDone": true
+                            "isDone": true,
+                            "createdAt": 1590999730348
                         },
                     },
                     {
@@ -419,7 +422,8 @@ const dataBoards = [
                         "watcedMemberIds": ["u101"],
                         "dueDate": {
                             "date": 16156215211,
-                            "isDone": false
+                            "isDone": false,
+                            "createdAt": 1590999730348
                         },
                         "style": {
                             "bg": {
@@ -459,7 +463,8 @@ const dataBoards = [
                         "labelIds": ["l103", "l104"],
                         "dueDate": {
                             "date": 16156215211,
-                            "isDone": true
+                            "isDone": true,
+                            "createdAt": 1590999730348
                         },
                         "style": {
                             "bg": {
@@ -526,7 +531,8 @@ const dataBoards = [
                         "title": "CSS directory",
                         "dueDate": {
                             "date": 16156215211,
-                            "isDone": false
+                            "isDone": false,
+                            "createdAt": 1590999730348
                         },
                     },
                     {
@@ -622,7 +628,8 @@ const dataBoards = [
                         "watcedMemberIds": ["u101"],
                         "dueDate": {
                             "date": 16156215211,
-                            "isDone": false
+                            "isDone": false,
+                            "createdAt": 1599999730348
                         },
                     }
                 ],

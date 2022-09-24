@@ -25,8 +25,9 @@ import { DatePicker } from '../cmps/date-picker'
 import { DatePickerModal } from "../cmps/date-picker-modal"
 import { ChecklistModal } from "../cmps/checklist-modal"
 import { TaskChecklist } from "../cmps/task-checklist"
+import { utilService } from "../services/util.service"
 
-export const TaskDetails = ({ boardId, groupId, taskId,taskFromProps, groupTitle, closeModal }) => {
+export const TaskDetails = ({ boardId, groupId, taskId, taskFromProps, groupTitle, closeModal }) => {
 
     const imgJson = useSelector(state => state.boardModule.imgJson)
     // const currentTask = useSelector(state => state.boardModule.task)
@@ -65,9 +66,9 @@ export const TaskDetails = ({ boardId, groupId, taskId,taskFromProps, groupTitle
         // const { boardId, groupId, taskId, groupTitle } = props
         // const { taskId, boardId, groupId } = params
 
-        console.log('boardId', boardId);
-        console.log('groupId', groupId);
-        console.log('taskId', taskId);
+        // console.log('boardId', boardId);
+        // console.log('groupId', groupId);
+        // console.log('taskId', taskId);
 
         if (!boardId) return
         setBoardId(boardId)
@@ -130,12 +131,12 @@ export const TaskDetails = ({ boardId, groupId, taskId,taskFromProps, groupTitle
         return moment(imgJson.addedAt).fromNow()
     }
 
-    const onUpdateTask = (taskForUpdate, activity = { "_id": "u999", "fullname": "Guset", "imgUrl": null }) => {
+    const onUpdateTask = (taskForUpdate, activity) => {
         if (!taskForUpdate) return
-        console.log('taskForUpdate',taskForUpdate);
-        console.log('currentBoardId',currentBoardId);
-        console.log('taskForUpdate',taskForUpdate);
-        console.log('taskForUpdate',taskForUpdate);
+        // console.log('taskForUpdate', taskForUpdate);
+        // console.log('currentBoardId', currentBoardId);
+        // console.log('taskForUpdate', taskForUpdate);
+        // console.log('taskForUpdate', taskForUpdate);
         dispatch(updateTask(currentBoardId, currentGroupId, taskForUpdate, activity))
         // navigate(`/board/${currentBoardId}/${currentGroupId}/${task.id}`)
     }
@@ -228,7 +229,7 @@ export const TaskDetails = ({ boardId, groupId, taskId,taskFromProps, groupTitle
     }
 
     const onSetColor = (newColor) => {
-        console.log('color', newColor)
+        // console.log('color', newColor)
         if (!task.style) task.style = { bg: { color: newColor } }
         task.style.bg.color = newColor
         task.style.bg.imgUrl = null
@@ -290,7 +291,7 @@ export const TaskDetails = ({ boardId, groupId, taskId,taskFromProps, groupTitle
             const idx = task.attachments.findIndex(img => img.id === attachId)
             task.attachments.splice(idx, 1)
         }
-        console.log('task', task);
+        // console.log('task', task);
         onUpdateTask(task)
         // navigate(`/board/${currentBoardId}/${currentGroupId}/${task.id}`)
     }
@@ -335,7 +336,7 @@ export const TaskDetails = ({ boardId, groupId, taskId,taskFromProps, groupTitle
 
     if (!task) return <div>Loading...</div>
     // console.log('task.desc', task.desc)
-    console.log('cmp DETAILS rendered, task is:', task)
+    // console.log('cmp DETAILS rendered')
 
     return (
         <section className="task-details-main" >
@@ -403,8 +404,10 @@ export const TaskDetails = ({ boardId, groupId, taskId,taskFromProps, groupTitle
                                     <div className="due-date-container">
                                         <div className={"due-date-checkbox " + (task.dueDate.isDone ? "is-done" : "")} onClick={onCompleteDueDate}></div>
                                         <div className={"due-date-content " + (task.dueDate.isDone ? "is-done" : "")}>
-                                            <div className="due-date-time">Sep 19 at 8:30 PM</div>
-                                            {!task.dueDate.isDone && <div className="due-date-tag">due soon</div>}
+                                            {/* <div className="due-date-time">Sep 19 at 8:30 PM</div> */}
+                                            <div className="due-date-time">{utilService.formatDate(task.dueDate)}</div>
+                                            {/* {!task.dueDate.isDone && <div className="due-date-tag">due soon</div>} */}
+                                            {!task.dueDate.isDone && <div className={"due-date-tag " + utilService.getDueDateTag(task.dueDate.date)}></div>}
                                             {task.dueDate.isDone && <div className="due-date-tag is-done">complete</div>}
                                             <div className="due-date-dropdwon-icon"><IoIosArrowDown /></div>
                                         </div>
@@ -423,11 +426,11 @@ export const TaskDetails = ({ boardId, groupId, taskId,taskFromProps, groupTitle
                                     <div className="description-edit-container">
                                         {isEditDescription && <textarea className="description-textarea" placeholder="Add a more detailed description..." {...register('desc', 'text')} value={task.desc} ref={refInput} />}
                                         {isEditDescription && <button className="btn-desc save" onClick={toggleEditDescription}>Save</button>}
-                                        {isEditDescription && <button className="btn-desc close">Cancel</button>}
+                                        {isEditDescription && <button className="btn-desc close" onClick={toggleEditDescription}>Cancel</button>}
                                     </div>
                                 </section>
 
-                                {task?.attachments && task?.attachments?.length>0 && <section className="attachment">
+                                {task?.attachments && task?.attachments?.length > 0 && <section className="attachment">
                                     <div className="attachment-title">
                                         <span className="icon"><GrAttachment /></span>
                                         <span className="ability">Attachment</span>
@@ -458,11 +461,11 @@ export const TaskDetails = ({ boardId, groupId, taskId,taskFromProps, groupTitle
                                 {isAttachmentModal && <AttachmentModal toggleAttachmentModal={toggleAttachmentModal} attachModalPos={attachModalPos} />}
 
                                 {/* CHECKLISTS */}
-                                {taskFromProps?.checklists?.length && <TaskChecklist 
-                                checklists={taskFromProps.checklists}
-                                board={currentBoardId} 
-                                group={currentGroupId} 
-                                task={taskFromProps}
+                                {taskFromProps?.checklists?.length && <TaskChecklist
+                                    checklists={taskFromProps.checklists}
+                                    board={currentBoardId}
+                                    group={currentGroupId}
+                                    task={taskFromProps}
                                 />}
 
                                 <div className="activity-container">
@@ -485,7 +488,7 @@ export const TaskDetails = ({ boardId, groupId, taskId,taskFromProps, groupTitle
                                     <span className="ability">Labels</span>
                                 </button>
                                 {/* {isDatePickerOpen && <DatePicker />} */}
-                                {isDatePickerOpen && <DatePickerModal />}
+                                {isDatePickerOpen && <DatePickerModal onToggleDatePicker={onToggleDatePicker} task={task} onUpdateTask={onUpdateTask} />}
                                 <button className="btn abilities" onClick={toggleChecklistModal}>
                                     <span className="icon"><BsCheck2Square /></span>
                                     <span className="ability">Checklist</span>

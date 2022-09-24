@@ -184,8 +184,6 @@
                         margin-bottom: 8px;
                         max-width: 100%;
 
-
-
                         .plus-icon {
                             width: 32px;
                             height: 32px;
@@ -206,7 +204,6 @@
                             margin: 0 8px 8px 0;
                             width: 100%;
                             flex: 1;
-
 
                             .select-members {
                                 display: flex;
@@ -251,8 +248,6 @@
                                 }
                             }
                         }
-
-
                     }
 
                     .due-date {
@@ -312,12 +307,28 @@
                                 padding: 0 4px;
                                 border-radius: 2px;
                                 margin: auto 0 auto 8px;
-                                color: #172B4D;
-                                background-color: #F2D600;
+                                // color: #172B4D;
+                                color: #fff;
+
+                                &.due-soon {
+                                    background-color: #F2D600;
+                                    color: #172B4D;
+
+                                    &::before {
+                                        content: "due soon";
+                                    }
+                                }
+
+                                &.over-due {
+                                    background-color: #EC9488;
+
+                                    &::before {
+                                        content: "overdue";
+                                    }
+                                }
 
                                 &.is-done {
                                     background-color: #61BD4F;
-                                    color: #fff;
                                 }
                             }
 

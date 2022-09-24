@@ -1,0 +1,114 @@
+.date-picker-modal {
+    height: fit-content;
+    width: 320px;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    // overflow-x: hidden;
+
+    position: fixed;
+    top: 148px;
+    left: 315px;
+    border-radius: 3px;
+    box-shadow: 0 8px 16px -4px #091e4240, 0 0 0 1px #091e4214;
+
+    .date-picker-title-container {
+        height: 48px;
+        padding: 0 6px 0 12px;
+        width: 100%;
+        justify-content: center;
+
+        .date-picker-title-content {
+            align-items: center;
+            display: flex;
+            width: 100%;
+            height: 100%;
+            justify-content: space-between;
+
+            .date-picker-title {
+                flex: 1;
+                line-height: 20px;
+                margin: 14px 32px;
+                font-size: 14px;
+                text-align: center;
+                color: #5e6c84;
+                font-weight: 400;
+            }
+
+            .btn-close-date-picker {
+                font-size: 20px;
+                color: #42526e;
+                max-width: 20px;
+                position: absolute;
+                right: 10px;
+                top: 15px;
+
+                &:hover {
+                    cursor: pointer;
+                    color: #091e42;
+                }
+            }
+        }
+
+        .date-picker-hr {
+            background-color: #091e4221;
+            border: 0;
+            height: 1px;
+            margin: 0 0 16px 0;
+            padding: 0;
+            width: 100%;
+        }
+
+
+    }
+
+    .btn-date-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        margin-top: 8px;
+        padding: 8px;
+
+        .btn-date-picker {
+            flex: 1;
+            overflow: hidden;
+            margin-right: 8px;
+            font-size: 14px;
+            line-height: 20px;
+            font-weight: 400;
+            border-radius: 3px;
+            padding: 6px 12px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 8px 8px 0;
+        }
+
+        .btn-save-date {
+            background-color: #0079bf;
+            color: #ffffff;
+
+            &:hover {
+                background-color: #026aa7;
+            }
+
+            &:active {
+                background-color: #055a8c;
+            }
+        }
+
+        .btn-remove-date {
+            background-color: #091e420a;
+
+            &:hover {
+                cursor: pointer;
+                background-color: #091e4214;
+            }
+
+            &:active {
+                color: #0079bf;
+                background-color: #e4f0f6;
+            }
+        }
+    }
+}
