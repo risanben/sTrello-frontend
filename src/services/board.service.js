@@ -26,6 +26,8 @@ export const boardService = {
     getTaskById,
     removeGroup,
     getBackground,
+    addChecklist,
+    addTodo,
     addGroupToBoard,
     getTaskBackground
 }
@@ -148,6 +150,52 @@ async function getTaskById(boardId, groupId, taskId) {
     }
 }
 
+async function addTodo(boardId, groupId, taskId, checklistId, title) {
+    const todoToAdd = {
+        id: utilService.makeId(),
+        title,
+        isDone: false,
+    }
+
+    try {
+        const board = await getById(boardId)
+        const groupIdx = board.groups.findIndex(group => group.id === groupId)
+        const taskIdx = board.groups[groupIdx].tasks.findIndex(task => task.id === taskId)
+        const checklistIdx = board.groups[groupIdx].tasks[taskIdx].checklists.findIndex(
+            checklist => checklist.id === checklistId
+        )
+        board.groups[groupIdx].tasks[taskIdx].checklists[checklistIdx].todos.push(todoToAdd)
+
+        save(board)
+        return board
+    } catch (err) {
+        console.log('Cannot add todo,Heres why:', err)
+    }
+}
+
+async function addChecklist(boardId, groupId, taskObj, title) {
+    const newChecklist = {
+        id: utilService.makeId(),
+        title,
+        todos: [],
+    }
+    try {
+        const board = await getById(boardId)
+        const groupIdx = board.groups.findIndex(group => group.id === groupId)
+        const taskIdx = board.groups[groupIdx].tasks.findIndex(task => task.id === taskObj.id)
+
+        if ( board.groups[groupIdx].tasks[taskIdx]?.checklists){
+            board.groups[groupIdx].tasks[taskIdx].checklists.push(newChecklist)
+        } else {
+            board.groups[groupIdx].tasks[taskIdx].checklists = [newChecklist]
+        }
+
+        save(board)
+        return board
+    } catch (err) {
+        console.log('Cannot add checklist', err)
+    }
+}
 
 function getBackground(type) {
     if (type === 'url') {

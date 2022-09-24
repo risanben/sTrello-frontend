@@ -7,6 +7,8 @@ import { TaskLabel } from "./task-label"
 import { TaskMember } from "./task-members"
 import { updateTask } from "../store/board.actions"
 import { useDispatch, useSelector } from "react-redux"
+import { utilService } from "../services/util.service"
+import clockIcon from '../assets/img/due-date-icon.svg'
 
 export const TaskPreview = ({ task, groupId, index, taskRef, groupTitle }) => {
 
@@ -151,8 +153,7 @@ export const TaskPreview = ({ task, groupId, index, taskRef, groupTitle }) => {
                     <div
                         ref={(el) => { taskRef.current = el; provided.innerRef(el) }}
                         {...provided.draggableProps}
-                        {...provided.dragHandleProps}
-                    >
+                        {...provided.dragHandleProps} >
                         <section className="task-preview" onClick={onGoToDetails} >
                             <div className="btn-quick-edit hide" onClick={toggleQuickEdit}>
                             </div>
@@ -166,13 +167,19 @@ export const TaskPreview = ({ task, groupId, index, taskRef, groupTitle }) => {
                                         labelIds={task.labelIds}
                                     />}
                                     <span>{task.title}</span>
-                                    <div className={"badges-container " + (!task?.memberIds && task?.dueDate ? "adjust-height" : "")} >
+                                    <div className={"badges-container " +
+                                        (!task?.memberIds && task?.dueDate ? "adjust-height" : "")} >
                                         <div className="left-badges-container">
                                             {isWatchByUser() && <div className="viewed-by-user"></div>}
-                                            {task?.dueDate && <div className={"due-date-container " + (task?.dueDate.isDone ? "done" : "")} onClick={completeDue}>
-                                                <div className="due-date-icon"></div>
-                                                <span className="due-date-txt">Sep 20</span>
-                                            </div>}
+                                            {task?.dueDate &&
+                                                <div
+                                                    className={"due-date-container " +
+                                                        (task?.dueDate.isDone ? "done due-task-display" : utilService.getDueDateTag(task.dueDate.date))}
+                                                    onClick={completeDue}>
+                                                    <div className="due-date-icon"></div>
+                                                    {/* <img src={clockIcon} className="due-date-icon" /> */}
+                                                    <span className="due-date-txt">{utilService.formatDate(task.dueDate, true)}</span>
+                                                </div>}
                                             {task.desc && <div className="task-desc-icon"></div>}
                                             {task?.attachments && <div className="attachment-badge-container">
                                                 <div className="attachment-badge"></div>
@@ -213,7 +220,7 @@ export const TaskPreview = ({ task, groupId, index, taskRef, groupTitle }) => {
                 )
                 }
             </Draggable >
-            {showDetailsModal && <TaskDetails boardId={boardIdRef.current} groupId={groupId} taskId={task.id} taskFromProps={task} closeModal={onGoToDetails} groupTitle={groupTitle}/>}
+            {showDetailsModal && <TaskDetails boardId={boardIdRef.current} groupId={groupId} taskId={task.id} taskFromProps={task} closeModal={onGoToDetails} groupTitle={groupTitle} />}
         </React.Fragment >
     )
 }

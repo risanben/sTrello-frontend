@@ -23,6 +23,9 @@ import { TaskDetailsAttachments } from "../cmps/task-details-sections/task-detai
 import { AttachmentNameEditModal } from "../cmps/task-details-modals/attachment-name-edit-modal"
 import { DatePicker } from '../cmps/date-picker'
 import { DatePickerModal } from "../cmps/date-picker-modal"
+import { ChecklistModal } from "../cmps/checklist-modal"
+import { TaskChecklist } from "../cmps/task-checklist"
+import { utilService } from "../services/util.service"
 
 export const TaskDetails = ({ boardId, groupId, taskId, taskFromProps, groupTitle, closeModal }) => {
 
@@ -50,6 +53,9 @@ export const TaskDetails = ({ boardId, groupId, taskId, taskFromProps, groupTitl
     // const [isAttachedFile, setIsAttachedFile] = useState(null)
     const [currentUser, setCurrentUser] = useState([])
     const [labelModalPos, setLabelModalPos] = useState(null)
+    const [isChecklistModal, setIsChecklistModal] = useState(false)
+    const [checklistModalPos, setChecklistModalPos] = useState(null)
+
     const [attachModalPos, setAttachModalPos] = useState(null)
     const [editAttachNameModalPos, setEditAttachNameModalPos] = useState(null)
     // const [windowWidth, setWidth] = useState(window.innerWidth)
@@ -152,6 +158,20 @@ export const TaskDetails = ({ boardId, groupId, taskId, taskFromProps, groupTitl
         setIsMemberModal(!isMemberModal)
     }
 
+    const toggleChecklistModal = (ev) => {
+        if (ev) ev.preventDefault()
+        if (!isChecklistModal) {
+            const pos = {
+                top: ev.target.offsetTop,
+                left: ev.target.offsetLeft
+            }
+            setChecklistModalPos(pos)
+            setIsChecklistModal(true)
+        } else {
+            setIsChecklistModal(false)
+        }
+    }
+
     const toggleEditAttachNameModal = (ev, attachmentId) => {
 
         setAttachmentToEdit(attachmentId)
@@ -225,7 +245,7 @@ export const TaskDetails = ({ boardId, groupId, taskId, taskFromProps, groupTitl
     }
 
     const onSetColor = (newColor) => {
-        console.log('color', newColor)
+        // console.log('color', newColor)
         if (!task.style) task.style = { bg: { color: newColor } }
         task.style.bg.color = newColor
         task.style.bg.imgUrl = null
@@ -333,9 +353,13 @@ export const TaskDetails = ({ boardId, groupId, taskId, taskFromProps, groupTitl
         setIsDatePickerOpen(!isDatePickerOpen)
     }
 
+
+
+
     if (!task) return <div>Loading...</div>
     // console.log('task.desc', task.desc)
-    // console.log('task', task);
+    // console.log('cmp DETAILS rendered')
+
     return (
         <section className="task-details-main" >
             <div className="black-screen" onClick={onBack}>
@@ -404,8 +428,10 @@ export const TaskDetails = ({ boardId, groupId, taskId, taskFromProps, groupTitl
                                     <div className="due-date-container">
                                         <div className={"due-date-checkbox " + (task.dueDate.isDone ? "is-done" : "")} onClick={onCompleteDueDate}></div>
                                         <div className={"due-date-content " + (task.dueDate.isDone ? "is-done" : "")}>
-                                            <div className="due-date-time">Sep 19 at 8:30 PM</div>
-                                            {!task.dueDate.isDone && <div className="due-date-tag">due soon</div>}
+                                            {/* <div className="due-date-time">Sep 19 at 8:30 PM</div> */}
+                                            <div className="due-date-time">{utilService.formatDate(task.dueDate)}</div>
+                                            {/* {!task.dueDate.isDone && <div className="due-date-tag">due soon</div>} */}
+                                            {!task.dueDate.isDone && <div className={"due-date-tag " + utilService.getDueDateTag(task.dueDate.date)}></div>}
                                             {task.dueDate.isDone && <div className="due-date-tag is-done">complete</div>}
                                             <div className="due-date-dropdwon-icon"><IoIosArrowDown /></div>
                                         </div>
@@ -424,7 +450,7 @@ export const TaskDetails = ({ boardId, groupId, taskId, taskFromProps, groupTitl
                                     <div className="description-edit-container">
                                         {isEditDescription && <textarea className="description-textarea" placeholder="Add a more detailed description..." {...register('desc', 'text')} value={task.desc} ref={refInput} />}
                                         {isEditDescription && <button className="btn-desc save" onClick={toggleEditDescription}>Save</button>}
-                                        {isEditDescription && <button className="btn-desc close">Cancel</button>}
+                                        {isEditDescription && <button className="btn-desc close" onClick={toggleEditDescription}>Cancel</button>}
                                     </div>
                                 </section>
 
@@ -458,6 +484,14 @@ export const TaskDetails = ({ boardId, groupId, taskId, taskFromProps, groupTitl
                                 {/* {task?.attachments && <TaskDetailsAttachments task={task} imgJson={imgJson} onSetAttachment={onSetAttachment} currentBoardId={currentBoardId} currentGroupId={currentGroupId} />} */}
                                 {isAttachmentModal && <AttachmentModal toggleAttachmentModal={toggleAttachmentModal} attachModalPos={attachModalPos} />}
 
+                                {/* CHECKLISTS */}
+                                {taskFromProps?.checklists?.length && <TaskChecklist
+                                    checklists={taskFromProps.checklists}
+                                    board={currentBoardId}
+                                    group={currentGroupId}
+                                    task={taskFromProps}
+                                />}
+
                                 <div className="activity-container">
                                     <span className="activity-main-icon"> <GrTextAlignFull /></span>
                                     <span className="activity-title">Activity</span>
@@ -478,11 +512,12 @@ export const TaskDetails = ({ boardId, groupId, taskId, taskFromProps, groupTitl
                                     <span className="ability">Labels</span>
                                 </button>
                                 {/* {isDatePickerOpen && <DatePicker />} */}
-                                {isDatePickerOpen && <DatePickerModal />}
-                                <button className="btn abilities">
+                                {isDatePickerOpen && <DatePickerModal onToggleDatePicker={onToggleDatePicker} task={task} onUpdateTask={onUpdateTask} />}
+                                <button className="btn abilities" onClick={toggleChecklistModal}>
                                     <span className="icon"><BsCheck2Square /></span>
                                     <span className="ability">Checklist</span>
                                 </button>
+                                {isChecklistModal && <ChecklistModal toggleChecklistModal={toggleChecklistModal} pos={checklistModalPos} boardId={currentBoardId} groupId={currentGroupId} task={task} />}
                                 <button className="btn abilities" onClick={onToggleDatePicker}>
                                     <span className="icon"><BsClock /></span>
                                     <span className="ability">Dates</span>
