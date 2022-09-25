@@ -20,7 +20,7 @@ export const ChecklistModal = ({ toggleChecklistModal, pos, boardId, groupId, ta
     }
 
 
-    // console.log('cmp checlistmodal rendered')
+    console.log('pos:', pos)
     return (
         <section className="checklist-modal" style={{ ...pos }}>
             <section className="header">

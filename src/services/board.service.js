@@ -30,7 +30,8 @@ export const boardService = {
     addChecklist,
     addTodo,
     addGroupToBoard,
-    getTaskBackground
+    getTaskBackground,
+    getLabelsColors
 }
 window.cs = boardService
 
@@ -108,9 +109,7 @@ async function save(board, activity = null) {
     if (board._id) {
 
         if (activity) board.activities.unshift(activity)
-        savedBoard = await httpService.put(BASE_URL + board._id, board)
-        console.log('board from save %%%', savedBoard)
-        // savedBoard = await storageService.put(STORAGE_KEY, board)
+        savedBoard = await storageService.put(STORAGE_KEY, board)
         boardChannel.postMessage(getActionUpdateBoard(savedBoard))
     } else {
         if (activity) board.activities = [activity]
@@ -134,7 +133,7 @@ async function getGroupById(boardId, groupId) {
 }
 
 function _addActivityDetails(activity) {
-    console.log('activity!!!!', activity);
+    // console.log('activity!!!!', activity)
     activity.id = utilService.makeId()
     activity.createdAt = Date.now()
     activity.byMember = {
@@ -240,6 +239,22 @@ function getTaskBackground(type) {
         ]
     }
 }
+
+function getLabelsColors(type) {
+
+    return [
+        '#D6ECD2', '#FAF3C0', '#FCE6C6', '#F5D3CE', '#EDDBF4',
+        '#B7DDB0', '#F5EA92', '#FAD29C', '#EFB3AB', '#DFC0EB',
+        '#7BC86C', '#F5DD29', '#FFAF3F', '#EF7564', '#CD8DE5',
+
+        '#5BA4CF',//accent-blue
+        '#29CCE5',//accent-teal
+        '#6DECA9',//light-green
+        '#FF8ED4',//pink
+        '#172B4D',//accent-gray
+    ]
+}
+
 // TEST DATA
 // storageService.post(STORAGE_KEY, {vendor: 'Subali Rahok 2', price: 980}).then(x => console.log(x))
 

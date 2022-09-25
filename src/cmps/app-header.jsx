@@ -25,8 +25,8 @@ export function AppHeader() {
 
         return (
             () => {
-                // document.removeEventListener("click", handleClickOutside, false)
-                // console.log('listener disabled:')
+                document.removeEventListener("click", handleClickOutside, false)
+                console.log('listener disabled:')
             }
         )
     }, [])

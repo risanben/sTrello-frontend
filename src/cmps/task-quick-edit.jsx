@@ -30,7 +30,7 @@ export const TaskQuickEdit = ({ task, pos, toggaleQuickEdit, boardId, groupId })
 
     return (
       () => {
-        // document.removeEventListener("click", handleClickOutside, false)
+        document.removeEventListener("click", handleClickOutside, false)
       }
     )
   }, [])

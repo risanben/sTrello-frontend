@@ -30,6 +30,7 @@
         width: 770px;
         border-radius: 3px;
         background-color: #f4f5f7;
+        cursor: auto;
 
         // .task-cover {
         //     border-radius: 3px;
@@ -202,6 +203,7 @@
                 //title-container
                 .task-main-container-left {
                     padding: 0 8px 8px 16px;
+                    flex-grow: 1;
                     // width: 552px;
 
                     .tag-title {
