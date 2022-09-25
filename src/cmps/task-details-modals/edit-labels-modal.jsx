@@ -61,8 +61,8 @@ export const EditLabelsModal = ({ toggleEditLabelModal, labelForEdit }) => {
         const idx = currentBoard.labels.findIndex(label => label.id === newLabelStyle.id)
         console.log('currentBoard.labels', currentBoard.labels);
         console.log('idx', idx);
-        if (idx<0) currentBoard.labels.push(newLabelStyle)
-        else currentBoard.labels.splice(idx, 1,newLabelStyle)
+        if (idx < 0) currentBoard.labels.push(newLabelStyle)
+        else currentBoard.labels.splice(idx, 1, newLabelStyle)
         dispatch(updateBoard(currentBoard))
     }
 

@@ -109,7 +109,8 @@ async function save(board, activity = null) {
     if (board._id) {
 
         if (activity) board.activities.unshift(activity)
-        savedBoard = await storageService.put(STORAGE_KEY, board)
+        savedBoard = await httpService.put(BASE_URL + board._id, board)
+        // savedBoard = await storageService.put(STORAGE_KEY, board)
         boardChannel.postMessage(getActionUpdateBoard(savedBoard))
     } else {
         if (activity) board.activities = [activity]
