@@ -21,13 +21,13 @@ export const TaskPreview = ({ task, groupId, index, taskRef, groupTitle }) => {
     const [isQuickEditOn, setIsQuickEditOn] = useState(false)
     const [showDetailsModal, setShowDetailsModal] = useState(false)
     const [quickEditPos, setQuickEditPos] = useState(null)
+    const [todosClassName, setTodosClassName] = useState('')
 
     const [windowWidth, setWidth] = useState(window.innerWidth)
     const [windowHeight, setHeight] = useState(window.innerHeight)
 
     const refQuickEdit = useRef(null)
     const boardIdRef = useRef()
-    boardIdRef.current = params.id
 
     useEffect(() => {
         if (task.style) setIsFullCover(task.style.bg.fullCover)
@@ -38,6 +38,8 @@ export const TaskPreview = ({ task, groupId, index, taskRef, groupTitle }) => {
     useEffect(() => {
         document.addEventListener("click", handleClickedOutside, true)
     }, [])
+
+    boardIdRef.current = params.id
 
     const handleClickedOutside = (e) => {
         if (!refQuickEdit.current) return
@@ -142,6 +144,31 @@ export const TaskPreview = ({ task, groupId, index, taskRef, groupTitle }) => {
         dispatch(updateTask(board._id, groupId, task, activity))
     }
 
+    const setTodosForDisplay = (checklists) => {
+        console.log('checklists', checklists)
+        let todoCount = 0
+        let completeTodoCount = 0
+        checklists.forEach(checklist => {
+            checklist.todos.forEach(todo => {
+                todoCount++
+                if (todo.isDone) completeTodoCount++
+            })
+        })
+        const isAllTodosDone = completeTodoCount === todoCount ? 'done' : ''
+        setTodosClassName(isAllTodosDone)
+        // console.log("isAllTodosDone", isAllTodosDone)
+        // const todosDisplay = {
+        //     todosCounts: `${completeTodoCount}/${todoCount}`,
+        //     todosClassName: isAllTodosDone
+        // }
+        // // console.log('todoCount', todoCount)
+        // // console.log('completeTodoCount', completeTodoCount)
+        return `${completeTodoCount}/${todoCount}`
+    }
+    const checkIsChecklistsDone = () => {
+
+    }
+
     return (
         <React.Fragment>
             <Draggable
@@ -185,10 +212,10 @@ export const TaskPreview = ({ task, groupId, index, taskRef, groupTitle }) => {
                                                 <div className="attachment-badge"></div>
                                                 <span>{task.attachments.length}</span>
                                             </div>}
-                                            {/* <div className="checklist-container">
+                                            {task.checklists && <div className={"checklist-container " + todosClassName}>
                                                 <div className="checklist-icon"></div>
-                                                <span className="checklist-todos">1/2</span>
-                                            </div> */}
+                                                <span className="checklist-todos">{setTodosForDisplay(task.checklists)}</span>
+                                            </div>}
                                         </div>
 
                                         <div className="right-badges-container">

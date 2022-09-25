@@ -4,6 +4,7 @@ import { utilService } from './util.service.js'
 import { userService } from './user.service.js'
 import { getActionRemoveBoard, getActionAddBoard, getActionUpdateBoard } from '../store/board.actions.js'
 import { store } from '../store/store'
+import { httpService } from './http.service'
 
 // This file demonstrates how to use a BroadcastChannel to notify other browser tabs 
 
@@ -24,7 +25,7 @@ export const boardService = {
     remove,
     getGroupById,
     getTaskById,
-    removeGroup,
+    removeGroupFromBoard,
     getBackground,
     addChecklist,
     addTodo,
@@ -33,27 +34,31 @@ export const boardService = {
 }
 window.cs = boardService
 
+const BASE_URL = `board/`
 
 async function query(filterBy) {
     try {
 
-        let boards = await storageService.query(STORAGE_KEY)
+        let boards = httpService.get(BASE_URL, { params: filterBy })
+        // let boards = await storageService.query(STORAGE_KEY)
         if (filterBy?.title) {
             boards = boards.filter(b => b.title.toLowerCase().includes(filterBy.title.toLowerCase()))
         }
 
         return boards
     } catch (err) {
-        console.log('Cannot complete the function:', err)
+        console.log('Cannot complete the function query:', err)
         throw err
     }
 }
 async function getById(boardId) {
     try {
-        return await storageService.get(STORAGE_KEY, boardId)
+        console.log('boardId', boardId)
+        return await httpService.get(BASE_URL + boardId, boardId)
+        // return await storageService.get(STORAGE_KEY, boardId)
     }
     catch (err) {
-        console.log('Cannot complete the function:', err)
+        console.log('Cannot complete the function getById:', err)
         throw err
     }
     // return axios.get(`/api/board/${boardId}`)
@@ -62,54 +67,55 @@ async function getById(boardId) {
 
 async function remove(boardId) {
     try {
-        await storageService.remove(STORAGE_KEY, boardId)
+        return await httpService.delete(BASE_URL + boardId)
+        // await storageService.remove(STORAGE_KEY, boardId)
         boardChannel.postMessage(getActionRemoveBoard(boardId))
     }
     catch (err) {
-        console.log('Cannot complete the function:', err)
+        console.log('Cannot complete the function remove:', err)
         throw err
     }
 }
+
 async function addGroupToBoard(boardId, group, activity) {
     try {
-        console.log('boardId', boardId)
         let boardToUpdate = await getById(boardId)
-        console.log('boardToUpdate', boardToUpdate)
         if (boardToUpdate?.groups) boardToUpdate.groups.push({ ...group })
         else boardToUpdate.groups = [group]
         return await save(boardToUpdate, activity)
     } catch (err) {
-        console.log('Cannot complete the function:', err)
+        console.log('Cannot complete the function addGroupToBoard:', err)
         throw err
     }
 }
-async function removeGroup(boardId, groupId, activity) {
+async function removeGroupFromBoard(boardId, groupId, activity) {
     try {
-
         let boardToUpdate = await getById(boardId)
-        // console.log('boardToUpdate', boardToUpdate)
+        // console.log('board from service remove group %%%', boardToUpdate)
         boardToUpdate.groups = boardToUpdate.groups.filter(group => group.id !== groupId)
+        // console.log('board after remove group %%%', boardToUpdate)
+
         return await save(boardToUpdate, activity)
     } catch (err) {
-        console.log('Cannot complete the function:', err)
+        console.log('Cannot complete the function removeGroup:', err)
         throw err
     }
 }
 
 async function save(board, activity = null) {
     var savedBoard
-    console.log('activity from save board', activity)
     if (activity) _addActivityDetails(activity)
     if (board._id) {
+
         if (activity) board.activities.unshift(activity)
-        savedBoard = await storageService.put(STORAGE_KEY, board)
+        savedBoard = await httpService.put(BASE_URL + board._id, board)
+        console.log('board from save %%%', savedBoard)
+        // savedBoard = await storageService.put(STORAGE_KEY, board)
         boardChannel.postMessage(getActionUpdateBoard(savedBoard))
     } else {
-        // Later, owner is set by the backend
-        // console.log('new board')
-        // board.owner = userService.getLoggedinUser()
         if (activity) board.activities = [activity]
-        savedBoard = await storageService.post(STORAGE_KEY, board)
+        savedBoard = await httpService.post(BASE_URL, board)
+        // savedBoard = await storageService.post(STORAGE_KEY, board)
         boardChannel.postMessage(getActionAddBoard(savedBoard))
     }
     return savedBoard
@@ -117,11 +123,12 @@ async function save(board, activity = null) {
 
 async function getGroupById(boardId, groupId) {
     try {
-        const board = await storageService.get(STORAGE_KEY, boardId)
+        const board = await httpService.get(BASE_URL + boardId)
+        // const board = await storageService.get(STORAGE_KEY, boardId)
         return board.groups.find(group => group.id === groupId)
     }
     catch (err) {
-        console.log('Cannot complete the function:', err)
+        console.log('Cannot complete the function getGroupById:', err)
         throw err
     }
 }
@@ -145,7 +152,7 @@ async function getTaskById(boardId, groupId, taskId) {
         return task
 
     } catch (err) {
-        console.log('Cannot complete the function:', err)
+        console.log('Cannot complete the function getTaskById:', err)
         throw err
     }
 }
@@ -165,11 +172,10 @@ async function addTodo(boardId, groupId, taskId, checklistId, title) {
             checklist => checklist.id === checklistId
         )
         board.groups[groupIdx].tasks[taskIdx].checklists[checklistIdx].todos.push(todoToAdd)
-
         save(board)
         return board
     } catch (err) {
-        console.log('Cannot add todo,Heres why:', err)
+        console.log('Cannot add todo, Heres why:', err)
     }
 }
 
@@ -184,12 +190,11 @@ async function addChecklist(boardId, groupId, taskObj, title) {
         const groupIdx = board.groups.findIndex(group => group.id === groupId)
         const taskIdx = board.groups[groupIdx].tasks.findIndex(task => task.id === taskObj.id)
 
-        if ( board.groups[groupIdx].tasks[taskIdx]?.checklists){
+        if (board.groups[groupIdx].tasks[taskIdx]?.checklists) {
             board.groups[groupIdx].tasks[taskIdx].checklists.push(newChecklist)
         } else {
             board.groups[groupIdx].tasks[taskIdx].checklists = [newChecklist]
         }
-
         save(board)
         return board
     } catch (err) {

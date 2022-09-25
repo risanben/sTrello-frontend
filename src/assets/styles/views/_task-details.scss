@@ -125,7 +125,7 @@
                 display: flex;
                 justify-content: center;
                 align-items: center;
-    
+
                 border-radius: 50%;
                 height: 30px;
                 width: 30px;
@@ -207,6 +207,7 @@
                     .tag-title {
                         font-size: 12px;
                         margin: 0 8px 4px 0;
+                        font-weight: 600;
                     }
 
                     .tags {
@@ -252,6 +253,11 @@
                                         min-width: 32px;
                                         height: 32px;
                                         margin-right: 4px;
+
+                                        .member-content {
+                                            height: 32px;
+                                            width: 32px;
+                                        }
                                     }
                                 }
                             }

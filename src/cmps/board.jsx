@@ -17,7 +17,7 @@ import { SideMenu } from './side-menu'
 export const Board = () => {
 
     const board = useSelector(state => state.boardModule.board)
-    const resizeLabel = useSelector(state => state.boardModule.resizeLabel)
+    // const resizeLabel = useSelector(state => state.boardModule.resizeLabel)
     const dispatch = useDispatch()
     const params = useParams()
     let [isSideBarOpen, setIsSideBarOpen] = useState(false)

@@ -19,7 +19,7 @@ export const ActivityMenu = ({ toggleBoardMenu }) => {
                 <div className="menu-title-container">
                     <div className="menu-title-content">
                         <h3 className="menu-title">Menu</h3>
-                        <div className="btn-close-menu" onClick={toggleBoardMenu}>X</div>
+                        <div className="btn-close-add btn-close-menu" onClick={toggleBoardMenu}></div>
                     </div>
                     <hr className="menu-hr" />
                 </div>

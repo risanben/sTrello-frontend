@@ -180,12 +180,26 @@
                     padding: 2px;
                 }
 
+                .checklist-container.done {
+                    background-color: #61bd4f;
+                    color: #fff;
+                    border-radius: 3px;
+                    padding: 1px 2px 4px 2px;
+
+                    .checklist-icon {
+                        background-image: url('../../img/checklist-is-done-icon.svg');
+
+                    }
+                }
+
                 .checklist-container {
                     padding: 0 4px 0 2px;
                     color: #5e6c84;
                     display: flex;
                     align-items: flex-end;
                     justify-content: center;
+
+
 
                     .checklist-todos {
                         font-size: 12px;

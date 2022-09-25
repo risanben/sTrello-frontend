@@ -136,6 +136,13 @@ export const TaskDetails = ({ boardId, groupId, taskId, taskFromProps, groupTitl
     }
 
     const [register, setTask, task] = useFormRegister({}, onUpdateTask)
+    // const [task, setTask] = useState({})
+
+    // const handleChange = ({ target }) => {
+    //     const field = target.name
+    //     const value = target.type === 'number' ? (+target.value || '') : target.value
+    //     setFields(prevFields => ({ ...prevFields, [field]: value }))
+    // }
 
     const onBack = () => {
         closeModal()
@@ -148,6 +155,9 @@ export const TaskDetails = ({ boardId, groupId, taskId, taskFromProps, groupTitl
     }
     const toggleEditDescription = () => {
         setEditDescription(!isEditDescription)
+    }
+    const closeEditDescription = () => {
+        setEditDescription(false)
     }
 
     const onShowModal = () => {
@@ -200,7 +210,7 @@ export const TaskDetails = ({ boardId, groupId, taskId, taskFromProps, groupTitl
 
     const toggleLabelsModal = (ev) => {
         if (ev) ev.stopPropagation()
-
+        setIsLabelModal(!isLabelModal)
         if (!isLabelModal && isLabelModal !== null) {
             const parentEl = ev.currentTarget.parentNode
             const position = parentEl.getBoundingClientRect()
@@ -215,7 +225,7 @@ export const TaskDetails = ({ boardId, groupId, taskId, taskFromProps, groupTitl
             }
 
             setLabelModalPos(pos)
-            setIsLabelModal(!isLabelModal)
+
         } else {
             setIsLabelModal(false)
         }
@@ -376,11 +386,11 @@ export const TaskDetails = ({ boardId, groupId, taskId, taskFromProps, groupTitl
                                 <span className="btn-cover-txt">Cover</span>
                             </div>
                         </section>}
-                    {showModal && <TaskDetailsCoverModal onSetColor={onSetColor} onSetImg={onSetImg} onShowModal={onShowModal} onRemoveCover={onRemoveCover} attachments={task.attachments}/>}
+                    {showModal && <TaskDetailsCoverModal onSetColor={onSetColor} onSetImg={onSetImg} onShowModal={onShowModal} onRemoveCover={onRemoveCover} attachments={task.attachments} />}
 
                     <div className="task-main-container">
-                        {!(task?.style && (task.style.bg.imgUrl !== null || task.style.bg.color !== null) )&&
-                         <button onClick={onBack} className="btn close"></button>}
+                        {!(task?.style && (task.style.bg.imgUrl !== null || task.style.bg.color !== null)) &&
+                            <button onClick={onBack} className="btn close"></button>}
                         <div className="title-container">
                             <span className="task-title-icon"><FaWindowMaximize /></span>
                             <section className="title-input">
@@ -526,11 +536,11 @@ export const TaskDetails = ({ boardId, groupId, taskId, taskFromProps, groupTitl
                                     <span className="icon"><GrAttachment /></span>
                                     <span className="ability">Attachment</span>
                                 </button>
-                                {!(task?.style && (task.style.bg.imgUrl !== null || task.style.bg.color !== null) )&&
-                                <button className="btn abilities" onClick={onShowModal}>
-                                    <span className="icon"><FaWindowMaximize /> </span>
-                                    <span className="ability">Cover</span>
-                                </button>}
+                                {!(task?.style && (task.style.bg.imgUrl !== null || task.style.bg.color !== null)) &&
+                                    <button className="btn abilities" onClick={onShowModal}>
+                                        <span className="icon"><FaWindowMaximize /> </span>
+                                        <span className="ability">Cover</span>
+                                    </button>}
                                 <button className="btn abilities" onClick={onRemoveTask}>
                                     <span className="icon"><HiArchive /> </span>
                                     <span className="ability">Archive</span>

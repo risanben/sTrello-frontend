@@ -18,13 +18,7 @@ export const GroupPreview = ({ group, addTask, index, taskRef }) => {
     const [isEditTitle, setIsEditTitle] = useState(false)
     const [isOpenGroupAction, setIsOpenGroupAction] = useState(false)
     const [leftPosGroupMOdal, setLeftPosGroupModal] = useState(null)
-    const [task, handleChangeTask, setTask] = useForm({
-        title: ''
-    })
 
-    const [groupToEdit, handleChangeGroup, setGroup] = useForm({
-        title: ''
-    })
 
     useEffect(() => {
         setGroup(group)
@@ -42,6 +36,13 @@ export const GroupPreview = ({ group, addTask, index, taskRef }) => {
 
     }, [])
 
+    const [task, handleChangeTask, setTask] = useForm({
+        title: ''
+    })
+
+    const [groupToEdit, handleChangeGroup, setGroup] = useForm({
+        title: ''
+    })
     const handleClickOutside = (e) => {
         if (!refTitle.current) return
         if (!refTitle.current.contains(e.target)) {
@@ -90,6 +91,9 @@ export const GroupPreview = ({ group, addTask, index, taskRef }) => {
                 title: ""
             }
         }
+        console.log('from onDeleteGroup*** board._id', board._id)
+        console.log('from onDeleteGroup*** group.id', group.id)
+        console.log('from onDeleteGroup***activity', activity)
         disapcth(removeGroup(board._id, group.id, activity))
     }
 
