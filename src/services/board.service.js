@@ -29,7 +29,8 @@ export const boardService = {
     addChecklist,
     addTodo,
     addGroupToBoard,
-    getTaskBackground
+    getTaskBackground,
+    getLabelsColors
 }
 window.cs = boardService
 
@@ -184,7 +185,7 @@ async function addChecklist(boardId, groupId, taskObj, title) {
         const groupIdx = board.groups.findIndex(group => group.id === groupId)
         const taskIdx = board.groups[groupIdx].tasks.findIndex(task => task.id === taskObj.id)
 
-        if ( board.groups[groupIdx].tasks[taskIdx]?.checklists){
+        if (board.groups[groupIdx].tasks[taskIdx]?.checklists) {
             board.groups[groupIdx].tasks[taskIdx].checklists.push(newChecklist)
         } else {
             board.groups[groupIdx].tasks[taskIdx].checklists = [newChecklist]
@@ -235,6 +236,22 @@ function getTaskBackground(type) {
         ]
     }
 }
+
+function getLabelsColors(type) {
+
+    return [
+        '#D6ECD2','#FAF3C0','#FCE6C6','#F5D3CE','#EDDBF4',
+        '#B7DDB0','#F5EA92','#FAD29C','#EFB3AB','#DFC0EB',
+        '#7BC86C','#F5DD29','#FFAF3F','#EF7564', '#CD8DE5',
+        
+        '#5BA4CF',//accent-blue
+        '#29CCE5',//accent-teal
+        '#6DECA9',//light-green
+        '#FF8ED4',//pink
+        '#172B4D',//accent-gray
+    ]
+}
+
 // TEST DATA
 // storageService.post(STORAGE_KEY, {vendor: 'Subali Rahok 2', price: 980}).then(x => console.log(x))
 

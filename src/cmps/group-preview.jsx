@@ -35,8 +35,8 @@ export const GroupPreview = ({ group, addTask, index, taskRef }) => {
 
         return (
             () => {
-                // document.removeEventListener("click", handleClickOutside, false)
-                // console.log('listener disabled:')
+                document.removeEventListener("click", handleClickOutside, false)
+                console.log('listener disabled:')
             }
         )
 
@@ -115,13 +115,14 @@ export const GroupPreview = ({ group, addTask, index, taskRef }) => {
                         <div className="group-title">
                             {!isEditTitle && <span onClick={toggaleEditTitle}>{groupToEdit.title}</span>}
                             {isEditTitle &&
-                                <form onSubmit={onEditGroupTitle} ref={refTitle}>
+                                <form onSubmit={onEditGroupTitle}  ref={refTitle}>
                                     <input
                                         value={groupToEdit.title}
                                         onChange={handleChangeGroup}
                                         type="text"
                                         name="title"
                                         id="title"
+                                        
                                     />
                                 </form>}
                             <div className="group-menu" onClick={onOpenGroupAction}></div>

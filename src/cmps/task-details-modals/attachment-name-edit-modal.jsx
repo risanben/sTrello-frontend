@@ -5,7 +5,7 @@ import { useState } from 'react'
 // import { getImgFromUrl } from '../../store/board.actions'
 
 
-export const AttachmentNameEditModal = ({ toggleEditAttachNameModal, attachmentId, task, onUpdateTask ,/*editAttachNameModalPos*/}) => {
+export const AttachmentNameEditModal = ({ toggleEditAttachNameModal, attachmentId, task, onUpdateTask ,editAttachNameModalPos}) => {
 
     const [urlName, setUrlName] = useState(null)
     // const dispatch = useDispatch()
@@ -26,7 +26,7 @@ export const AttachmentNameEditModal = ({ toggleEditAttachNameModal, attachmentI
     }
 
     return (
-        <section className="labels-modal" /*style={{ ...editAttachNameModalPos.style }}*/>
+        <section className="labels-modal" style={{ ...editAttachNameModalPos.style }}>
             <img src={closeIcon} onClick={toggleEditAttachNameModal} alt="close" className="close-btn" />
             <div className="labels-modal-title">Edit attachment</div>
 

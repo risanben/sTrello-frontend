@@ -4,7 +4,7 @@ import closeIcon from '../assets/img/icon-close-task-details.svg'
 import { useFormRegister } from '../hooks/useFormRegister'
 import { useState } from 'react'
 import { utilService } from '../services/util.service'
-import {useRef} from 'react'
+import { useRef } from 'react'
 
 export const AttachmentModal = ({ toggleAttachmentModal, attachModalPos }) => {
     const [url, setUrl] = useState(null)
@@ -12,7 +12,12 @@ export const AttachmentModal = ({ toggleAttachmentModal, attachModalPos }) => {
     const [isLinkName, setIsLinkName] = useState(null)
 
     const dispatch = useDispatch()
-    const fileInput = useRef(null)
+    const hiddenFileInput = useRef(null)
+
+
+    const handleClick = event => {
+        hiddenFileInput.current.click()
+    }
 
     const onGetImgUrl = (ev) => {
         dispatch(getImgUrl(ev))
@@ -23,10 +28,10 @@ export const AttachmentModal = ({ toggleAttachmentModal, attachModalPos }) => {
     // }
 
     const onUpdateUrl = (ev) => {
-        if(!ev.target.value){
+        if (!ev.target.value) {
             setIsLinkName(false)
             return
-        } 
+        }
         setIsLinkName(true)
         setUrl(ev.target.value)
     }
@@ -53,8 +58,11 @@ export const AttachmentModal = ({ toggleAttachmentModal, attachModalPos }) => {
             <img src={closeIcon} onClick={toggleAttachmentModal} alt="close" className="close-btn" />
             {/* <div onClick={toggleAttachmentModal}>X</div> */}
             <div className="labels-modal-title">Attach from...</div>
-                <input type="file" onChange={onGetImgUrl} />
- 
+            <button className='btn-computer' onClick={handleClick}>Computer</button>
+            <input type="file"
+                ref={hiddenFileInput}
+                style={{ display: 'none' }}
+                onChange={onGetImgUrl} />
             <form onSubmit={onGetImgFromUrl}>
                 <label className="sub-title">Attach a link</label>
                 <input className="link-input" type="text" /*ref={refInput}*/ placeholder="Paste any link here..." onChange={onUpdateUrl} />

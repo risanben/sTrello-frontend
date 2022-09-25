@@ -176,16 +176,16 @@ export const TaskDetails = ({ boardId, groupId, taskId, taskFromProps, groupTitl
     }
 
     const toggleEditAttachNameModal = (ev, attachmentId) => {
-
         setAttachmentToEdit(attachmentId)
-        setIsEditAttachName(!isEditAttachName)
+        // setIsEditAttachName(!isEditAttachName)
 
         if (!isEditAttachName) {
             const parentEl = ev.currentTarget.parentNode
+            // const parentEl = ev.currentTarget
             const position = parentEl.getBoundingClientRect()
 
             const style = {
-                top: ev.target.offsetTop,
+                top: ev.target.offsetTop-300,
                 left: ev.target.offsetLeft
             }
             let pos = {
@@ -234,7 +234,7 @@ export const TaskDetails = ({ boardId, groupId, taskId, taskFromProps, groupTitl
             const position = grandParentEl.getBoundingClientRect()
 
             const style = {
-                top: grandParentEl.offsetTop,
+                top: grandParentEl.offsetTop-100,
                 left: grandParentEl.offsetLeft + (730 - 304)
             }
             let pos = {
@@ -535,7 +535,7 @@ export const TaskDetails = ({ boardId, groupId, taskId, taskFromProps, groupTitl
                                     <span className="ability">Dates</span>
                                 </button>
                                 <button className="btn abilities" onClick={toggleAttachmentModal}>
-                                    <span className="icon"><GrAttachment /></span>
+                                    <span className="icon attach"><GrAttachment /></span>
                                     <span className="ability">Attachment</span>
                                 </button>
                                 {!(task?.style && (task.style.bg.imgUrl !== null || task.style.bg.color !== null) )&&
