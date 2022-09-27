@@ -247,7 +247,6 @@ function getLabelsColors(type) {
         '#D6ECD2', '#FAF3C0', '#FCE6C6', '#F5D3CE', '#EDDBF4',
         '#B7DDB0', '#F5EA92', '#FAD29C', '#EFB3AB', '#DFC0EB',
         '#7BC86C', '#F5DD29', '#FFAF3F', '#EF7564', '#CD8DE5',
-
         '#5BA4CF',//accent-blue
         '#29CCE5',//accent-teal
         '#6DECA9',//light-green

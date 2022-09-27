@@ -13,7 +13,7 @@ export const EditLabelsModal = ({ toggleEditLabelModal, labelForEdit }) => {
     const [backgroundColors, setBackgroundColors] = useState([])
     // const [title, setTitle] = useState(null)
     // const [labelColor, setLabelColor] = useState(null)
-    const [currentBoard, setCurrentBoard] = useState(null)
+    // const [currentBoard, setCurrentBoard] = useState(null)
     const [newLabelStyle, setNewLabelStyle] = useState({})
 
     const board = useSelector(state => state.boardModule.board)
@@ -29,9 +29,9 @@ export const EditLabelsModal = ({ toggleEditLabelModal, labelForEdit }) => {
         console.log('newLabelStyle-didMount', newLabelStyle);
     }, [])
 
-    useEffect(() => {
-        setCurrentBoard(board)
-    }, [board])
+    // useEffect(() => {
+    //     setCurrentBoard(currentBoard)
+    // }, [board])
 
     const loadBackGround = () => {
         setBackgroundColors(boardService.getLabelsColors('color'))
@@ -50,20 +50,16 @@ export const EditLabelsModal = ({ toggleEditLabelModal, labelForEdit }) => {
     const onEditLabel = (ev) => {
         ev.preventDefault()
         toggleEditLabelModal()
+        const idx = board.labels.findIndex(label => label.id === newLabelStyle.id)
+        if (idx < 0) board.labels.push(newLabelStyle)
+        else board.labels.splice(idx, 1, newLabelStyle)
+        dispatch(updateBoard(board))
+    }
 
-        // const newLabelStyle = {
-        //     id: utilService.makeId(),
-        //     title,
-        //     color: labelColor
-        // }
-
-        console.log('newLabelStyle-onEditLabel', newLabelStyle);
-        const idx = currentBoard.labels.findIndex(label => label.id === newLabelStyle.id)
-        console.log('currentBoard.labels', currentBoard.labels);
-        console.log('idx', idx);
-        if (idx < 0) currentBoard.labels.push(newLabelStyle)
-        else currentBoard.labels.splice(idx, 1, newLabelStyle)
-        dispatch(updateBoard(currentBoard))
+    const onDeleteLabel=()=>{
+        toggleEditLabelModal()
+        const idxDelete = board.labels.findIndex(label => label.id === newLabelStyle.id)
+        board.labels.splice(idxDelete, 1)
     }
 
     return (
@@ -81,11 +77,16 @@ export const EditLabelsModal = ({ toggleEditLabelModal, labelForEdit }) => {
                 <ul className="cover-color">
                     {backgroundColors.map(color =>
                         <li className="cover-color-container" key={color}>
-                            <div onClick={() => onSetColor(color)} className="cover-color" style={{ backgroundColor: color }} />
+                            <div onClick={() => onSetColor(color)} className={`cover-color ${color === newLabelStyle.color ? 'selected' : ''}`} style={{ backgroundColor: color }} />
                         </li>
                     )}
                 </ul>
             </section>
+            <div className="border"></div>
+            <div className="btns-container">
+                <button className="btn btn-save" onClick={onEditLabel}>Save</button>
+                <button className="btn btn-delete" onClick={onDeleteLabel}>Delete</button>
+            </div>
         </section>
     )
 }

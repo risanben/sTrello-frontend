@@ -230,6 +230,7 @@ export const TaskDetails = ({ boardId, groupId, taskId, taskFromProps, groupTitl
             }
 
             setLabelModalPos(pos)
+            setIsLabelModal(true)
 
         } else {
             setIsLabelModal(false)
