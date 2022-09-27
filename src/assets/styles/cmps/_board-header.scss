@@ -34,10 +34,12 @@
         &:hover {
             background-color: #00000029;
             color: #f2d600;
+
         }
 
         &:hover+.star {
             transform: scale(1.1);
+
         }
 
         .star {
@@ -45,6 +47,10 @@
             width: 16px;
             padding: 0;
             margin: 0;
+
+            &:hover {
+                cursor: pointer;
+            }
         }
 
         .star.marked {

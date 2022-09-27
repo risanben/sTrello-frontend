@@ -1,29 +1,135 @@
-// .sginup {
-//     .home-logo-link {
-//         display: flex;
-//         // align-items: center;
-//         color: $header-font-color;
-//         // border: 1px solid black;
-//         border-radius: 0.3rem;
-//         padding: 0 3px;
+.sginup-login {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding-top: 40px;
 
-//         .logo {
-//             font-family: secular;
-//             font-size: 20px;
-//             font-weight: 600;
-//             letter-spacing: 1px;
-//             margin: 0;
-//             padding: 0;
-//         }
+    background-color: #f9fafc;
+    height: 100%;
 
-//         .signup-title {
-//             height: 43px;
-//             margin-left: auto;
-//             margin-right: auto;
-//             margin-top: 40px;
-//             margin-bottom: 40px;
-//         }
-//     }
+    &::selection {
+        background: #b6e2fc;
+    }
 
+    .home-logo-link {
+        display: flex;
+        // align-items: center;
+        color: $header-font-color;
+        // border: 1px solid black;
+        border-radius: 0.3rem;
+        padding: 0 3px;
+        font-size: 40px;
+        margin-bottom: 40px;
 
-// }
+        .trello-logo {
+            margin-right: 10px;
+            font-size: 30px;
+            margin-top: 13px;
+            color: #0065ff;
+        }
+
+        .logo {
+            font-family: secular;
+            font-weight: 600;
+            letter-spacing: 1px;
+            margin: 0;
+            padding: 0;
+        }
+
+        .signup-title {
+            height: 43px;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 40px;
+            margin-bottom: 40px;
+
+        }
+    }
+
+    .form-container {
+        background-color: #ffffff;
+        border-radius: 3px;
+        padding: 25px 40px;
+        box-shadow: rgb(0 0 0 / 10%) 0 0 10px;
+        width: 400px;
+        font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+
+        .signup-title {
+            text-align: center;
+            color: #5e6c84;
+            font-size: 16px;
+            letter-spacing: -0.01em;
+            line-height: 28px;
+            margin-top: 10px;
+            margin-bottom: 25px;
+        }
+
+        // input[name="fullname"],
+        // input[name="username"],
+        // input[name="password"] {
+        input {
+            border-radius: 3px;
+            height: 40px;
+            width: 100%;
+            font-size: 14px;
+            background-color: #fafbfc;
+            border: 2px solid #dfe1e6;
+            padding: 0.5em;
+            margin: 0 0 1.2em;
+
+            // &:focus-visible {
+            //     background-color: white;
+            //     border: 2px solid #4c9aff !important;
+            // }
+
+            &:focus {
+                background-color: white;
+                border: 2px solid #4c9aff;
+            }
+        }
+
+        .btn-submit {
+            color: #8c8c8c;
+            background: #E2E4E6;
+            width: 100%;
+            border-radius: 0.3em;
+            font-weight: bold;
+            padding: 0.6em 1.3em;
+            cursor: auto;
+        }
+
+        .enabled {
+            background: #5AAC44;
+            color: #fff;
+
+            &:hover {
+                cursor: pointer;
+            }
+        }
+    }
+
+    .signup-separate-line {
+        margin-top: 25px;
+        display: block;
+        height: 1px;
+        border: 0;
+        border-top: 1px solid hsl(0, 0%, 80%);
+        margin: 1em 0;
+        padding: 0;
+    }
+
+    .login-link {
+        text-align: center;
+        font-size: 14px;
+        display: block;
+        padding: 0;
+        font-weight: 300;
+        line-height: 1.44em;
+        color: #0052cc;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}
