@@ -1,0 +1,51 @@
+.board-background-menu {
+    padding: 12px 6px 8px 12px;
+    margin-top: 16px;
+    height: 100%;
+    overflow-x: auto;
+    transform: translateX(0);
+    transition-duration: .12s;
+    transition-property: transform, opacity;
+    transition-timing-function: ease-in;
+    width: 100%;
+
+    &::-webkit-scrollbar {
+        border-radius: 15px;
+        width: 10px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: #091e4213;
+        border-radius: 15px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: #abb6bfb7;
+        border-radius: 15px;
+    }
+
+
+
+    .background-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+
+        .background-option {
+            // background-color: green;
+            height: 96px;
+            // width: 50%;
+            width: calc(50% - 8px);
+            background-size: cover;
+            border-radius: 8px;
+            background-position: center;
+            background-repeat: no-repeat;
+
+            // margin: 0 4px;
+            &:hover {
+                opacity: .7;
+                cursor: pointer;
+            }
+        }
+    }
+}

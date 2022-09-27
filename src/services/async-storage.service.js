@@ -29,18 +29,12 @@ function get(entityType, entityId) {
         })
 }
 function post(entityType, newEntity) {
-    newEntity._id = _makeId()
-    newEntity.isStarred = false
-    // newEntity.groups = [
-    //     {
-    //         "id": _makeId(),
-    //         "title": "",
-    //         "tasks": []
-    //     },
-    // ]
+    // console.log('entityType', entityType)
+    // console.log('newEntity', newEntity)
     return query(entityType)
         .then(entities => {
             entities.push(newEntity)
+            // console.log('entities', entities)
             _save(entityType, entities)
             return newEntity
         })

@@ -81,7 +81,7 @@ export function addGroup(boardId, group, activity) {
 export function removeGroup(boardId, groupId, activity) {
     return async (dispatch) => {
         try {
-            const updateBoard = await boardService.removeGroup(boardId, groupId, activity)
+            const updateBoard = await boardService.removeGroupFromBoard(boardId, groupId, activity)
             return dispatch(getActionUpdateBoard(updateBoard))
         } catch (err) {
             console.log('Cannot remove group', err)

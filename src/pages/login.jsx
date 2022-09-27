@@ -2,23 +2,20 @@ import { ImTrello } from "react-icons/im"
 import { useDispatch } from "react-redux"
 import { Link, useNavigate } from "react-router-dom"
 import { useForm } from "../hooks/useForm"
-import { onSignup } from "../store/user.actions"
+import { onLogin } from "../store/user.actions"
 
-export const Signup = () => {
+export const Login = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
-    const [user, handleChange] = useForm({
-        fullname: '',
+    const [credentials, handleChange, setUser] = useForm({
         username: '',
         password: ''
     })
 
-    const onUserSignup = (ev) => {
+    const onUserLogin = (ev) => {
         ev.stopPropagation()
-        // console.log('submit form')
-        if (!user.username || !user.password || !user.fullname) return
-        // console.log('user', user)
-        dispatch(onSignup(user))
+        if (!credentials.username || !credentials.password) return
+        dispatch(onLogin(credentials))
         navigate('/board')
     }
 
@@ -32,22 +29,14 @@ export const Signup = () => {
                 </section>
             </div>
             <div className="form-container">
-                <h1 className="signup-title">Sign up for your account</h1>
-                <form onSubmit={onUserSignup}>
-                    <input
-                        type="text"
-                        name="fullname"
-                        placeholder="Enter Full Name"
-                        id="fullname"
-                        value={user.fullname}
-                        onChange={handleChange}
-                        required />
+                <h1 className="signup-title">Login to sTrello</h1>
+                <form onSubmit={onUserLogin}>
                     <input
                         type="text"
                         name="username"
                         placeholder="Enter Username"
                         id="username"
-                        value={user.username}
+                        value={credentials.username}
                         onChange={handleChange}
                         required />
                     <input
@@ -55,16 +44,16 @@ export const Signup = () => {
                         name="password"
                         placeholder="Enter Password"
                         id="password"
-                        value={user.password}
+                        value={credentials.password}
                         onChange={handleChange}
                         required />
                     <button className=
-                        {"btn-submit " + (user.username && user.password && user.fullname ? "enabled" : "")}>
+                        {"btn-submit " + (credentials.username && credentials.password ? "enabled" : "")}>
                         Continue
                     </button>
                 </form>
                 <hr className="signup-separate-line" />
-                <Link to='/login'><span className="login-link">Already have account? Log In</span></Link>
+                <Link to='/signup'><span className="login-link">Sign up for account</span></Link>
                 <Link to='/'><span className="login-link">Back Home</span></Link>
             </div >
 

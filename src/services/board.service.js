@@ -31,7 +31,8 @@ export const boardService = {
     addTodo,
     addGroupToBoard,
     getTaskBackground,
-    getLabelsColors
+    getLabelsColors,
+    getBoardBackgrounds,
 }
 window.cs = boardService
 
@@ -92,10 +93,7 @@ async function addGroupToBoard(boardId, group, activity) {
 async function removeGroupFromBoard(boardId, groupId, activity) {
     try {
         let boardToUpdate = await getById(boardId)
-        // console.log('board from service remove group %%%', boardToUpdate)
         boardToUpdate.groups = boardToUpdate.groups.filter(group => group.id !== groupId)
-        // console.log('board after remove group %%%', boardToUpdate)
-
         return await save(boardToUpdate, activity)
     } catch (err) {
         console.log('Cannot complete the function removeGroup:', err)
@@ -114,6 +112,8 @@ async function save(board, activity = null) {
         boardChannel.postMessage(getActionUpdateBoard(savedBoard))
     } else {
         if (activity) board.activities = [activity]
+        savedBoard._id = utilService.makeId()
+        savedBoard.isStarred = false
         savedBoard = await httpService.post(BASE_URL, board)
         // savedBoard = await storageService.post(STORAGE_KEY, board)
         boardChannel.postMessage(getActionAddBoard(savedBoard))
@@ -205,10 +205,14 @@ async function addChecklist(boardId, groupId, taskObj, title) {
 function getBackground(type) {
     if (type === 'url') {
         return [
-            "https://images.unsplash.com/photo-1663447000721-93a6d5bc71db?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=Mnw3MDY2fDB8MXxjb2xsZWN0aW9ufDF8MzE3MDk5fHx8fHwyfHwxNjYzNTA2ODA5&ixlib=rb-1.2.1&q=80&w=400",
-            "https://images.unsplash.com/photo-1663138763894-0cc4a5421dab?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=Mnw3MDY2fDB8MXxjb2xsZWN0aW9ufDJ8MzE3MDk5fHx8fHwyfHwxNjYzNTA2ODA5&ixlib=rb-1.2.1&q=80&w=400",
-            "https://images.unsplash.com/photo-1663104192417-6804188a9a8e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=Mnw3MDY2fDB8MXxjb2xsZWN0aW9ufDN8MzE3MDk5fHx8fHwyfHwxNjYzNTA2ODA5&ixlib=rb-1.2.1&q=80&w=400",
-            "https://images.unsplash.com/photo-1663121679412-9eeff30ef817?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=Mnw3MDY2fDB8MXxjb2xsZWN0aW9ufDR8MzE3MDk5fHx8fHwyfHwxNjYzNTA2ODA5&ixlib=rb-1.2.1&q=80&w=400"
+            'https://res.cloudinary.com/dqhrqqqul/image/upload/v1664197071/pawel-czerwinski-lKEvGdP0Oig-unsplash_xhxxbf.jpg',
+            'https://res.cloudinary.com/dqhrqqqul/image/upload/v1664187242/karsten-winegeart-j5z0DZMWViU-unsplash_yyaw6e.jpg',
+            'https://res.cloudinary.com/dqhrqqqul/image/upload/v1664187022/maxim-berg-Tba7ds4aF_k-unsplash_1_woirqi.jpg',
+            'https://res.cloudinary.com/dqhrqqqul/image/upload/v1664196414/ian-dooley-DJ7bWa-Gwks-unsplash_hr2qyq.jpg'
+            // "https://images.unsplash.com/photo-1663447000721-93a6d5bc71db?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=Mnw3MDY2fDB8MXxjb2xsZWN0aW9ufDF8MzE3MDk5fHx8fHwyfHwxNjYzNTA2ODA5&ixlib=rb-1.2.1&q=80&w=400",
+            // "https://images.unsplash.com/photo-1663138763894-0cc4a5421dab?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=Mnw3MDY2fDB8MXxjb2xsZWN0aW9ufDJ8MzE3MDk5fHx8fHwyfHwxNjYzNTA2ODA5&ixlib=rb-1.2.1&q=80&w=400",
+            // "https://images.unsplash.com/photo-1663104192417-6804188a9a8e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=Mnw3MDY2fDB8MXxjb2xsZWN0aW9ufDN8MzE3MDk5fHx8fHwyfHwxNjYzNTA2ODA5&ixlib=rb-1.2.1&q=80&w=400",
+            // "https://images.unsplash.com/photo-1663121679412-9eeff30ef817?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=Mnw3MDY2fDB8MXxjb2xsZWN0aW9ufDR8MzE3MDk5fHx8fHwyfHwxNjYzNTA2ODA5&ixlib=rb-1.2.1&q=80&w=400"
         ]
     } else if (type === 'color') {
         return ["#0079bf", "#d29034", "#519839", "#b04632", "#89609e"]
@@ -254,6 +258,25 @@ function getLabelsColors(type) {
         '#FF8ED4',//pink
         '#172B4D',//accent-gray
     ]
+}
+function getBoardBackgrounds() {
+    return {
+        colors: [
+            '#0079bf', '#d29034', '#519839', '#b04632',
+            '#89609e', '#cd5a91', '#4bbf6b', '#00aecc',
+            '#838c91'
+        ],
+        imgsUrl: [
+            'https://res.cloudinary.com/dqhrqqqul/image/upload/v1664197071/pawel-czerwinski-lKEvGdP0Oig-unsplash_xhxxbf.jpg',
+            'https://res.cloudinary.com/dqhrqqqul/image/upload/v1664186705/rrvviiii-EVEHo6gWzSM-unsplash_jqec7i.jpg',
+            'https://res.cloudinary.com/dqhrqqqul/image/upload/v1664187242/karsten-winegeart-j5z0DZMWViU-unsplash_yyaw6e.jpg',
+            'https://res.cloudinary.com/dqhrqqqul/image/upload/v1664196200/alexander-sinn-KgLtFCgfC28-unsplash_viu9fl.jpg',
+            'https://res.cloudinary.com/dqhrqqqul/image/upload/v1664187022/maxim-berg-Tba7ds4aF_k-unsplash_1_woirqi.jpg',
+            'https://res.cloudinary.com/dqhrqqqul/image/upload/v1664196311/ian-dooley-DuBNA1QMpPA-unsplash_cpw29l.jpg',
+            'https://res.cloudinary.com/dqhrqqqul/image/upload/v1664196414/ian-dooley-DJ7bWa-Gwks-unsplash_hr2qyq.jpg',
+            'https://res.cloudinary.com/dqhrqqqul/image/upload/v1664196528/jeremy-thomas-O6N9RV2rzX8-unsplash_ndcnyj.jpg',
+            'https://res.cloudinary.com/dqhrqqqul/image/upload/v1664197377/ash-from-modern-afflatus-NQ6Lh81BTRs-unsplash_qoe8no.jpg']
+    }
 }
 
 // TEST DATA

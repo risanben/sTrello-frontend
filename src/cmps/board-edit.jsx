@@ -81,7 +81,7 @@ export const BoardEdit = ({ toggleCreateBoardModal }) => {
         <section className="add-board">
             <div className="add-board-title-container">
                 <div className="add-board-title">Create board</div>
-                <button className="btn-close-modal" onClick={toggleCreateBoardModal}>X</button>
+                <button className="btn-close-add btn-close-modal" onClick={toggleCreateBoardModal}></button>
             </div>
 
             <div className="scroll-container">

@@ -145,7 +145,6 @@ export const TaskPreview = ({ task, groupId, index, taskRef, groupTitle }) => {
     }
 
     const setTodosForDisplay = (checklists) => {
-        console.log('checklists', checklists)
         let todoCount = 0
         let completeTodoCount = 0
         checklists.forEach(checklist => {

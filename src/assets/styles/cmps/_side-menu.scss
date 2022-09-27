@@ -9,14 +9,14 @@
     opacity: 0.8;
     overflow-x: hidden;
     transition: min-width 0.5s;
-    
-    header>*:not(.open-arrow-div){
+
+    header>*:not(.open-arrow-div) {
         opacity: 0;
         transition: opacity 0.3s;
     }
 
     .main,
-    .boards{
+    .boards {
         opacity: 0;
         transition: opacity 0.3s;
     }
@@ -91,7 +91,7 @@
         position: fixed;
         left: 6px;
         border-radius: 50%;
-padding: 4px;
+        padding: 4px;
         font-size: 11px;
         z-index: 10;
         display: flex;
@@ -124,12 +124,12 @@ padding: 4px;
         display: flex;
     }
 
-    header>*:not(.open-arrow-div){
+    header>*:not(.open-arrow-div) {
         opacity: 1;
     }
 
     .main,
-    .boards{
+    .boards {
         opacity: 1;
     }
 

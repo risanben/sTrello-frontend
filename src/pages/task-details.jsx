@@ -445,7 +445,7 @@ export const TaskDetails = ({ boardId, groupId, taskId, taskFromProps, groupTitl
                                     <div className="tag-title">Due date</div>
                                     <div className="due-date-container">
                                         <div className={"due-date-checkbox " + (task.dueDate.isDone ? "is-done" : "")} onClick={onCompleteDueDate}></div>
-                                        <div className={"due-date-content " + (task.dueDate.isDone ? "is-done" : "")}>
+                                        <div className={"due-date-content " + (task.dueDate.isDone ? "is-done" : "")} onClick={onToggleDatePicker}>
                                             {/* <div className="due-date-time">Sep 19 at 8:30 PM</div> */}
                                             <div className="due-date-time">{utilService.formatDate(task.dueDate)}</div>
                                             {/* {!task.dueDate.isDone && <div className="due-date-tag">due soon</div>} */}

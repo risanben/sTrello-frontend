@@ -45,6 +45,19 @@
         padding: 0;
     }
 
+    .user-icon {
+        height: 32px;
+        width: 32px;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        border-radius: 50%;
+        margin-left: 4px;
+
+        &:hover {
+            cursor: pointer;
+        }
+    }
 
     .nav-header {
         display: flex;
@@ -158,6 +171,8 @@
         }
     }
 
+
+
     .bell {
         font-size: 18px;
         display: flex;
@@ -191,6 +206,10 @@
     padding: 0 0 0 13px;
 
     // border: 2px solid red;
+    .user-icon {
+        height: 0;
+        width: 0;
+    }
 
     .menu-logo {
         display: none;

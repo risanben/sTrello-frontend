@@ -25,9 +25,9 @@ export function boardReducer(state = initialState, action) {
             newState = { ...state, imgJson: (action.imgJson) }
             break
         case 'REMOVE_BOARD':
-            const lastRemovedBoard = state.boards.find(board => board._id === action.boardId)
+            // const lastRemovedBoard = state.boards.find(board => board._id === action.boardId)
             boards = state.boards.filter(board => board._id !== action.boardId)
-            newState = { ...state, boards, lastRemovedBoard }
+            newState = { ...state, boards, board: null }
             break
         case 'ADD_BOARD':
             newState = { ...state, boards: [...state.boards, action.board] }
