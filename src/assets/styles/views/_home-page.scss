@@ -1,7 +1,27 @@
 .home-page {
     background-color: $home-bg-color;
     height: 100%;
-    overflow-x: auto;
+    overflow-y: auto;
+
+    &::-webkit-scrollbar {
+        width: 10px;
+        border-radius: 20px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 20px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: rgb(180, 180, 180);
+        border-radius: 20px;
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+        background: #555;
+        border-radius: 20px;
+    }
 
     .line-through {
         max-width: 70vw;

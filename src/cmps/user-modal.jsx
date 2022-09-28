@@ -29,7 +29,7 @@ export const UserModal = ({ toggleUserModal, user, getUserImg }) => {
                     {user?.username && <div className="user-modal-title logout" onClick={onUserLogout}>Log out</div>}
                     {!user?.username && <React.Fragment>
                         <Link to='/signup' ><div className="user-modal-title logout">Sign Up</div></Link>
-                        <hr lassName="user-modal-hr" />
+                        <hr className="user-modal-hr" />
                         <Link to='/login' ><div className="user-modal-title logout">Log In</div></Link>
                     </React.Fragment>}
                 </div>
