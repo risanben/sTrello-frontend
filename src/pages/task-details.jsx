@@ -13,6 +13,7 @@ import { BsTagFill, BsCheck2Square, BsClock } from 'react-icons/bs'
 import { HiArchive } from 'react-icons/hi'
 import { FaWindowMaximize } from 'react-icons/fa'
 import { GrTextAlignFull, GrAdd, GrAttachment } from 'react-icons/gr'
+import { ImAttachment } from 'react-icons/im'
 import { IoIosArrowDown } from 'react-icons/io'
 import { AbilityCreator } from "../cmps/ability-creator"
 import { TaskDetailsLabelModal } from "../cmps/task-details-labels-modal"
@@ -28,6 +29,7 @@ import { TaskChecklist } from "../cmps/task-checklist"
 import { DetailsActivities } from "../cmps/task-details-activities"
 import { utilService } from "../services/util.service"
 import { ChatApp } from "../cmps/chat-app"
+import { socketService, SOCKET_EVENT_TASK_UPDATE } from "../services/socket.service"
 
 export const TaskDetails = ({ boardId, groupId, taskId, taskFromProps, groupTitle, closeModal }) => {
 
@@ -88,6 +90,18 @@ export const TaskDetails = ({ boardId, groupId, taskId, taskFromProps, groupTitl
     }, [])
 
     // useEffect(() => {
+    //     socketService.on(SOCKET_EVENT_TASK_UPDATE, webSocket);
+    //     return () => {
+    //         socketService.off(SOCKET_EVENT_TASK_UPDATE, webSocket)
+    //     }
+    // }, [])
+
+    // const webSocket = (taskFromSocket) => {
+    //     console.log('webSocket');
+    //     setTask(taskFromSocket)
+    // }
+
+    // useEffect(() => {
     //     if (currentTask?.style?.bg.color) setBgColor(currentTask.style.bg.color)
     //     setTask(currentTask)
     // }, [currentTask])
@@ -133,6 +147,7 @@ export const TaskDetails = ({ boardId, groupId, taskId, taskFromProps, groupTitl
 
     const onUpdateTask = (taskForUpdate, activity) => {
         if (!taskForUpdate) return
+        // socketService.emit(SOCKET_EVENT_TASK_UPDATE, (taskForUpdate))
         dispatch(updateTask(currentBoardId, currentGroupId, taskForUpdate, activity))
         // navigate(`/board/${currentBoardId}/${currentGroupId}/${task.id}`)
     }
@@ -285,7 +300,7 @@ export const TaskDetails = ({ boardId, groupId, taskId, taskFromProps, groupTitl
         setShowModal(false)
     }
 
-    const onSetMember = (addOrRemove, memberId, fullname) => {
+    const onSetMember = ({ addOrRemove, memberId, fullname }) => {
         const activity = {
             task: {
                 id: task.id,
@@ -310,7 +325,10 @@ export const TaskDetails = ({ boardId, groupId, taskId, taskFromProps, groupTitl
         onUpdateTask(task, activity)
     }
 
-    const onSetLabel = (addOrRemove, labelId) => {
+    const onSetLabel = (ev,addOrRemove, labelId) => {
+        ev.stopPropagation()
+console.log('onSetLabel');
+
         if (!addOrRemove) {
             if (!task.labelIds) task.labelIds = [labelId]
             else task.labelIds.push(labelId)
@@ -513,10 +531,10 @@ export const TaskDetails = ({ boardId, groupId, taskId, taskFromProps, groupTitl
                                 />}
 
                                 {/* ACTIVITIES  */}
-                          
+
                                 <DetailsActivities
-                                    task={taskFromProps} onUpdateTask={onUpdateTask} 
-                                    groupId={currentGroupId}/>
+                                    task={taskFromProps} onUpdateTask={onUpdateTask}
+                                    groupId={currentGroupId} />
                                 {/* <div className="activity-container">
                                     <span className="activity-main-icon"> <GrTextAlignFull /></span>
                                     <span className="activity-title">Activity</span>
@@ -549,7 +567,7 @@ export const TaskDetails = ({ boardId, groupId, taskId, taskFromProps, groupTitl
                                     <span className="ability">Dates</span>
                                 </button>
                                 <button className="btn abilities" onClick={toggleAttachmentModal}>
-                                    <span className="icon attach"><GrAttachment /></span>
+                                    <span className="icon attach"><ImAttachment /></span>
                                     <span className="ability">Attachment</span>
                                 </button>
                                 {!(task?.style && (task.style.bg.imgUrl !== null || task.style.bg.color !== null)) &&
@@ -559,7 +577,7 @@ export const TaskDetails = ({ boardId, groupId, taskId, taskFromProps, groupTitl
                                     </button>}
                                 <button className="btn abilities" onClick={onRemoveTask}>
                                     <span className="icon"><HiArchive /> </span>
-                                    <span className="ability">Archive</span>
+                                    <span className="ability">Delete</span>
                                 </button>
                                 {/* </section> */}
 

@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
 import { connect } from 'react-redux'
 import { boardService } from '../services/board.service.js'
-import { socketService, SOCKET_EMIT_SEND_MSG, SOCKET_EVENT_ADD_MSG, SOCKET_EMIT_SET_TOPIC } from '../services/socket.service.js'
+import { socketService, SOCKET_EMIT_SEND_MSG, SOCKET_EVENT_ADD_MSG } from '../services/socket.service.js'
 import { utilService } from '../services/util.service.js'
 import { updateBoard } from '../store/board.actions.js'
 
@@ -23,16 +23,11 @@ function _ChatApp({ loggedInUser, task, onUpdateTask }) {
 
     useEffect(() => {
         socketService.on('chat-add-msg', addMsg);
-        // socketService.on(SOCKET_EVENT_ADD_MSG, addMsg);
         return () => {
             socketService.off(SOCKET_EVENT_ADD_MSG, addMsg)
             botTimeout && clearTimeout(botTimeout)
         }
     }, [])
-
-    useEffect(() => {
-        socketService.emit(SOCKET_EMIT_SET_TOPIC, topic)
-    }, [topic])
 
 
     const addMsg = (newMsg) => {

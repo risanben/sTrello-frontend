@@ -17,9 +17,9 @@ export const TaskDetailsLabel = ({ labelIds, onSetLabel, pos }) => {
 
             return (
                 <li key={currentLabel.id} className="label-details">
-                    <div className="checkbox-label" onClick={() => onSetLabel(isTaskLabel, currentLabel.id)}>
+                    <div className="checkbox-label" onClick={(ev) => onSetLabel(ev, isTaskLabel, currentLabel.id)}>
                         <label htmlFor="label-body"></label>
-                        <input id="label-body" type="checkbox" checked={isTaskLabel}></input>
+                        <input id="label-body" type="checkbox" checked={isTaskLabel} /*onChange={(ev) => onSetLabel(ev, isTaskLabel, currentLabel.id)}*/></input>
                         {/* <input type="checkbox" defaultChecked={isTaskLabel} onChange={()=>onSetLabel(isTaskLabel,currentLabel.id)}></input> */}
                         <div className="label-details-body" style={{ backgroundColor: currentLabel.color }}>
                             <div className="label-icon" style={{ backgroundColor: LightenDarkenColor(currentLabel.color, 30) }}></div>
