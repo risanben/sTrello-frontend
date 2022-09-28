@@ -45,7 +45,7 @@ export const DetailsActivities = ({task, groupId, onUpdateTask}) => {
 
             {isTextAreaOpen && <section>
 
-                <button className={`checklist-btn ${(textAreaContent) ? 'activate' : ''}`} onMouseDown={() => { onSaveComment() }} >
+                <button className={`checklist-btn ${(textAreaContent) ? 'activate' : ''}`} onMouseDown={() => onSaveComment() } >
                     Save
                 </button>
 
