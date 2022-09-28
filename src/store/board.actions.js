@@ -282,6 +282,7 @@ export function handleDrag(
                 const group = board.groups.find(group => group.id === droppableIdStart)
                 const task = group.tasks.splice(droppableIndexStart, 1)
                 group.tasks.splice(droppableIndexEnd, 0, ...task)
+
             } else {
                 // tasks in diff groups
                 const groupStart = board.groups.find(group => group.id === droppableIdStart)
