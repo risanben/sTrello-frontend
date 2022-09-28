@@ -23,8 +23,7 @@ export function AppHeader() {
     const pathname = useLocation().pathname
     const dispatch = useDispatch()
     const boards = useSelector(state => state.boardModule.boards)
-    const user = useSelector(state => state.boardModule.user)
-
+    const user = useSelector(state => state.userModule.user)
 
     useEffect(() => {
         document.addEventListener("click", handleClickOutside, true)
@@ -117,6 +116,8 @@ export function AppHeader() {
                 {/* <span className='create' onClick={showCreateBoardMoadl}>Create</span> */}
                 {isCreateModalOpen && <BoardEdit toggleCreateBoardModal={showCreateBoardMoadl} />}
             </section>
+
+            {user?.fullname && <div className='user-full-name'>{user.fullname}</div>}
 
             <section className={isSearching ? 'search search-wide' : 'search'} >
                 <IoSearchSharp className='mag-glass' /><input type="text" onChange={onChange} placeholder='Search' onClick={onSearching} />

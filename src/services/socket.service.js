@@ -1,6 +1,7 @@
 import io from 'socket.io-client'
-// import { userService } from './user.service'
+import { userService } from './user.service'
 
+export const SOCKET_EVENT_BOARD_UPDATE = 'board-update'
 export const SOCKET_EVENT_ADD_MSG = 'chat-add-msg'
 export const SOCKET_EMIT_SEND_MSG = 'chat-send-msg'
 export const SOCKET_EMIT_SET_TOPIC = 'chat-set-topic'
@@ -14,8 +15,9 @@ const SOCKET_EMIT_LOGOUT = 'unset-user-socket'
 
 
 const baseUrl = (process.env.NODE_ENV === 'production') ? '' : '//localhost:3030'
-// export const socketService = createSocketService()
-export const socketService = createDummySocketService()
+console.log('baseUrl', baseUrl);
+export const socketService = createSocketService()
+// export const socketService = createDummySocketService()
 
 // for debugging from console
 // window.socketService = socketService
@@ -29,8 +31,8 @@ function createSocketService() {
     setup() {
       socket = io(baseUrl)
       setTimeout(() => {
-        // const user = userService.getLoggedinUser()
-        const user = { username: 'bla', fullname: 'blabla', _id: '123' }
+        const user = userService.getLoggedinUser()
+        // const user = { username: 'bla', fullname: 'blabla', _id: '123' }
         if (user) this.login(user._id)
       }, 500)
     },
@@ -43,14 +45,19 @@ function createSocketService() {
       else socket.off(eventName, cb)
     },
     emit(eventName, data) {
+      console.log('emit');
       socket.emit(eventName, data)
     },
     login(userId) {
+      console.log('SOCKET_EMIT_LOGIN-userId', userId);
       socket.emit(SOCKET_EMIT_LOGIN, userId)
     },
     logout() {
       socket.emit(SOCKET_EMIT_LOGOUT)
     },
+    // addLabel() {
+    //   socket.emit(SOCKET_EVENT_ADD_LABEL)
+    // },
     terminate() {
       socket = null
     },

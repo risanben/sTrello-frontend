@@ -1,8 +1,9 @@
 import { useState } from "react"
 import { AiOutlineBars } from "react-icons/ai"
 import { ActivityList } from "./activity-list"
+import { ChatApp } from "./chat-app"
 
-export const DetailsActivities = ({task}) => {
+export const DetailsActivities = ({ task, onUpdateTask }) => {
 
     const [textAreaContent, setTextAreaContent] = useState('')
     const [isTextAreaOpen, toggleTextArea] = useState(false)
@@ -21,22 +22,23 @@ export const DetailsActivities = ({task}) => {
         </div>
 
         <div className='text-area-container'>
-            <textarea value={textAreaContent} onClick={() => toggleTextArea(true)} onBlur={() => toggleTextArea(false)} className='txt-area-normal' placeholder="Write a comment..." onChange={(ev) => {
+            {/* <textarea value={textAreaContent} onClick={() => toggleTextArea(true)} onBlur={() => toggleTextArea(false)} className='txt-area-normal' placeholder="Write a comment..." onChange={(ev) => {
                 setTextAreaContent(ev.target.value)
             }}>
             </textarea>
 
             {isTextAreaOpen && <section>
 
-                <button className={`checklist-btn ${(textAreaContent) ? 'activate' : ''}`} /*onMouseDown={() => { onSaveComment() }} */ >
+                <button className={`checklist-btn ${(textAreaContent) ? 'activate' : ''}`}  >
                     Save
                 </button>
 
-            </section>}
+            </section>} */}
+            <ChatApp task={task} onUpdateTask={onUpdateTask} />
         </div>
 
-                {isActivityListShown && <ActivityList task={task}/>}
-        
+        {isActivityListShown && <ActivityList task={task} />}
+
 
     </section>
 }

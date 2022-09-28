@@ -57,11 +57,13 @@ async function update(user) {
 
 async function login(userCred) {
     const users = await storageService.query('user')
-    console.log('users', users)
     const user = users.find(user => user.username === userCred.username)
     // const user = await httpService.post('auth/login', userCred)
     if (user) {
+        console.log('users', user)
+
         // socketService.login(user._id)
+        socketService.login(user.id)
         return saveLocalUser(user)
     }
 }
@@ -70,12 +72,12 @@ async function signup(userCred) {
     const user = await storageService.post('user', userCred)
     // console.log('user after%%%%%%', user)
     // const user = await httpService.post('auth/signup', userCred)
-    // socketService.login(user._id)
+    socketService.login(user._id)
     return saveLocalUser(user)
 }
 async function logout() {
     sessionStorage.removeItem(STORAGE_KEY_LOGGEDIN_USER)
-    // socketService.logout()
+    socketService.logout()
     // return await httpService.post('auth/logout')
 }
 

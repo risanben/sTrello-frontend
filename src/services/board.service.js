@@ -1,8 +1,8 @@
-
 import { storageService } from './async-storage.service.js'
 import { utilService } from './util.service.js'
 import { userService } from './user.service.js'
-import { getActionRemoveBoard, getActionAddBoard, getActionUpdateBoard } from '../store/board.actions.js'
+import { getActionRemoveBoard, getActionAddBoard, getActionUpdateBoard, updateBoard } from '../store/board.actions.js'
+import { socketService, SOCKET_EVENT_BOARD_UPDATE } from '../services/socket.service.js'
 import { store } from '../store/store'
 import { httpService } from './http.service'
 
@@ -16,6 +16,17 @@ const boardChannel = new BroadcastChannel('boardChannel')
         boardChannel.addEventListener('message', (ev) => {
             store.dispatch(ev.data)
         })
+    })()
+
+    ; (() => {
+
+        socketService.on(SOCKET_EVENT_BOARD_UPDATE, (board) => {
+            console.log('GOT board from socket', board)
+            store.dispatch(getActionUpdateBoard(board))
+        })
+        // socketService.on(SOCKET_EVENT_REVIEW_ABOUT_YOU, (review) => {
+        // showSuccessMsg(`New review about me ${review.txt}`)
+        // })
     })()
 
 export const boardService = {
@@ -33,6 +44,7 @@ export const boardService = {
     getTaskBackground,
     getLabelsColors,
     getBoardBackgrounds,
+    getGuestUser,
 }
 window.cs = boardService
 
@@ -137,12 +149,16 @@ function _addActivityDetails(activity) {
     // console.log('activity!!!!', activity)
     activity.id = utilService.makeId()
     activity.createdAt = Date.now()
-    activity.byMember = {
-        "_id": "u199",
-        "fullname": "Guest",
-        "imgUrl": "https://trello-members.s3.amazonaws.com/63197a231392a3015ea3b649/1af72162e2d7c08fd66a6b36476c1515/170.png"
-    }
+    activity.byMember = getGuestUser()
     return activity
+}
+
+function getGuestUser() {
+    return ({
+        _id: "u199",
+        fullname: "Guest",
+        imgUrl: "https://trello-members.s3.amazonaws.com/63197a231392a3015ea3b649/1af72162e2d7c08fd66a6b36476c1515/170.png"
+    })
 }
 
 async function getTaskById(boardId, groupId, taskId) {

@@ -27,6 +27,7 @@ import { ChecklistModal } from "../cmps/checklist-modal"
 import { TaskChecklist } from "../cmps/task-checklist"
 import { DetailsActivities } from "../cmps/task-details-activities"
 import { utilService } from "../services/util.service"
+import { ChatApp } from "../cmps/chat-app"
 
 export const TaskDetails = ({ boardId, groupId, taskId, taskFromProps, groupTitle, closeModal }) => {
 
@@ -512,8 +513,9 @@ export const TaskDetails = ({ boardId, groupId, taskId, taskFromProps, groupTitl
                                 />}
 
                                 {/* ACTIVITIES  */}
+                          
                                 <DetailsActivities
-                                    task={task} />
+                                    task={task} onUpdateTask={onUpdateTask} />
                                 {/* <div className="activity-container">
                                     <span className="activity-main-icon"> <GrTextAlignFull /></span>
                                     <span className="activity-title">Activity</span>
