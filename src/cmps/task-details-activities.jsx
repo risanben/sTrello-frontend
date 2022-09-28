@@ -6,7 +6,7 @@ import { ChatApp } from "./chat-app"
 import { updateBoard } from '../store/board.actions'
 
 
-export const DetailsActivities = ({task, groupId}) => {
+export const DetailsActivities = ({task, groupId, onUpdateTask}) => {
 
     const board = useSelector(state => state.boardModule.board)
     const [textAreaContent, setTextAreaContent] = useState('')
