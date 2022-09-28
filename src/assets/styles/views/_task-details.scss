@@ -626,7 +626,7 @@
             margin: 0;
 
             .task-cover {
-                display: flex;
+                // display: flex;
 
                 .btn.close {
                     position: relative;
@@ -645,11 +645,34 @@
 
 
             .task-main-container {
+
+                .title-container {
+                    margin-left: 8px;
+
+                    .task-title-icon{
+                       padding-top: 6px;
+                    }
+                }
+
                 .task-main-middle-container {
                     flex-direction: column-reverse;
 
                     .task-main-container-left {
                         padding: 8px;
+
+                        .tags{
+                            .labels{
+                                .select-labels{
+                                    align-items: center;
+                                }
+                            }
+                            .plus-icon{
+                                margin-bottom: 5px;
+                            }
+                        }
+                        .tag-title{
+                            font-size: 15px;
+                        }
 
                         .description-container {
                             .description-main-content {
@@ -664,6 +687,7 @@
                     // display: grid;
                     // grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
                     padding-right: 8px;
+                    // height: unset;
 
                     .add-to-card {
                         display: none;
@@ -671,6 +695,17 @@
 
                     .btn {
                         width: unset;
+                        // padding-bottom: 31px;
+                        height: unset;
+
+
+                        .icon{
+                            font-size: 20px;
+                        }
+
+                        .ability{
+                            font-size: 18px;
+                        }
                     }
                 }
 

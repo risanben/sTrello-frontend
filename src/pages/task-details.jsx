@@ -13,6 +13,7 @@ import { BsTagFill, BsCheck2Square, BsClock } from 'react-icons/bs'
 import { HiArchive } from 'react-icons/hi'
 import { FaWindowMaximize } from 'react-icons/fa'
 import { GrTextAlignFull, GrAdd, GrAttachment } from 'react-icons/gr'
+import { ImAttachment } from 'react-icons/im'
 import { IoIosArrowDown } from 'react-icons/io'
 import { AbilityCreator } from "../cmps/ability-creator"
 import { TaskDetailsLabelModal } from "../cmps/task-details-labels-modal"
@@ -549,7 +550,7 @@ export const TaskDetails = ({ boardId, groupId, taskId, taskFromProps, groupTitl
                                     <span className="ability">Dates</span>
                                 </button>
                                 <button className="btn abilities" onClick={toggleAttachmentModal}>
-                                    <span className="icon attach"><GrAttachment /></span>
+                                    <span className="icon attach"><ImAttachment /></span>
                                     <span className="ability">Attachment</span>
                                 </button>
                                 {!(task?.style && (task.style.bg.imgUrl !== null || task.style.bg.color !== null)) &&
