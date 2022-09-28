@@ -22,7 +22,7 @@ export const DetailsActivities = ({ task, onUpdateTask }) => {
         </div>
 
         <div className='text-area-container'>
-            {/* <textarea value={textAreaContent} onClick={() => toggleTextArea(true)} onBlur={() => toggleTextArea(false)} className='txt-area-normal' placeholder="Write a comment..." onChange={(ev) => {
+            <textarea value={textAreaContent} onClick={() => toggleTextArea(true)} onBlur={() => toggleTextArea(false)} className='txt-area-normal' placeholder="Write a comment..." onChange={(ev) => {
                 setTextAreaContent(ev.target.value)
             }}>
             </textarea>
@@ -33,8 +33,8 @@ export const DetailsActivities = ({ task, onUpdateTask }) => {
                     Save
                 </button>
 
-            </section>} */}
-            <ChatApp task={task} onUpdateTask={onUpdateTask} />
+            </section>}
+            {/* <ChatApp task={task} onUpdateTask={onUpdateTask} /> */}
         </div>
 
         {isActivityListShown && <ActivityList task={task} />}
