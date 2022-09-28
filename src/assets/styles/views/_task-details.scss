@@ -629,11 +629,12 @@
                 display: flex;
 
                 .btn.close {
-                    position: absolute;
+                    position: relative;
                 }
 
                 .btn.cover {
-                    position: absolute;
+                    // position: absolute;
+                    display: none;
                 }
 
                 .img-cover {
