@@ -1,3 +1,4 @@
+import React from "react"
 import { useDispatch } from "react-redux"
 import { Link } from "react-router-dom"
 import { onLogout } from "../store/user.actions"
@@ -21,16 +22,18 @@ export const UserModal = ({ toggleUserModal, user, getUserImg }) => {
                     <div className="user-icon" style={getUserImg()}></div>
                     <div className="username">{user.fullname}</div>
                 </div>}
-                {!user?.username && <div className="user-details">
-                    <div className="user-icon" style={getUserImg()}></div>
-                    <div className="username">Guest</div>
+                {!user?.username && <div className="user-modal-main-container">
+
                 </div>}
-                <hr className="user-modal-hr" />
                 <div className="user-modal-main-container">
                     {user?.username && <div className="user-modal-title logout" onClick={onUserLogout}>Log out</div>}
-                    {!user?.username && <Link to='/signup' ><div className="user-modal-title logout">Sign Up</div></Link>}
+                    {!user?.username && <React.Fragment>
+                        <Link to='/signup' ><div className="user-modal-title logout">Sign Up</div></Link>
+                        <hr lassName="user-modal-hr" />
+                        <Link to='/login' ><div className="user-modal-title logout">Log In</div></Link>
+                    </React.Fragment>}
                 </div>
             </div>
-        </section>
+        </section >
     )
 }

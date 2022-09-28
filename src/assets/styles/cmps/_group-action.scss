@@ -2,10 +2,11 @@
     width: 200px;
     height: 100px;
     position: absolute;
+    // position: relative;
     top: 85px;
     background-color: #fff;
-    box-shadow: var(--ds-shadow-overlay, 0 8px 16px -4px #091e4240, 0 0 0 1px #091e4214);
-    z-index: 100;
+    box-shadow: 0 8px 16px -4px #091e4240, 0 0 0 1px #091e4214;
+    // z-index: 100;
     border-radius: 3px;
     display: flex;
     flex-direction: column;
@@ -27,13 +28,20 @@
         }
 
         .group-action-close {
-            padding: 4px 8px 4px;
+            // padding: 4px 8px 4px;
+            background-image: url('../../img/icon-close-add-task.svg');
+            background-position: center;
+            background-repeat: no-repeat;
+            align-self: center;
+            width: 10px;
+            height: 10px;
 
             &:hover {
                 cursor: pointer;
-                background-color: #091e4214;
-                border-radius: 3px;
+                background-image: url('../../img/icon-close-add-task-hover.svg');
             }
+
+
         }
     }
 

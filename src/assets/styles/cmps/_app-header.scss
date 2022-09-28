@@ -23,6 +23,7 @@
         // border: 1px solid black;
         border-radius: 0.3rem;
         padding: 0 3px;
+        margin-left: 45px;
 
         &:hover {
             background-color: darken($color: $header-bg-color, $amount: 10);

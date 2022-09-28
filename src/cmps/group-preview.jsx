@@ -17,7 +17,7 @@ export const GroupPreview = ({ group, addTask, index, taskRef }) => {
     const [isAddTask, setIsAddTask] = useState(false)
     const [isEditTitle, setIsEditTitle] = useState(false)
     const [isOpenGroupAction, setIsOpenGroupAction] = useState(false)
-    const [leftPosGroupMOdal, setLeftPosGroupModal] = useState(null)
+    const [leftPosGroupModal, setLeftPosGroupModal] = useState(null)
 
 
     useEffect(() => {
@@ -30,7 +30,7 @@ export const GroupPreview = ({ group, addTask, index, taskRef }) => {
         return (
             () => {
                 document.removeEventListener("click", handleClickOutside, false)
-                console.log('listener disabled:')
+                // console.log('listener disabled:')
             }
         )
 
@@ -91,14 +91,17 @@ export const GroupPreview = ({ group, addTask, index, taskRef }) => {
                 title: ""
             }
         }
-        console.log('from onDeleteGroup*** board._id', board._id)
-        console.log('from onDeleteGroup*** group.id', group.id)
-        console.log('from onDeleteGroup***activity', activity)
         disapcth(removeGroup(board._id, group.id, activity))
     }
 
     const onOpenGroupAction = (ev) => {
-        setLeftPosGroupModal(ev.target.offsetLeft)
+        const parentEl = ev.currentTarget.parentNode
+        const position = parentEl.getBoundingClientRect()
+        // setLeftPosGroupModal(ev.target.offsetLeft - 200)
+        setLeftPosGroupModal(position.x + 30)
+        console.log('ev.target.offsetLeft', ev.target.offsetLeft)
+        console.log('leftPosGroupMOdal', leftPosGroupModal)
+        console.log('position', position)
         setIsOpenGroupAction(!isOpenGroupAction)
     }
 
@@ -119,21 +122,21 @@ export const GroupPreview = ({ group, addTask, index, taskRef }) => {
                         <div className="group-title">
                             {!isEditTitle && <span onClick={toggaleEditTitle}>{groupToEdit.title}</span>}
                             {isEditTitle &&
-                                <form onSubmit={onEditGroupTitle}  ref={refTitle}>
+                                <form onSubmit={onEditGroupTitle} ref={refTitle}>
                                     <input
                                         value={groupToEdit.title}
                                         onChange={handleChangeGroup}
                                         type="text"
                                         name="title"
                                         id="title"
-                                        
+
                                     />
                                 </form>}
                             <div className="group-menu" onClick={onOpenGroupAction}></div>
                             {isOpenGroupAction &&
                                 <GroupActionModal
                                     group={groupToEdit}
-                                    leftPos={leftPosGroupMOdal}
+                                    leftPos={leftPosGroupModal}
                                     onOpenGroupAction={onOpenGroupAction}
                                     onDeleteGroup={onDeleteGroup} />}
                         </div>
