@@ -130,3 +130,26 @@
 
     }
 }
+
+
+
+/////////MQ///////
+
+@media (max-width: 400px) {
+
+    .board-header{
+        .flex-end-side{
+            .members{
+                display: none;
+            }
+
+            .btn-add{
+                display: none;
+            }
+
+            .show-menu-title{
+                display: none;
+            }
+        }
+    }
+}

@@ -22,7 +22,7 @@
     }
 
     .text-area-container {
-        margin-left:40px;
+        margin-left: 40px;
         margin-top: 15px;
 
         .txt-area-normal {
@@ -88,21 +88,21 @@
 
             }
 
-       
+
         }
 
-        .comment-header{
+        .comment-header {
             // border: 2px solid green;
             display: flex;
             // align-items: flex-end;
 
-            .activity-time{
+            .activity-time {
                 // border: 1px solid purple;
                 margin-left: 7px;
                 // align-self: flex-end;
                 padding-top: 2px;
             }
-         }
+        }
 
         .txt-area-normal {
             // border: 2px solid red;
@@ -116,14 +116,15 @@
             margin-top: 3px;
             border: 1px solid rgba(128, 128, 128, 0.278);
 
-            &:focus{
+            &:focus {
                 height: auto;
             }
         }
 
-        .comment-edit-btns{
+        .comment-edit-btns {
+
             // font-size: 12px;
-            button{
+            button {
                 font-size: 12px;
                 text-decoration: underline;
                 background-color: inherit;
@@ -131,14 +132,29 @@
             }
         }
 
-        .save-close-btns{
-display: flex;
-            .icon-close{
+        .save-close-btns {
+            display: flex;
+
+            .icon-close {
                 width: 20px;
                 margin-left: 5px;
             }
         }
-       
+
     }
+
+}
+
+
+///////// MQ ////////// 
+
+
+@media (max-width: 400px) {
+    .details-activities {
+        .text-area-container {
+            margin-left: 0;
+        }
+    }
+
 
 }

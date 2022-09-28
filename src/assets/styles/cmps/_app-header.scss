@@ -285,3 +285,15 @@
 .workspace {
     position: unset;
 }
+
+
+
+/////////////////MQ////////////
+
+@media (max-width: 400px) {
+
+    .app-header{
+        display: none;
+    
+    }
+}
