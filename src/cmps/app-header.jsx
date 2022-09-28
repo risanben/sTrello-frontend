@@ -89,7 +89,6 @@ export function AppHeader() {
     }
 
     if (pathname.includes("/signup") || pathname.includes("/login")) return <section></section>
-    // console.log('user from header', user)
     return (
         <section className={_getHeaderClass()}>
             {/* <BsFillGrid3X3GapFill className='menu-logo' /> */}

@@ -2,6 +2,7 @@ import { ImTrello } from "react-icons/im"
 import { useDispatch } from "react-redux"
 import { Link, useNavigate } from "react-router-dom"
 import { useForm } from "../hooks/useForm"
+import { utilService } from "../services/util.service"
 import { onSignup } from "../store/user.actions"
 
 export const Signup = () => {
@@ -10,7 +11,8 @@ export const Signup = () => {
     const [user, handleChange] = useForm({
         fullname: '',
         username: '',
-        password: ''
+        password: '',
+        id: utilService.makeId()
     })
 
     const onUserSignup = (ev) => {

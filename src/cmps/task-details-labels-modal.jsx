@@ -11,7 +11,7 @@ export const TaskDetailsLabelModal = ({ labelIds, onSetLabel, toggleLabelsModal,
             <input type="text" placeholder="Search Labels..." className="label-search-input" />
             <span className="sub-title">Labels</span>
             <section className="label-detail-container">
-                <TaskDetailsLabel labelIds={labelIds} onSetLabel={onSetLabel} />
+                <TaskDetailsLabel labelIds={labelIds} onSetLabel={onSetLabel} pos={labelModalPos.style } />
             </section>
             {/* </div> */}
         </section>
