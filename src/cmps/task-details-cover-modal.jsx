@@ -17,26 +17,15 @@ export const TaskDetailsCoverModal = ({ onSetImg, onShowModal, onSetColor, onRem
         setBackgroundColors(boardService.getTaskBackground('color'))
     }
 
-    // const onRemoveCover=()=>{
-    // }
-
-    // onBackgroundSelected = (type, val) => {
-
-    //     if (type === 'url') {
-    //         onSetImg(val)
-    //     } else {
-    //         onSetColor(val)
-    //     }
-    // }
-
     return (
         <section className="cover-modal">
             <img src={closeIcon} onClick={onShowModal} alt="close" className="close-btn" />
             <div className="cover-modal-title">Cover</div>
             {/* <input type="color" onChange={changeColor} /> */}
+{/* 
             <div>
                 <div className="cover-modal-img-preview" style={{ backgroundImage: "url(https://trello-backgrounds.s3.amazonaws.com/SharedBackground/128x192/ce85f4faa89d899a3c325bba8bc49655/photo-1663583513676-9f6361cd859d.jpg)" }}></div>
-                {/* linearGradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5))  */}
+                 linearGradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)) 
                 <div className="lower-background-preview">
                     <div className="two-text-strips-module">
                         <div className="upper-strip" style={{ backgroundColor: 'rgb(207, 211, 218)' }}></div>
@@ -44,8 +33,9 @@ export const TaskDetailsCoverModal = ({ onSetImg, onShowModal, onSetColor, onRem
                     <div className="lower strip" style={{ backgroundColor: 'rgb(207, 211, 218)' }}></div>
                     <div></div>
                 </div>
-            </div>
-            <button onClick={onRemoveCover}>Remove cover</button>
+            </div> */}
+
+            <button className="btn-remove" onClick={onRemoveCover}>Remove cover</button>
 
             <section>
                 <span className="sub-title">Colors</span>

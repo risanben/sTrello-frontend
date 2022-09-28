@@ -5,16 +5,16 @@ import { getBoard } from '../store/board.actions'
 export const BoardsList = ({ boards }) => {
 
     const dispatch = useDispatch()
+    const navigate = useNavigate()
+    const pathname = useLocation().pathname
 
     const _getBoardThumbnail = (board) => {
         if (board.style?.imgUrl) return <img src={board.style.imgUrl} className="thumbnail"></img>
         if (board.style?.bgColor) return <div style={{ backgroundColor: board.style.bgColor }} className="color-thumb"></div>
         else return <div style={{ backgroundColor: "grey" }} className="color-thumb"></div>
     }
-    const navigate = useNavigate()
 
     const _getActiveLink = (id) => {
-        const pathname = useLocation().pathname
         if (pathname.includes(id)) {
             return "active"
         } else {

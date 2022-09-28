@@ -35,6 +35,7 @@ export const BoardEdit = ({ toggleCreateBoardModal }) => {
         }
         try {
             const savedBoard = await dispatch(addBoard(board, activity))
+            // console.log('savedBoard', savedBoard)
             navigate(`/board/${savedBoard._id}`)
         } catch (err) {
             console.log('Cannot add board', err)
@@ -80,7 +81,7 @@ export const BoardEdit = ({ toggleCreateBoardModal }) => {
         <section className="add-board">
             <div className="add-board-title-container">
                 <div className="add-board-title">Create board</div>
-                <button className="btn-close-modal" onClick={toggleCreateBoardModal}>X</button>
+                <button className="btn-close-add btn-close-modal" onClick={toggleCreateBoardModal}></button>
             </div>
 
             <div className="scroll-container">

@@ -18,13 +18,7 @@ export const GroupPreview = ({ group, addTask, index, taskRef }) => {
     const [isEditTitle, setIsEditTitle] = useState(false)
     const [isOpenGroupAction, setIsOpenGroupAction] = useState(false)
     const [leftPosGroupMOdal, setLeftPosGroupModal] = useState(null)
-    const [task, handleChangeTask, setTask] = useForm({
-        title: ''
-    })
 
-    const [groupToEdit, handleChangeGroup, setGroup] = useForm({
-        title: ''
-    })
 
     useEffect(() => {
         setGroup(group)
@@ -35,13 +29,20 @@ export const GroupPreview = ({ group, addTask, index, taskRef }) => {
 
         return (
             () => {
-                // document.removeEventListener("click", handleClickOutside, false)
-                // console.log('listener disabled:')
+                document.removeEventListener("click", handleClickOutside, false)
+                console.log('listener disabled:')
             }
         )
 
     }, [])
 
+    const [task, handleChangeTask, setTask] = useForm({
+        title: ''
+    })
+
+    const [groupToEdit, handleChangeGroup, setGroup] = useForm({
+        title: ''
+    })
     const handleClickOutside = (e) => {
         if (!refTitle.current) return
         if (!refTitle.current.contains(e.target)) {
@@ -90,6 +91,9 @@ export const GroupPreview = ({ group, addTask, index, taskRef }) => {
                 title: ""
             }
         }
+        console.log('from onDeleteGroup*** board._id', board._id)
+        console.log('from onDeleteGroup*** group.id', group.id)
+        console.log('from onDeleteGroup***activity', activity)
         disapcth(removeGroup(board._id, group.id, activity))
     }
 
@@ -115,13 +119,14 @@ export const GroupPreview = ({ group, addTask, index, taskRef }) => {
                         <div className="group-title">
                             {!isEditTitle && <span onClick={toggaleEditTitle}>{groupToEdit.title}</span>}
                             {isEditTitle &&
-                                <form onSubmit={onEditGroupTitle} ref={refTitle}>
+                                <form onSubmit={onEditGroupTitle}  ref={refTitle}>
                                     <input
                                         value={groupToEdit.title}
                                         onChange={handleChangeGroup}
                                         type="text"
                                         name="title"
                                         id="title"
+                                        
                                     />
                                 </form>}
                             <div className="group-menu" onClick={onOpenGroupAction}></div>

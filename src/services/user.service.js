@@ -16,8 +16,7 @@ export const userService = {
     getUsers,
     getById,
     remove,
-    update,
-    changeScore
+    update
 }
 
 window.userService = userService
@@ -61,13 +60,17 @@ async function login(userCred) {
     const user = users.find(user => user.username === userCred.username)
     // const user = await httpService.post('auth/login', userCred)
     if (user) {
-        socketService.login(user._id)
+        console.log('users', user)
+
+        // socketService.login(user._id)
+        socketService.login(user.id)
         return saveLocalUser(user)
     }
 }
 async function signup(userCred) {
-    userCred.score = 10000
+    // console.log('userCred', userCred)
     const user = await storageService.post('user', userCred)
+    // console.log('user after%%%%%%', user)
     // const user = await httpService.post('auth/signup', userCred)
     socketService.login(user._id)
     return saveLocalUser(user)
@@ -77,15 +80,6 @@ async function logout() {
     socketService.logout()
     // return await httpService.post('auth/logout')
 }
-
-async function changeScore(by) {
-    const user = getLoggedinUser()
-    if (!user) throw new Error('Not loggedin')
-    user.score = user.score + by || by
-    await update(user)
-    return user.score
-}
-
 
 function saveLocalUser(user) {
     sessionStorage.setItem(STORAGE_KEY_LOGGEDIN_USER, JSON.stringify(user))

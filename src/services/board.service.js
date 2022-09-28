@@ -1,9 +1,10 @@
-
 import { storageService } from './async-storage.service.js'
 import { utilService } from './util.service.js'
 import { userService } from './user.service.js'
-import { getActionRemoveBoard, getActionAddBoard, getActionUpdateBoard } from '../store/board.actions.js'
+import { getActionRemoveBoard, getActionAddBoard, getActionUpdateBoard, updateBoard } from '../store/board.actions.js'
+import { socketService, SOCKET_EVENT_BOARD_UPDATE } from '../services/socket.service.js'
 import { store } from '../store/store'
+import { httpService } from './http.service'
 
 // This file demonstrates how to use a BroadcastChannel to notify other browser tabs 
 
@@ -17,6 +18,17 @@ const boardChannel = new BroadcastChannel('boardChannel')
         })
     })()
 
+    ; (() => {
+
+        socketService.on(SOCKET_EVENT_BOARD_UPDATE, (board) => {
+            console.log('GOT board from socket', board)
+            store.dispatch(getActionUpdateBoard(board))
+        })
+        // socketService.on(SOCKET_EVENT_REVIEW_ABOUT_YOU, (review) => {
+        // showSuccessMsg(`New review about me ${review.txt}`)
+        // })
+    })()
+
 export const boardService = {
     query,
     getById,
@@ -24,36 +36,43 @@ export const boardService = {
     remove,
     getGroupById,
     getTaskById,
-    removeGroup,
+    removeGroupFromBoard,
     getBackground,
     addChecklist,
     addTodo,
     addGroupToBoard,
-    getTaskBackground
+    getTaskBackground,
+    getLabelsColors,
+    getBoardBackgrounds,
+    getGuestUser,
 }
 window.cs = boardService
 
+const BASE_URL = `board/`
 
 async function query(filterBy) {
     try {
 
-        let boards = await storageService.query(STORAGE_KEY)
+        let boards = httpService.get(BASE_URL, { params: filterBy })
+        // let boards = await storageService.query(STORAGE_KEY)
         if (filterBy?.title) {
             boards = boards.filter(b => b.title.toLowerCase().includes(filterBy.title.toLowerCase()))
         }
 
         return boards
     } catch (err) {
-        console.log('Cannot complete the function:', err)
+        console.log('Cannot complete the function query:', err)
         throw err
     }
 }
 async function getById(boardId) {
     try {
-        return await storageService.get(STORAGE_KEY, boardId)
+        console.log('boardId', boardId)
+        return await httpService.get(BASE_URL + boardId, boardId)
+        // return await storageService.get(STORAGE_KEY, boardId)
     }
     catch (err) {
-        console.log('Cannot complete the function:', err)
+        console.log('Cannot complete the function getById:', err)
         throw err
     }
     // return axios.get(`/api/board/${boardId}`)
@@ -62,54 +81,53 @@ async function getById(boardId) {
 
 async function remove(boardId) {
     try {
-        await storageService.remove(STORAGE_KEY, boardId)
+        return await httpService.delete(BASE_URL + boardId)
+        // await storageService.remove(STORAGE_KEY, boardId)
         boardChannel.postMessage(getActionRemoveBoard(boardId))
     }
     catch (err) {
-        console.log('Cannot complete the function:', err)
+        console.log('Cannot complete the function remove:', err)
         throw err
     }
 }
+
 async function addGroupToBoard(boardId, group, activity) {
     try {
-        console.log('boardId', boardId)
         let boardToUpdate = await getById(boardId)
-        console.log('boardToUpdate', boardToUpdate)
         if (boardToUpdate?.groups) boardToUpdate.groups.push({ ...group })
         else boardToUpdate.groups = [group]
         return await save(boardToUpdate, activity)
     } catch (err) {
-        console.log('Cannot complete the function:', err)
+        console.log('Cannot complete the function addGroupToBoard:', err)
         throw err
     }
 }
-async function removeGroup(boardId, groupId, activity) {
+async function removeGroupFromBoard(boardId, groupId, activity) {
     try {
-
         let boardToUpdate = await getById(boardId)
-        // console.log('boardToUpdate', boardToUpdate)
         boardToUpdate.groups = boardToUpdate.groups.filter(group => group.id !== groupId)
         return await save(boardToUpdate, activity)
     } catch (err) {
-        console.log('Cannot complete the function:', err)
+        console.log('Cannot complete the function removeGroup:', err)
         throw err
     }
 }
 
 async function save(board, activity = null) {
     var savedBoard
-    // console.log('activity from save board', activity)
     if (activity) _addActivityDetails(activity)
     if (board._id) {
+
         if (activity) board.activities.unshift(activity)
-        savedBoard = await storageService.put(STORAGE_KEY, board)
+        savedBoard = await httpService.put(BASE_URL + board._id, board)
+        // savedBoard = await storageService.put(STORAGE_KEY, board)
         boardChannel.postMessage(getActionUpdateBoard(savedBoard))
     } else {
-        // Later, owner is set by the backend
-        // console.log('new board')
-        // board.owner = userService.getLoggedinUser()
         if (activity) board.activities = [activity]
-        savedBoard = await storageService.post(STORAGE_KEY, board)
+        savedBoard._id = utilService.makeId()
+        savedBoard.isStarred = false
+        savedBoard = await httpService.post(BASE_URL, board)
+        // savedBoard = await storageService.post(STORAGE_KEY, board)
         boardChannel.postMessage(getActionAddBoard(savedBoard))
     }
     return savedBoard
@@ -117,11 +135,12 @@ async function save(board, activity = null) {
 
 async function getGroupById(boardId, groupId) {
     try {
-        const board = await storageService.get(STORAGE_KEY, boardId)
+        const board = await httpService.get(BASE_URL + boardId)
+        // const board = await storageService.get(STORAGE_KEY, boardId)
         return board.groups.find(group => group.id === groupId)
     }
     catch (err) {
-        console.log('Cannot complete the function:', err)
+        console.log('Cannot complete the function getGroupById:', err)
         throw err
     }
 }
@@ -130,12 +149,16 @@ function _addActivityDetails(activity) {
     // console.log('activity!!!!', activity)
     activity.id = utilService.makeId()
     activity.createdAt = Date.now()
-    activity.byMember = {
-        "_id": "u199",
-        "fullname": "Guest",
-        "imgUrl": "https://trello-members.s3.amazonaws.com/63197a231392a3015ea3b649/1af72162e2d7c08fd66a6b36476c1515/170.png"
-    }
+    activity.byMember = getGuestUser()
     return activity
+}
+
+function getGuestUser() {
+    return ({
+        _id: "u199",
+        fullname: "Guest",
+        imgUrl: "https://trello-members.s3.amazonaws.com/63197a231392a3015ea3b649/1af72162e2d7c08fd66a6b36476c1515/170.png"
+    })
 }
 
 async function getTaskById(boardId, groupId, taskId) {
@@ -145,7 +168,7 @@ async function getTaskById(boardId, groupId, taskId) {
         return task
 
     } catch (err) {
-        console.log('Cannot complete the function:', err)
+        console.log('Cannot complete the function getTaskById:', err)
         throw err
     }
 }
@@ -165,11 +188,10 @@ async function addTodo(boardId, groupId, taskId, checklistId, title) {
             checklist => checklist.id === checklistId
         )
         board.groups[groupIdx].tasks[taskIdx].checklists[checklistIdx].todos.push(todoToAdd)
-
         save(board)
         return board
     } catch (err) {
-        console.log('Cannot add todo,Heres why:', err)
+        console.log('Cannot add todo, Heres why:', err)
     }
 }
 
@@ -184,12 +206,11 @@ async function addChecklist(boardId, groupId, taskObj, title) {
         const groupIdx = board.groups.findIndex(group => group.id === groupId)
         const taskIdx = board.groups[groupIdx].tasks.findIndex(task => task.id === taskObj.id)
 
-        if ( board.groups[groupIdx].tasks[taskIdx]?.checklists){
+        if (board.groups[groupIdx].tasks[taskIdx]?.checklists) {
             board.groups[groupIdx].tasks[taskIdx].checklists.push(newChecklist)
         } else {
             board.groups[groupIdx].tasks[taskIdx].checklists = [newChecklist]
         }
-
         save(board)
         return board
     } catch (err) {
@@ -200,10 +221,14 @@ async function addChecklist(boardId, groupId, taskObj, title) {
 function getBackground(type) {
     if (type === 'url') {
         return [
-            "https://images.unsplash.com/photo-1663447000721-93a6d5bc71db?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=Mnw3MDY2fDB8MXxjb2xsZWN0aW9ufDF8MzE3MDk5fHx8fHwyfHwxNjYzNTA2ODA5&ixlib=rb-1.2.1&q=80&w=400",
-            "https://images.unsplash.com/photo-1663138763894-0cc4a5421dab?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=Mnw3MDY2fDB8MXxjb2xsZWN0aW9ufDJ8MzE3MDk5fHx8fHwyfHwxNjYzNTA2ODA5&ixlib=rb-1.2.1&q=80&w=400",
-            "https://images.unsplash.com/photo-1663104192417-6804188a9a8e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=Mnw3MDY2fDB8MXxjb2xsZWN0aW9ufDN8MzE3MDk5fHx8fHwyfHwxNjYzNTA2ODA5&ixlib=rb-1.2.1&q=80&w=400",
-            "https://images.unsplash.com/photo-1663121679412-9eeff30ef817?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=Mnw3MDY2fDB8MXxjb2xsZWN0aW9ufDR8MzE3MDk5fHx8fHwyfHwxNjYzNTA2ODA5&ixlib=rb-1.2.1&q=80&w=400"
+            'https://res.cloudinary.com/dqhrqqqul/image/upload/v1664197071/pawel-czerwinski-lKEvGdP0Oig-unsplash_xhxxbf.jpg',
+            'https://res.cloudinary.com/dqhrqqqul/image/upload/v1664187242/karsten-winegeart-j5z0DZMWViU-unsplash_yyaw6e.jpg',
+            'https://res.cloudinary.com/dqhrqqqul/image/upload/v1664187022/maxim-berg-Tba7ds4aF_k-unsplash_1_woirqi.jpg',
+            'https://res.cloudinary.com/dqhrqqqul/image/upload/v1664196414/ian-dooley-DJ7bWa-Gwks-unsplash_hr2qyq.jpg'
+            // "https://images.unsplash.com/photo-1663447000721-93a6d5bc71db?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=Mnw3MDY2fDB8MXxjb2xsZWN0aW9ufDF8MzE3MDk5fHx8fHwyfHwxNjYzNTA2ODA5&ixlib=rb-1.2.1&q=80&w=400",
+            // "https://images.unsplash.com/photo-1663138763894-0cc4a5421dab?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=Mnw3MDY2fDB8MXxjb2xsZWN0aW9ufDJ8MzE3MDk5fHx8fHwyfHwxNjYzNTA2ODA5&ixlib=rb-1.2.1&q=80&w=400",
+            // "https://images.unsplash.com/photo-1663104192417-6804188a9a8e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=Mnw3MDY2fDB8MXxjb2xsZWN0aW9ufDN8MzE3MDk5fHx8fHwyfHwxNjYzNTA2ODA5&ixlib=rb-1.2.1&q=80&w=400",
+            // "https://images.unsplash.com/photo-1663121679412-9eeff30ef817?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=Mnw3MDY2fDB8MXxjb2xsZWN0aW9ufDR8MzE3MDk5fHx8fHwyfHwxNjYzNTA2ODA5&ixlib=rb-1.2.1&q=80&w=400"
         ]
     } else if (type === 'color') {
         return ["#0079bf", "#d29034", "#519839", "#b04632", "#89609e"]
@@ -235,6 +260,40 @@ function getTaskBackground(type) {
         ]
     }
 }
+
+function getLabelsColors(type) {
+
+    return [
+        '#D6ECD2', '#FAF3C0', '#FCE6C6', '#F5D3CE', '#EDDBF4',
+        '#B7DDB0', '#F5EA92', '#FAD29C', '#EFB3AB', '#DFC0EB',
+        '#7BC86C', '#F5DD29', '#FFAF3F', '#EF7564', '#CD8DE5',
+        '#5BA4CF',//accent-blue
+        '#29CCE5',//accent-teal
+        '#6DECA9',//light-green
+        '#FF8ED4',//pink
+        '#172B4D',//accent-gray
+    ]
+}
+function getBoardBackgrounds() {
+    return {
+        colors: [
+            '#0079bf', '#d29034', '#519839', '#b04632',
+            '#89609e', '#cd5a91', '#4bbf6b', '#00aecc',
+            '#838c91'
+        ],
+        imgsUrl: [
+            'https://res.cloudinary.com/dqhrqqqul/image/upload/v1664197071/pawel-czerwinski-lKEvGdP0Oig-unsplash_xhxxbf.jpg',
+            'https://res.cloudinary.com/dqhrqqqul/image/upload/v1664186705/rrvviiii-EVEHo6gWzSM-unsplash_jqec7i.jpg',
+            'https://res.cloudinary.com/dqhrqqqul/image/upload/v1664187242/karsten-winegeart-j5z0DZMWViU-unsplash_yyaw6e.jpg',
+            'https://res.cloudinary.com/dqhrqqqul/image/upload/v1664196200/alexander-sinn-KgLtFCgfC28-unsplash_viu9fl.jpg',
+            'https://res.cloudinary.com/dqhrqqqul/image/upload/v1664187022/maxim-berg-Tba7ds4aF_k-unsplash_1_woirqi.jpg',
+            'https://res.cloudinary.com/dqhrqqqul/image/upload/v1664196311/ian-dooley-DuBNA1QMpPA-unsplash_cpw29l.jpg',
+            'https://res.cloudinary.com/dqhrqqqul/image/upload/v1664196414/ian-dooley-DJ7bWa-Gwks-unsplash_hr2qyq.jpg',
+            'https://res.cloudinary.com/dqhrqqqul/image/upload/v1664196528/jeremy-thomas-O6N9RV2rzX8-unsplash_ndcnyj.jpg',
+            'https://res.cloudinary.com/dqhrqqqul/image/upload/v1664197377/ash-from-modern-afflatus-NQ6Lh81BTRs-unsplash_qoe8no.jpg']
+    }
+}
+
 // TEST DATA
 // storageService.post(STORAGE_KEY, {vendor: 'Subali Rahok 2', price: 980}).then(x => console.log(x))
 

@@ -1,8 +1,10 @@
+
 import { useSelector } from "react-redux"
 
 export const TaskDetailsMember = ({ memberIds, onSetMember }) => {
 
     const board = useSelector(state => state.boardModule.board)
+
 
     const getMemberName = (memberId) => {
         const member = board.members.find(member => member._id === memberId)
@@ -46,6 +48,7 @@ export const TaskDetailsMember = ({ memberIds, onSetMember }) => {
         if (checkedMember) return true
         return false
     }
+    
 
     if (!board.members) return <div>No board members found</div>
     return (

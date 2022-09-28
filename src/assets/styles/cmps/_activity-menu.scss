@@ -64,6 +64,19 @@
                         cursor: pointer;
                         color: #091e42;
                     }
+
+
+                }
+
+                .btn-back {
+                    font-size: 25px;
+                    margin-top: 5px;
+                    color: #42526e;
+
+                    &:hover {
+                        cursor: pointer;
+                        color: #091e42;
+                    }
                 }
             }
         }
@@ -72,7 +85,7 @@
             background-color: #091e4221;
             border: 0;
             height: 1px;
-            margin: 0 0 16px 0;
+            margin: 0 0 14px 0;
             padding: 0;
             width: 100%;
         }
@@ -80,7 +93,7 @@
 
     .main-content {
         padding: 0 6px 8px 12px;
-        margin-top: 12px;
+        margin-top: 16px;
         height: 100%;
         overflow-x: auto;
 
@@ -99,51 +112,171 @@
             border-radius: 15px;
         }
 
-        .activity-container {
-            .activity-title-container {
-                padding: 6px 6px 6px 40px;
-                margin: 4px 0;
-                margin-left: 6px;
-                font-weight: 600;
-                line-height: 20px;
-                font-size: 14px;
-            }
 
-            .activity-container {
-                padding: 8px 0;
+        .board-background-container {
+            display: flex;
+            flex-direction: column;
+            min-height: 32px;
+            max-height: 250px;
+            margin-bottom: 14px;
+            // margin-left: 10px;
+            justify-content: center;
+
+            .background-title-container {
                 display: flex;
+                align-items: center;
+                border-radius: 3px;
+                height: 32px;
 
-                .user-icon {
-                    height: 32px;
-                    width: 32px;
-                    border-radius: 50%;
-                    background-color: lightblue;
-                    margin: 0 4px 4px 0;
-                    background-position: center;
-                    background-size: cover;
-                    background-repeat: no-repeat;
+                padding-left: 11px;
+
+                &:hover {
+                    background-color: #091e4214;
+                    border-radius: 3px;
+                    cursor: pointer;
                 }
 
-                .activity-content {
-                    flex: 1;
-                    margin-left: 10px;
+                .background-title {
+                    font-weight: 600;
+                    line-height: 20px;
+                    font-size: 14px;
+                }
 
-                    .user-name {
-                        font-weight: 700;
+                .board-background-img {
+                    height: 15px;
+                    width: 20px;
+                    border-radius: 3px;
+                    margin-right: 12px;
+                    background-position: center;
+                    background-repeat: no-repeat;
+
+                    // margin-left: 5px;
+                }
+            }
+
+            .backgrounds-content {
+                display: flex;
+
+                .board-select-background {
+                    background-color: #dfe1e6;
+                    background-size: cover;
+                    border-radius: 8px;
+                    height: 96px;
+                    margin: 8px 0;
+                    width: 100%;
+
+                    &:hover {
+                        cursor: pointer;
+                        opacity: .7;
                     }
 
-                    .activity-task-title {
-                        text-decoration: underline;
+                }
+
+                .board-img-background-container {
+                    display: flex;
+                    flex-direction: column;
+                    padding: 0 4px;
+                    width: 50%;
+
+                    .img-background {
+                        background-image: url('https://a.trellocdn.com/prgb/dist/images/photos-thumbnail@3x.8f9c1323c9c16601a9a4.jpg');
                     }
 
-                    .activity-time {
-                        font-size: 12px;
-                        color: #5e6c84;
+                    .board-img-title {
+                        display: flex;
+                        justify-content: center;
+                        // margin-top: 8px;
+                    }
+                }
 
+                .board-color-background-container {
+                    display: flex;
+                    flex-direction: column;
+                    padding: 0 4px;
+                    width: 50%;
+
+                    .color-background {
+                        background-image: url('https://a.trellocdn.com/prgb/dist/images/colors@2x.ec32a2ed8dd8198b8ef0.jpg');
+                    }
+
+                    .board-color-title {
+                        display: flex;
+                        justify-content: center;
+                        // margin-top: 8px;
                     }
                 }
             }
         }
     }
 
+
+    .archive-container {
+        display: flex;
+        align-items: center;
+        height: 32px;
+        margin-bottom: 14px;
+
+        &:hover {
+            background-color: #091e4214;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        .archive-icon {
+            margin: 0 12px;
+            font-size: 20px;
+        }
+
+        .archive-title {
+            font-weight: 600;
+            line-height: 20px;
+            font-size: 14px;
+        }
+    }
+
+    .activity-container {
+        .activity-title-container {
+            padding: 6px 6px 6px 40px;
+            margin: 4px 0;
+            margin-left: 6px;
+            font-weight: 600;
+            line-height: 20px;
+            font-size: 14px;
+        }
+
+        .activity-container {
+            padding: 8px 0;
+            display: flex;
+
+            .user-icon {
+                height: 32px;
+                width: 32px;
+                border-radius: 50%;
+                background-color: lightblue;
+                margin: 0 4px 4px 0;
+                background-position: center;
+                background-size: cover;
+                background-repeat: no-repeat;
+            }
+
+            .activity-content {
+                flex: 1;
+                margin-left: 10px;
+
+                .user-name {
+                    font-weight: 700;
+                }
+
+                .activity-task-title {
+                    text-decoration: underline;
+                }
+
+                .activity-time {
+                    font-size: 12px;
+                    color: #5e6c84;
+
+                }
+            }
+        }
+    }
 }

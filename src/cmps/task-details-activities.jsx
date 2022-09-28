@@ -2,6 +2,7 @@ import { useState } from "react"
 import { AiOutlineBars } from "react-icons/ai"
 import { useDispatch, useSelector } from "react-redux"
 import { ActivityList } from "./activity-list"
+import { ChatApp } from "./chat-app"
 import { updateBoard } from '../store/board.actions'
 
 
@@ -48,11 +49,12 @@ export const DetailsActivities = ({task, groupId}) => {
                     Save
                 </button>
 
-            </section>}
+            </section>} 
+            <ChatApp task={task} onUpdateTask={onUpdateTask} />
         </div>
 
-                {isActivityListShown && <ActivityList task={task}/>}
-        
+        {isActivityListShown && <ActivityList task={task} />}
+
 
     </section>
 }

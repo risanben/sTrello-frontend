@@ -27,6 +27,7 @@ import { ChecklistModal } from "../cmps/checklist-modal"
 import { TaskChecklist } from "../cmps/task-checklist"
 import { DetailsActivities } from "../cmps/task-details-activities"
 import { utilService } from "../services/util.service"
+import { ChatApp } from "../cmps/chat-app"
 
 export const TaskDetails = ({ boardId, groupId, taskId, taskFromProps, groupTitle, closeModal }) => {
 
@@ -137,6 +138,13 @@ export const TaskDetails = ({ boardId, groupId, taskId, taskFromProps, groupTitl
     }
 
     const [register, setTask, task] = useFormRegister({}, onUpdateTask)
+    // const [task, setTask] = useState({})
+
+    // const handleChange = ({ target }) => {
+    //     const field = target.name
+    //     const value = target.type === 'number' ? (+target.value || '') : target.value
+    //     setFields(prevFields => ({ ...prevFields, [field]: value }))
+    // }
 
     const onBack = () => {
         closeModal()
@@ -149,6 +157,9 @@ export const TaskDetails = ({ boardId, groupId, taskId, taskFromProps, groupTitl
     }
     const toggleEditDescription = () => {
         setEditDescription(!isEditDescription)
+    }
+    const closeEditDescription = () => {
+        setEditDescription(false)
     }
 
     const onShowModal = () => {
@@ -176,16 +187,16 @@ export const TaskDetails = ({ boardId, groupId, taskId, taskFromProps, groupTitl
     }
 
     const toggleEditAttachNameModal = (ev, attachmentId) => {
-
         setAttachmentToEdit(attachmentId)
-        setIsEditAttachName(!isEditAttachName)
+        // setIsEditAttachName(!isEditAttachName)
 
         if (!isEditAttachName) {
             const parentEl = ev.currentTarget.parentNode
+            // const parentEl = ev.currentTarget
             const position = parentEl.getBoundingClientRect()
 
             const style = {
-                top: ev.target.offsetTop,
+                top: ev.target.offsetTop - 300,
                 left: ev.target.offsetLeft
             }
             let pos = {
@@ -203,8 +214,8 @@ export const TaskDetails = ({ boardId, groupId, taskId, taskFromProps, groupTitl
 
     const toggleLabelsModal = (ev) => {
         if (ev) ev.stopPropagation()
-
-        if (!isLabelModal) {
+        setIsLabelModal(!isLabelModal)
+        if (!isLabelModal && isLabelModal !== null) {
             const parentEl = ev.currentTarget.parentNode
             const position = parentEl.getBoundingClientRect()
 
@@ -221,6 +232,7 @@ export const TaskDetails = ({ boardId, groupId, taskId, taskFromProps, groupTitl
 
             setLabelModalPos(pos)
             setIsLabelModal(true)
+
         } else {
             setIsLabelModal(false)
         }
@@ -234,7 +246,7 @@ export const TaskDetails = ({ boardId, groupId, taskId, taskFromProps, groupTitl
             const position = grandParentEl.getBoundingClientRect()
 
             const style = {
-                top: grandParentEl.offsetTop,
+                top: grandParentEl.offsetTop - 100,
                 left: grandParentEl.offsetLeft + (730 - 304)
             }
             let pos = {
@@ -381,11 +393,11 @@ export const TaskDetails = ({ boardId, groupId, taskId, taskFromProps, groupTitl
                                 <span className="btn-cover-txt">Cover</span>
                             </div>
                         </section>}
-                    {showModal && <TaskDetailsCoverModal onSetColor={onSetColor} onSetImg={onSetImg} onShowModal={onShowModal} onRemoveCover={onRemoveCover} attachments={task.attachments}/>}
+                    {showModal && <TaskDetailsCoverModal onSetColor={onSetColor} onSetImg={onSetImg} onShowModal={onShowModal} onRemoveCover={onRemoveCover} attachments={task.attachments} />}
 
                     <div className="task-main-container">
-                        {!(task?.style && (task.style.bg.imgUrl !== null || task.style.bg.color !== null) )&&
-                         <button onClick={onBack} className="btn close"></button>}
+                        {!(task?.style && (task.style.bg.imgUrl !== null || task.style.bg.color !== null)) &&
+                            <button onClick={onBack} className="btn close"></button>}
                         <div className="title-container">
                             <span className="task-title-icon"><FaWindowMaximize /></span>
                             <section className="title-input">
@@ -435,7 +447,7 @@ export const TaskDetails = ({ boardId, groupId, taskId, taskFromProps, groupTitl
                                     <div className="tag-title">Due date</div>
                                     <div className="due-date-container">
                                         <div className={"due-date-checkbox " + (task.dueDate.isDone ? "is-done" : "")} onClick={onCompleteDueDate}></div>
-                                        <div className={"due-date-content " + (task.dueDate.isDone ? "is-done" : "")}>
+                                        <div className={"due-date-content " + (task.dueDate.isDone ? "is-done" : "")} onClick={onToggleDatePicker}>
                                             {/* <div className="due-date-time">Sep 19 at 8:30 PM</div> */}
                                             <div className="due-date-time">{utilService.formatDate(task.dueDate)}</div>
                                             {/* {!task.dueDate.isDone && <div className="due-date-tag">due soon</div>} */}
@@ -472,7 +484,7 @@ export const TaskDetails = ({ boardId, groupId, taskId, taskFromProps, groupTitl
                                             return <div className="attachment-body" key={attachment.id}>
                                                 <img className="img-attached" src={`${attachment.url}`} />
                                                 <div className="attachment-details">
-                                                    <span className="url-name">{attachment.urlName}.{attachment.fileFormat ? attachment.fileFormat : ''}</span>
+                                                    <span className="url-name">{attachment.urlName}{attachment.fileFormat ? `.${attachment.fileFormat}` : ''}</span>
                                                     <div className="add-time-and-btns">
                                                         <span className="Added-at">Added {getTime(attachment)}</span>
                                                         <span>-</span>
@@ -493,16 +505,17 @@ export const TaskDetails = ({ boardId, groupId, taskId, taskFromProps, groupTitl
                                 {isAttachmentModal && <AttachmentModal toggleAttachmentModal={toggleAttachmentModal} attachModalPos={attachModalPos} />}
 
                                 {/* CHECKLISTS */}
-                                {taskFromProps?.checklists?.length && <TaskChecklist
+                                {taskFromProps?.checklists?.length > 0 && <TaskChecklist
                                     checklists={taskFromProps.checklists}
                                     board={currentBoardId}
                                     group={currentGroupId}
                                     task={taskFromProps}
                                 />}
 
-                                    {/* ACTIVITIES  */}
-                                    <DetailsActivities
-                                    task={task}
+                                {/* ACTIVITIES  */}
+                          
+                                <DetailsActivities
+                                    task={task} onUpdateTask={onUpdateTask} 
                                     groupId={currentGroupId}/>
                                 {/* <div className="activity-container">
                                     <span className="activity-main-icon"> <GrTextAlignFull /></span>
@@ -512,7 +525,7 @@ export const TaskDetails = ({ boardId, groupId, taskId, taskFromProps, groupTitl
                                     <span className="activity-icon">icon</span>
                                     <span className="activity-title">Activity</span>
                                 </div> */}
-                                
+
                             </div>
 
                             <div className="task-main-container-right">
@@ -536,14 +549,14 @@ export const TaskDetails = ({ boardId, groupId, taskId, taskFromProps, groupTitl
                                     <span className="ability">Dates</span>
                                 </button>
                                 <button className="btn abilities" onClick={toggleAttachmentModal}>
-                                    <span className="icon"><GrAttachment /></span>
+                                    <span className="icon attach"><GrAttachment /></span>
                                     <span className="ability">Attachment</span>
                                 </button>
-                                {!(task?.style && (task.style.bg.imgUrl !== null || task.style.bg.color !== null) )&&
-                                <button className="btn abilities" onClick={onShowModal}>
-                                    <span className="icon"><FaWindowMaximize /> </span>
-                                    <span className="ability">Cover</span>
-                                </button>}
+                                {!(task?.style && (task.style.bg.imgUrl !== null || task.style.bg.color !== null)) &&
+                                    <button className="btn abilities" onClick={onShowModal}>
+                                        <span className="icon"><FaWindowMaximize /> </span>
+                                        <span className="ability">Cover</span>
+                                    </button>}
                                 <button className="btn abilities" onClick={onRemoveTask}>
                                     <span className="icon"><HiArchive /> </span>
                                     <span className="ability">Archive</span>
