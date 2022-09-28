@@ -112,6 +112,7 @@
         .task-main-container {
             display: flex;
             flex-direction: column;
+            cursor: auto;
 
             .btn.close {
                 align-self: flex-end;
@@ -647,3 +648,55 @@
 }
 
 //task-details-main
+
+@media (max-width: 400px) {
+    .task-details-main {
+
+        .task-details-container {
+            width: 100%;
+            margin: 0;
+
+            .task-cover {
+                display: flex;
+
+                .btn.close {
+                    position: absolute;
+                }
+
+                .btn.cover {
+                    position: absolute;
+                }
+
+                .img-cover {
+                    width: 100%;
+                    height: 290px;
+                }
+            }
+
+
+            .task-main-container {
+                .task-main-middle-container {
+                    flex-direction: column-reverse;
+                }
+
+                .task-main-container-right {
+                    display: grid;
+                    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    
+                    .add-to-card{
+                        display: none;
+                    }
+
+                    .btn {
+                        width: 130px;
+                    }
+                }
+            }
+
+
+        }
+
+    }
+
+
+}

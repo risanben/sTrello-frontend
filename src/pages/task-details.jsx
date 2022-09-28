@@ -515,7 +515,8 @@ export const TaskDetails = ({ boardId, groupId, taskId, taskFromProps, groupTitl
                                 {/* ACTIVITIES  */}
                           
                                 <DetailsActivities
-                                    task={task} onUpdateTask={onUpdateTask} />
+                                    task={task} onUpdateTask={onUpdateTask} 
+                                    groupId={currentGroupId}/>
                                 {/* <div className="activity-container">
                                     <span className="activity-main-icon"> <GrTextAlignFull /></span>
                                     <span className="activity-title">Activity</span>
@@ -528,7 +529,7 @@ export const TaskDetails = ({ boardId, groupId, taskId, taskFromProps, groupTitl
                             </div>
 
                             <div className="task-main-container-right">
-                                <span>Add to card</span>
+                                <span className="add-to-card">Add to card</span>
                                 {/* <section className="task-abilities"> */}
                                 <AbilityCreator callBackF={toggleMembersModal} iconCmp={HiUser} name={'Members'} />
                                 {/* <button className="btn abilities" onClick={onShowMembersModal}><span className="icon"><HiUser /></span><span className="ability">Members</span></button> */}

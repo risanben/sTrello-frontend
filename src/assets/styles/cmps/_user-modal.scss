@@ -1,5 +1,5 @@
 .user-modal {
-    height: 150px;
+    min-height: 150px;
     width: 220px;
     background-color: #fff;
     display: flex;
@@ -68,5 +68,34 @@
             padding: 0;
             width: 100%;
         }
+    }
+
+    .user-details {
+        display: flex;
+        margin-bottom: 4px;
+
+        .user-icon {
+            height: 40px;
+            width: 40px;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            border-radius: 50%;
+
+            &:hover {
+                cursor: auto;
+            }
+        }
+
+        .username {
+            text-align: left;
+            margin: 0;
+            padding: 6px 12px;
+            color: #172b4d;
+            line-height: 20px;
+            font-size: 14px;
+            font-weight: 400;
+        }
+
     }
 }
