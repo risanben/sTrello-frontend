@@ -515,7 +515,7 @@ export const TaskDetails = ({ boardId, groupId, taskId, taskFromProps, groupTitl
                                 {/* ACTIVITIES  */}
                           
                                 <DetailsActivities
-                                    task={task} onUpdateTask={onUpdateTask} 
+                                    task={taskFromProps} onUpdateTask={onUpdateTask} 
                                     groupId={currentGroupId}/>
                                 {/* <div className="activity-container">
                                     <span className="activity-main-icon"> <GrTextAlignFull /></span>
