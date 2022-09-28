@@ -5,8 +5,6 @@ import { loadBoards, updateBoard } from '../store/board.actions'
 import { useState } from 'react'
 import { BoardEdit } from '../cmps/board-edit'
 import { HiOutlineStar, HiStar } from 'react-icons/hi'
-import { onSignup } from '../store/user.actions'
-import { userService } from '../services/user.service'
 
 export function BoardPage() {
 
@@ -16,7 +14,6 @@ export function BoardPage() {
 
     useEffect(() => {
         dispatch(loadBoards())
-        // dispatch(onSignup(userService.getLoggedinUser()))
     }, [])
 
     const getBoardBg = (board) => {

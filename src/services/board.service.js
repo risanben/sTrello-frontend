@@ -1,5 +1,5 @@
 
-import { storageService } from './async-storage.service.js'
+// import { storageService } from './async-storage.service.js'
 import { utilService } from './util.service.js'
 import { userService } from './user.service.js'
 import { getActionRemoveBoard, getActionAddBoard, getActionUpdateBoard } from '../store/board.actions.js'
@@ -112,9 +112,23 @@ async function save(board, activity = null) {
         boardChannel.postMessage(getActionUpdateBoard(savedBoard))
     } else {
         if (activity) board.activities = [activity]
-        savedBoard._id = utilService.makeId()
-        savedBoard.isStarred = false
+        // savedBoard._id = utilService.makeId()
         savedBoard = await httpService.post(BASE_URL, board)
+        savedBoard.isStarred = false
+        const user = userService.getLoggedinUser()
+        if (user) {
+            savedBoard.createdBy = {
+                _id: user._id,
+                fullname: user.fullname,
+                // imgUrl: user.imgUrl
+            }
+        } else {
+            savedBoard.createdBy = {
+                _id: user._id,
+                fullname: user.fullname,
+                // imgUrl: user.imgUrl
+            }
+        }
         // savedBoard = await storageService.post(STORAGE_KEY, board)
         boardChannel.postMessage(getActionAddBoard(savedBoard))
     }
@@ -134,13 +148,21 @@ async function getGroupById(boardId, groupId) {
 }
 
 function _addActivityDetails(activity) {
-    // console.log('activity!!!!', activity)
     activity.id = utilService.makeId()
     activity.createdAt = Date.now()
-    activity.byMember = {
-        "_id": "u199",
-        "fullname": "Guest",
-        "imgUrl": "https://trello-members.s3.amazonaws.com/63197a231392a3015ea3b649/1af72162e2d7c08fd66a6b36476c1515/170.png"
+    const user = userService.getLoggedinUser()
+    if (user) {
+        activity.byMember = {
+            "_id": user._id,
+            "fullname": user.fullname,
+            "imgUrl": user.imgUrl
+        }
+    } else {
+        activity.byMember = {
+            "_id": "u199",
+            "fullname": "Guest",
+            "imgUrl": "https://trello-members.s3.amazonaws.com/63197a231392a3015ea3b649/1af72162e2d7c08fd66a6b36476c1515/170.png"
+        }
     }
     return activity
 }

@@ -23,7 +23,7 @@ export function AppHeader() {
     const pathname = useLocation().pathname
     const dispatch = useDispatch()
     const boards = useSelector(state => state.boardModule.boards)
-    const user = useSelector(state => state.boardModule.user)
+    const user = useSelector(state => state.userModule.user)
 
 
     useEffect(() => {
@@ -89,6 +89,7 @@ export function AppHeader() {
     }
 
     if (pathname.includes("/signup") || pathname.includes("/login")) return <section></section>
+    // console.log('user from header', user)
     return (
         <section className={_getHeaderClass()}>
             {/* <BsFillGrid3X3GapFill className='menu-logo' /> */}
@@ -129,7 +130,7 @@ export function AppHeader() {
                     setResults={setResults} />}
             </section>
             <div className="user-icon" style={getUserImg()} onClick={toggleUserModal}></div>
-            {isUserModalOpen && <UserModal toggleUserModal={toggleUserModal} />}
+            {isUserModalOpen && <UserModal toggleUserModal={toggleUserModal} user={user} getUserImg={getUserImg} />}
             {/* <section className='bell'>
                 <AiOutlineBell />
             </section> */}

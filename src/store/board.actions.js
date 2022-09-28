@@ -103,14 +103,9 @@ export function addBoard(board, activity) {
 export function updateBoard(board, activity) {
     return async (dispatch) => {
         try {
-            // console.log('activity from action', activity)
-            console.log('board from action', board)
             const savedBoard = await boardService.save(board, activity)
-            // console.log('board from action after saving board', savedBoard)
-            console.log('updated board from action ', savedBoard)
             return dispatch(getActionUpdateBoard(savedBoard))
         } catch (err) {
-            showErrorMsg('Cannot update board')
             console.log('Cannot save board', err)
         }
     }
