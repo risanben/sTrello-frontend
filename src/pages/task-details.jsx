@@ -285,7 +285,7 @@ export const TaskDetails = ({ boardId, groupId, taskId, taskFromProps, groupTitl
         setShowModal(false)
     }
 
-    const onSetMember = (addOrRemove, memberId, fullname) => {
+    const onSetMember = ({addOrRemove, memberId, fullname}) => {
         const activity = {
             task: {
                 id: task.id,
@@ -559,7 +559,7 @@ export const TaskDetails = ({ boardId, groupId, taskId, taskFromProps, groupTitl
                                     </button>}
                                 <button className="btn abilities" onClick={onRemoveTask}>
                                     <span className="icon"><HiArchive /> </span>
-                                    <span className="ability">Archive</span>
+                                    <span className="ability">Delete</span>
                                 </button>
                                 {/* </section> */}
 

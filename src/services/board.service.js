@@ -163,20 +163,22 @@ async function getGroupById(boardId, groupId) {
 function _addActivityDetails(activity) {
     activity.id = utilService.makeId()
     activity.createdAt = Date.now()
-    const user = userService.getLoggedinUser()
-    if (user) {
-        activity.byMember = {
-            "_id": user._id,
-            "fullname": user.fullname,
-            "imgUrl": user.imgUrl
+    // if (!activity.user || activity.user === {}) {
+        const user = userService.getLoggedinUser()
+        if (user) {
+            activity.byMember = {
+                "_id": user._id,
+                "fullname": user.fullname,
+                "imgUrl": user.imgUrl
+            }
+        } else {
+            activity.byMember = {
+                "_id": "u199",
+                "fullname": "Guest",
+                "imgUrl": "https://trello-members.s3.amazonaws.com/63197a231392a3015ea3b649/1af72162e2d7c08fd66a6b36476c1515/170.png"
+            }
         }
-    } else {
-        activity.byMember = {
-            "_id": "u199",
-            "fullname": "Guest",
-            "imgUrl": "https://trello-members.s3.amazonaws.com/63197a231392a3015ea3b649/1af72162e2d7c08fd66a6b36476c1515/170.png"
-        }
-    }
+    // }
     return activity
 }
 

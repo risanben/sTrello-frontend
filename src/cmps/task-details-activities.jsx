@@ -6,6 +6,8 @@ import { ActivityList } from "./activity-list"
 import { ChatApp } from "./chat-app"
 import { updateBoard } from '../store/board.actions'
 import { socketService, SOCKET_EMIT_SEND_MSG, SOCKET_EVENT_ADD_MSG, SOCKET_EMIT_SET_TOPIC } from '../services/socket.service.js'
+import { boardService } from "../services/board.service"
+import { userService } from "../services/user.service"
 
 
 
@@ -36,7 +38,6 @@ export const DetailsActivities = ({ task, groupId, onUpdateTask }) => {
 
         const activity = {
             txt: newMsg,
-            // task: {id:CurrTask.id, title:CurrTask.title},
             task: { id: task.id, title: task.title },
             type: 'comment'
         }
@@ -46,8 +47,11 @@ export const DetailsActivities = ({ task, groupId, onUpdateTask }) => {
     }
 
     const sendMsg = () => {
-        // ev.preventDefault()
+
+        // const user = userService.getLoggedinUser() || boardService.getGuestUser()
+        // const activity = { txt: textAreaContent, user }
         socketService.emit(SOCKET_EMIT_SEND_MSG, (textAreaContent))
+        // socketService.emit(SOCKET_EMIT_SEND_MSG, (activity))
         setTextAreaContent('')
     }
 
