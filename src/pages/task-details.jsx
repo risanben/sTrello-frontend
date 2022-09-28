@@ -29,6 +29,7 @@ import { TaskChecklist } from "../cmps/task-checklist"
 import { DetailsActivities } from "../cmps/task-details-activities"
 import { utilService } from "../services/util.service"
 import { ChatApp } from "../cmps/chat-app"
+import { socketService, SOCKET_EVENT_TASK_UPDATE } from "../services/socket.service"
 
 export const TaskDetails = ({ boardId, groupId, taskId, taskFromProps, groupTitle, closeModal }) => {
 
@@ -89,6 +90,18 @@ export const TaskDetails = ({ boardId, groupId, taskId, taskFromProps, groupTitl
     }, [])
 
     // useEffect(() => {
+    //     socketService.on(SOCKET_EVENT_TASK_UPDATE, webSocket);
+    //     return () => {
+    //         socketService.off(SOCKET_EVENT_TASK_UPDATE, webSocket)
+    //     }
+    // }, [])
+
+    // const webSocket = (taskFromSocket) => {
+    //     console.log('webSocket');
+    //     setTask(taskFromSocket)
+    // }
+
+    // useEffect(() => {
     //     if (currentTask?.style?.bg.color) setBgColor(currentTask.style.bg.color)
     //     setTask(currentTask)
     // }, [currentTask])
@@ -134,6 +147,7 @@ export const TaskDetails = ({ boardId, groupId, taskId, taskFromProps, groupTitl
 
     const onUpdateTask = (taskForUpdate, activity) => {
         if (!taskForUpdate) return
+        // socketService.emit(SOCKET_EVENT_TASK_UPDATE, (taskForUpdate))
         dispatch(updateTask(currentBoardId, currentGroupId, taskForUpdate, activity))
         // navigate(`/board/${currentBoardId}/${currentGroupId}/${task.id}`)
     }
@@ -286,7 +300,7 @@ export const TaskDetails = ({ boardId, groupId, taskId, taskFromProps, groupTitl
         setShowModal(false)
     }
 
-    const onSetMember = ({addOrRemove, memberId, fullname}) => {
+    const onSetMember = ({ addOrRemove, memberId, fullname }) => {
         const activity = {
             task: {
                 id: task.id,
@@ -311,7 +325,10 @@ export const TaskDetails = ({ boardId, groupId, taskId, taskFromProps, groupTitl
         onUpdateTask(task, activity)
     }
 
-    const onSetLabel = (addOrRemove, labelId) => {
+    const onSetLabel = (ev,addOrRemove, labelId) => {
+        ev.stopPropagation()
+console.log('onSetLabel');
+
         if (!addOrRemove) {
             if (!task.labelIds) task.labelIds = [labelId]
             else task.labelIds.push(labelId)
@@ -514,10 +531,10 @@ export const TaskDetails = ({ boardId, groupId, taskId, taskFromProps, groupTitl
                                 />}
 
                                 {/* ACTIVITIES  */}
-                          
+
                                 <DetailsActivities
-                                    task={taskFromProps} onUpdateTask={onUpdateTask} 
-                                    groupId={currentGroupId}/>
+                                    task={taskFromProps} onUpdateTask={onUpdateTask}
+                                    groupId={currentGroupId} />
                                 {/* <div className="activity-container">
                                     <span className="activity-main-icon"> <GrTextAlignFull /></span>
                                     <span className="activity-title">Activity</span>

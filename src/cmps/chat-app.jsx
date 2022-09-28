@@ -23,7 +23,6 @@ function _ChatApp({ loggedInUser, task, onUpdateTask }) {
 
     useEffect(() => {
         socketService.on('chat-add-msg', addMsg);
-        // socketService.on(SOCKET_EVENT_ADD_MSG, addMsg);
         return () => {
             socketService.off(SOCKET_EVENT_ADD_MSG, addMsg)
             botTimeout && clearTimeout(botTimeout)

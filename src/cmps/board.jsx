@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { boardService } from '../services/board.service'
-import { loadBoards } from '../store/board.actions'
+import { getActionUpdateBoard, loadBoards, updateBoard } from '../store/board.actions'
 import { GroupList } from './group-list'
 import { BoardHeader } from './board-header'
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { handleDrag } from '../store/board.actions'
 import { getBoard } from '../store/board.actions'
 import { SideMenu } from './side-menu'
+import { socketService, SOCKET_EVENT_BOARD_UPDATE, SOCKET_EVENT_DND } from '../services/socket.service'
 
 
 // const taskRef = useRef()
@@ -21,6 +22,31 @@ export const Board = () => {
     const dispatch = useDispatch()
     const params = useParams()
     let [isSideBarOpen, setIsSideBarOpen] = useState(false)
+    let [isBack, setIsBack] = useState(false)
+
+    // useEffect(() => {
+    //     socketService.on(SOCKET_EVENT_DND, onDnd);
+    //     return () => {
+    //         socketService.off(SOCKET_EVENT_DND, onDnd)
+    //     }
+    // }, [])
+
+    useEffect(() => {
+        socketService.on(SOCKET_EVENT_BOARD_UPDATE, onDnd);
+        return () => {
+            socketService.off(SOCKET_EVENT_BOARD_UPDATE, onDnd)
+        }
+    }, [])
+
+    const onDnd = (newBoard) => {
+        console.log('onDnd');
+        console.log('newBoard', newBoard);
+        // dispatch(updateBoard(newBoard))
+        dispatch(getActionUpdateBoard(newBoard))
+        // setIsBack(true)
+
+    }
+
 
     useEffect(() => {
         loadBoard()
