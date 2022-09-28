@@ -23,6 +23,7 @@
         // border: 1px solid black;
         border-radius: 0.3rem;
         padding: 0 3px;
+        margin-left: 45px;
 
         &:hover {
             background-color: darken($color: $header-bg-color, $amount: 10);
@@ -283,4 +284,16 @@
 
 .workspace {
     position: unset;
+}
+
+
+
+/////////////////MQ////////////
+
+@media (max-width: 400px) {
+
+    .app-header{
+        display: none;
+    
+    }
 }

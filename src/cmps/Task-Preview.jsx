@@ -211,7 +211,7 @@ export const TaskPreview = ({ task, groupId, index, taskRef, groupTitle }) => {
                                                 <div className="attachment-badge"></div>
                                                 <span>{task.attachments.length}</span>
                                             </div>}
-                                            {task.checklists && <div className={"checklist-container " + todosClassName}>
+                                            {task?.checklists?.length > 0 && <div className={"checklist-container " + todosClassName}>
                                                 <div className="checklist-icon"></div>
                                                 <span className="checklist-todos">{setTodosForDisplay(task.checklists)}</span>
                                             </div>}

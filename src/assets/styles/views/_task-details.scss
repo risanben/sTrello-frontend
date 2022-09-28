@@ -205,7 +205,12 @@
                 .task-main-container-left {
                     padding: 0 8px 8px 16px;
                     flex-grow: 1;
+
                     // width: 552px;
+                    .description-icon {
+                        display: flex;
+                        align-items: center;
+                    }
 
                     .tag-title {
                         font-size: 12px;
@@ -395,42 +400,6 @@
                         }
                     }
 
-                    // .attachment {
-                    //     display: flex;
-                    //     flex-direction: column;
-
-                    //     .attachment-title {
-                    //         display: flex;
-
-                    //         .icon {
-                    //             margin-right: 5px;
-                    //         }
-                    //     }
-
-                    //     .attachment-body {
-                    //         display: flex;
-
-                    //         .img-attached {
-                    //             //////////////////////////////
-                    //             width: 112px;
-                    //             height: 80px;
-                    //         }
-
-                    //         .attachment-details {
-                    //             display: flex;
-                    //             flex-direction: column;
-                    //             margin-left: 15px;
-
-                    //             .url-name {
-                    //                 margin-bottom: 7px;
-                    //                 font-weight: 100;
-                    //                 color: #172b4d;
-                    //                 font-size: 14px;
-                    //                 font-weight: 700;
-                    //             }
-                    //         }
-                    //     }
-                    // }
 
                     .description-icon {
                         width: 24px;
@@ -677,20 +646,33 @@
             .task-main-container {
                 .task-main-middle-container {
                     flex-direction: column-reverse;
+
+                    .task-main-container-left {
+                        padding: 8px;
+
+                        .description-container {
+                            .description-main-content {
+                                // border: 2px solid red;
+                                margin-left: 0;
+                            }
+                        }
+                    }
                 }
 
                 .task-main-container-right {
-                    display: grid;
-                    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    
-                    .add-to-card{
+                    // display: grid;
+                    // grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+                    padding-right: 8px;
+
+                    .add-to-card {
                         display: none;
                     }
 
                     .btn {
-                        width: 130px;
+                        width: unset;
                     }
                 }
+
             }
 
 
