@@ -25,6 +25,7 @@ export function AppHeader() {
     const boards = useSelector(state => state.boardModule.boards)
     const user = useSelector(state => state.userModule.user)
 
+
     useEffect(() => {
         document.addEventListener("click", handleClickOutside, true)
 
@@ -117,8 +118,6 @@ export function AppHeader() {
                 {isCreateModalOpen && <BoardEdit toggleCreateBoardModal={showCreateBoardMoadl} />}
             </section>
 
-            {user?.fullname && <div className='user-full-name'>{user.fullname}</div>}
-
             <section className={isSearching ? 'search search-wide' : 'search'} >
                 <IoSearchSharp className='mag-glass' /><input type="text" onChange={onChange} placeholder='Search' onClick={onSearching} />
             </section>
@@ -130,7 +129,7 @@ export function AppHeader() {
                     setResults={setResults} />}
             </section>
             <div className="user-icon" style={getUserImg()} onClick={toggleUserModal}></div>
-            {isUserModalOpen && <UserModal toggleUserModal={toggleUserModal} />}
+            {isUserModalOpen && <UserModal toggleUserModal={toggleUserModal} user={user} getUserImg={getUserImg} />}
             {/* <section className='bell'>
                 <AiOutlineBell />
             </section> */}
