@@ -22,7 +22,7 @@
     }
 
     .text-area-container {
-        margin-left: 37px;
+        margin-left:40px;
         margin-top: 15px;
 
         .txt-area-normal {
@@ -55,39 +55,90 @@
         }
     }
 
-    .activity-list{
+    .activity-list {
         padding: 8px 0;
-                display: flex;
+        display: flex;
 
-                .user-icon {
-                    height: 32px;
-                    width: 32px;
-                    border-radius: 50%;
-                    background-color: lightblue;
-                    margin: 0 4px 4px 0;
-                    background-position: center;
-                    background-size: cover;
-                    background-repeat: no-repeat;
-                }
+        .user-icon {
+            height: 32px;
+            width: 32px;
+            border-radius: 50%;
+            background-color: lightblue;
+            margin: 0 -1px 4px 0;
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
 
-                .activity-content {
-                    flex: 1;
-                    margin-left: 10px;
+        .activity-content {
+            flex: 1;
+            margin-left: 10px;
 
-                    .user-name {
-                        font-weight: 700;
-                    }
+            .user-name {
+                font-weight: 700;
+            }
 
-                    .activity-task-title {
-                        text-decoration: underline;
-                    }
+            .activity-task-title {
+                text-decoration: underline;
+            }
 
-                    .activity-time {
-                        font-size: 12px;
-                        color: #5e6c84;
+            .activity-time {
+                font-size: 12px;
+                color: #5e6c84;
 
-                    }
-                }
+            }
+
+       
+        }
+
+        .comment-header{
+            // border: 2px solid green;
+            display: flex;
+            // align-items: flex-end;
+
+            .activity-time{
+                // border: 1px solid purple;
+                margin-left: 7px;
+                // align-self: flex-end;
+                padding-top: 2px;
+            }
+         }
+
+        .txt-area-normal {
+            // border: 2px solid red;
+            // width: unset;
+            flex-grow: 1;
+            margin-bottom: 0;
+            padding: 5px 10px;
+            height: 39px;
+            padding-top: 9px;
+            background-color: white;
+            margin-top: 3px;
+            border: 1px solid rgba(128, 128, 128, 0.278);
+
+            &:focus{
+                height: auto;
+            }
+        }
+
+        .comment-edit-btns{
+            // font-size: 12px;
+            button{
+                font-size: 12px;
+                text-decoration: underline;
+                background-color: inherit;
+                color: inherit;
+            }
+        }
+
+        .save-close-btns{
+display: flex;
+            .icon-close{
+                width: 20px;
+                margin-left: 5px;
+            }
+        }
+       
     }
 
 }
