@@ -163,7 +163,7 @@ async function getGroupById(boardId, groupId) {
 function _addActivityDetails(activity) {
     activity.id = utilService.makeId()
     activity.createdAt = Date.now()
-    // if (!activity.user || activity.user === {}) {
+    if (!activity.byMember) {
         const user = userService.getLoggedinUser()
         if (user) {
             activity.byMember = {
@@ -178,7 +178,7 @@ function _addActivityDetails(activity) {
                 "imgUrl": "https://trello-members.s3.amazonaws.com/63197a231392a3015ea3b649/1af72162e2d7c08fd66a6b36476c1515/170.png"
             }
         }
-    // }
+    }
     return activity
 }
 

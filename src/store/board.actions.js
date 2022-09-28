@@ -2,6 +2,7 @@ import { boardService } from "../services/board.service.js"
 import { userService } from "../services/user.service.js"
 import { showSuccessMsg, showErrorMsg } from '../services/event-bus.service.js'
 import { uploadService } from "../services/upload.service.js"
+import { socketService, SOCKET_EMIT_BOARD, SOCKET_EMIT_DND, SOCKET_EVENT_BOARD_UPDATE } from "../services/socket.service.js"
 
 // Action Creators:
 export function getActionRemoveBoard(boardId) {
@@ -11,6 +12,7 @@ export function getActionRemoveBoard(boardId) {
     }
 }
 export function getActionAddBoard(board) {
+
     return {
         type: 'ADD_BOARD',
         board
@@ -101,6 +103,7 @@ export function addBoard(board, activity) {
 }
 
 export function updateBoard(board, activity) {
+    // socketService.emit(SOCKET_EVENT_BOARD_UPDATE, (board))
     return async (dispatch) => {
         try {
             const savedBoard = await boardService.save(board, activity)
@@ -264,6 +267,7 @@ export function handleDrag(
     droppableIndexEnd,
     type
 ) {
+    
     return async dispatch => {
 
         if (type === 'member') {
@@ -298,6 +302,7 @@ export function handleDrag(
             }
             // }
         }
+        socketService.emit(SOCKET_EMIT_DND, (board))
         try {
             const boardToUpdate = await boardService.save(board)
             dispatch({

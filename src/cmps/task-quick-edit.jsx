@@ -85,7 +85,7 @@ export const TaskQuickEdit = ({ task, pos, toggaleQuickEdit, boardId, groupId })
     } else {
       setLabelModal(false)
     }
-  }            
+  }
 
   const onEditClick = (ev) => {
     ev.stopPropagation()
@@ -100,7 +100,8 @@ export const TaskQuickEdit = ({ task, pos, toggaleQuickEdit, boardId, groupId })
     dispatch(updateTask(currentBoardId, currentGroupId, task))
   }
 
-  const onSetLabel = (addOrRemove, labelId) => {
+  const onSetLabel = (ev, addOrRemove, labelId) => {
+    ev.stopPropagation()
     if (!addOrRemove) {
       if (!task.labelIds) task.labelIds = [labelId]
       else task.labelIds.push(labelId)
