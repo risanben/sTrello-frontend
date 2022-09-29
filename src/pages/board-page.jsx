@@ -5,6 +5,7 @@ import { loadBoards, updateBoard } from '../store/board.actions'
 import { useState } from 'react'
 import { BoardEdit } from '../cmps/board-edit'
 import { HiOutlineStar, HiStar } from 'react-icons/hi'
+import { Loader } from '../cmps/loader'
 
 export function BoardPage() {
 
@@ -43,7 +44,8 @@ export function BoardPage() {
         dispatch(updateBoard(board))
     }
 
-    if (!boards) return <div>Loading...</div>
+    // if (!boards) return <div>Loading...</div>
+    if (!boards) return <Loader />
     return (
         <div className="board-page">
 

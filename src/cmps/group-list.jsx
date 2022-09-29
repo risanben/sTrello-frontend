@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { updateBoard } from '../store/board.actions'
 import React, { useEffect, useRef } from 'react'
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
+import { Loader } from './loader'
 
 
 export const GroupList = () => {
@@ -31,14 +32,16 @@ export const GroupList = () => {
     const addTask = async (groupToUpdate, activity) => {
         let boardToSave = { ...board }
         boardToSave.groups = boardToSave.groups.map(group => (group.id === groupToUpdate.id) ? groupToUpdate : group)
-         dispatch(updateBoard(boardToSave, activity))
+        dispatch(updateBoard(boardToSave, activity))
     }
 
 
     // console.log('render GROUP-LIST')
 
     // console.log('board.groups', currBoard.groups)
-    if (!board) return <div>Loading...</div>
+    // if (!board) return <div>Loading...</div>
+    if (!board) return <Loader />
+
     return (
         <Droppable
             droppableId='groups'

@@ -207,7 +207,7 @@ export const TaskPreview = ({ task, groupId, index, taskRef, groupTitle }) => {
                                                     <span className="due-date-txt">{utilService.formatDate(task.dueDate, true)}</span>
                                                 </div>}
                                             {task.desc && <div className="task-desc-icon"></div>}
-                                            {task?.attachments && <div className="attachment-badge-container">
+                                            {task?.attachments?.length > 0 && <div className="attachment-badge-container">
                                                 <div className="attachment-badge"></div>
                                                 <span>{task.attachments.length}</span>
                                             </div>}

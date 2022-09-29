@@ -30,6 +30,7 @@ import { DetailsActivities } from "../cmps/task-details-activities"
 import { utilService } from "../services/util.service"
 import { ChatApp } from "../cmps/chat-app"
 import { socketService, SOCKET_EVENT_TASK_UPDATE } from "../services/socket.service"
+import { Loader } from "../cmps/loader"
 
 export const TaskDetails = ({ boardId, groupId, taskId, taskFromProps, groupTitle, closeModal }) => {
 
@@ -325,9 +326,9 @@ export const TaskDetails = ({ boardId, groupId, taskId, taskFromProps, groupTitl
         onUpdateTask(task, activity)
     }
 
-    const onSetLabel = (ev,addOrRemove, labelId) => {
+    const onSetLabel = (ev, addOrRemove, labelId) => {
         ev.stopPropagation()
-console.log('onSetLabel');
+        console.log('onSetLabel');
 
         if (!addOrRemove) {
             if (!task.labelIds) task.labelIds = [labelId]
@@ -391,7 +392,9 @@ console.log('onSetLabel');
 
 
 
-    if (!task) return <div>Loading...</div>
+    // if (!task) return <div>Loading...</div>
+    if (!task) return <Loader />
+
     // console.log('task.desc', task.desc)
     // console.log('cmp DETAILS rendered')
 
