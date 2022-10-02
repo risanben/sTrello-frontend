@@ -252,13 +252,27 @@ export function getVidUrl(ev) {
 export function resizeLabel(resizeLabel) {
     return async (dispatch) => {
         try {
-            console.log('resizeLabel', resizeLabel)
+            // console.log('resizeLabel', resizeLabel)
             dispatch({
                 type: 'RESIZE_LABEL',
                 resizeLabel
             })
         } catch (err) {
             console.log('Cannot resize label', err)
+
+        }
+    }
+}
+
+export function setBoardBackgroundColor(color) {
+    return async (dispatch) => {
+        try {
+            dispatch({
+                type: 'SET_BOARD_THEME_COLOR',
+                boardThemeColor: color
+            })
+        } catch (err) {
+            console.log('Cannot update background Color ', err)
 
         }
     }
@@ -301,7 +315,7 @@ export function handleDrag(
     droppableIndexEnd,
     type
 ) {
-    
+
     return async dispatch => {
 
         if (type === 'member') {

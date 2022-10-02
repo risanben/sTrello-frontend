@@ -1,11 +1,13 @@
 .board-header {
     margin-left: 20px;
+    margin-bottom: 5px;
 
     .task-member-container {
         margin: 0;
     }
 
-    color: #172b4d;
+    // color: #172b4d;
+    color: #fff;
     font-family: secular;
     height: 42px;
     padding: 5px 8px 5px 20px;
@@ -110,6 +112,8 @@
                 font-weight: 400;
                 padding-right: 12px;
                 margin-top: -2px;
+                color: #172b4d;
+
             }
 
             .menu-img-container {
@@ -118,7 +122,6 @@
                 display: flex;
                 justify-content: center;
                 align-items: center;
-
             }
 
             .dots {

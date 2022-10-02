@@ -9,6 +9,7 @@ import { loadBoards } from '../store/board.actions';
 export const SideMenu = ({ isSideBarOpen, toggleMenu }) => {
     const dispatch = useDispatch()
     const boards = useSelector(state => state.boardModule.boards)
+    const themeColor = useSelector(state => state.boardModule.boardThemeColor)
 
     useEffect(() => {
         dispatch(loadBoards())
@@ -22,7 +23,10 @@ export const SideMenu = ({ isSideBarOpen, toggleMenu }) => {
         }
     }
 
-    return <section className={_getMenuClass()}>
+    return <section
+        className={_getMenuClass()}
+        style={(_getMenuClass() === 'side-menu open'
+            ? { backgroundColor: themeColor } : { backgroundColor: '#ffffff42' })}>
 
         <header>
             <div className="s"><ImTrello /></div>
@@ -41,5 +45,5 @@ export const SideMenu = ({ isSideBarOpen, toggleMenu }) => {
             {boards && <BoardsList boards={boards} />}
         </section>
 
-    </section>
+    </section >
 }
