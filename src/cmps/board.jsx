@@ -11,6 +11,7 @@ import { handleDrag } from '../store/board.actions'
 import { getBoard } from '../store/board.actions'
 import { SideMenu } from './side-menu'
 import { socketService, SOCKET_EVENT_BOARD_UPDATE, SOCKET_EVENT_DND } from '../services/socket.service'
+import { Loader } from './loader'
 
 
 // const taskRef = useRef()
@@ -89,7 +90,9 @@ export const Board = () => {
         return style
     }
 
-    if (!board) return <div>Loading...</div>
+    // if (!board) return <div>Loading...</div>
+    if (!board) return <Loader />
+
 
     return (
         <React.Fragment>
@@ -104,6 +107,7 @@ export const Board = () => {
                         <BoardHeader
                             board={board} />
                         <GroupList board={board} />
+
                     </section>
                 </DragDropContext>
             </section>

@@ -320,7 +320,9 @@ function getBoardBackgrounds() {
             'https://res.cloudinary.com/dqhrqqqul/image/upload/v1664196311/ian-dooley-DuBNA1QMpPA-unsplash_cpw29l.jpg',
             'https://res.cloudinary.com/dqhrqqqul/image/upload/v1664196414/ian-dooley-DJ7bWa-Gwks-unsplash_hr2qyq.jpg',
             'https://res.cloudinary.com/dqhrqqqul/image/upload/v1664196528/jeremy-thomas-O6N9RV2rzX8-unsplash_ndcnyj.jpg',
-            'https://res.cloudinary.com/dqhrqqqul/image/upload/v1664197377/ash-from-modern-afflatus-NQ6Lh81BTRs-unsplash_qoe8no.jpg']
+            'https://res.cloudinary.com/dqhrqqqul/image/upload/v1664197377/ash-from-modern-afflatus-NQ6Lh81BTRs-unsplash_qoe8no.jpg',
+            'https://res.cloudinary.com/dqhrqqqul/image/upload/v1664382696/katie-smith-uQs1802D0CQ-unsplash_dwxpri.jpg',
+            'https://res.cloudinary.com/dqhrqqqul/image/upload/v1664382882/john-price-FE7ATjzRRMs-unsplash_cznmhq.jpg']
     }
 }
 

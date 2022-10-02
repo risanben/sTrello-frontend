@@ -47,7 +47,7 @@ export const TaskDetailsLabel = ({ labelIds, onSetLabel, pos }) => {
         setIsEditLabelModal(!isEditLabelModal)
     }
 
-    console.log('rendered task label')
+    // console.log('rendered task label')
     return (
         <div className="task-label-container" >
             {isEditLabelModal && <EditLabelsModal toggleEditLabelModal={toggleEditLabelModal} labelForEdit={labelForEdit} style={{ ...pos }} />}

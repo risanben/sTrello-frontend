@@ -8,6 +8,7 @@
     border-right: 1px solid rgba(0, 0, 0, 0.271);
     opacity: 0.8;
     overflow-x: hidden;
+    overflow-y: hidden;
     transition: min-width 0.5s;
 
     header>*:not(.open-arrow-div) {

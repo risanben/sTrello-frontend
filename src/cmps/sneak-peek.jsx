@@ -19,7 +19,7 @@ export const SneakPeek = () => {
             <div className='txt-area'>
                 <section className='mini-header'>Features to help your team succeed</section>
                 <p>
-                    Powering a productive team means using a powerful tool - and plenty of snacks. From meetings and projects to events and goal setting, Trello’s intuitive features give any team the ability to quickly set up and customize workflows for just about anything.
+                    Powering a productive team means using a powerful tool - and plenty of snacks. From meetings and projects to events and goal setting, sTrello’s intuitive features give any team the ability to quickly set up and customize workflows for just about anything.
                 </p>
             </div>
         </section>
