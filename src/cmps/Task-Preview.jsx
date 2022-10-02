@@ -184,10 +184,10 @@ export const TaskPreview = ({ task, groupId, index, taskRef, groupTitle }) => {
                             <div className="btn-quick-edit hide" onClick={toggleQuickEdit}>
                             </div>
                             {isQuickEditOn && <section ref={refQuickEdit}><TaskQuickEdit task={task} boardId={boardIdRef.current} groupId={groupId} pos={quickEditPos} toggaleQuickEdit={toggleQuickEdit} /></section>}
-
                             {!isFullCover && task?.style &&
                                 <div className="task-cover" style={setTaskCoverStyle()}></div>}
-                            {!isFullCover &&
+                                {task?.key === "video" && <iframe src={task.title}></iframe>}
+                            {!isFullCover && task?.key !== "video" &&
                                 <div className="task-preview-content">
                                     {task?.labelIds && <TaskLabel
                                         labelIds={task.labelIds}

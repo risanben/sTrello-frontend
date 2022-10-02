@@ -22,7 +22,7 @@ export const DetailsActivities = ({ task, groupId, onUpdateTask }) => {
     useEffect(() => {
         socketService.on(SOCKET_EVENT_ADD_MSG, onSaveComment);
         // setCurrTask(task)
-        console.log('task', task);
+        // console.log('task', task);
         return () => {
             socketService.off(SOCKET_EVENT_ADD_MSG, onSaveComment)
         }
@@ -33,27 +33,23 @@ export const DetailsActivities = ({ task, groupId, onUpdateTask }) => {
     }
 
     const onSaveComment = (newMsg) => {
-        console.log('onSaveComment');
-        console.log("task", task);
 
         const activity = {
             txt: newMsg,
             task: { id: task.id, title: task.title },
             type: 'comment'
         }
-        console.log('activity', activity);
+
         dispatch(updateBoard(board, activity))
         // setTextAreaContent('')
     }
 
     const sendMsg = () => {
-
-        // const user = userService.getLoggedinUser() || boardService.getGuestUser()
-        // const activity = { txt: textAreaContent, user }
         socketService.emit(SOCKET_EMIT_SEND_MSG, (textAreaContent))
-        // socketService.emit(SOCKET_EMIT_SEND_MSG, (activity))
         setTextAreaContent('')
     }
+
+   
 
     return <section className="details-activities">
         <div className='title-containerr'>
@@ -75,7 +71,7 @@ export const DetailsActivities = ({ task, groupId, onUpdateTask }) => {
             </section>}
             {/* <ChatApp task={task} onUpdateTask={onUpdateTask} /> */}
         </div>
-        {isActivityListShown && <ActivityList task={task} />}
+        {isActivityListShown && <ActivityList task={task}/>}
     </section>
 }
 

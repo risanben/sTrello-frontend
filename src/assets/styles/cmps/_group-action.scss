@@ -1,6 +1,6 @@
 .group-action {
     width: 200px;
-    height: 100px;
+    // height: 100px;
     position: absolute;
     // position: relative;
     top: 85px;
@@ -56,6 +56,60 @@
         &:hover {
             background-color: #f3f5fa;
             cursor: pointer;
+        }
+    }
+
+    .add-video {
+        padding: 0 0 6px 20px;
+        margin: 3px 0 0 3px;
+        border-radius: 3px;
+        font-weight: 400;
+        display: block;
+        width: calc(100% - 6px);
+
+        &:hover {
+            background-color: #f3f5fa;
+            cursor: pointer;
+        }
+    }
+
+    .videoModal {
+        border: 2px solid green;
+        background-color: black;
+        color: white;
+        padding: 10px 20px;
+        z-index: 5;
+
+        .btns-container {
+            // border: 2px solid red;
+            margin: 10px 0;
+            display: flex;
+            justify-content: space-between;
+
+            .btn {
+                padding: 5px 10px;
+                border-radius: 3px;
+               
+
+                &.btn-start {
+                    background-color: lightgreen;
+                    &:hover{
+                        background-color: rgb(84, 216, 84);
+                    }
+                }
+                &.btn-stop {
+                    background-color: rgb(233, 112, 112);
+                    &:hover{
+                        background-color: rgb(235, 62, 62);
+                    }
+                }
+                &.btn-post {
+                    background-color: rgb(119, 206, 235);
+                    &:hover{
+                        background-color: rgb(54, 169, 207);
+                    }
+                }
+            }
         }
     }
 

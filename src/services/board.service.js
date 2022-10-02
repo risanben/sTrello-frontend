@@ -115,6 +115,7 @@ async function removeGroupFromBoard(boardId, groupId, activity) {
 }
 
 async function save(board, activity = null) {
+  
     var savedBoard
     if (activity) _addActivityDetails(activity)
     if (board._id) {

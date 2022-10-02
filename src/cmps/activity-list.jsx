@@ -63,7 +63,6 @@ export const ActivityList = ({ task }) => {
     }
 
 
-    // console.log('board.activities:', board.activities)
     return <section>
         {taskActivities.map(activity => {
             if (activity.type === "comment") {

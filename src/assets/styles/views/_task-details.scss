@@ -159,13 +159,14 @@
 
                 .task-title-icon {
                     color: #42526e;
-                    font-size: 19px;
+                    font-size: 17px;
+                    padding-top: 2px;
                 }
 
                 .title-input {
                     display: flex;
                     flex-direction: column;
-                    margin: 4px 0 0 16px;
+                    margin: 0 0 0 14px;
 
                     .title-text-area {
                         font-size: 20px;
@@ -193,6 +194,7 @@
                         font-size: 14px;
                         margin-top: -2px;
                         color: #5e6c84;
+                        margin-left: 2px;
                     }
                 }
             }
@@ -659,6 +661,10 @@
 
                     .task-main-container-left {
                         padding: 8px;
+
+                        .description-icon{
+                            margin-left: 9px;
+                        }
 
                         .tags{
                             .labels{

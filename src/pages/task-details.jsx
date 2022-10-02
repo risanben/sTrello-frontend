@@ -494,7 +494,7 @@ console.log('onSetLabel');
 
                                 {taskFromProps?.attachments && taskFromProps?.attachments?.length > 0 && <section className="attachment">
                                     <div className="attachment-title">
-                                        <span className="icon"><GrAttachment /></span>
+                                        <span className="icon"><ImAttachment /></span>
                                         <span className="section-title">Attachment</span>
                                     </div>
                                     <div className="attachment-body-and-btn">
