@@ -216,6 +216,39 @@ export function getImgFromUrl(currentImgJson) {
 }
 
 
+// export function getVidFromUrl(currentVidJson) {
+//     return async (dispatch) => {
+//         try {
+//             const { vidJson } = dispatch({
+//                 type: 'SET_VID_URL',
+//                 vidJson: currentVidJson
+//             })
+//             return vidJson
+//         } catch (err) {
+//             console.log('Cannot load video url', err)
+//         }
+//     }
+// }
+
+export function getVidUrl(ev) {
+    console.log('ev from getVidUrl:', ev)
+    return async (dispatch) => {
+        try {
+            const vidEv = await uploadService.uploadImg(ev)
+            console.log('vidEv- board action', vidEv);
+            if (!vidEv.fileFormat) vidEv.url = 'https://res.cloudinary.com/dln4kbx1f/image/upload/v1664031478/a7aqgf6kxvow44jn3qzf.png'
+            const { vidJson } = dispatch({
+                type: 'SET_VID_URL',
+                vidJson: vidEv
+            })
+        } catch (err) {
+            console.log('Cannot load video url', err)
+        }
+    }
+}
+
+
+
 export function resizeLabel(resizeLabel) {
     return async (dispatch) => {
         try {

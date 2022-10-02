@@ -1,11 +1,23 @@
 import { useState } from "react"
 import { ReactMediaRecorder, useReactMediaRecorder } from 'react-media-recorder'
 import { utilService } from "../services/util.service"
+import { getVidUrl } from "../store/board.actions"
+import { useDispatch, useSelector } from "react-redux"
+import { useEffect } from "react"
+
 
 export const GroupActionModal = ({ group, leftPos, onOpenGroupAction, onDeleteGroup, addTask, setIsOpenGroupAction }) => {
 
     const [isVideoModalOpen, toggleVideoModal] = useState(false)
     const { status, startRecording, stopRecording, mediaBlobUrl } = useReactMediaRecorder({ video: true })
+    const dispatch = useDispatch()
+
+    const vidJson = useSelector(state => state.boardModule.vidJson)
+
+    useEffect(() => {
+        if (vidJson) addTaskVideo()
+    }, [vidJson])
+
 
     const clickedModal = (ev) => {
         ev.stopPropagation()
@@ -15,20 +27,34 @@ export const GroupActionModal = ({ group, leftPos, onOpenGroupAction, onDeleteGr
         if (isVideoModalOpen) {
             toggleVideoModal(false)
         } else {
-            // navigator.mediaDevices.getUserMedia({audio: true, video: true}).then(stream => {
-            //     document.getElementById("video").srcObject = stream
-            // })
             toggleVideoModal(true)
         }
     }
 
     const onAddTaskVideo = () => {
 
+        let ev = {
+            target: {
+                files: [mediaBlobUrl]
+            }
+        }
+        dispatch(getVidUrl(ev))
+    }
+
+    const addTaskVideo = () => {
+        console.log('addTaskVideo was activated')
         let task = {
-            title: mediaBlobUrl,
+            title: vidJson,
             id: utilService.makeId(),
             key: "video"
         }
+
+        console.log('task:', task)
+        // let task = {
+        //     title: mediaBlobUrl,
+        //     id: utilService.makeId(),
+        //     key: "video"
+        // }
 
         const groupToSave = { ...group }
         if (groupToSave?.tasks) groupToSave.tasks.push(task)
