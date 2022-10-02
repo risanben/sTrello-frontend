@@ -48,7 +48,9 @@ export const ActivityList = ({ task }) => {
     const onDeleteComment = (ev, activityId) => {
         ev.preventDefault()
         console.log('entered on delete')
+        console.log('board.activities:-before', board.activities)
         board.activities = board.activities.filter(act => act.id !== activityId)
+        console.log('board.activities:-after', board.activities)
         dispatch(updateBoard(board))
     }
 
@@ -80,6 +82,7 @@ export const ActivityList = ({ task }) => {
                             className="txt-area-normal"
                             name="txt"
                             defaultValue={activity.txt}
+                            // value={activity.txt}
                             onClick={(ev) => setEditingTxt(true)}
                             onBlur={(ev) => { onDefocusTxtArea(ev, activity.id) }}
                             onChange={(ev) => handleChange(ev)}

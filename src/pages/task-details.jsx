@@ -55,7 +55,7 @@ export const TaskDetails = ({ boardId, groupId, taskId, taskFromProps, groupTitl
     const [isAttachmentModal, setIsAttachmentModal] = useState(false)
     const [isEditAttachName, setIsEditAttachName] = useState(false)
     // const [isAttachedFile, setIsAttachedFile] = useState(null)
-    const [currentUser, setCurrentUser] = useState([])
+    // const [currentUser, setCurrentUser] = useState([])
     const [labelModalPos, setLabelModalPos] = useState(null)
     const [isChecklistModal, setIsChecklistModal] = useState(false)
     const [checklistModalPos, setChecklistModalPos] = useState(null)
@@ -83,12 +83,12 @@ export const TaskDetails = ({ boardId, groupId, taskId, taskFromProps, groupTitl
         if (task?.style?.bg.color) setBgColor(task.style.bg.color)
 
         //When we operate with a real user we will place here a user sent to the component and use is ID
-        setCurrentUser(['u102'])
+        // setCurrentUser(['u102'])
 
         // dispatch(getTask(boardId, groupId, taskId))
 
     }, [])
-
+//////////////////////////////////////////////
     // useEffect(() => {
     //     socketService.on(SOCKET_EVENT_TASK_UPDATE, webSocket);
     //     return () => {
@@ -100,7 +100,7 @@ export const TaskDetails = ({ boardId, groupId, taskId, taskFromProps, groupTitl
     //     console.log('webSocket');
     //     setTask(taskFromSocket)
     // }
-
+///////////////////////////////////////////
     // useEffect(() => {
     //     if (currentTask?.style?.bg.color) setBgColor(currentTask.style.bg.color)
     //     setTask(currentTask)
@@ -300,7 +300,7 @@ export const TaskDetails = ({ boardId, groupId, taskId, taskFromProps, groupTitl
         setShowModal(false)
     }
 
-    const onSetMember = ({ addOrRemove, memberId, fullname }) => {
+    const onSetMember = ( addOrRemove, memberId, fullname ) => {
         const activity = {
             task: {
                 id: task.id,
@@ -325,9 +325,9 @@ export const TaskDetails = ({ boardId, groupId, taskId, taskFromProps, groupTitl
         onUpdateTask(task, activity)
     }
 
-    const onSetLabel = (ev,addOrRemove, labelId) => {
+    const onSetLabel = (ev, addOrRemove, labelId) => {
         ev.stopPropagation()
-console.log('onSetLabel');
+        console.log('onSetLabel');
 
         if (!addOrRemove) {
             if (!task.labelIds) task.labelIds = [labelId]
