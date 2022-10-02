@@ -14,6 +14,7 @@ function uploadImg(ev) {
   const formData = new FormData()
   formData.append('upload_preset', UPLOAD_PRESET)
   formData.append('file', ev.target.files[0])
+  // formData.append('blob', ev.target.files[0])
 
   return fetch(UPLOAD_URL, {
     method: 'POST',

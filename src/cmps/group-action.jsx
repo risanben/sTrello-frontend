@@ -15,6 +15,7 @@ export const GroupActionModal = ({ group, leftPos, onOpenGroupAction, onDeleteGr
     const vidJson = useSelector(state => state.boardModule.vidJson)
 
     useEffect(() => {
+        console.log('vidJson', vidJson);
         if (vidJson) addTaskVideo()
     }, [vidJson])
 
@@ -44,7 +45,7 @@ export const GroupActionModal = ({ group, leftPos, onOpenGroupAction, onDeleteGr
     const addTaskVideo = () => {
         console.log('addTaskVideo was activated')
         let task = {
-            title: vidJson,
+            title: vidJson.url,
             id: utilService.makeId(),
             key: "video"
         }
