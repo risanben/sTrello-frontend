@@ -65,6 +65,8 @@ export const DetailsActivities = ({ task, groupId, onUpdateTask }) => {
     //     setTextAreaContent('')
     // }
 
+   
+
     return <section className="details-activities">
         <div className='title-containerr'>
             <AiOutlineBars className='activity-icon' />
@@ -86,7 +88,7 @@ export const DetailsActivities = ({ task, groupId, onUpdateTask }) => {
             </section>}
             {/* <ChatApp task={task} onUpdateTask={onUpdateTask} /> */}
         </div>
-        {isActivityListShown && <ActivityList task={task} />}
+        {isActivityListShown && <ActivityList task={task}/>}
     </section>
 }
 

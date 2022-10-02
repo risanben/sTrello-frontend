@@ -30,6 +30,7 @@ import { DetailsActivities } from "../cmps/task-details-activities"
 import { utilService } from "../services/util.service"
 import { ChatApp } from "../cmps/chat-app"
 import { socketService, SOCKET_EVENT_TASK_UPDATE } from "../services/socket.service"
+import { Loader } from "../cmps/loader"
 
 export const TaskDetails = ({ boardId, groupId, taskId, taskFromProps, groupTitle, closeModal }) => {
 
@@ -391,7 +392,9 @@ export const TaskDetails = ({ boardId, groupId, taskId, taskFromProps, groupTitl
 
 
 
-    if (!task) return <div>Loading...</div>
+    // if (!task) return <div>Loading...</div>
+    if (!task) return <Loader />
+
     // console.log('task.desc', task.desc)
     // console.log('cmp DETAILS rendered')
 
@@ -494,7 +497,7 @@ export const TaskDetails = ({ boardId, groupId, taskId, taskFromProps, groupTitl
 
                                 {taskFromProps?.attachments && taskFromProps?.attachments?.length > 0 && <section className="attachment">
                                     <div className="attachment-title">
-                                        <span className="icon"><GrAttachment /></span>
+                                        <span className="icon"><ImAttachment /></span>
                                         <span className="section-title">Attachment</span>
                                     </div>
                                     <div className="attachment-body-and-btn">

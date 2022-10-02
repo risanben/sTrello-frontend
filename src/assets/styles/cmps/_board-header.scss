@@ -67,7 +67,7 @@
         align-items: center;
         display: flex;
         // border: 2px solid red;
-        align-self: flex-end;
+        // align-self: flex-end;
         justify-self: flex-end;
         // padding-bottom: 2px;
 
@@ -109,6 +109,7 @@
                 font-size: 14px;
                 font-weight: 400;
                 padding-right: 12px;
+                margin-top: -2px;
             }
 
             .menu-img-container {
@@ -137,17 +138,17 @@
 
 @media (max-width: 400px) {
 
-    .board-header{
-        .flex-end-side{
-            .members{
+    .board-header {
+        .flex-end-side {
+            .members {
                 display: none;
             }
 
-            .btn-add{
+            .btn-add {
                 display: none;
             }
 
-            .show-menu-title{
+            .show-menu-title {
                 display: none;
             }
         }

@@ -6,6 +6,7 @@ import { updateBoard } from '../store/board.actions'
 import dots from '../assets/img/menu-icon-new.svg'
 import { useState } from 'react'
 import { ActivityMenu } from './activity-menu'
+import { Loader } from './loader'
 
 export const BoardHeader = ({ board ,toggleDashboard}) => {
     const dispatch = useDispatch()
@@ -28,7 +29,9 @@ export const BoardHeader = ({ board ,toggleDashboard}) => {
         setIsActivityMenuOpen(!isActivityMenuOpen)
     }
 
-    if (!board) return <section>Loading...</section>
+    // if (!board) return <section>Loading...</section>
+    if (!board) return <Loader />
+
     return <section className="board-header">
         {board.title}
         {/* <div className='star-container'><HiOutlineStar className='star' /></div> */}

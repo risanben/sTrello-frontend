@@ -42,7 +42,7 @@ export const TaskDetailsLabel = ({ labelIds, onSetLabel, pos }) => {
     }
 
     const toggleEditLabelModal = (ev, label) => {
-        console.log('label', label);
+        // console.log('label', label);
         setLabelForEdit(label)
         setIsEditLabelModal(!isEditLabelModal)
     }
