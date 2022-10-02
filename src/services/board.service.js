@@ -22,7 +22,7 @@ const boardChannel = new BroadcastChannel('boardChannel')
     ; (() => {
 
         socketService.on(SOCKET_EVENT_BOARD_UPDATE, (board) => {
-            console.log('GOT board from socket', board)
+            // console.log('GOT board from socket', board)
             store.dispatch(getActionUpdateBoard(board))
         })
         // socketService.on(SOCKET_EVENT_REVIEW_ABOUT_YOU, (review) => {
@@ -68,7 +68,7 @@ async function query(filterBy) {
 }
 async function getById(boardId) {
     try {
-        console.log('boardId', boardId)
+        // console.log('boardId', boardId)
         return await httpService.get(BASE_URL + boardId, boardId)
         // return await storageService.get(STORAGE_KEY, boardId)
     }
@@ -321,7 +321,14 @@ function getBoardBackgrounds() {
             'https://res.cloudinary.com/dqhrqqqul/image/upload/v1664196528/jeremy-thomas-O6N9RV2rzX8-unsplash_ndcnyj.jpg',
             'https://res.cloudinary.com/dqhrqqqul/image/upload/v1664197377/ash-from-modern-afflatus-NQ6Lh81BTRs-unsplash_qoe8no.jpg',
             'https://res.cloudinary.com/dqhrqqqul/image/upload/v1664382696/katie-smith-uQs1802D0CQ-unsplash_dwxpri.jpg',
-            'https://res.cloudinary.com/dqhrqqqul/image/upload/v1664382882/john-price-FE7ATjzRRMs-unsplash_cznmhq.jpg']
+            'https://res.cloudinary.com/dqhrqqqul/image/upload/v1664382882/john-price-FE7ATjzRRMs-unsplash_cznmhq.jpg',
+            'https://res.cloudinary.com/dqhrqqqul/image/upload/v1664689530/frank-mckenna-OD9EOzfSOh0-unsplash_eyotjy.jpg',
+            'https://res.cloudinary.com/dqhrqqqul/image/upload/v1664692449/kyle-glenn-_AR74EoWdy0-unsplash_rhf2nb.jpg',
+            'https://res.cloudinary.com/dqhrqqqul/image/upload/v1664698270/amy-shamblen-pJ_DCj9KswI-unsplash_dpiduu.jpg',
+            'https://res.cloudinary.com/dqhrqqqul/image/upload/v1664699079/raphael-biscaldi-7RQf2X6aXXI-unsplash_k6crnk.jpg',
+            'https://res.cloudinary.com/dqhrqqqul/image/upload/v1664699491/ana-frantz-Pg6YGIJ97lw-unsplash_aj7dr4.jpg',
+            'https://res.cloudinary.com/dqhrqqqul/image/upload/v1664704915/kelly-sikkema-IZOAOjvwhaM-unsplash_m2ivzg.jpg',
+            'https://res.cloudinary.com/dqhrqqqul/image/upload/v1664708145/sigmund-eTgMFFzroGc-unsplash_hg0wdj.jpg']
     }
 }
 

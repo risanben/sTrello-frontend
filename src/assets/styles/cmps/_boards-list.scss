@@ -13,7 +13,9 @@
         }
 
         &:hover {
-            background-color: darken($color: $header-bg-color, $amount: 15);
+            // background-color: darken($color: $header-bg-color, $amount: 15);
+            background-color: rgba(0, 0, 0, 0.07);
+            // opacity: .5;
             cursor: pointer;
         }
 
@@ -23,7 +25,8 @@
         }
 
         &.active {
-            background-color: darken($color: $header-bg-color, $amount: 20);
+            // background-color: darken($color: $header-bg-color, $amount: 20);
+            background-color: rgba(0, 0, 0, 0.116);
         }
     }
 

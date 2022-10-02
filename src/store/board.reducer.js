@@ -5,6 +5,7 @@ const initialState = {
     task: null,
     resizeLabel: false,
     imgJson: '',
+    boardThemeColor: ''
 }
 export function boardReducer(state = initialState, action) {
     var newState = state
@@ -45,6 +46,10 @@ export function boardReducer(state = initialState, action) {
         case 'RESIZE_LABEL':
             resizeLabel = action.resizeLabel
             newState = { ...state, resizeLabel }
+            break
+
+        case 'SET_BOARD_THEME_COLOR':
+            newState = { ...state, boardThemeColor: action.boardThemeColor }
             break
         default:
     }

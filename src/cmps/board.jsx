@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { boardService } from '../services/board.service'
-import { getActionUpdateBoard, loadBoards, updateBoard } from '../store/board.actions'
+import { getActionUpdateBoard, loadBoards, setBoardBackgroundColor, updateBoard } from '../store/board.actions'
 import { GroupList } from './group-list'
 import { BoardHeader } from './board-header'
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
@@ -12,7 +12,7 @@ import { getBoard } from '../store/board.actions'
 import { SideMenu } from './side-menu'
 import { socketService, SOCKET_EVENT_BOARD_UPDATE, SOCKET_EVENT_DND } from '../services/socket.service'
 import { Loader } from './loader'
-
+import { FastAverageColor } from 'fast-average-color';
 
 // const taskRef = useRef()
 
@@ -40,8 +40,8 @@ export const Board = () => {
     }, [])
 
     const onDnd = (newBoard) => {
-        console.log('onDnd');
-        console.log('newBoard', newBoard);
+        // console.log('onDnd');
+        // console.log('newBoard', newBoard);
         // dispatch(updateBoard(newBoard))
         dispatch(getActionUpdateBoard(newBoard))
         // setIsBack(true)
@@ -78,6 +78,19 @@ export const Board = () => {
             handleDrag(board, source.droppableId, destination.droppableId, source.index, destination.index, type)
         )
     }
+    const getAverageBackgroundColor = async (imgUrl) => {
+        try {
+
+            const fac = new FastAverageColor();
+            const color = await fac.getColorAsync(imgUrl)
+            // console.log('color', color)
+            dispatch(setBoardBackgroundColor(color.hex))
+
+            return color
+        } catch (err) {
+            console.log('Cannot get average color', err)
+        }
+    }
 
     const getBoradBg = () => {
         let style = {}
@@ -86,7 +99,11 @@ export const Board = () => {
                 backgroundImage: `url(${board.style.imgUrl})`,
                 backgroundSize: "cover",
             }
-        } else style = { backgroundColor: board?.style?.bgColor }
+            getAverageBackgroundColor(board.style.imgUrl)
+        } else {
+            style = { backgroundColor: board?.style?.bgColor }
+            dispatch(setBoardBackgroundColor(board.style.bgColor))
+        }
         return style
     }
 
