@@ -101,25 +101,37 @@ export const Dashboard = ({ toggleDashboard }) => {
         <section className="dashboard" >
             <div className="black-screen" onClick={toggleDashboard}>
                 <div className="dashboard-container" onClick={clickedOnModal}>
-                    <h1 className="dashboard-title">{board.title}{board.isStarred && <div className="star-marked"><HiStar /></div>}</h1>
-                    <h4 className="dashboard-subtitle">Created by: {board.createdBy.fullname}</h4>
+                    <section className="dashboard-title">
+                        {board.title}
+                        {board.isStarred && <div className="star-marked"><HiStar /></div>}
+                    </section>
+                    <section className="dashboard-subtitle">
+                        <span>Created by: </span> {board.createdBy.fullname}
+                    </section>
+                    
                     <div className="board-info">
+
                         <div className="board-members" >
                             <div className="board-members-count">{memberCount} <span>Board members</span></div>
                             <div className="board-members-imgs"> <TaskMember memberIds={boardMembersIds} /></div>
                         </div>
+
                         <div className="task-stat">
                             <span className="left">
                                 <div className="counter"><BiTask /><span className="txt">{gTaskCount} tasks</span> </div>
                                 <hr class="rounded"></hr>
                                 <div className="counter"><BsListTask /> <span className="txt"> In {board.groups.length} lists</span> </div>
                             </span>
+                        </div>
+
+                        <div className="task-stat-right">
                             <span className="right">
                                 <div className="counter"><SiTodoist /><span className="txt"> {gTaskCount - gDoneCounter} Tasks in process</span> </div>
                                 <hr class="rounded"></hr>
                                 <div className="counter"><FcTodoList /><span className="txt"> {gDoneCounter} Tasks completed</span> </div>
                             </span>
                         </div>
+
                     </div>
                     <div className="charts-row-container">
                         <div className="chart-container">

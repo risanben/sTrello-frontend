@@ -10,13 +10,13 @@ export const GroupActionModal = ({ group, leftPos, onOpenGroupAction, onDeleteGr
 
     const [isVideoModalOpen, toggleVideoModal] = useState(false)
     const { status, startRecording, stopRecording, mediaBlobUrl } = useReactMediaRecorder({ video: true })
-    const dispatch = useDispatch()
+    // const dispatch = useDispatch()
 
-    const vidJson = useSelector(state => state.boardModule.vidJson)
+    // const vidJson = useSelector(state => state.boardModule.vidJson)
 
-    useEffect(() => {
-        if (vidJson) addTaskVideo()
-    }, [vidJson])
+    // useEffect(() => {
+    //     if (vidJson) addTaskVideo()
+    // }, [vidJson])
 
 
     const clickedModal = (ev) => {
@@ -31,20 +31,20 @@ export const GroupActionModal = ({ group, leftPos, onOpenGroupAction, onDeleteGr
         }
     }
 
+    // const onAddTaskVideo = () => {
+
+    //     let ev = {
+    //         target: {
+    //             files: [mediaBlobUrl]
+    //         }
+    //     }
+    //     dispatch(getVidUrl(ev))
+    // }
+
     const onAddTaskVideo = () => {
-
-        let ev = {
-            target: {
-                files: [mediaBlobUrl]
-            }
-        }
-        dispatch(getVidUrl(ev))
-    }
-
-    const addTaskVideo = () => {
-        console.log('addTaskVideo was activated')
+        // console.log('addTaskVideo was activated')
         let task = {
-            title: vidJson,
+            title: "https://res.cloudinary.com/dqhrqqqul/video/upload/v1664712351/10f6ef1a-a558-4f1e-ae70-193d762b308b_vhpp8g.webm",
             id: utilService.makeId(),
             key: "video"
         }

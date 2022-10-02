@@ -27,17 +27,28 @@
         margin: 48px 0 80px;
         overflow-y: visible;
         // max-height: 100%;
-        width: 900px;
+        // width: 900px;
         border-radius: 3px;
         background-color: #f4f5f7;
+        // background-color: black;
         cursor: auto;
-        // padding: 10px;
+        // border: 2px solid red;
+        padding: 15px;
+        color: rgb(44, 44, 75);
 
         .dashboard-title {
-            display: inline;
+            // display: inline;
             text-align: center;
             padding: 0px;
             margin: 0;
+            display: flex;
+            justify-content: center;
+
+            font-family: secular;
+            font-size: 25px;
+            font-weight: 600;
+            letter-spacing: 1px;
+
 
             .star-marked {
                 display: inline;
@@ -46,6 +57,7 @@
                 // margin-top: 100px;
                 padding: 0px;
                 margin: 0;
+                margin-top: 4px;
 
             }
         }
@@ -54,17 +66,30 @@
             text-align: center;
             padding: 0px;
             margin: 0;
+            margin-top: -10px;
+            margin-bottom: 10px;
+
+            span {
+                font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+                font-size: 16px;
+            }
         }
 
         .board-info {
             display: flex;
             width: content;
-            margin: auto;
+            // margin: auto;
+            justify-content: center;
+            // justify-content: space-between;
             margin-top: 10px;
 
-            .board-members {
-                border: 1px solid blue;
+            &>*{
+                border: 1px solid rgb(198, 198, 210);
                 border-radius: 15px;
+            }
+
+            .board-members {
+              
                 max-width: 200px;
                 width: auto;
                 padding: 10px;
@@ -79,17 +104,18 @@
             }
 
             .task-stat {
-                border: 1px solid blue;
-                border-radius: 15px;
+               
                 margin-left: 15px;
+                margin-right: 15px;
                 padding: 10px;
                 display: flex;
+                justify-content: center;
 
                 .txt {
                     margin-left: 5px;
                     // vertical-align:top;
                     // margin-bottom: 20px;
-                
+
                 }
 
                 hr.rounded {
