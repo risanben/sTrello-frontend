@@ -8,7 +8,7 @@ import { useState } from 'react'
 import { ActivityMenu } from './activity-menu'
 import { Loader } from './loader'
 
-export const BoardHeader = ({ board }) => {
+export const BoardHeader = ({ board ,toggleDashboard}) => {
     const dispatch = useDispatch()
     const [isActivityMenuOpen, setIsActivityMenuOpen] = useState(false)
     const getMembersIds = () => {
@@ -57,6 +57,7 @@ export const BoardHeader = ({ board }) => {
                 {board.members?.length && <TaskMember memberIds={getMembersIds()} />}
             </section>
             <button className="btn-add"><img className="mem-svg" src={memberSvg} /> Share</button>
+            <button className="btn-add" onClick={toggleDashboard}> Dashboard</button>
 
             {!isActivityMenuOpen && <section className="activitis-menu-container" onClick={toggleBoardMenu}>
                 <div className="menu-img-container">

@@ -1,0 +1,154 @@
+.dashboard {
+    font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 16px;
+    overflow-y: auto;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 60;
+
+    .black-screen {
+        background-color: rgb(0 0 0 / 60%);
+        cursor: pointer;
+        transition: opacity .6s;
+        z-index: 50;
+        overflow-x: hidden;
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        height: 100%;
+    }
+
+    .dashboard-container {
+        display: flex;
+        flex-direction: column;
+        margin: 48px 0 80px;
+        overflow-y: visible;
+        // max-height: 100%;
+        // width: 900px;
+        border-radius: 3px;
+        background-color: #f4f5f7;
+        // background-color: black;
+        cursor: auto;
+        // border: 2px solid red;
+        padding: 15px;
+        color: rgb(44, 44, 75);
+
+        .dashboard-title {
+            // display: inline;
+            text-align: center;
+            padding: 0px;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+
+            font-family: secular;
+            font-size: 25px;
+            font-weight: 600;
+            letter-spacing: 1px;
+
+
+            .star-marked {
+                display: inline;
+                // vertical-align:bottom;
+                // justify-content: center;
+                // margin-top: 100px;
+                padding: 0px;
+                margin: 0;
+                margin-top: 4px;
+
+            }
+        }
+
+        .dashboard-subtitle {
+            text-align: center;
+            padding: 0px;
+            margin: 0;
+            margin-top: -10px;
+            margin-bottom: 10px;
+
+            span {
+                font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+                font-size: 16px;
+            }
+        }
+
+        .board-info {
+            display: flex;
+            width: content;
+            // margin: auto;
+            justify-content: center;
+            // justify-content: space-between;
+            margin-top: 10px;
+
+            &>*{
+                border: 1px solid rgb(198, 198, 210);
+                border-radius: 15px;
+            }
+
+            .board-members {
+              
+                max-width: 200px;
+                width: auto;
+                padding: 10px;
+                // margin-left: 10px;
+                text-align: center;
+
+                .board-members-imgs {
+                    width: min-content;
+                    margin: auto;
+                    margin-top: 10px;
+                }
+            }
+
+            .task-stat {
+               
+                margin-left: 15px;
+                margin-right: 15px;
+                padding: 10px;
+                display: flex;
+                justify-content: center;
+
+                .txt {
+                    margin-left: 5px;
+                    // vertical-align:top;
+                    // margin-bottom: 20px;
+
+                }
+
+                hr.rounded {
+                    border-top: 8px solid #bbb;
+                    border-radius: 5px;
+                }
+
+                .left {
+                    margin-right: 30px;
+
+                }
+            }
+        }
+
+        .charts-row-container {
+            display: flex;
+            // margin: 20px;
+            width: 100%;
+            // max-width: 900px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            // margin-left: 20px;
+            // margin-right: 20px;
+            justify-content: space-between;
+
+            .chart-container {
+                // max-width: 260px;
+                // width: auto;
+                flex-grow: 1;
+                // margin: -10px;
+                // padding: -10px;
+            }
+        }
+
+    }
+}

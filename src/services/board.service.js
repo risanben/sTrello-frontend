@@ -19,16 +19,13 @@ const boardChannel = new BroadcastChannel('boardChannel')
         })
     })()
 
-    ; (() => {
+// ; (() => {
 
-        socketService.on(SOCKET_EVENT_BOARD_UPDATE, (board) => {
-            // console.log('GOT board from socket', board)
-            store.dispatch(getActionUpdateBoard(board))
-        })
-        // socketService.on(SOCKET_EVENT_REVIEW_ABOUT_YOU, (review) => {
-        // showSuccessMsg(`New review about me ${review.txt}`)
-        // })
-    })()
+
+// socketService.on(SOCKET_EVENT_REVIEW_ABOUT_YOU, (review) => {
+// showSuccessMsg(`New review about me ${review.txt}`)
+// })
+// })()
 
 export const boardService = {
     query,
@@ -45,7 +42,7 @@ export const boardService = {
     getTaskBackground,
     getLabelsColors,
     getBoardBackgrounds,
-    getGuestUser,
+    getGuestUser
 }
 window.cs = boardService
 
@@ -115,10 +112,11 @@ async function removeGroupFromBoard(boardId, groupId, activity) {
 }
 
 async function save(board, activity = null) {
+
     var savedBoard
     if (activity) _addActivityDetails(activity)
     if (board._id) {
-
+        console.log('board.activities-board service', board.activities);
         if (activity) board.activities.unshift(activity)
         savedBoard = await httpService.put(BASE_URL + board._id, board)
         // savedBoard = await storageService.put(STORAGE_KEY, board)
@@ -165,17 +163,19 @@ function _addActivityDetails(activity) {
     activity.createdAt = Date.now()
     if (!activity.byMember) {
         const user = userService.getLoggedinUser()
+        console.log('activity', activity);
+        // if (activity.byMember) return activity
         if (user) {
             activity.byMember = {
-                "_id": user._id,
-                "fullname": user.fullname,
-                "imgUrl": user.imgUrl
+                _id: user._id,
+                fullname: user.fullname,
+                imgUrl: user.imgUrl || "https://trello-members.s3.amazonaws.com/63197a231392a3015ea3b649/1af72162e2d7c08fd66a6b36476c1515/170.png"
             }
         } else {
             activity.byMember = {
-                "_id": "u199",
-                "fullname": "Guest",
-                "imgUrl": "https://trello-members.s3.amazonaws.com/63197a231392a3015ea3b649/1af72162e2d7c08fd66a6b36476c1515/170.png"
+                _id: "u199",
+                fullname: "Guest",
+                imgUrl: "https://trello-members.s3.amazonaws.com/63197a231392a3015ea3b649/1af72162e2d7c08fd66a6b36476c1515/170.png"
             }
         }
     }

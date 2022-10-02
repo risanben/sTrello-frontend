@@ -138,7 +138,9 @@ export const GroupPreview = ({ group, addTask, index, taskRef }) => {
                                     group={groupToEdit}
                                     leftPos={leftPosGroupModal}
                                     onOpenGroupAction={onOpenGroupAction}
-                                    onDeleteGroup={onDeleteGroup} />}
+                                    onDeleteGroup={onDeleteGroup}
+                                    addTask={addTask}
+                                    setIsOpenGroupAction={setIsOpenGroupAction} />}
                         </div>
                         <div className="scroll">
                             <TaskList

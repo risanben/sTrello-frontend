@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { ActivityList } from "./activity-list"
 import { ChatApp } from "./chat-app"
 import { updateBoard } from '../store/board.actions'
-import { socketService, SOCKET_EMIT_SEND_MSG, SOCKET_EVENT_ADD_MSG, SOCKET_EMIT_SET_TOPIC } from '../services/socket.service.js'
+import { socketService, SOCKET_EMIT_SEND_MSG, SOCKET_EVENT_ADD_MSG, SOCKET_EMIT_SET_TOPIC, SOCKET_EVENT_BOARD_UPDATE } from '../services/socket.service.js'
 import { boardService } from "../services/board.service"
 import { userService } from "../services/user.service"
 
@@ -19,41 +19,53 @@ export const DetailsActivities = ({ task, groupId, onUpdateTask }) => {
     const [isActivityListShown, toggleActivityList] = useState(true)
     const dispatch = useDispatch()
 
-    useEffect(() => {
-        socketService.on(SOCKET_EVENT_ADD_MSG, onSaveComment);
-        // setCurrTask(task)
-        console.log('task', task);
-        return () => {
-            socketService.off(SOCKET_EVENT_ADD_MSG, onSaveComment)
-        }
-    }, [])
+    // useEffect(() => {
+    //     socketService.on(SOCKET_EVENT_ADD_MSG, onSaveComment);
+    //     // socketService.on(SOCKET_EVENT_BOARD_UPDATE, onSaveComment);
+    //     return () => {
+    //         socketService.off(SOCKET_EVENT_ADD_MSG, onSaveComment)
+    //         // socketService.off(SOCKET_EVENT_BOARD_UPDATE, onSaveComment)
+    //     }
+    // }, [])
 
     const onToggleActivityList = () => {
         toggleActivityList(!isActivityListShown)
     }
 
-    const onSaveComment = (newMsg) => {
-        console.log('onSaveComment');
-        console.log("task", task);
-
+    const onSaveComment = () => {
+        const user = userService.getLoggedinUser()
         const activity = {
-            txt: newMsg,
+            txt: textAreaContent,
+            byMember: user,
             task: { id: task.id, title: task.title },
             type: 'comment'
         }
-        console.log('activity', activity);
-        dispatch(updateBoard(board, activity))
-        // setTextAreaContent('')
-    }
-
-    const sendMsg = () => {
-
-        // const user = userService.getLoggedinUser() || boardService.getGuestUser()
-        // const activity = { txt: textAreaContent, user }
-        socketService.emit(SOCKET_EMIT_SEND_MSG, (textAreaContent))
-        // socketService.emit(SOCKET_EMIT_SEND_MSG, (activity))
         setTextAreaContent('')
+        dispatch(updateBoard(board, activity))
     }
+
+    // const onSaveComment = (newMsg) => {
+    //     const activity = {
+    //         txt: newMsg.txt,
+    //         byMember: newMsg.byUser,
+    //         task: { id: task.id, title: task.title },
+    //         type: 'comment'
+    //     }
+    //     console.log('activity', activity);
+    //     dispatch(updateBoard(board, activity))
+    // }
+
+    // const sendMsg = () => {
+    //     const user = userService.getLoggedinUser()
+    //     console.log('user', user);
+    //     const activity = { txt: textAreaContent, byMember: user }
+    //     console.log('activity', activity);
+    //     onSaveComment(activity)
+    //     // socketService.emit(SOCKET_EMIT_SEND_MSG, (activity))
+    //     setTextAreaContent('')
+    // }
+
+   
 
     return <section className="details-activities">
         <div className='title-containerr'>
@@ -69,13 +81,14 @@ export const DetailsActivities = ({ task, groupId, onUpdateTask }) => {
                 }}>
             </textarea>
             {isTextAreaOpen && <section>
-                <button className={`checklist-btn ${(textAreaContent) ? 'activate' : ''}`} onMouseDown={() => sendMsg()} >
+                {/* <button className={`checklist-btn ${(textAreaContent) ? 'activate' : ''}`} onMouseDown={() => sendMsg()} > */}
+                    <button className={`checklist-btn ${(textAreaContent) ? 'activate' : ''}`} onMouseDown={() => onSaveComment()} >
                     Save
                 </button>
             </section>}
             {/* <ChatApp task={task} onUpdateTask={onUpdateTask} /> */}
         </div>
-        {isActivityListShown && <ActivityList task={task} />}
+        {isActivityListShown && <ActivityList task={task}/>}
     </section>
 }
 

@@ -5,6 +5,7 @@ const initialState = {
     task: null,
     resizeLabel: false,
     imgJson: '',
+    vidJson: '',
     boardThemeColor: ''
 }
 export function boardReducer(state = initialState, action) {
@@ -24,6 +25,9 @@ export function boardReducer(state = initialState, action) {
             break
         case 'SET_IMG_URL':
             newState = { ...state, imgJson: (action.imgJson) }
+            break
+        case 'SET_VID_URL':
+            newState = { ...state, vidJson: (action.vidJson) }
             break
         case 'REMOVE_BOARD':
             // const lastRemovedBoard = state.boards.find(board => board._id === action.boardId)

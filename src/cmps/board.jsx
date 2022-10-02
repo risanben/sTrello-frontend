@@ -12,6 +12,7 @@ import { getBoard } from '../store/board.actions'
 import { SideMenu } from './side-menu'
 import { socketService, SOCKET_EVENT_BOARD_UPDATE, SOCKET_EVENT_DND } from '../services/socket.service'
 import { Loader } from './loader'
+import { Dashboard } from '../pages/dashboard.jsx'
 import { FastAverageColor } from 'fast-average-color';
 
 // const taskRef = useRef()
@@ -24,6 +25,7 @@ export const Board = () => {
     const params = useParams()
     let [isSideBarOpen, setIsSideBarOpen] = useState(false)
     let [isBack, setIsBack] = useState(false)
+    let [isDashboard, setIsDashboard] = useState(false)
 
     // useEffect(() => {
     //     socketService.on(SOCKET_EVENT_DND, onDnd);
@@ -33,19 +35,16 @@ export const Board = () => {
     // }, [])
 
     useEffect(() => {
-        socketService.on(SOCKET_EVENT_BOARD_UPDATE, onDnd);
+        socketService.on(SOCKET_EVENT_BOARD_UPDATE, onSocketUpdateBoard);
         return () => {
-            socketService.off(SOCKET_EVENT_BOARD_UPDATE, onDnd)
+            socketService.off(SOCKET_EVENT_BOARD_UPDATE, onSocketUpdateBoard)
         }
     }, [])
 
-    const onDnd = (newBoard) => {
-        // console.log('onDnd');
-        // console.log('newBoard', newBoard);
-        // dispatch(updateBoard(newBoard))
+    const onSocketUpdateBoard = (newBoard) => {
+        console.log('onSocketUpdateBoard');
+        console.log('newBoard', newBoard);
         dispatch(getActionUpdateBoard(newBoard))
-        // setIsBack(true)
-
     }
 
 
@@ -92,6 +91,10 @@ export const Board = () => {
         }
     }
 
+    const toggleDashboard = () => {
+        setIsDashboard(!isDashboard)
+    }
+
     const getBoradBg = () => {
         let style = {}
         if (board.style?.imgUrl) {
@@ -122,12 +125,14 @@ export const Board = () => {
                     <section className="board" >
                         {/* <section className="board" style={getBoradBg()}> */}
                         <BoardHeader
-                            board={board} />
+                            board={board}
+                            toggleDashboard={toggleDashboard} />
                         <GroupList board={board} />
 
                     </section>
                 </DragDropContext>
             </section>
+            {isDashboard && <Dashboard toggleDashboard={toggleDashboard} />}
         </React.Fragment>
     )
 }
