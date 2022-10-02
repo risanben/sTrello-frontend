@@ -9,7 +9,7 @@ import { PolarChart } from "../cmps/dashboard-charts/polar-chart.jsx"
 import { TaskMember } from "../cmps/task-members.jsx"
 import { BiTask } from 'react-icons/bi'
 import { BsListTask } from 'react-icons/bs'
-import { SiTodoist } from 'react-icons/si'
+import { MdSettings, MdOutlineDoneAll } from 'react-icons/md'
 import { FcTodoList } from 'react-icons/fc'
 
 export const Dashboard = ({ toggleDashboard }) => {
@@ -108,7 +108,7 @@ export const Dashboard = ({ toggleDashboard }) => {
                     <section className="dashboard-subtitle">
                         <span>Created by: </span> {board.createdBy.fullname}
                     </section>
-                    
+
                     <div className="board-info">
 
                         <div className="board-members" >
@@ -118,17 +118,21 @@ export const Dashboard = ({ toggleDashboard }) => {
 
                         <div className="task-stat">
                             <span className="left">
-                                <div className="counter"><BiTask /><span className="txt">{gTaskCount} tasks</span> </div>
-                                <hr class="rounded"></hr>
+                                <div className="counter">
+                                    <BiTask /><span className="txt">{gTaskCount} tasks</span>
+                                </div>
+                                <hr ></hr>
                                 <div className="counter"><BsListTask /> <span className="txt"> In {board.groups.length} lists</span> </div>
                             </span>
                         </div>
 
                         <div className="task-stat-right">
                             <span className="right">
-                                <div className="counter"><SiTodoist /><span className="txt"> {gTaskCount - gDoneCounter} Tasks in process</span> </div>
+                                <div className="counter">
+                                    <MdSettings /><span className="txt"> {gTaskCount - gDoneCounter} Tasks in process</span>
+                                </div>
                                 <hr class="rounded"></hr>
-                                <div className="counter"><FcTodoList /><span className="txt"> {gDoneCounter} Tasks completed</span> </div>
+                                <div className="counter"><MdOutlineDoneAll /><span className="txt"> {gDoneCounter} Tasks completed</span> </div>
                             </span>
                         </div>
 

@@ -44,7 +44,7 @@ export const GroupActionModal = ({ group, leftPos, onOpenGroupAction, onDeleteGr
     const onAddTaskVideo = () => {
         // console.log('addTaskVideo was activated')
         let task = {
-            title: "https://res.cloudinary.com/dqhrqqqul/video/upload/v1664712351/10f6ef1a-a558-4f1e-ae70-193d762b308b_vhpp8g.webm",
+            title:"https://res.cloudinary.com/dqhrqqqul/video/upload/v1664723079/c80f7258-edaf-4d0c-8bbe-c7df1afcf862_fwgmax.webm",
             id: utilService.makeId(),
             key: "video"
         }
