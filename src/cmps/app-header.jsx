@@ -24,6 +24,7 @@ export function AppHeader() {
     const dispatch = useDispatch()
     const boards = useSelector(state => state.boardModule.boards)
     const user = useSelector(state => state.userModule.user)
+    const themeColor = useSelector(state => state.boardModule.boardThemeColor)
 
 
     useEffect(() => {
@@ -87,17 +88,20 @@ export function AppHeader() {
     const toggleUserModal = () => {
         setIsUserModalOpen(!isUserModalOpen)
     }
-
+    // console.log('themeColor', themeColor)
     if (pathname.includes("/signup") || pathname.includes("/login")) return <section></section>
     return (
-        <section className={_getHeaderClass()}>
+        // <section className={_getHeaderClass()} style={(_getHeaderClass() === 'app-header' ? { backgroundColor: themeColor } : '#4b4b6160')}>
+        <section className={_getHeaderClass()}
+            style={(_getHeaderClass() === 'app-header' ?
+                { backgroundColor: themeColor + 'cc' } : { backgroundColor: '#026AA7' })}>
             {/* <BsFillGrid3X3GapFill className='menu-logo' /> */}
-            <Link to="/" className='home-logo-link'>
+            < Link to="/" className='home-logo-link' >
                 <ImTrello className='trello-logo' />
                 <section className="logo">
                     sTrello
                 </section>
-            </Link>
+            </Link >
             <section className='nav-header'>
                 <ul className='nav-links-container'>
                     <Link to="board" className='workspace-link'>

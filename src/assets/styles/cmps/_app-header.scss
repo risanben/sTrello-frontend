@@ -1,12 +1,14 @@
 .app-header {
     // border: 2px solid green;
-    background-color: $header-bg-color;
+    // background-color: $header-bg-color;
+    background-color: #026AA7;
     padding: 6px 13px;
     display: flex;
     align-items: center;
-    border-bottom: 1px solid rgba(75, 75, 97, 0.378);
+    border-bottom: 1px solid #4b4b6160;
     max-height: 44px;
-    color: $header-font-color;
+    // color: $header-font-color;
+    color: #fff;
     // position: fixed;
     width: 100%;
     z-index: 10;
@@ -26,7 +28,9 @@
         // margin-left: 45px;
 
         &:hover {
-            background-color: darken($color: $header-bg-color, $amount: 10);
+            background-color: rgba(0, 0, 0, 0.116);
+
+            // background-color: darken($color: $header-bg-color, $amount: 10);
         }
     }
 
@@ -87,7 +91,9 @@
                 cursor: pointer;
 
                 &:hover {
-                    background-color: darken($color: $header-bg-color, $amount: 10);
+                    background-color: rgba(0, 0, 0, 0.116);
+
+                    // background-color: darken($color: $header-bg-color, $amount: 10);
                 }
 
                 .downArr {
@@ -121,7 +127,9 @@
         padding: 2px 8px;
         display: flex;
         align-items: center;
-        background-color: darken($color: $header-bg-color, $amount: 5);
+        // background-color: darken($color: $header-bg-color, $amount: 5);
+        background-color: inherit;
+
 
 
 
@@ -135,13 +143,20 @@
             padding: 4px 3px;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             font-size: 14px;
+            // color: #fff;
 
             &::placeholder {
-                color: $header-font-color;
+                // color: $header-font-color;
+                color: #fff;
             }
 
             &:focus {
                 outline: none;
+                //    background-color: whitesmoke;
+            }
+
+            &:focus::placeholder {
+                color: $header-font-color;
                 //    background-color: whitesmoke;
             }
         }
@@ -158,6 +173,10 @@
         align-items: center;
         min-height: 32px;
 
+        .mag-glass {
+            color: $header-font-color;
+        }
+
         input {
             flex-grow: 1;
             background-color: inherit;
@@ -165,9 +184,16 @@
             // padding: 4px 3px;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             font-size: 14px;
+            color: $header-font-color;
+
+            &::placeholder {
+                color: $header-font-color;
+                // color: #fff;
+            }
 
             &:focus {
                 outline: none;
+                color: $header-font-color;
             }
         }
     }
@@ -200,11 +226,13 @@
 
 
 .app-header.home {
-    background-color: white;
+    background-color: white !important;
     max-height: unset;
     height: 60px;
     border-bottom: none;
     padding: 0 0 0 13px;
+    color: $header-font-color;
+    // background-color: $header-bg-color;
 
     // border: 2px solid red;
     .user-icon {
