@@ -20,7 +20,6 @@ export const TaskDetailsLabel = ({ labelIds, onSetLabel, pos }) => {
                     <div className="checkbox-label" onClick={(ev) => onSetLabel(ev, isTaskLabel, currentLabel.id)}>
                         <label htmlFor="label-body"></label>
                         <input id="label-body" type="checkbox" checked={isTaskLabel} /*onChange={(ev) => onSetLabel(ev, isTaskLabel, currentLabel.id)}*/></input>
-                        {/* <input type="checkbox" defaultChecked={isTaskLabel} onChange={()=>onSetLabel(isTaskLabel,currentLabel.id)}></input> */}
                         <div className="label-details-body" style={{ backgroundColor: currentLabel.color }}>
                             <div className="label-icon" style={{ backgroundColor: LightenDarkenColor(currentLabel.color, 30) }}></div>
                             <div className="label-title"> {currentLabel.title}</div>
@@ -35,19 +34,19 @@ export const TaskDetailsLabel = ({ labelIds, onSetLabel, pos }) => {
     const checkTaskLabel = (labelId1) => {
         if (!labelIds) return
         const checkedLabel = labelIds.find(labelId => labelId === labelId1)
-        // console.log('checkedLabel:', checkedLabel)
+        
         if (checkedLabel) return true
         return false
-        // return checkedLabel
+       
     }
 
     const toggleEditLabelModal = (ev, label) => {
-        // console.log('label', label);
+        
         setLabelForEdit(label)
         setIsEditLabelModal(!isEditLabelModal)
     }
 
-    // console.log('rendered task label')
+   
     return (
         <div className="task-label-container" >
             {isEditLabelModal && <EditLabelsModal toggleEditLabelModal={toggleEditLabelModal} labelForEdit={labelForEdit} style={{ ...pos }} />}

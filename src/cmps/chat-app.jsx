@@ -22,7 +22,7 @@ function _ChatApp({ loggedInUser, task, onUpdateTask }) {
     const user = useSelector(state => state.userModule.user)
 
     useEffect(() => {
-        socketService.on('chat-add-msg', addMsg);
+        socketService.on('chat-add-msg', addMsg)
         return () => {
             socketService.off(SOCKET_EVENT_ADD_MSG, addMsg)
             botTimeout && clearTimeout(botTimeout)
@@ -31,7 +31,7 @@ function _ChatApp({ loggedInUser, task, onUpdateTask }) {
 
 
     const addMsg = (newMsg) => {
-        console.log('newMsg', newMsg);
+        console.log('newMsg', newMsg)
         const comment = {
             id: utilService.makeId(),
             txt: newMsg.txt,
@@ -54,14 +54,9 @@ function _ChatApp({ loggedInUser, task, onUpdateTask }) {
 
     const sendMsg = ev => {
         ev.preventDefault()
-        // const from = loggedInUser?.fullname || 'Me'
-
-        // const from = user.fullname || 'Guest'
-        // setMsg(prevMsg => ({ ...prevMsg, from: from }))
 
         socketService.emit(SOCKET_EMIT_SEND_MSG, (msg))
-        // if (isBotMode) sendBotResponse();
-        console.log('msg', msg);
+        console.log('msg', msg)
         setMsg({ txt: '' })
     }
 
@@ -69,10 +64,9 @@ function _ChatApp({ loggedInUser, task, onUpdateTask }) {
     const handleFormChange = ev => {
         const { name, value } = ev.target
         const from = boardService.getGuestUser()
-        console.log('boardService.getGuestUser()', boardService.getGuestUser());
-        console.log('from', from);
+       
         setMsg(prevMsg => ({ ...prevMsg, [name]: value, from }))
-        console.log(msg);
+       
     }
 
     const getTime = (msg) => {
@@ -95,16 +89,7 @@ function _ChatApp({ loggedInUser, task, onUpdateTask }) {
 
             </form>
 
-            {/*
-            {isTextAreaOpen && <section>
 
-                <button className={`checklist-btn ${(textAreaContent) ? 'activate' : ''}`}  >
-                    Save
-                </button>
-
-            </section>} */}
-
-            {/* <ul> */}
                 {task?.comments?.map((msg, idx) => {
                     return <section className="activity-list" key={msg.id}>
                         <div className="user-icon" style={{ backgroundImage: `url(${msg.byMember.imgUrl})` }}></div>
@@ -116,26 +101,6 @@ function _ChatApp({ loggedInUser, task, onUpdateTask }) {
                         </div>
                     </section>
                 })}
-            {/* </ul> */}
-
-
-
-            {/* {taskActivities.map(activity => {
-            return <section className="activity-list" key={activity.id}>
-                <div className="user-icon" style={{ backgroundImage: `url(${activity.byMember.imgUrl})` }}></div>
-
-                <div className="activity-content">
-                    <span className="user-name">{activity.byMember.fullname} </span>
-                    <span className="activity-action">{activity.txt} </span>
-                    <span className="activity-task-title">{activity.task.title}</span>
-                    {activity?.groupTitle && <span className="activity-group-title">{activity.groupTitle} </span>}
-                    <div className="activity-time"> {getTime(activity)}</div>
-                </div>
-
-            </section>
-        })} */}
-
-
 
         </section>
     )

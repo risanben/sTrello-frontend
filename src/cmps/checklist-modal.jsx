@@ -1,7 +1,7 @@
-import { useSelector } from 'react-redux';
+import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
 import closeIcon from '../assets/img/icon-close-task-details.svg'
-import { addChecklist } from '../store/board.actions';
+import { addChecklist } from '../store/board.actions'
 
 
 

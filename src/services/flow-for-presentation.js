@@ -106,7 +106,7 @@ async function updateBoard(req, res) {
 ///which is activated every time the component goes up and stopped when it goes down
 ///As soon as a notification is received about a change in the board, it is re-rendered to receive real-time changes
 useEffect(() => {
-    socketService.on(SOCKET_EVENT_BOARD_UPDATE, onBoardUpdate);
+    socketService.on(SOCKET_EVENT_BOARD_UPDATE, onBoardUpdate)
     return () => {
         socketService.off(SOCKET_EVENT_BOARD_UPDATE, onBoardUpdate)
     }

@@ -13,7 +13,7 @@ import { SideMenu } from './side-menu'
 import { socketService, SOCKET_EVENT_BOARD_UPDATE, SOCKET_EVENT_DND } from '../services/socket.service'
 import { Loader } from './loader'
 import { Dashboard } from '../pages/dashboard.jsx'
-import { FastAverageColor } from 'fast-average-color';
+import { FastAverageColor } from 'fast-average-color'
 
 // const taskRef = useRef()
 
@@ -42,8 +42,6 @@ export const Board = () => {
     }, [])
 
     const onSocketUpdateBoard = (newBoard) => {
-        console.log('onSocketUpdateBoard');
-        console.log('newBoard', newBoard);
         dispatch(getActionUpdateBoard(newBoard))
     }
 
@@ -82,7 +80,6 @@ export const Board = () => {
 
             const fac = new FastAverageColor();
             const color = await fac.getColorAsync(imgUrl)
-            // console.log('color', color)
             dispatch(setBoardBackgroundColor(color.hex))
 
             return color

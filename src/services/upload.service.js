@@ -5,8 +5,6 @@ export const uploadService = {
 }
 
 function uploadImg(ev) {
-  console.log('ev', ev);
-  // const ImgId = utilService.makeId
   const CLOUD_NAME = "dln4kbx1f"
   const UPLOAD_PRESET = "hvy2mzrd"
   const UPLOAD_URL = `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`
@@ -21,9 +19,7 @@ function uploadImg(ev) {
   })
     .then(res => res.json())
     .then(res => {
-      console.log(res);
       return ({
-        // id: res.asset_id,
         id: utilService.makeId(),
         urlName: res.original_filename,
         url: res.secure_url,

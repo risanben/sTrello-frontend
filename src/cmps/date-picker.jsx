@@ -1,10 +1,10 @@
 import { useState } from "react"
-import Calendar from 'react-calendar';
+import Calendar from 'react-calendar'
 import { RiArrowLeftSLine, RiArrowRightSLine } from 'react-icons/ri'
 
 export function DatePicker({ dateClicked, onDayClick }) {
 
-    const [value, onChange] = useState(new Date());
+    const [value, onChange] = useState(new Date())
 
 
     const handleDayColors = ({ date }) => {

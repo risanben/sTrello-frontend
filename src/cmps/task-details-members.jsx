@@ -1,31 +1,10 @@
 
-import { render } from "@testing-library/react";
-import { useEffect } from "react";
+import { render } from "@testing-library/react"
 import { useSelector } from "react-redux"
-import { socketService, SOCKET_EMIT_MEMBER, SOCKET_EVENT_ADD_MEMBER } from "../services/socket.service";
 
 export const TaskDetailsMember = ({ memberIds, onSetMember }) => {
 
     const board = useSelector(state => state.boardModule.board)
-
-    // useEffect(() => {
-    //     socketService.on(SOCKET_EVENT_ADD_MEMBER, goToSetMember);
-    //     return () => {
-    //         socketService.off(SOCKET_EVENT_ADD_MEMBER, goToSetMember)
-    //     }
-    // }, [])
-
-    // const goToSetMember=(memberObj1)=>{
-    //     console.log(memberObj1);
-    //     onSetMember(memberObj1)
-    // } 
-
-    // const sendMsg = (addOrRemove, memberId, fullname) => {
-    //    const memberObj={addOrRemove, memberId, fullname}
-    //     socketService.emit(SOCKET_EMIT_MEMBER, (memberObj))
-    // }
-
-
 
     const getMemberName = (memberId) => {
         const member = board.members.find(member => member._id === memberId)
@@ -78,7 +57,6 @@ export const TaskDetailsMember = ({ memberIds, onSetMember }) => {
                 return <div className="member"
                     key={member._id}
                     onClick={() => onSetMember(checkTaskMember(member._id), member._id, member.fullname)}>
-                    {/* onClick={() => sendMsg(checkTaskMember(member._id), member._id, member.fullname)}> */}
                     {getMemberName(member._id)}
                     {checkTaskMember(member._id) && <span className="isMember">✔</span>}
                 </div>

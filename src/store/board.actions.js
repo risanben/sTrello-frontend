@@ -1,8 +1,6 @@
 import { boardService } from "../services/board.service.js"
-import { userService } from "../services/user.service.js"
 import { showSuccessMsg, showErrorMsg } from '../services/event-bus.service.js'
 import { uploadService } from "../services/upload.service.js"
-import { socketService, SOCKET_EMIT_BOARD, SOCKET_EMIT_DND, SOCKET_EVENT_BOARD_UPDATE } from "../services/socket.service.js"
 
 // Action Creators:
 export function getActionRemoveBoard(boardId) {
@@ -103,7 +101,6 @@ export function addBoard(board, activity) {
 }
 
 export function updateBoard(board, activity) {
-    // socketService.emit(SOCKET_EVENT_BOARD_UPDATE, (board))
     
     return async (dispatch) => {
         try {
@@ -120,14 +117,10 @@ export function updateBoard(board, activity) {
 export function updateTask(boardId, groupId, taskForUpdate, activity) {
     return async (dispatch) => {
         try {
-            // console.log('boardId', boardId)
-            // console.log('groupId', groupId)
-            // console.log('taskForUpdate', taskForUpdate)
 
             const groupForUpdate = await boardService.getGroupById(boardId, groupId)
             const board = await boardService.getById(boardId)
 
-            // console.log('taskForUpdate', taskForUpdate);
             const idx = groupForUpdate.tasks.findIndex(task => task.id === taskForUpdate.id)
             groupForUpdate.tasks.splice(idx, 1, taskForUpdate)
 
@@ -189,7 +182,6 @@ export function getImgUrl(ev) {
     return async (dispatch) => {
         try {
             const imgEv = await uploadService.uploadImg(ev)
-            console.log('imgEv- board action', imgEv);
             if (!imgEv.fileFormat) imgEv.url = 'https://res.cloudinary.com/dln4kbx1f/image/upload/v1664031478/a7aqgf6kxvow44jn3qzf.png'
             const { imgJson } = dispatch({
                 type: 'SET_IMG_URL',
@@ -215,27 +207,10 @@ export function getImgFromUrl(currentImgJson) {
     }
 }
 
-
-// export function getVidFromUrl(currentVidJson) {
-//     return async (dispatch) => {
-//         try {
-//             const { vidJson } = dispatch({
-//                 type: 'SET_VID_URL',
-//                 vidJson: currentVidJson
-//             })
-//             return vidJson
-//         } catch (err) {
-//             console.log('Cannot load video url', err)
-//         }
-//     }
-// }
-
 export function getVidUrl(ev) {
-    console.log('ev from getVidUrl:', ev)
     return async (dispatch) => {
         try {
             const vidEv = await uploadService.uploadImg(ev)
-            console.log('vidEv- board action', vidEv);
             if (!vidEv.fileFormat) vidEv.url = 'https://res.cloudinary.com/dln4kbx1f/image/upload/v1664031478/a7aqgf6kxvow44jn3qzf.png'
             const { vidJson } = dispatch({
                 type: 'SET_VID_URL',
@@ -378,24 +353,24 @@ export function addChecklist(board, group, task, title) {
             dispatch({
                 type: 'UPDATE_BOARD',
                 board: boardToSave,
-            });
+            })
         } catch (err) {
-            console.log('Cannot add checklist', err);
+            console.log('Cannot add checklist', err)
         }
-    };
+    }
 }
 
 export function addNewTodo(board, groupId, taskId, checklistId, title) {
 
     return async dispatch => {
         try {
-            const updatedBoard = await boardService.addTodo(board, groupId, taskId, checklistId, title);
+            const updatedBoard = await boardService.addTodo(board, groupId, taskId, checklistId, title)
             dispatch({
                 type: 'UPDATE_BOARD',
                 board: updatedBoard,
-            });
+            })
         } catch (err) {
-            console.log('Cannot add Todo. Heres why:', err);
+            console.log('Cannot add Todo. Heres why:', err)
         }
-    };
+    }
 }

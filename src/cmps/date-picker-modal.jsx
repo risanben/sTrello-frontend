@@ -1,11 +1,11 @@
 import { DatePicker } from "./date-picker"
 import closeIcon from '../assets/img/icon-close-task-details.svg'
-import { useState } from "react";
+import { useState } from "react"
 
 
 export const DatePickerModal = ({ onToggleDatePicker, task, onUpdateTask }) => {
 
-    const [dateClicked, setDate] = useState(new Date());
+    const [dateClicked, setDate] = useState(new Date())
 
     const onDayClick = (date) => {
         setDate(date)

@@ -1,5 +1,4 @@
 import { useDispatch, useSelector } from "react-redux"
-import { TaskMember } from "./task-members"
 import moment from 'moment'
 import { useState } from "react"
 import { updateBoard } from '../store/board.actions'
@@ -47,10 +46,7 @@ export const ActivityList = ({ task }) => {
 
     const onDeleteComment = (ev, activityId) => {
         ev.preventDefault()
-        console.log('entered on delete')
-        console.log('board.activities:-before', board.activities)
         board.activities = board.activities.filter(act => act.id !== activityId)
-        console.log('board.activities:-after', board.activities)
         dispatch(updateBoard(board))
     }
 
@@ -81,7 +77,6 @@ export const ActivityList = ({ task }) => {
                             className="txt-area-normal"
                             name="txt"
                             defaultValue={activity.txt}
-                            // value={activity.txt}
                             onClick={(ev) => setEditingTxt(true)}
                             onBlur={(ev) => { onDefocusTxtArea(ev, activity.id) }}
                             onChange={(ev) => handleChange(ev)}
@@ -94,7 +89,6 @@ export const ActivityList = ({ task }) => {
                                 </section>}
 
                         <section className="comment-edit-btns"> 
-                            {/* <button onClick={(ev) => setEditingTxt(true)}>Edit</button>- */}
                             <button onClick={(ev) => onDeleteComment(ev, activity.id)}>Delete</button>
                         </section>
 
@@ -109,9 +103,6 @@ export const ActivityList = ({ task }) => {
                     <div className="activity-content">
                         <span className="user-name">{activity.byMember.fullname} </span>
                         <span className="activity-action">{_removeLastWord(activity.txt)} </span>
-                        {/* <span className="activity-action">{activity.txt} </span> */}
-                        {/* <span className="activity-task-title">{activity.task.title}</span> */}
-                        {/* {activity?.groupTitle && <span className="activity-group-title">{activity.groupTitle} </span>} */}
                         <div className="activity-time"> {getTime(activity)}</div>
                     </div>
 

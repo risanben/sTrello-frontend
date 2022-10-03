@@ -6,16 +6,6 @@ ChartJS.register(RadialLinearScale, ArcElement, Tooltip, Legend)
 
 export const PolarChart = ({ groupsArr, groupsTasksCount }) => {
 
-    console.log('groupsArr', groupsArr);
-    console.log('groupsTasksCount', groupsTasksCount);
-
-    // const getTaskCount=()=>{
-    //     const groupsTasksCount=[]
-    //     board.groups.map(group => {
-    //         groupsTasksCount.push(group.tasks.length)
-    //     })
-    // }
-
     const data = {
         labels: groupsArr.map(group => group.title),
         datasets: [
@@ -34,8 +24,8 @@ export const PolarChart = ({ groupsArr, groupsTasksCount }) => {
                 borderWidth: 1,
             },
         ],
-    };
+    }
 
 
-    return <PolarArea data={data} />;
+    return <PolarArea data={data} />
 }
