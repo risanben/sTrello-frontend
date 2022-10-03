@@ -21,8 +21,8 @@ export const PolarChart = ({ groupsArr, groupsTasksCount }) => {
         datasets: [
             {
                 label: '# Tasks per list',
-                data: [12, 19, 3, 5, 2, 3],
-                // data: groupsTasksCount,
+                // data: [12, 19, 3, 5, 2, 3],
+                data: groupsTasksCount,
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.5)',
                     'rgba(54, 162, 235, 0.5)',
@@ -34,8 +34,25 @@ export const PolarChart = ({ groupsArr, groupsTasksCount }) => {
                 borderWidth: 1,
             },
         ],
-    };
+
+      /*  options: {
+            legend: {
+                legend: {
+                    display: false,
+                },
+            }
+        }*/
+    }
+
+    const options = {
+        plugins: {
+            legend: {
+                display: false,
+           
+            }
+        }
+    }
 
 
-    return <PolarArea data={data} />;
+    return <PolarArea data={data} options={options} />;
 }

@@ -21,7 +21,7 @@ export const PieChart = ({ labelsValues, labelsIds }) => {
     }),
     datasets: [
       {
-        label: '# of Votes',
+        label: '# of Tasks',
         data: labelsValues,
         backgroundColor:
           labelsIds.map(label => LightenDarkenColor(label.color, 30)),
@@ -32,6 +32,15 @@ export const PieChart = ({ labelsValues, labelsIds }) => {
     ],
   }
 
-  return <Doughnut data={data} />
+  const options = {
+    plugins: {
+        legend: {
+            display: false,
+       
+        }
+    }
+}
+
+  return <Doughnut data={data} options={options}/>
 }
 
