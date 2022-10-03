@@ -1,9 +1,7 @@
 
-// import { storageService } from './async-storage.service.js'
 import { utilService } from './util.service.js'
 import { userService } from './user.service.js'
-import { getActionRemoveBoard, getActionAddBoard, getActionUpdateBoard, updateBoard } from '../store/board.actions.js'
-import { socketService, SOCKET_EVENT_BOARD_UPDATE } from '../services/socket.service.js'
+import { getActionRemoveBoard, getActionAddBoard, getActionUpdateBoard } from '../store/board.actions.js'
 import { store } from '../store/store'
 import { httpService } from './http.service'
 
@@ -18,14 +16,6 @@ const boardChannel = new BroadcastChannel('boardChannel')
             store.dispatch(ev.data)
         })
     })()
-
-// ; (() => {
-
-
-// socketService.on(SOCKET_EVENT_REVIEW_ABOUT_YOU, (review) => {
-// showSuccessMsg(`New review about me ${review.txt}`)
-// })
-// })()
 
 export const boardService = {
     query,
@@ -52,7 +42,6 @@ async function query(filterBy) {
     try {
 
         let boards = httpService.get(BASE_URL, { params: filterBy })
-        // let boards = await storageService.query(STORAGE_KEY)
         if (filterBy?.title) {
             boards = boards.filter(b => b.title.toLowerCase().includes(filterBy.title.toLowerCase()))
         }
@@ -65,15 +54,12 @@ async function query(filterBy) {
 }
 async function getById(boardId) {
     try {
-        // console.log('boardId', boardId)
         return await httpService.get(BASE_URL + boardId, boardId)
-        // return await storageService.get(STORAGE_KEY, boardId)
     }
     catch (err) {
         console.log('Cannot complete the function getById:', err)
         throw err
     }
-    // return axios.get(`/api/board/${boardId}`)
 
 }
 
@@ -116,14 +102,11 @@ async function save(board, activity = null) {
     var savedBoard
     if (activity) _addActivityDetails(activity)
     if (board._id) {
-        console.log('board.activities-board service', board.activities);
         if (activity) board.activities.unshift(activity)
         savedBoard = await httpService.put(BASE_URL + board._id, board)
-        // savedBoard = await storageService.put(STORAGE_KEY, board)
         boardChannel.postMessage(getActionUpdateBoard(savedBoard))
     } else {
         if (activity) board.activities = [activity]
-        // savedBoard._id = utilService.makeId()
         savedBoard = await httpService.post(BASE_URL, board)
         savedBoard.isStarred = false
         const user = userService.getLoggedinUser()
@@ -131,7 +114,6 @@ async function save(board, activity = null) {
             savedBoard.createdBy = {
                 _id: user._id,
                 fullname: user.fullname,
-                // imgUrl: user.imgUrl
             }
         } else {
             savedBoard.createdBy = {
@@ -163,7 +145,6 @@ function _addActivityDetails(activity) {
     activity.createdAt = Date.now()
     if (!activity.byMember) {
         const user = userService.getLoggedinUser()
-        console.log('activity', activity);
         // if (activity.byMember) return activity
         if (user) {
             activity.byMember = {

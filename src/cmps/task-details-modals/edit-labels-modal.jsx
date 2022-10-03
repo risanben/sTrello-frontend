@@ -8,12 +8,8 @@ import { updateBoard } from "../../store/board.actions"
 
 export const EditLabelsModal = ({ toggleEditLabelModal, labelForEdit }) => {
 
-    // console.log('labelForEdit', labelForEdit);
 
     const [backgroundColors, setBackgroundColors] = useState([])
-    // const [title, setTitle] = useState(null)
-    // const [labelColor, setLabelColor] = useState(null)
-    // const [currentBoard, setCurrentBoard] = useState(null)
     const [newLabelStyle, setNewLabelStyle] = useState({})
 
     const board = useSelector(state => state.boardModule.board)
@@ -26,12 +22,7 @@ export const EditLabelsModal = ({ toggleEditLabelModal, labelForEdit }) => {
             title: labelForEdit.title,
             color: labelForEdit.color
         })
-        console.log('newLabelStyle-didMount', newLabelStyle);
     }, [])
-
-    // useEffect(() => {
-    //     setCurrentBoard(currentBoard)
-    // }, [board])
 
     const loadBackGround = () => {
         setBackgroundColors(boardService.getLabelsColors('color'))
@@ -39,12 +30,10 @@ export const EditLabelsModal = ({ toggleEditLabelModal, labelForEdit }) => {
 
     const onUpdateTitle = (ev) => {
         setNewLabelStyle({ ...newLabelStyle, title: ev.target.value })
-        console.log('newLabelStyle-title', newLabelStyle);
     }
 
     const onSetColor = (color) => {
         setNewLabelStyle({ ...newLabelStyle, color })
-        console.log('newLabelStyle-color', newLabelStyle);
     }
 
     const onEditLabel = (ev) => {

@@ -4,7 +4,7 @@ import { FaChevronLeft, FaChevronRight } from 'react-icons/fa'
 import { BoardsList } from './boards-list'
 import { ImTrello } from 'react-icons/im'
 import { useSelector, useDispatch } from 'react-redux'
-import { loadBoards } from '../store/board.actions';
+import { loadBoards } from '../store/board.actions'
 
 export const SideMenu = ({ isSideBarOpen, toggleMenu }) => {
     const dispatch = useDispatch()

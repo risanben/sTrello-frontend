@@ -2,7 +2,7 @@ import { useEffect } from "react"
 import { useState } from "react"
 import { HiStar } from "react-icons/hi"
 import { useSelector } from "react-redux"
-import { Navigate } from "react-router-dom"
+
 import { BarChart } from "../cmps/dashboard-charts/bar-chart.jsx"
 import { PieChart } from "../cmps/dashboard-charts/Pie-chart.jsx"
 import { PolarChart } from "../cmps/dashboard-charts/polar-chart.jsx"
@@ -10,7 +10,6 @@ import { TaskMember } from "../cmps/task-members.jsx"
 import { BiTask } from 'react-icons/bi'
 import { BsListTask } from 'react-icons/bs'
 import { MdSettings, MdOutlineDoneAll } from 'react-icons/md'
-import { FcTodoList } from 'react-icons/fc'
 
 export const Dashboard = ({ toggleDashboard }) => {
 
@@ -24,7 +23,6 @@ export const Dashboard = ({ toggleDashboard }) => {
     const [memberIds, setMemberIds] = useState([])
     const [gTaskCount, setTaskCount] = useState(0)
     const [gDoneCounter, setDoneCounter] = useState(0)
-    // const [gGroupsTasksCount, setGgroupsTasksCount] = useState([])
     const [groupsTasksCount, setGroupsTasksCount] = useState([])
 
     useEffect(() => {
@@ -50,21 +48,15 @@ export const Dashboard = ({ toggleDashboard }) => {
         let doneCounter = 0
         const labelsMap = {}
         const membersMap = {}
-        // const groupsTasksCount = []
-        // const groupsCount = board.groups.length
-        // let taskCount = board.groups.reduce((acc, group) => acc + group.tasks.length)
+
         board.groups.map(group => {
             taskCount = taskCount + group.tasks.length
             if (group.title === 'Done') doneCounter = group.tasks.length
         })
         board.groups.map(group => {
-            // groupsTasksCount.push(group.tasks.length)
-            // console.log('groupsTasksCount', groupsTasksCount);
             setGroupsTasksCount(prevGroupsTasksCount => {
-                // console.log('prevGroupsTasksCount', prevGroupsTasksCount);
                 return [...prevGroupsTasksCount, group.tasks.length]
             })
-            // setGroupsTasksCount(prevGroupsTasksCount => ({ groupsTasksCount: [...prevGroupsTasksCount, group.tasks.length] }))
             group.tasks.map(task => {
                 if (task.labelIds) {
                     task.labelIds.forEach(label => {
@@ -89,8 +81,8 @@ export const Dashboard = ({ toggleDashboard }) => {
         setMemberTaskCount(Object.values(membersMap))
         setMemberIds(Object.keys(membersMap))
         ///for polar chart
-        console.log('groupsTasksCount', groupsTasksCount);
-        // groupsTasksCount.map(taskCount=>setGgroupsTasksCount([...gGroupsTasksCount,taskCount]))
+        
+        
 
         setTaskCount(taskCount)
         setDoneCounter(doneCounter)
@@ -142,7 +134,7 @@ export const Dashboard = ({ toggleDashboard }) => {
                             <h3 className="dashboard-subtitle">Tasks by labels</h3>
                             <PieChart labelsIds={labelsIds} labelsValues={labelsValues} />
                         </div>
-                        <div className="chart-container">
+                        <div className="chart-container middle">
                             <h3 className="dashboard-subtitle">Load distribution per team mate</h3>
                             < BarChart boardMembers={board.members} memberIds={memberIds} memberTaskCount={memberTaskCount} />
                         </div>

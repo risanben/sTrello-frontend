@@ -1,16 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { NavLink, Link, useParams, useLocation, useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { ImTrello } from 'react-icons/im'
-import { BsFillGrid3X3GapFill, BsChevronDown } from 'react-icons/bs'
 import { IoSearchSharp } from 'react-icons/io5'
-import { AiOutlineBell } from 'react-icons/ai'
-import { boardService } from '../services/board.service'
 import { SearchResult } from './search-result'
 import { useDispatch, useSelector } from 'react-redux'
 import { BoardEdit } from './board-edit'
 import { loadBoards } from '../store/board.actions';
-import { userService } from '../services/user.service'
-import { onSignup } from '../store/user.actions'
 import { UserModal } from './user-modal'
 
 export function AppHeader() {
@@ -33,14 +28,12 @@ export function AppHeader() {
         return (
             () => {
                 document.removeEventListener("click", handleClickOutside, false)
-                // console.log('listener disabled:')
             }
         )
     }, [])
 
     useEffect(() => {
         dispatch(loadBoards())
-        // dispatch(onSignup(userService.getLoggedinUser()))
     }, [])
 
     const handleClickOutside = (e) => {
@@ -88,14 +81,11 @@ export function AppHeader() {
     const toggleUserModal = () => {
         setIsUserModalOpen(!isUserModalOpen)
     }
-    // console.log('themeColor', themeColor)
     if (pathname.includes("/signup") || pathname.includes("/login")) return <section></section>
     return (
-        // <section className={_getHeaderClass()} style={(_getHeaderClass() === 'app-header' ? { backgroundColor: themeColor } : '#4b4b6160')}>
         <section className={_getHeaderClass()}
             style={(_getHeaderClass() === 'app-header' ?
                 { backgroundColor: themeColor + 'cc' } : { backgroundColor: '#026AA7' })}>
-            {/* <BsFillGrid3X3GapFill className='menu-logo' /> */}
             < Link to="/" className='home-logo-link' >
                 <ImTrello className='trello-logo' />
                 <section className="logo">
@@ -109,16 +99,7 @@ export function AppHeader() {
                             Workspaces
                         </li>
                     </Link>
-                    {/* <li className='nav-link'>
-                        Recent <BsChevronDown className='downArr' />
-                    </li>
-                    <Link to="board" className='workspace-link'>
-                        <li className='nav-link'>
-                            Templates <BsChevronDown className='downArr' />
-                        </li>
-                    </Link> */}
                 </ul>
-                {/* <span className='create' onClick={showCreateBoardMoadl}>Create</span> */}
                 {isCreateModalOpen && <BoardEdit toggleCreateBoardModal={showCreateBoardMoadl} />}
             </section>
 
@@ -134,13 +115,9 @@ export function AppHeader() {
             </section>
             <div className="user-icon" style={getUserImg()} onClick={toggleUserModal}></div>
             {isUserModalOpen && <UserModal toggleUserModal={toggleUserModal} user={user} getUserImg={getUserImg} />}
-            {/* <section className='bell'>
-                <AiOutlineBell />
-            </section> */}
 
             <section className='space'></section>
             <button className='login'>Log in</button>
-            {/* <Link to='/signup' className='sign-up'>Sing up</Link> */}
 
         </section >
     )

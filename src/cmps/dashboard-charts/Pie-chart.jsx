@@ -12,7 +12,7 @@ export const PieChart = ({ labelsValues, labelsIds }) => {
   // if (!props) return <div>Loading...</div>
 
   labelsIds = labelsIds.map(labelId => board.labels.find(label => label.id === labelId))
-  console.log('labelsIds', labelsIds);
+  
 
   const data = {
     labels: labelsIds.map(label => {

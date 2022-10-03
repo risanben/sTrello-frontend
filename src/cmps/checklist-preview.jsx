@@ -68,12 +68,12 @@ export const ChecklistPreview = ({ board, group, task, checklist }) => {
             checklists: task.checklists.map(checklist => (checklist.id !== id ?
                 checklist : updatedChecklist))
         }
-        onUpdateTask(taskToUpdate);
+        onUpdateTask(taskToUpdate)
     }
 
     function onToggleTodo(ev, todoId) {
         ev.preventDefault()
-        const { id } = checklist;
+        const { id } = checklist
         const updatedChecklist = {
             ...checklist, todos: checklist.todos.map(todo =>
                 todo.id !== todoId ? todo : { ...todo, isDone: !todo.isDone })

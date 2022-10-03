@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import screenshot from '../assets/img/peek.jpg'
+import appScreenshot from '../assets/img/appScreenshot.png'
 
 export const SneakPeek = () => {
 
@@ -15,7 +15,7 @@ export const SneakPeek = () => {
             <Link to="/board" className='start-doing'>
                 Start Doing
             </Link>
-            <img src={screenshot} className='screenshot-container' />
+            <img src={appScreenshot} className='screenshot-container' />
             <div className='txt-area'>
                 <section className='mini-header'>Features to help your team succeed</section>
                 <p>

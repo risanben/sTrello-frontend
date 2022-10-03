@@ -4,9 +4,9 @@ export const ProgressBar = ({ checklist }) => {
 
     const getProgressData = () => {
         const { todos } = checklist
-        const numOfDoneTodos = todos.filter(todo => todo.isDone).length;
-        const progress = (!numOfDoneTodos) ? 0 : numOfDoneTodos / todos.length * 100;
-        return Math.floor(progress);
+        const numOfDoneTodos = todos.filter(todo => todo.isDone).length
+        const progress = (!numOfDoneTodos) ? 0 : numOfDoneTodos / todos.length * 100
+        return Math.floor(progress)
     }
 
     return (
